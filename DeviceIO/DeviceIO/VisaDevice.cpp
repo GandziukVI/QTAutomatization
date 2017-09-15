@@ -44,9 +44,9 @@ QString VisaDevice::ReceiveDeviceAnswer(int BufferSize)
 
     ReadBuffer buffer(BufferSize);
 
-    status = viRead(instr, (ViBuf)(*buffer.Buffer), buffer.Size, &retCount);
+    status = viRead(instr, (ViBuf)(buffer.Buffer), buffer.Size, &retCount);
 
-    return QString(*buffer.Buffer);
+    return QString(buffer.Buffer);
 }
 
 QString VisaDevice::RequestQuery(const char *QueryString)
@@ -73,9 +73,12 @@ QString VisaDevice::RequestQuery(const char *QueryString, int ReadBufferSize)
 
     ReadBuffer buffer(ReadBufferSize);
 
-    status = viRead(instr, (ViBuf)(*buffer.Buffer), buffer.Size, &retCount);
+    status = viRead(instr, (ViBuf)(buffer.Buffer), buffer.Size, &retCount);
 
-    return QString(*buffer.Buffer);
+    std::unique_ptr<ViChar> result = std::make_unique<ViChar>(retCount);
+    strncpy(result.get(), buffer.Buffer, retCount);
+
+    return QString(result.get());
 }
 
 bool VisaDevice::OpenConnection(const char* ResourceString)
@@ -109,11 +112,16 @@ void VisaDevice::CloseConnection()
 ReadBuffer::ReadBuffer()
 {
     Size = READ_BUFFER_SIZE;
-    Buffer = std::make_unique<ViChar>(READ_BUFFER_SIZE);
+    Buffer = new ViChar[READ_BUFFER_SIZE];
 }
 
 ReadBuffer::ReadBuffer(int n)
 {
     Size = n;
-    Buffer = std::make_unique<ViChar>(n);
+    Buffer = new ViChar[n];
+}
+
+ReadBuffer::~ReadBuffer()
+{
+    delete[] Buffer;
 }

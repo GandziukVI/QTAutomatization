@@ -50,9 +50,10 @@ class DEVICEIOSHARED_EXPORT ReadBuffer{
 public:
     ReadBuffer();
     ReadBuffer(int n);
+    ~ReadBuffer();
 
-    int Size;
-    std::unique_ptr<ViChar> Buffer;
+    int     Size;
+    ViChar* Buffer;
 };
 
 #endif // VISADEVICE_H
