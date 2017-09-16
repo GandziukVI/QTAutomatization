@@ -1,5 +1,7 @@
 #include "VisaDevice.h"
 
+#include <memory>
+
 VisaDevice::VisaDevice()
 {
 }
@@ -44,9 +46,34 @@ QString VisaDevice::ReceiveDeviceAnswer(int BufferSize)
 
     ReadBuffer buffer(BufferSize);
 
-    status = viRead(instr, (ViBuf)(buffer.Buffer), buffer.Size, &retCount);
+    status = viRead(instr, (ViBuf)buffer.Buffer, buffer.Size, &retCount);
 
-    return QString(buffer.Buffer);
+	if (retCount < buffer.Size) {		
+        buffer.Buffer[retCount] = (ViChar)'\0';
+        return QString(buffer.Buffer);
+    }
+    else {
+        QTextStream container;
+        container << buffer.Buffer;
+
+        while(true) {
+
+            status = viRead(instr, (ViBuf)buffer.Buffer, buffer.Size, &retCount);
+
+            if(retCount < buffer.Size) {
+                buffer.Buffer[retCount] = (ViChar)'\0';
+                container << buffer.Buffer;
+                break;
+            }
+            else if (retCount != 0) {
+                container << buffer.Buffer;
+            }
+            else
+                break;
+        }
+
+        return container.readAll();
+    }
 }
 
 QString VisaDevice::RequestQuery(const char *QueryString)
@@ -73,12 +100,34 @@ QString VisaDevice::RequestQuery(const char *QueryString, int ReadBufferSize)
 
     ReadBuffer buffer(ReadBufferSize);
 
-    status = viRead(instr, (ViBuf)(buffer.Buffer), buffer.Size, &retCount);
+    status = viRead(instr, (ViBuf)buffer.Buffer, buffer.Size, &retCount);
 
-    std::unique_ptr<ViChar> result = std::make_unique<ViChar>(retCount);
-    strncpy(result.get(), buffer.Buffer, retCount);
+    if (retCount < buffer.Size) {
+        buffer.Buffer[retCount] = (ViChar)'\0';
+        return QString(buffer.Buffer);
+    }
+    else {
+        QTextStream container;
+        container << buffer.Buffer;
 
-    return QString(result.get());
+        while(true) {
+
+            status = viRead(instr, (ViBuf)buffer.Buffer, buffer.Size, &retCount);
+
+            if(retCount < buffer.Size) {
+                buffer.Buffer[retCount] = (ViChar)'\0';
+                container << buffer.Buffer;
+                break;
+            }
+            else if (retCount != 0) {
+                container << buffer.Buffer;
+            }
+            else
+                break;
+        }
+
+        return container.readAll();
+    }
 }
 
 bool VisaDevice::OpenConnection(const char* ResourceString)
@@ -91,13 +140,17 @@ bool VisaDevice::OpenConnection(const char* ResourceString)
     }
 
     status = viOpen(defaultRM, (ViString)ResourceString, VI_NULL, VI_NULL, &instr);
-    if(status , VI_SUCCESS) {
+    if(status < VI_SUCCESS) {
         CloseConnection();
         return false;
     }
 
     // Setting timeout to max possible integer value
-    status = viSetAttribute (instr, VI_ATTR_TMO_VALUE, INT_MAX);
+    status = viSetAttribute (instr, VI_ATTR_TMO_VALUE, VI_TMO_INFINITE);
+    if(status < VI_SUCCESS) {
+        CloseConnection();
+        return false;
+    }
 
     return true;
 }
