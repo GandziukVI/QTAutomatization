@@ -12,23 +12,22 @@ int main(int argc, char *argv[])
 
     std::ofstream fout("c:\\Users\\v.handziuk\\Documents\\GitHub\\SetupsAutomatization\\Hello.txt");
 
-    IDeviceIO* multimeter = new VisaDevice("GPIB0::12::INSTR");
-
-    multimeter->SendCommandRequest("REN\n");
-    //multimeter->SendCommandRequest("*RST\n");
-    //multimeter->SendCommandRequest("F0X\n");
-    //multimeter->SendCommandRequest("R0X\n");
+    IDeviceIO* usbDAQ = new VisaDevice("USB0::2391::5912::TW54334510::INSTR");
 
     QString responce;
-    int i = 0;
-    for(; i != 10; ) {
-        responce = multimeter->RequestQuery("*IDN?\n", 22);
-        qDebug() << responce;
-        fout << responce.toLatin1().data();
-        ++i;
-    }
+    responce = usbDAQ->RequestQuery("*IDN?\n", 53);
+    qDebug() << responce;
+    fout << responce.toLatin1().data();
 
-    delete multimeter;
+//    int i = 0;
+//    for(; i != 10; ) {
+//        responce = multimeter->RequestQuery("*IDN?\n", 22);
+//        qDebug() << responce;
+//        fout << responce.toLatin1().data();
+//        ++i;
+//    }
+
+    delete usbDAQ;
 
     return a.exec();
 }
