@@ -136,11 +136,6 @@ QString VisaDevice::RequestQuery(const char *QueryString, int ReadBufferSize)
 
     status = viWrite(instr, (ViBuf)QueryString, (ViUInt32)strlen(QueryString), &writeCount);
 
-    ViUInt32 prevRDBufSize;
-    status = viGetAttribute(instr, VI_ATTR_RD_BUF_SIZE, &prevRDBufSize);
-    if(ReadBufferSize > prevRDBufSize)
-        status = viSetBuf(instr)
-
     QString     containerString;
     QTextStream container(&containerString);
 
