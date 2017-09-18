@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     DeviceIO/DeviceIO \
-    TestApp/TestApp
+    TestApp/TestApp \
+#    TestApp02/TestApp02

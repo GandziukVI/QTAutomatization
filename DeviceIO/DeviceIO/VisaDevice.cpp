@@ -4,10 +4,12 @@
 
 VisaDevice::VisaDevice()
 {
+    strncpy(TerminationCharacters, "\n\r\r\n\f\0", 5);
 }
 
 VisaDevice::VisaDevice(const char *ResourceString)
 {
+    strncpy(TerminationCharacters, "\n\r\r\n\f\0", 5);
     OpenConnection(ResourceString);
 }
 
@@ -31,11 +33,31 @@ QString VisaDevice::ReceiveDeviceAnswer(void)
     QMutexLocker queryLocker(&requestQueryMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
 
-    ViChar rdBuffer[READ_BUFFER_SIZE];
+    QString     containerString;
+    QTextStream container(&containerString);
 
-    status = viRead(instr, (ViBuf)rdBuffer, READ_BUFFER_SIZE, &retCount);
+    while(true) {
 
-    return QString(rdBuffer);
+        ViChar tempBuffer[READ_BUFFER_SIZE + 1];
+
+        status = viRead(instr, (ViBuf)tempBuffer, READ_BUFFER_SIZE, &retCount);
+
+        tempBuffer[retCount] = (ViChar)'\0';
+
+        if(retCount < READ_BUFFER_SIZE) {
+            container << tempBuffer;
+            break;
+        }
+        else if (retCount == READ_BUFFER_SIZE) {
+            container << tempBuffer;
+            if(strchr(TerminationCharacters, tempBuffer[retCount - 1]) != NULL)
+                break;
+        }
+        else
+            break;
+    }
+
+    return containerString;
 }
 
 QString VisaDevice::ReceiveDeviceAnswer(int BufferSize)
@@ -44,49 +66,31 @@ QString VisaDevice::ReceiveDeviceAnswer(int BufferSize)
     QMutexLocker queryLocker(&requestQueryMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
 
-    ReadBuffer buffer(BufferSize);
+    QString     containerString;
+    QTextStream container(&containerString);
 
-    status = viRead(instr, (ViBuf)buffer.Buffer, buffer.Size, &retCount);
+    while(true) {
 
-    if (retCount < buffer.Size) {
-        buffer.Buffer[retCount] = (ViChar)'\0';
-        return QString(buffer.Buffer);
-    }
-//    else if ((retCount == buffer.Size) && (buffer.Buffer[buffer.Size - 1] == '\n') ||
-//             (retCount == buffer.Size) && (buffer.Buffer[buffer.Size - 1] == '\r') ||
-//             (retCount == buffer.Size) && (buffer.Buffer[buffer.Size - 1] == '\0') ||
-//             (retCount == buffer.Size) && (buffer.Buffer[buffer.Size - 1] == '\f')) {
+        ReadBuffer tempBuffer(BufferSize);
 
-//        viFlush(instr, VI_READ_BUF);
-//        return QString(buffer.Buffer);
-//    }
-    else {
-        QString     containerString;
-        QTextStream container(&containerString);
-        buffer.Buffer[retCount] = (ViChar)'\0';
-        container << buffer.Buffer;
+        status = viRead(instr, (ViBuf)tempBuffer.Buffer, tempBuffer.Size, &retCount);
 
-        while(true) {
+        tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
-            ReadBuffer tempBuffer(BufferSize);
-
-            status = viRead(instr, (ViBuf)tempBuffer.Buffer, tempBuffer.Size, &retCount);
-
-            tempBuffer.Buffer[retCount] = (ViChar)'\0';
-
-            if(retCount < tempBuffer.Size) {
-                container << tempBuffer.Buffer;
-                break;
-            }
-            else if (retCount == tempBuffer.Size) {
-                container << tempBuffer.Buffer;
-            }
-            else
+        if(retCount < tempBuffer.Size) {
+            container << tempBuffer.Buffer;
+            break;
+        }
+        else if (retCount == tempBuffer.Size) {
+            container << tempBuffer.Buffer;
+            if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
         }
-
-        return container.readAll();
+        else
+            break;
     }
+
+    return containerString;
 }
 
 QString VisaDevice::RequestQuery(const char *QueryString)
@@ -97,10 +101,31 @@ QString VisaDevice::RequestQuery(const char *QueryString)
 
     status = viWrite(instr, (ViBuf)QueryString, (ViUInt32)strlen(QueryString), &writeCount);
 
-    ViChar rdBuffer[READ_BUFFER_SIZE];
-    status = viRead(instr, (ViBuf)rdBuffer, READ_BUFFER_SIZE, &retCount);
+    QString     containerString;
+    QTextStream container(&containerString);
 
-    return QString(rdBuffer);
+    while(true) {
+
+        ViChar tempBuffer[READ_BUFFER_SIZE + 1];
+
+        status = viRead(instr, (ViBuf)tempBuffer, READ_BUFFER_SIZE, &retCount);
+
+        tempBuffer[retCount] = (ViChar)'\0';
+
+        if(retCount < READ_BUFFER_SIZE) {
+            container << tempBuffer;
+            break;
+        }
+        else if (retCount == READ_BUFFER_SIZE) {
+            container << tempBuffer;
+            if(strchr(TerminationCharacters, tempBuffer[retCount - 1]) != NULL)
+                break;
+        }
+        else
+            break;
+    }
+
+    return containerString;
 }
 
 QString VisaDevice::RequestQuery(const char *QueryString, int ReadBufferSize)
@@ -111,41 +136,36 @@ QString VisaDevice::RequestQuery(const char *QueryString, int ReadBufferSize)
 
     status = viWrite(instr, (ViBuf)QueryString, (ViUInt32)strlen(QueryString), &writeCount);
 
-    ReadBuffer buffer(ReadBufferSize);
+    ViUInt32 prevRDBufSize;
+    status = viGetAttribute(instr, VI_ATTR_RD_BUF_SIZE, &prevRDBufSize);
+    if(ReadBufferSize > prevRDBufSize)
+        status = viSetBuf(instr)
 
-    status = viRead(instr, (ViBuf)buffer.Buffer, buffer.Size, &retCount);
+    QString     containerString;
+    QTextStream container(&containerString);
 
-    if (retCount < buffer.Size) {
-        buffer.Buffer[retCount] = (ViChar)'\0';
-        return QString(buffer.Buffer);
-    }
-    else {
-        QString     containerString;
-        QTextStream container(&containerString);
-        buffer.Buffer[retCount] = (ViChar)'\0';
-        container << buffer.Buffer;
+    while(true) {
 
-        while(true) {
+        ReadBuffer tempBuffer(ReadBufferSize);
 
-            ReadBuffer tempBuffer(ReadBufferSize);
+        status = viRead(instr, (ViBuf)tempBuffer.Buffer, tempBuffer.Size, &retCount);
 
-            status = viRead(instr, (ViBuf)tempBuffer.Buffer, tempBuffer.Size, &retCount);
+        tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
-            tempBuffer.Buffer[retCount] = (ViChar)'\0';
-
-            if(retCount < tempBuffer.Size) {
-                container << tempBuffer.Buffer;
-                break;
-            }
-            else if (retCount == tempBuffer.Size) {
-                container << tempBuffer.Buffer;
-            }
-            else
+        if(retCount < tempBuffer.Size) {
+            container << tempBuffer.Buffer;
+            break;
+        }
+        else if (retCount == tempBuffer.Size) {
+            container << tempBuffer.Buffer;
+            if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
         }
-
-        return container.readAll();
+        else
+            break;
     }
+
+    return containerString;
 }
 
 bool VisaDevice::OpenConnection(const char* ResourceString)

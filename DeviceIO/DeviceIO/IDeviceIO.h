@@ -3,7 +3,7 @@
 
 #include "deviceio_global.h"
 
-#define READ_BUFFER_SIZE 1024
+#define READ_BUFFER_SIZE 256
 
 class DEVICEIOSHARED_EXPORT IDeviceIO {
 

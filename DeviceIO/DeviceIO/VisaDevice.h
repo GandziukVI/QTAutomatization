@@ -20,9 +20,9 @@ public:
 
     void SendCommandRequest         (const char* RequestString);
     QString ReceiveDeviceAnswer     (void);
-    QString ReceiveDeviceAnswer (int BufferSize = 256);
+    QString ReceiveDeviceAnswer     (int BufferSize = 256);
     QString RequestQuery            (const char* QueryString);
-    QString RequestQuery        (const char *QueryString,  int ReadBufferSize = 256);
+    QString RequestQuery            (const char *QueryString,  int ReadBufferSize = 256);
 
 private:
     ViSession defaultRM;
@@ -31,7 +31,7 @@ private:
     ViUInt32  retCount;
     ViUInt32  writeCount;
 
-    unsigned char buffer[512];
+    ViChar TerminationCharacters[5];
 
     bool OpenConnection  (const char* ResourceString);
     void CloseConnection ();
