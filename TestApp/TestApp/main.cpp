@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     IDeviceIO* usbDAQ = new VisaDevice("USB0::2391::5912::TW54334510::INSTR");
 
     QString responce;
-    responce = usbDAQ->RequestQuery("*IDN?\n");
+    responce = usbDAQ->RequestQuery("*IDN?\n", 2048);
     qDebug() << responce;
     fout << responce.toLatin1().data();
 

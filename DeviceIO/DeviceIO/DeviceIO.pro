@@ -11,11 +11,13 @@ TEMPLATE = lib
 
 DEFINES += DEVICEIO_LIBRARY
 
-SOURCES += VisaDevice.cpp
+SOURCES += VisaDevice.cpp \
+    SerialDevice.cpp
 
 HEADERS += VisaDevice.h\
         deviceio_global.h \
-    IDeviceIO.h
+    IDeviceIO.h \
+    SerialDevice.h
 
 unix {
     target.path = /usr/lib
