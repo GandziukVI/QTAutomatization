@@ -1,0 +1,8 @@
+#ifndef SOURCEMETERUNITDEFINITIONS_H
+#define SOURCEMETERUNITDEFINITIONS_H
+
+#include "sourcemeterunit_global.h"
+
+
+
+#endif // SOURCEMETERUNITDEFINITIONS_H
