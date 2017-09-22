@@ -1,4 +1,5 @@
 #include "SourceMeterUnitDefinitions.h"
+
 #include <QObject>
 
 IV_Data::IV_Data()
@@ -37,5 +38,9 @@ TraceData::TraceData(QString inputString)
 {
     QRegExp delimitersRegExp("(\\r|\\n)");
     QRegExp separatorsRegExp("(\\ )");
+
     QStringList query = inputString.remove(delimitersRegExp).split(separatorsRegExp, QString::SkipEmptyParts);
+
+    Time = QString(query.at(0)).toDouble();
+    Value = QString(query.at(1)).toDouble();
 }

@@ -12,7 +12,8 @@ TEMPLATE = lib
 DEFINES += SOURCEMETERUNIT_LIBRARY
 
 SOURCES += ISourceMeterUnit.cpp \
-    SourceMeterUnitDefinitions.cpp
+    SourceMeterUnitDefinitions.cpp \
+    SourceMeterUnitExtensions.cpp
 
 HEADERS += ISourceMeterUnit.h\
         sourcemeterunit_global.h \
