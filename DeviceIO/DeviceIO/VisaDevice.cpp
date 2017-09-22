@@ -1,4 +1,5 @@
 #include "VisaDevice.h"
+#include "ReadBuffer.h"
 
 #include <memory>
 
@@ -192,22 +193,4 @@ void VisaDevice::CloseConnection()
 {
     status = viClose(instr);
     status = viClose(defaultRM);
-}
-
-
-ReadBuffer::ReadBuffer()
-{
-    Size = READ_BUFFER_SIZE;
-    Buffer = new ViChar[READ_BUFFER_SIZE + 1];
-}
-
-ReadBuffer::ReadBuffer(int n)
-{
-    Size = n;
-    Buffer = new ViChar[n + 1];
-}
-
-ReadBuffer::~ReadBuffer()
-{
-    delete[] Buffer;
 }

@@ -42,16 +42,4 @@ private:
     mutable QMutex requestQueryMutex;
 };
 
-
-class DEVICEIOSHARED_EXPORT ReadBuffer{
-
-public:
-    ReadBuffer();
-    ReadBuffer(int n);
-    ~ReadBuffer();
-
-    ViUInt32 Size;
-    ViChar*  Buffer;
-};
-
 #endif // VISADEVICE_H

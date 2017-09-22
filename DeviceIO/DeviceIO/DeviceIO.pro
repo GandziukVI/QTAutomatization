@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       -= gui
+QT       += serialport
 
 TARGET = DeviceIO
 TEMPLATE = lib
@@ -12,12 +13,16 @@ TEMPLATE = lib
 DEFINES += DEVICEIO_LIBRARY
 
 SOURCES += VisaDevice.cpp \
-    SerialDevice.cpp
+    SerialDevice.cpp \
+    DeviceIOException.cpp \
+    ReadBuffer.cpp
 
 HEADERS += VisaDevice.h\
         deviceio_global.h \
     IDeviceIO.h \
-    SerialDevice.h
+    SerialDevice.h \
+    DeviceIOException.h \
+    ReadBuffer.h
 
 unix {
     target.path = /usr/lib
