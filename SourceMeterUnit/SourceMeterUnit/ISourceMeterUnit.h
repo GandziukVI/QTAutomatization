@@ -2,6 +2,7 @@
 #define ISOURCEMETERUNIT_H
 
 #include "sourcemeterunit_global.h"
+#include "SourceMeterUnitDefinitions.h"
 
 #include <IDeviceIO.h>
 
