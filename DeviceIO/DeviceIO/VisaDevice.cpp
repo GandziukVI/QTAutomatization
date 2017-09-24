@@ -5,12 +5,12 @@
 
 VisaDevice::VisaDevice()
 {
-    strncpy(TerminationCharacters, "\n\r\r\n\f\0", 5);
+    strncpy(TerminationCharacters, "\n\r\n\f\0", 5);
 }
 
 VisaDevice::VisaDevice(const char *ResourceString)
 {
-    strncpy(TerminationCharacters, "\n\r\r\n\f\0", 5);
+    strncpy(TerminationCharacters, "\n\r\n\f\0", 5);
     OpenConnection(ResourceString);
 }
 
@@ -92,6 +92,21 @@ QString VisaDevice::ReceiveDeviceAnswer(int BufferSize)
     }
 
     return containerString;
+}
+
+QString VisaDevice::ReadExact(int MaxCount)
+{
+    QMutexLocker commandLocker(&sendCommandRequestMutex);
+    QMutexLocker queryLocker(&requestQueryMutex);
+    QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
+
+    ReadBuffer tempBuffer(MaxCount);
+
+    status = viRead(instr, (ViBuf)tempBuffer.Buffer, tempBuffer.Size, &retCount);
+
+    tempBuffer.Buffer[retCount] = (ViChar)'\0';
+
+    return QString(tempBuffer.Buffer);
 }
 
 QString VisaDevice::RequestQuery(const char *QueryString)

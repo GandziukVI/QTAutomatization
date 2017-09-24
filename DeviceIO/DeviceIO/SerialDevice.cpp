@@ -110,6 +110,29 @@ QString SerialDevice::ReceiveDeviceAnswer(int BufferSize)
     return QString(data);
 }
 
+QString SerialDevice::ReadExact(int MaxCount)
+{
+    QMutexLocker commandLocker(&sendCommandRequestMutex);
+    QMutexLocker queryLocker(&requestQueryMutex);
+    QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
+
+    if(!isOpen)
+        throw DeviceIOException(QObject::tr("Serial port %1 is closed.").arg(serialPort.portName()));
+
+    // Reading data from the port
+    data = serialPort.read(MaxCount);
+    while(true) {
+        if(data.count() == MaxCount)
+            break;
+        if(strchr(TerminationCharacters, *data.end()))
+            break;
+        while (serialPort.waitForReadyRead(INT_MAX))
+            data.append(serialPort.read(MaxCount));
+    }
+
+    return QString(data);
+}
+
 QString SerialDevice::RequestQuery(const char* QueryString)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);

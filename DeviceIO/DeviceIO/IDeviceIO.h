@@ -14,8 +14,9 @@ public:
     virtual void  SendCommandRequest (const char* RequestString) = 0;
     virtual QString ReceiveDeviceAnswer(void) = 0;
     virtual QString ReceiveDeviceAnswer(int BufferSize) = 0;
+    virtual QString ReadExact(int MaxCount) = 0;
     virtual QString RequestQuery(const char* QueryString) = 0;
-    virtual QString RequestQuery(const char *QueryString, int ReadBufferSize) = 0;
+    virtual QString RequestQuery(const char* QueryString, int ReadBufferSize) = 0;
 };
 
 #endif // IDEVICEIO_H

@@ -18,11 +18,12 @@ public:
     VisaDevice(const char* ResourceString);
     ~VisaDevice();
 
-    void SendCommandRequest         (const char* RequestString);
-    QString ReceiveDeviceAnswer     (void);
-    QString ReceiveDeviceAnswer     (int BufferSize = 256);
-    QString RequestQuery            (const char* QueryString);
-    QString RequestQuery            (const char *QueryString,  int ReadBufferSize = 256);
+    void SendCommandRequest      (const char* RequestString);
+    QString ReceiveDeviceAnswer  (void);
+    QString ReceiveDeviceAnswer  (int BufferSize = 256);
+    QString ReadExact            (int MaxCount);
+    QString RequestQuery         (const char* QueryString);
+    QString RequestQuery         (const char* QueryString,  int ReadBufferSize = 256);
 
 private:
     ViSession defaultRM;
