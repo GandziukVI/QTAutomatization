@@ -3,4 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS += \
     DeviceIO/DeviceIO \
     TestApp/TestApp \
-    SourceMeterUnit/SourceMeterUnit
+    SourceMeterUnit/SourceMeterUnit \
+    Keithley4200

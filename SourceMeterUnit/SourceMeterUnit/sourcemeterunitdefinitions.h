@@ -6,7 +6,15 @@
 enum class SOURCEMETERUNITSHARED_EXPORT SMUSourceMode {
     Voltage,
     Current,
+    Common,
     ModeNotSet
+};
+
+enum class SOURCEMETERUNITSHARED_EXPORT SMUSourceFunction {
+    VAR1,
+    VAR2,
+    Constant,
+    VAR1Alternative
 };
 
 enum class SOURCEMETERUNITSHARED_EXPORT SMUSenseMode {
