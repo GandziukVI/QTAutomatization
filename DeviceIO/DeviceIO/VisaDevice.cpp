@@ -61,7 +61,7 @@ QString VisaDevice::ReceiveDeviceAnswer(void)
     return containerString;
 }
 
-QString VisaDevice::ReceiveDeviceAnswer(int BufferSize)
+QString VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker queryLocker(&requestQueryMutex);
@@ -86,27 +86,14 @@ QString VisaDevice::ReceiveDeviceAnswer(int BufferSize)
             container << tempBuffer.Buffer;
             if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
+            if(readExactOrMax == true)
+                break;
         }
         else
             break;
     }
 
     return containerString;
-}
-
-QString VisaDevice::ReadExact(int MaxCount)
-{
-    QMutexLocker commandLocker(&sendCommandRequestMutex);
-    QMutexLocker queryLocker(&requestQueryMutex);
-    QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
-
-    ReadBuffer tempBuffer(MaxCount);
-
-    status = viRead(instr, (ViBuf)tempBuffer.Buffer, tempBuffer.Size, &retCount);
-
-    tempBuffer.Buffer[retCount] = (ViChar)'\0';
-
-    return QString(tempBuffer.Buffer);
 }
 
 QString VisaDevice::RequestQuery(const char *QueryString)

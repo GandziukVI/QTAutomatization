@@ -18,8 +18,7 @@ public:
 
     void SendCommandRequest         (const char* RequestString);
     QString ReceiveDeviceAnswer     (void);
-    QString ReceiveDeviceAnswer     (int BufferSize = 256);
-    QString ReadExact               (int MaxCount);
+    QString ReceiveDeviceAnswer     (int BufferSize = 256, bool readExactOrMax = false);
     QString RequestQuery            (const char* QueryString);
     QString RequestQuery            (const char *QueryString,  int ReadBufferSize = 256);
 

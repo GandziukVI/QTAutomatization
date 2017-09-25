@@ -89,7 +89,7 @@ QString SerialDevice::ReceiveDeviceAnswer()
     return QString(data);
 }
 
-QString SerialDevice::ReceiveDeviceAnswer(int BufferSize)
+QString SerialDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker queryLocker(&requestQueryMutex);
@@ -103,31 +103,17 @@ QString SerialDevice::ReceiveDeviceAnswer(int BufferSize)
     while(true) {
         if(strchr(TerminationCharacters, *data.end()))
             break;
-        while (serialPort.waitForReadyRead(INT_MAX))
-            data.append(serialPort.read(BufferSize));
-    }
-
-    return QString(data);
-}
-
-QString SerialDevice::ReadExact(int MaxCount)
-{
-    QMutexLocker commandLocker(&sendCommandRequestMutex);
-    QMutexLocker queryLocker(&requestQueryMutex);
-    QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
-
-    if(!isOpen)
-        throw DeviceIOException(QObject::tr("Serial port %1 is closed.").arg(serialPort.portName()));
-
-    // Reading data from the port
-    data = serialPort.read(MaxCount);
-    while(true) {
-        if(data.count() == MaxCount)
+        if(readExactOrMax == true && data.count() == BufferSize)
             break;
-        if(strchr(TerminationCharacters, *data.end()))
-            break;
-        while (serialPort.waitForReadyRead(INT_MAX))
-            data.append(serialPort.read(MaxCount));
+        else if (readExactOrMax == true && data.count() > BufferSize)
+            throw DeviceIOException(QObject::tr("Read buffer size exceeded maximum value."));
+
+        while (serialPort.waitForReadyRead(INT_MAX)) {
+            if(!readExactOrMax)
+                data.append(serialPort.read(BufferSize));
+            else
+                data.append(serialPort.read(BufferSize - data.count()));
+        }
     }
 
     return QString(data);
