@@ -1,16 +1,30 @@
 #include "IKeithley4200Page.h"
 
 #include <memory>
-#include <string>
-#include <sstream>
+#include <QTextStream>
 
-const char* IKeithley4200Page::buildCommand(const char* command) const
+QString IKeithley4200Page::buildCommand(const char* command)
 {
-    std::stringstream commandBuilder;
+    if(!commandString.isEmpty())
+        commandString.clear();
 
-    commandBuilder << pageIdentifier << "\n" << commandIdentifier << ", " << command << '\n';
+    QTextStream commandBuilder(&commandString);
 
-    return commandBuilder.str().c_str();
+    commandBuilder << pageIdentifier << "\n" << commandIdentifier << command << '\n';
+
+    return commandString;
+}
+
+QString IKeithley4200Page::buildCommand(const QString& command)
+{
+    if(!commandString.isEmpty())
+        commandString.clear();
+
+    QTextStream commandBuilder(&commandString);
+
+    commandBuilder << pageIdentifier << "\n" << commandIdentifier << command << '\n';
+
+    return commandString;
 }
 
 void IKeithley4200Page::extCopyString(char* dest, const char* src) const
@@ -52,4 +66,21 @@ int IKeithley4200Page::getSMUSourceFunction(SMUSourceFunction sourceFunction) co
     }
 
     return 3;
+}
+
+int IKeithley4200Page::getSMUSweepMode(SMUSweepMode sweepMode) const
+{
+    switch (sweepMode) {
+
+    case SMUSweepMode::LinearSweep:
+        return 1;
+    case SMUSweepMode::Log10Sweep:
+        return 2;
+    case SMUSweepMode::Log25Sweep:
+        return 3;
+    case SMUSweepMode::Log50Sweep:
+        return 4;
+    }
+
+    return 1;
 }

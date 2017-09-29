@@ -1,11 +1,11 @@
 #include "Keithley4200ChannelDefinitionPage.h"
 
-#include <string>
-#include <sstream>
+#include <QObject>
 
 Keithley4200ChannelDefinitionPage::Keithley4200ChannelDefinitionPage()
 {
     extCopyString(pageIdentifier, "DE");
+    channelNumber = 1;
 }
 
 Keithley4200ChannelDefinitionPage::Keithley4200ChannelDefinitionPage(const unsigned int channelID)
@@ -14,30 +14,45 @@ Keithley4200ChannelDefinitionPage::Keithley4200ChannelDefinitionPage(const unsig
     channelNumber = channelID;
 }
 
-const char* Keithley4200ChannelDefinitionPage::cmdDisableChannel(const unsigned int channelID)
+QString Keithley4200ChannelDefinitionPage::cmdDisableChannel(const unsigned int channelID)
 {
     extCopyString(commandIdentifier, "CH");
     return buildCommand(std::to_string(channelID).c_str());
 }
 
-const char* Keithley4200ChannelDefinitionPage::cmdDefineChannel(const unsigned int channelID, const char* voltName, const char* currName, SMUSourceMode sourceMode, SMUSourceFunction sourceFunction)
+QString Keithley4200ChannelDefinitionPage::cmdDefineChannel(const char* voltName, const char* currName, SMUSourceMode sourceMode, SMUSourceFunction sourceFunction)
 {
     extCopyString(commandIdentifier, "CH");
 
-    std::stringstream commandStringStream;
+    QString res = QObject::tr("%1, \'%2\', \'%3\', %4, %5")
+            .arg(channelNumber)
+            .arg(voltName)
+            .arg(currName)
+            .arg(getSMUSourceMode(sourceMode))
+            .arg(getSMUSourceFunction(sourceFunction));
 
-    commandStringStream << channelID << ", \'" << voltName << "\'', \'" << currName << "\'', " << getSMUSourceMode(sourceMode) << getSMUSourceFunction(sourceFunction);
-
-    return buildCommand(commandStringStream.str().c_str());
+    return buildCommand(res);
 }
 
-const char* Keithley4200ChannelDefinitionPage::cmdDefineVoltageSourceChannel(const unsigned int channelID, const char *voltName, SMUSourceFunction sourceFunction)
+QString Keithley4200ChannelDefinitionPage::cmdDefineVoltageSourceChannel(const char *voltName, SMUSourceFunction sourceFunction)
 {
-    extCopyString(commandIdentifier, "CH");
+    extCopyString(commandIdentifier, "VS");
 
-    std::stringstream commandStringStream;
+    QString res = QObject::tr("%1, \'%2\', %3")
+            .arg(channelNumber)
+            .arg(voltName)
+            .arg(getSMUSourceFunction(sourceFunction));
 
-    commandStringStream << channelID << ", \'" << voltName << "\', " << getSMUSourceFunction(sourceFunction);
+    return buildCommand(res);
+}
 
-    return buildCommand(commandStringStream.str().c_str());
+QString Keithley4200ChannelDefinitionPage::cmdDefineVoltageMeterChannel(const char *voltName)
+{
+    extCopyString(commandIdentifier, "VM");
+
+    QString res = QObject::tr("%1, \'%2\'")
+            .arg(channelNumber)
+            .arg(voltName);
+
+    return buildCommand(res);
 }

@@ -17,6 +17,13 @@ enum class SOURCEMETERUNITSHARED_EXPORT SMUSourceFunction {
     VAR1Alternative
 };
 
+enum class SOURCEMETERUNITSHARED_EXPORT SMUSweepMode {
+    LinearSweep,
+    Log10Sweep,
+    Log25Sweep,
+    Log50Sweep
+};
+
 enum class SOURCEMETERUNITSHARED_EXPORT SMUSenseMode {
     Voltage,
     Current,

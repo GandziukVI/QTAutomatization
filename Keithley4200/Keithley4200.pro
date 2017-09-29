@@ -13,12 +13,14 @@ DEFINES += KEITHLEY4200_LIBRARY
 
 SOURCES += Keithley4200.cpp \
     Keithley4200ChannelDefinitionPage.cpp \
-    IKeithley4200Page.cpp
+    IKeithley4200Page.cpp \
+    Keithley4200SourceSetupPage.cpp
 
 HEADERS += Keithley4200.h\
         keithley4200_global.h \
     Keithley4200ChannelDefinitionPage.h \
-    IKeithley4200Page.h
+    IKeithley4200Page.h \
+    Keithley4200SourceSetupPage.h
 
 unix {
     target.path = /usr/lib

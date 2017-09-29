@@ -10,12 +10,10 @@ public:
     Keithley4200ChannelDefinitionPage();
     Keithley4200ChannelDefinitionPage(const unsigned int channelID);
 
-    const char* cmdDisableChannel(const unsigned int channelID);
-    const char* cmdDefineChannel (const unsigned int channelID, const char* voltName = "Volt", const char* currName = "Curr", SMUSourceMode sourceMode = SMUSourceMode::Voltage, SMUSourceFunction sourceFunction = SMUSourceFunction::Constant);
-    const char* cmdDefineVoltageSourceChannel(const unsigned int channelID, const char* voltName = "Volt", SMUSourceFunction sourceFunction = SMUSourceFunction::Constant);
-
-private:
-    unsigned int channelNumber;
+    QString cmdDisableChannel(const unsigned int channelID);
+    QString cmdDefineChannel (const char* voltName = "Volt", const char* currName = "Curr", SMUSourceMode sourceMode = SMUSourceMode::Voltage, SMUSourceFunction sourceFunction = SMUSourceFunction::Constant);
+    QString cmdDefineVoltageSourceChannel(const char* voltName = "Volt", SMUSourceFunction sourceFunction = SMUSourceFunction::Constant);
+    QString cmdDefineVoltageMeterChannel(const char* voltName = "Volt");
 };
 
 #endif // CHANNELDEFINITIONPAGE_H
