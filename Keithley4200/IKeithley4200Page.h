@@ -34,14 +34,18 @@ protected:
     double checkValueRange(const double value, const double lowerLimit, const double upperLimit) const;
     int checkValueRange(const int value, const int lowerLimit, const int upperLimit) const;
 
-    void extCopyString(char* dest, const char* src) const;
-    int  getSMUSourceMode(SMUSourceMode sourceMode) const;
-    int  getSMUSourceFunction(SMUSourceFunction sourceFunction) const;
-    int  getSMUSweepMode(SMUSweepMode sweepMode) const;
-    int  getSMUMasterOrSlaveMode(SMUMasterOrSlaveMode masterOrSlaveMode) const;
-    int  getSMUDisplayMode(Keithley4200DisplayMode displayMode) const;
-    int  getSMUXAxisScaleType(Keithley4200XAxisScaleType xAxisScaleType) const;
-    int  getSMUYAxisScaleType(Keithley4200YAxisScaleType yAxisScaleType) const;
+    void  extCopyString(char* dest, const char* src) const;
+    int   getSMUSourceMode(SMUSourceMode sourceMode) const;
+    int   getSMUSourceFunction(SMUSourceFunction sourceFunction) const;
+    int   getSMUSweepMode(SMUSweepMode sweepMode) const;
+    int   getSMUMasterOrSlaveMode(SMUMasterOrSlaveMode masterOrSlaveMode) const;
+    int   getSMUDisplayMode(Keithley4200DisplayMode displayMode) const;
+    int   getSMUXAxisScaleType(Keithley4200XAxisScaleType xAxisScaleType) const;
+    int   getSMUYAxisScaleType(Keithley4200YAxisScaleType yAxisScaleType) const;
+    int   getSMUControlMeasurementType(Keithley4200ControlMeasurementTypes controlMeasurementType) const;
+    char  getSMUSaveFileType(Keithley4200FileTypes fileType) const;
+    char* getChannelType(Keithley4200ChannelType channelType) const;
+    int   getChannelSourceRange(Keithley4200SourceRange sourceRange) const;
 
 private:
     QString commandString;

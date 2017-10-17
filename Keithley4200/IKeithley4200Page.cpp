@@ -183,3 +183,61 @@ int IKeithley4200Page::getSMUYAxisScaleType(Keithley4200YAxisScaleType yAxisScal
 
     return 1;
 }
+
+int IKeithley4200Page::getSMUControlMeasurementType(Keithley4200ControlMeasurementTypes controlMeasurementType) const
+{
+    switch (controlMeasurementType) {
+
+    case Keithley4200ControlMeasurementTypes::SingleTriggerTest:
+        return 1;
+    case Keithley4200ControlMeasurementTypes::RepeatedTriggerTest:
+        return 2;
+    case Keithley4200ControlMeasurementTypes::AppendTriggertest:
+        return 3;
+    case Keithley4200ControlMeasurementTypes::StopAbortTest:
+        return 4;
+    }
+
+    return 1;
+}
+
+char IKeithley4200Page::getSMUSaveFileType(Keithley4200FileTypes fileType) const
+{
+    switch (fileType) {
+
+    case Keithley4200FileTypes::DataOrProgramFile:
+        return 'D';
+    case Keithley4200FileTypes::ProgramFile:
+        return 'P';
+    }
+
+    return 'D';
+}
+
+char *IKeithley4200Page::getChannelType(Keithley4200ChannelType channelType) const
+{
+    switch (channelType) {
+
+    case Keithley4200ChannelType::SMU:
+        return "SMU";
+    case Keithley4200ChannelType::VS:
+        return "VS";
+    case Keithley4200ChannelType::VM:
+        return "VM";
+    }
+
+    return "SMU";
+}
+
+int IKeithley4200Page::getChannelSourceRange(Keithley4200SourceRange sourceRange) const
+{
+    switch (sourceRange) {
+
+    case Keithley4200SourceRange::Auto:
+        return 0;
+    case Keithley4200SourceRange::BestFixed:
+        return 2;
+    }
+
+    return 0;
+}

@@ -151,5 +151,3 @@ QString Keithley4200MeasurementSetupPage::cmdConfGraphY2Axis(const char *smuChan
 
     return res;
 }
-
-
