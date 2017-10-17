@@ -9,18 +9,45 @@
 
 #include <Keithley4200SourceSetupPage.h>
 #include <Keithley4200ChannelDefinitionPage.h>
+#include <Keithley4200MeasurementSetupPage.h>
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    Keithley4200ChannelDefinitionPage defPage(2);
+//    Keithley4200ChannelDefinitionPage defPage(2);
 
-    qDebug() << defPage.cmdDefineChannel().toLatin1().data();
+//    qDebug() << defPage.cmdDisableChannel(2).toLatin1().data();
+//    qDebug() << defPage.cmdDefineChannel().toLatin1().data();
+//    qDebug() << defPage.cmdDefineVoltageMeterChannel().toLatin1().data();
+//    qDebug() << defPage.cmdDefineVoltageSourceChannel().toLatin1().data();
 
-    Keithley4200SourceSetupPage ssPage(1);
+//    Keithley4200SourceSetupPage ssPage;
 
-    qDebug() << ssPage.cmdConfVAR1Sweep(SMUSourceMode::Voltage, SMUSweepMode::LinearSweep, 0.0, 1.0, 0.01, 0.01).toLatin1().data();
+//    qDebug() << ssPage.cmdConfVAR1Sweep(SMUSourceMode::Current, SMUSweepMode::LinearSweep, 0.1, 10.0, 0.05, 0.001).toLatin1().data();
+//    qDebug() << ssPage.cmdConfVAR1Scale(0.5, 2, 3).toLatin1().data();
+//    qDebug() << ssPage.cmdConfVAR2Sweep(SMUSourceMode::Current, 0.05, 0.01, 5, 0.001).toLatin1().data();
+
+//    QVector<double> listValues;
+
+//    listValues.push_back(0.1);
+//    listValues.push_back(-0.2);
+//    listValues.push_back(0.3);
+//    listValues.push_back(0.25);
+//    listValues.push_back(0.5);
+
+//    qDebug() << ssPage.cmdConfListSweep(SMUSourceMode::Voltage, 1, SMUMasterOrSlaveMode::Master, 0.001, listValues).toLatin1().data();
+//    qDebug() << ssPage.cmdConfAutoStandby(1, true).toLatin1().data();
+
+    Keithley4200MeasurementSetupPage msPage;
+
+    QVector<const char*> functionsToEnable;
+    functionsToEnable.push_back("V1");
+    functionsToEnable.push_back("I1");
+    functionsToEnable.push_back("V2");
+    functionsToEnable.push_back("I2");
+
+    qDebug() << msPage.cmdEnableVIFunctions(functionsToEnable).toLatin1().data();
 
 //    std::ofstream fout("c:\\Users\\v.handziuk\\Documents\\GitHub\\SetupsAutomatization\\Hello.txt");
 

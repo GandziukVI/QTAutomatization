@@ -14,7 +14,7 @@ enum class SOURCEMETERUNITSHARED_EXPORT SMUSourceFunction {
     VAR1,
     VAR2,
     Constant,
-    VAR1Alternative
+    VAR1Scaled
 };
 
 enum class SOURCEMETERUNITSHARED_EXPORT SMUSweepMode {
@@ -46,6 +46,11 @@ enum class SOURCEMETERUNITSHARED_EXPORT SMUShapeMode {
     DC,
     Pulse,
     ModeNotSet
+};
+
+enum class SOURCEMETERUNITSHARED_EXPORT SMUMasterOrSlaveMode {
+    Master,
+    Slave
 };
 
 class SOURCEMETERUNITSHARED_EXPORT IV_Data {

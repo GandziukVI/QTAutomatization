@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 
+QT       += core
 QT       -= gui
 
 TARGET = Keithley4200
@@ -14,13 +15,16 @@ DEFINES += KEITHLEY4200_LIBRARY
 SOURCES += Keithley4200.cpp \
     Keithley4200ChannelDefinitionPage.cpp \
     IKeithley4200Page.cpp \
-    Keithley4200SourceSetupPage.cpp
+    Keithley4200SourceSetupPage.cpp \
+    Keithley4200MeasurementSetupPage.cpp
 
 HEADERS += Keithley4200.h\
         keithley4200_global.h \
     Keithley4200ChannelDefinitionPage.h \
     IKeithley4200Page.h \
-    Keithley4200SourceSetupPage.h
+    Keithley4200SourceSetupPage.h \
+    Keithley4200MeasurementSetupPage.h \
+    Keithley4200Definitions.h
 
 unix {
     target.path = /usr/lib
