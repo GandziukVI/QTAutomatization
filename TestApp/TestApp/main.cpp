@@ -11,6 +11,8 @@
 #include <Keithley4200ChannelDefinitionPage.h>
 #include <Keithley4200MeasurementSetupPage.h>
 #include <Keithley4200MeasurementControlPage.h>
+#include <Keithley4200UserModePage.h>
+#include <Keithley4200CommonCommands.h>
 
 int main(int argc, char *argv[])
 {
@@ -50,15 +52,27 @@ int main(int argc, char *argv[])
 
 //    qDebug() << msPage.cmdEnableVIFunctions(functionsToEnable).toLatin1().data();
 
-    Keithley4200MeasurementControlPage mdPage;
+//    Keithley4200MeasurementControlPage mdPage;
 
-    qDebug() << mdPage.cmdControlMeasurements(Keithley4200ControlMeasurementTypes::SingleTriggerTest).toLatin1().data();
-    qDebug() << mdPage.cmdObtainOutputData("Volt").toLatin1().data();
-    qDebug() << mdPage.cmdObtainOutputTimeStampData(1).toLatin1().data();
-    qDebug() << mdPage.cmdSaveFile(Keithley4200FileTypes::DataOrProgramFile, "Volt", "Comm").toLatin1().data();
-    qDebug() << mdPage.cmdGetFile(Keithley4200FileTypes::DataOrProgramFile, "Volt").toLatin1().data();
-    qDebug() << mdPage.cmdMapChannel(3, Keithley4200ChannelType::VM, 5).toLatin1().data();
-    qDebug() << mdPage.cmdSetFixedSourceRange(1, Keithley4200SourceRange::BestFixed).toLatin1().data();
+//    qDebug() << mdPage.cmdControlMeasurements(Keithley4200ControlMeasurementTypes::SingleTriggerTest).toLatin1().data();
+//    qDebug() << mdPage.cmdObtainOutputData("Volt").toLatin1().data();
+//    qDebug() << mdPage.cmdObtainOutputTimeStampData(1).toLatin1().data();
+//    qDebug() << mdPage.cmdSaveFile(Keithley4200FileTypes::DataOrProgramFile, "Volt", "Comm").toLatin1().data();
+//    qDebug() << mdPage.cmdGetFile(Keithley4200FileTypes::DataOrProgramFile, "Volt").toLatin1().data();
+//    qDebug() << mdPage.cmdMapChannel(3, Keithley4200ChannelType::VM, 5).toLatin1().data();
+//    qDebug() << mdPage.cmdSetFixedSourceRange(1, Keithley4200SourceRange::BestFixed).toLatin1().data();
+
+//    Keithley4200UserModePage usPage;
+
+//    qDebug() << usPage.cmdSMUSetSourceVoltage(1, Keithley4200VoltageRanges::Range20V, 2.15, 0.01).toLatin1().data();
+//    qDebug() << usPage.cmdSMUSetSourceCurrent(1, Keithley4200CurrentRanges::Range100mA, 0.01, 10).toLatin1().data();
+//    qDebug() << usPage.cmdVSSetSourceVoltage(1, 10).toLatin1().data();
+//    qDebug() << usPage.cmdTriggerVoltage(Keithley4200VoltageMeasureChannels::SMU1).toLatin1().data();
+//    qDebug() << usPage.cmdTriggerCurrent(Keithley4200CurrentMeasureChannels::SMU1).toLatin1().data();
+
+    Keithley4200CommonCommands commonCommands;
+
+    qDebug() << commonCommands.cmdPerformAutoCalibration(1).toLatin1().data();
 
 //    std::ofstream fout("c:\\Users\\v.handziuk\\Documents\\GitHub\\SetupsAutomatization\\Hello.txt");
 

@@ -17,7 +17,9 @@ SOURCES += Keithley4200.cpp \
     IKeithley4200Page.cpp \
     Keithley4200SourceSetupPage.cpp \
     Keithley4200MeasurementSetupPage.cpp \
-    Keithley4200MeasurementControlPage.cpp
+    Keithley4200MeasurementControlPage.cpp \
+    Keithley4200UserModePage.cpp \
+    Keithley4200CommonCommands.cpp
 
 HEADERS += Keithley4200.h\
         keithley4200_global.h \
@@ -26,7 +28,9 @@ HEADERS += Keithley4200.h\
     Keithley4200SourceSetupPage.h \
     Keithley4200MeasurementSetupPage.h \
     Keithley4200Definitions.h \
-    Keithley4200MeasurementControlPage.h
+    Keithley4200MeasurementControlPage.h \
+    Keithley4200UserModePage.h \
+    Keithley4200CommonCommands.h
 
 unix {
     target.path = /usr/lib
