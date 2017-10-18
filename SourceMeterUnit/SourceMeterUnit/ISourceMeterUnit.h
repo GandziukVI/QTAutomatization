@@ -20,7 +20,8 @@ public:
     virtual void SwitchON  ()  = 0;
     virtual void SwitchOFF () = 0;
 
-    virtual void SetCompliance    (const SMUSourceMode sourceMode, double compliance) = 0;
+    virtual void SetSourceMode    (const SMUSourceMode sourceMode) = 0;
+    virtual void SetCompliance    (const double compliance) = 0;
     virtual void SetSourceDelay   (const double delay)   = 0;
     virtual void SetSourceVoltage (const double voltage) = 0;
     virtual void SetSourceCurrent (const double current) = 0;

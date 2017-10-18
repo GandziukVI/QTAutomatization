@@ -3,6 +3,8 @@
 
 #include "keithley4200_global.h"
 
+#include <IDeviceIO.h>
+
 class KEITHLEY4200SHARED_EXPORT Keithley4200
 {
 
