@@ -18,12 +18,12 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-//    Keithley4200ChannelDefinitionPage defPage(2);
+    Keithley4200ChannelDefinitionPage defPage;
 
-//    qDebug() << defPage.cmdDisableChannel(2).toLatin1().data();
-//    qDebug() << defPage.cmdDefineChannel().toLatin1().data();
-//    qDebug() << defPage.cmdDefineVoltageMeterChannel().toLatin1().data();
-//    qDebug() << defPage.cmdDefineVoltageSourceChannel().toLatin1().data();
+    qDebug() << defPage.cmdDisableChannel(2).toLatin1().data();
+    qDebug() << defPage.cmdDefineChannel(1).toLatin1().data();
+    qDebug() << defPage.cmdDefineVoltageMeterChannel(2).toLatin1().data();
+    qDebug() << defPage.cmdDefineVoltageSourceChannel(2).toLatin1().data();
 
 //    Keithley4200SourceSetupPage ssPage;
 
@@ -70,9 +70,9 @@ int main(int argc, char *argv[])
 //    qDebug() << usPage.cmdTriggerVoltage(Keithley4200VoltageMeasureChannels::SMU1).toLatin1().data();
 //    qDebug() << usPage.cmdTriggerCurrent(Keithley4200CurrentMeasureChannels::SMU1).toLatin1().data();
 
-    Keithley4200CommonCommands commonCommands;
+//    Keithley4200CommonCommands commonCommands;
 
-    qDebug() << commonCommands.cmdPerformAutoCalibration(1).toLatin1().data();
+//    qDebug() << commonCommands.cmdPerformAutoCalibration(1).toLatin1().data();
 
 //    std::ofstream fout("c:\\Users\\v.handziuk\\Documents\\GitHub\\SetupsAutomatization\\Hello.txt");
 

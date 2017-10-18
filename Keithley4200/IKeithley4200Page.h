@@ -27,7 +27,6 @@ public:
 protected:
     char pageIdentifier[256];
     char commandIdentifier[256];
-    unsigned int channelNumber;
 
     void pageSetCurrent();
 
@@ -41,7 +40,7 @@ protected:
     int    getSMUMasterOrSlaveMode(SMUMasterOrSlaveMode masterOrSlaveMode) const;
     int    getSMUDisplayMode(Keithley4200DisplayMode displayMode) const;
     int    getSMUXAxisScaleType(Keithley4200XAxisScaleType xAxisScaleType) const;
-    int     getSMUYAxisScaleType(Keithley4200YAxisScaleType yAxisScaleType) const;
+    int    getSMUYAxisScaleType(Keithley4200YAxisScaleType yAxisScaleType) const;
     int    getSMUControlMeasurementType(Keithley4200ControlMeasurementTypes controlMeasurementType) const;
     char   getSMUSaveFileType(Keithley4200FileTypes fileType) const;
     char*  getChannelType(Keithley4200ChannelType channelType) const;

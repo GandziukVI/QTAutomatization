@@ -3,7 +3,6 @@
 Keithley4200SourceSetupPage::Keithley4200SourceSetupPage()
 {
     extCopyString(pageIdentifier, "SS");
-    channelNumber = 1;
 }
 
 QString Keithley4200SourceSetupPage::cmdConfVAR1Sweep(SMUSourceMode sourceMode, SMUSweepMode sweepMode, double startValue, double stopValue, double stepValue, double complianceValue)
