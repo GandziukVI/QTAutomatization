@@ -68,6 +68,32 @@ void SerialDevice::SendCommandRequest(const char* RequestString)
     }
 }
 
+void SerialDevice::SendCommandRequest(const QString RequestString)
+{
+    QMutexLocker queryLocker(&requestQueryMutex);
+    QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
+    QMutexLocker commandLocker(&sendCommandRequestMutex);
+
+    if(!isOpen)
+        throw DeviceIOException(QObject::tr("Serial port %1 is closed.").arg(serialPort.portName()));
+
+    // Flushing serial port before writing a new command to it
+    while(serialPort.bytesAvailable() > 0)
+        serialPort.readAll();
+
+    QByteArray toWrite(RequestString.toStdString().c_str());
+
+    qint64 bytesWritten = serialPort.write(toWrite);
+
+    if (bytesWritten == -1) {
+        throw DeviceIOException(QObject::tr("Failed to write the data to port %1, error: %2").arg(serialPort.portName()).arg(serialPort.errorString()));
+    } else if (bytesWritten != toWrite.size()) {
+        throw DeviceIOException(QObject::tr("Failed to write all the data to port %1, error: %2").arg(serialPort.portName()).arg(serialPort.errorString()));
+    } else if (!serialPort.waitForBytesWritten(5000)) {
+        throw DeviceIOException(QObject::tr("Operation timed out or an error occurred for port %1, error: %2").arg(serialPort.portName()).arg(serialPort.errorString()));
+    }
+}
+
 QString SerialDevice::ReceiveDeviceAnswer()
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
@@ -153,6 +179,40 @@ QString SerialDevice::RequestQuery(const char* QueryString)
     return QString(data);
 }
 
+QString SerialDevice::RequestQuery(const QString QueryString)
+{
+    QMutexLocker commandLocker(&sendCommandRequestMutex);
+    QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
+    QMutexLocker queryLocker(&requestQueryMutex);
+
+    // Flushing serial port before writing a new command to it
+    while(serialPort.bytesAvailable() > 0)
+        serialPort.readAll();
+
+    QByteArray toWrite(QueryString.toStdString().c_str());
+
+    qint64 bytesWritten = serialPort.write(toWrite);
+
+    if (bytesWritten == -1) {
+        throw DeviceIOException(QObject::tr("Failed to write the data to port %1, error: %2").arg(serialPort.portName()).arg(serialPort.errorString()));
+    } else if (bytesWritten != toWrite.size()) {
+        throw DeviceIOException(QObject::tr("Failed to write all the data to port %1, error: %2").arg(serialPort.portName()).arg(serialPort.errorString()));
+    } else if (!serialPort.waitForBytesWritten(5000)) {
+        throw DeviceIOException(QObject::tr("Operation timed out or an error occurred for port %1, error: %2").arg(serialPort.portName()).arg(serialPort.errorString()));
+    }
+
+    // Reading data from the port
+    data = serialPort.readAll();
+    while(true) {
+        if(strchr(TerminationCharacters, *data.end()))
+            break;
+        while (serialPort.waitForReadyRead(INT_MAX))
+            data.append(serialPort.readAll());
+    }
+
+    return QString(data);
+}
+
 QString SerialDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
@@ -167,6 +227,43 @@ QString SerialDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
         serialPort.readAll();
 
     QByteArray toWrite(QueryString);
+
+    qint64 bytesWritten = serialPort.write(toWrite);
+
+    if (bytesWritten == -1) {
+        throw DeviceIOException(QObject::tr("Failed to write the data to port %1, error: %2").arg(serialPort.portName()).arg(serialPort.errorString()));
+    } else if (bytesWritten != toWrite.size()) {
+        throw DeviceIOException(QObject::tr("Failed to write all the data to port %1, error: %2").arg(serialPort.portName()).arg(serialPort.errorString()));
+    } else if (!serialPort.waitForBytesWritten(5000)) {
+        throw DeviceIOException(QObject::tr("Operation timed out or an error occurred for port %1, error: %2").arg(serialPort.portName()).arg(serialPort.errorString()));
+    }
+
+    // Reading data from the port
+    data = serialPort.read(ReadBufferSize);
+    while(true) {
+        if(strchr(TerminationCharacters, *data.end()))
+            break;
+        while (serialPort.waitForReadyRead(INT_MAX))
+            data.append(serialPort.read(ReadBufferSize));
+    }
+
+    return QString(data);
+}
+
+QString SerialDevice::RequestQuery(const QString QueryString, int ReadBufferSize)
+{
+    QMutexLocker commandLocker(&sendCommandRequestMutex);
+    QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
+    QMutexLocker queryLocker(&requestQueryMutex);
+
+    if(!isOpen)
+        throw DeviceIOException(QObject::tr("Serial port %1 is closed.").arg(serialPort.portName()));
+
+    // Flushing serial port before writing a new command to it
+    while(serialPort.bytesAvailable() > 0)
+        serialPort.readAll();
+
+    QByteArray toWrite(QueryString.toStdString().c_str());
 
     qint64 bytesWritten = serialPort.write(toWrite);
 

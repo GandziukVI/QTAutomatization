@@ -14,16 +14,28 @@
 #include <Keithley4200UserModePage.h>
 #include <Keithley4200CommonCommands.h>
 
+#include <Keithley4200SMUChannel.h>
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    Keithley4200ChannelDefinitionPage defPage;
+    Keithley4200SMUChannel smu;
 
-    qDebug() << defPage.cmdDisableChannel(2).toLatin1().data();
-    qDebug() << defPage.cmdDefineChannel(1).toLatin1().data();
-    qDebug() << defPage.cmdDefineVoltageMeterChannel(2).toLatin1().data();
-    qDebug() << defPage.cmdDefineVoltageSourceChannel(2).toLatin1().data();
+    smu.SwitchOFF();
+    smu.SwitchOFF();
+    smu.SetSourceVoltage(20.0);
+    smu.SwitchOFF();
+    smu.SetSourceVoltage(20.0);
+    smu.SetSourceVoltage(20.0);
+
+
+//    Keithley4200ChannelDefinitionPage defPage;
+
+//    qDebug() << defPage.cmdDisableChannel(2).toLatin1().data();
+//    qDebug() << defPage.cmdDefineChannel(1).toLatin1().data();
+//    qDebug() << defPage.cmdDefineVoltageMeterChannel(2).toLatin1().data();
+//    qDebug() << defPage.cmdDefineVoltageSourceChannel(2).toLatin1().data();
 
 //    Keithley4200SourceSetupPage ssPage;
 

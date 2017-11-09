@@ -24,8 +24,8 @@ public:
     QString buildCommand(const QString& command);
 
     bool isCurrent;
-protected:
     char pageIdentifier[256];
+protected:
     char commandIdentifier[256];
 
     void pageSetCurrent();
@@ -56,7 +56,7 @@ private:
     QString commandString;
 
 signals:
-    void pageChanged(const char* pageID);
+    void pageChanged(QString pageID);
 };
 
 #endif // IKEITHLEY4200PAGE_H

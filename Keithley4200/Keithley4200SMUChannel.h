@@ -17,14 +17,16 @@
 #include <QObject>
 #include <QSignalMapper>
 
-class KEITHLEY4200SHARED_EXPORT Keithley4200SMUChannel : public ISourceMeterUnit
+class KEITHLEY4200SHARED_EXPORT Keithley4200SMUChannel : public QObject, ISourceMeterUnit
 {
+    Q_OBJECT
+
 public:
     Keithley4200SMUChannel();
     ~Keithley4200SMUChannel();
 
-    void Initialize(const IDeviceIO &Driver);
-    void Initialize(const IDeviceIO &Driver, QString& channelID);
+    void Initialize(IDeviceIO &Driver);
+    void Initialize(IDeviceIO &Driver, QString& channelID);
 
     void SwitchON();
     void SwitchOFF();
@@ -35,14 +37,34 @@ public:
     void SetSourceVoltage (const double voltage);
     void SetSourceCurrent (const double current);
     void SetAveraging     (const int avg);
+    void SetNPLC          (const double val);
+
+    double MeasureVoltage ();
+    double MeasureCurrent ();
+    double MeasureResistance();
+
+    QVector<IV_Data> LinearVoltageSweep(double start, double stop, int numPoints);
+    QVector<IV_Data> LinearCurrentSweep(double start, double stop, int numPoints);
+    QVector<IV_Data> LogarithmicVoltageSweep(double start, double stop, int numPoints);
+    QVector<IV_Data> LogarithmicCurrentSweep(double start, double stop, int numPoints);
+    QVector<IV_Data> ListVoltageSweep(const double sweepList[]);
+    QVector<IV_Data> ListCurrentSweep(const double sweepList[]);
+
+    QVector<IV_Data> PulsedLinearVoltageSweep(double start, double stop, int numPoints, double pulseWidth, double pulsePeriod, bool remoteSense);
+    QVector<IV_Data> PulsedLinearCurrentSweep(double start, double stop, int numPoints, double pulseWidth, double pulsePeriod, bool remoteSense);
+
+    void StartVoltageTrace ();
+    void StartCurrentTrace ();
+
+    void Reset ();
 
 private:
-    IDeviceIO    driver;
+    IDeviceIO    *driver;
     unsigned int channelNumber;
     bool         isInitialized;
 
-    double    srcCompliance;
-    double    srcDelay;
+    double       srcCompliance;
+    double       srcDelay;
 
     SMUSourceMode srcMode;
 
@@ -53,7 +75,8 @@ private:
     Keithley4200UserModePage           chUserMode;
     Keithley4200CommonCommands         chCommon;
 
-    QSignalMapper*                     signalMapper;
+public slots:
+    void onPageChanged(QString pageID);
 };
 
 #endif // KEITHLEY4200SMUCHANNEL_H

@@ -19,10 +19,13 @@ public:
     ~VisaDevice();
 
     void SendCommandRequest      (const char* RequestString);
+    void SendCommandRequest      (const QString& RequestString);
     QString ReceiveDeviceAnswer  (void);
     QString ReceiveDeviceAnswer  (int BufferSize = 256, bool readExactOrMax = false);
     QString RequestQuery         (const char* QueryString);
+    QString RequestQuery         (const QString& QueryString);
     QString RequestQuery         (const char* QueryString,  int ReadBufferSize = 256);
+    QString RequestQuery         (const QString& QueryString,  int ReadBufferSize = 256);
 
 private:
     ViSession defaultRM;

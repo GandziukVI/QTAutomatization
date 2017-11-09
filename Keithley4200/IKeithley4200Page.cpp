@@ -42,7 +42,7 @@ void IKeithley4200Page::pageSetCurrent()
 {
     if(!isCurrent) {
         isCurrent = true;
-        emit pageChanged(pageIdentifier);
+        emit pageChanged(QString(pageIdentifier));
     }
 }
 

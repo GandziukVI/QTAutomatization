@@ -14,8 +14,8 @@ class SOURCEMETERUNITSHARED_EXPORT ISourceMeterUnit
 public:
     ISourceMeterUnit() { }
 
-    virtual void Initialize (const IDeviceIO& Driver)                     = 0;
-    virtual void Initialize (const IDeviceIO& Driver, QString& channelID) = 0;
+    virtual void Initialize (IDeviceIO& Driver)                     = 0;
+    virtual void Initialize (IDeviceIO& Driver, QString& channelID) = 0;
 
     virtual void SwitchON  ()  = 0;
     virtual void SwitchOFF () = 0;
