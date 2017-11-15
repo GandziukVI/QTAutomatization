@@ -36,8 +36,8 @@ public:
     virtual QVector<IV_Data> LinearCurrentSweep(double start, double stop, int numPoints) = 0;
     virtual QVector<IV_Data> LogarithmicVoltageSweep(double start, double stop, int numPoints) = 0;
     virtual QVector<IV_Data> LogarithmicCurrentSweep(double start, double stop, int numPoints) = 0;
-    virtual QVector<IV_Data> ListVoltageSweep(const double sweepList[]) = 0;
-    virtual QVector<IV_Data> ListCurrentSweep(const double sweepList[]) = 0;
+    virtual QVector<IV_Data> ListVoltageSweep(const QVector<double>& sweepList) = 0;
+    virtual QVector<IV_Data> ListCurrentSweep(const QVector<double>& sweepList) = 0;
 
     virtual QVector<IV_Data> PulsedLinearVoltageSweep(double start, double stop, int numPoints, double pulseWidth, double pulsePeriod, bool remoteSense) = 0;
     virtual QVector<IV_Data> PulsedLinearCurrentSweep(double start, double stop, int numPoints, double pulseWidth, double pulsePeriod, bool remoteSense) = 0;
