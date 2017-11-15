@@ -42,7 +42,7 @@ private:
     bool        OpenConnection();
     void        CloseConnection();
 
-    char        TerminationCharacters[5];
+    char        TerminationCharacters[4];
 };
 
 #endif // SERIALDEVICE_H

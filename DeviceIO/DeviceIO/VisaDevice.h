@@ -34,7 +34,7 @@ private:
     ViUInt32  retCount;
     ViUInt32  writeCount;
 
-    ViChar TerminationCharacters[5];
+    ViChar TerminationCharacters[4];
 
     bool OpenConnection  (const char* ResourceString);
     void CloseConnection ();

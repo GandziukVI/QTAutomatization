@@ -17,6 +17,8 @@
 #include <QObject>
 #include <QSignalMapper>
 
+#include <QRegularExpression>
+
 class KEITHLEY4200SHARED_EXPORT Keithley4200SMUChannel : public QObject, ISourceMeterUnit
 {
     Q_OBJECT
@@ -47,8 +49,8 @@ public:
     QVector<IV_Data> LinearCurrentSweep(double start, double stop, int numPoints);
     QVector<IV_Data> LogarithmicVoltageSweep(double start, double stop, int numPoints);
     QVector<IV_Data> LogarithmicCurrentSweep(double start, double stop, int numPoints);
-    QVector<IV_Data> ListVoltageSweep(const double sweepList[]);
-    QVector<IV_Data> ListCurrentSweep(const double sweepList[]);
+    QVector<IV_Data> ListVoltageSweep(const QVector<double>& sweepList);
+    QVector<IV_Data> ListCurrentSweep(const QVector<double>& sweepList);
 
     QVector<IV_Data> PulsedLinearVoltageSweep(double start, double stop, int numPoints, double pulseWidth, double pulsePeriod, bool remoteSense);
     QVector<IV_Data> PulsedLinearCurrentSweep(double start, double stop, int numPoints, double pulseWidth, double pulsePeriod, bool remoteSense);
@@ -65,6 +67,7 @@ private:
 
     double       srcCompliance;
     double       srcDelay;
+    int          avgNum;
 
     SMUSourceMode srcMode;
 
@@ -74,6 +77,8 @@ private:
     Keithley4200MeasurementControlPage chMeasControl;
     Keithley4200UserModePage           chUserMode;
     Keithley4200CommonCommands         chCommon;
+
+    QRegularExpression*                regExDouble;
 
 public slots:
     void onPageChanged(QString pageID);

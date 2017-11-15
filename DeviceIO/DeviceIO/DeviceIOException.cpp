@@ -2,7 +2,6 @@
 
 DeviceIOException::DeviceIOException()
 {
-
 }
 
 DeviceIOException::DeviceIOException(QString& msg)

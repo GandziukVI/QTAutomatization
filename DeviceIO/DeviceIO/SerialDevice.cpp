@@ -4,12 +4,14 @@
 
 SerialDevice::SerialDevice()
 {
-    strncpy(TerminationCharacters, "\n\r\r\n\f\0", 5);
+    const char* termChars = "\r\n\f\0";
+    strncpy(TerminationCharacters, termChars, strlen(termChars));
 }
 
 SerialDevice::SerialDevice(const char *portName, int baudRate, QSerialPort::Parity parity, QSerialPort::DataBits dataBits, QSerialPort::StopBits stopBits)
 {
-    strncpy(TerminationCharacters, "\n\r\r\n\f\0", 5);
+    const char* termChars = "\r\n\f\0";
+    strncpy(TerminationCharacters, termChars, strlen(termChars));
 
     serialPort.setPortName(portName);
     serialPort.setBaudRate(baudRate);

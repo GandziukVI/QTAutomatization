@@ -5,12 +5,15 @@
 
 VisaDevice::VisaDevice()
 {
-    strncpy(TerminationCharacters, "\n\r\n\f\0", 5);
+    const char* termChars = "\r\n\f\0";
+    strncpy(TerminationCharacters, termChars, strlen(termChars));
 }
 
 VisaDevice::VisaDevice(const char *ResourceString)
 {
-    strncpy(TerminationCharacters, "\n\r\n\f\0", 5);
+    const char* termChars = "\r\n\f\0";
+    strncpy(TerminationCharacters, termChars, strlen(termChars));
+
     OpenConnection(ResourceString);
 }
 

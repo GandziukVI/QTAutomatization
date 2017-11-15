@@ -20,7 +20,8 @@ SOURCES += Keithley4200.cpp \
     Keithley4200MeasurementControlPage.cpp \
     Keithley4200UserModePage.cpp \
     Keithley4200CommonCommands.cpp \
-    Keithley4200SMUChannel.cpp
+    Keithley4200SMUChannel.cpp \
+    Keithley4200Exception.cpp
 
 HEADERS += Keithley4200.h\
         keithley4200_global.h \
@@ -32,7 +33,8 @@ HEADERS += Keithley4200.h\
     Keithley4200MeasurementControlPage.h \
     Keithley4200UserModePage.h \
     Keithley4200CommonCommands.h \
-    Keithley4200SMUChannel.h
+    Keithley4200SMUChannel.h \
+    Keithley4200Exception.h
 
 unix {
     target.path = /usr/lib

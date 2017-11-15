@@ -95,7 +95,7 @@ QString Keithley4200SourceSetupPage::cmdConfVAR2Sweep(SMUSourceMode sourceMode, 
     return res;
 }
 
-QString Keithley4200SourceSetupPage::cmdConfListSweep(SMUSourceMode sourceMode, const unsigned int channelID, SMUMasterOrSlaveMode masterOrSlaveMode, double complianceValue, const QVector<double>& listValues)
+QString Keithley4200SourceSetupPage::cmdConfListSweep(SMUSourceMode sourceMode, const unsigned int channelID, double complianceValue, const QVector<double>& listValues, SMUMasterOrSlaveMode masterOrSlaveMode)
 {
     switch (sourceMode) {
 
