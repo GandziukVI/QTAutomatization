@@ -72,13 +72,85 @@ unsigned int IAg25xxSubsystem::extGetAOChannel(AgU25xxAnalogOutput::AOChannels c
 QVector<unsigned int> IAg25xxSubsystem::extGetAOChannels(QVector<AgU25xxAnalogOutput::AOChannels> channels) const
 {
     QVector<unsigned int> res;
-
     QVector<AgU25xxAnalogOutput::AOChannels>::const_iterator iter = channels.cbegin();
 
-    for(; iter != channels.cend();) {
+    for (; iter != channels.cend();) {
         res.push_back(extGetAOChannel(*iter));
         ++iter;
     }
 
     return res;
+}
+
+unsigned int IAg25xxSubsystem::extGetDigChannel(AgU25xxDIGital::DigitalChannels channel) const
+{
+    switch (channel) {
+
+    case AgU25xxDIGital::DigitalChannels::D01:
+        return 501;
+    case AgU25xxDIGital::DigitalChannels::D02:
+        return 502;
+    case AgU25xxDIGital::DigitalChannels::D03:
+        return 503;
+    case AgU25xxDIGital::DigitalChannels::D04:
+        return 504;
+    }
+
+    return 501;
+}
+
+QVector<unsigned int> IAg25xxSubsystem::extGetDigChannels(QVector<AgU25xxDIGital::DigitalChannels> channels) const
+{
+    QVector<unsigned int> res;
+    QVector<AgU25xxDIGital::DigitalChannels>::const_iterator iter = channels.cbegin();
+
+    for (; iter != channels.cend(); ) {
+        res.push_back(extGetDigChannel(*iter));
+        ++iter;
+    }
+
+    return res;
+}
+
+const char* IAg25xxSubsystem::extGetDigDirection(AgU25xxDIGital::DigitalDirection direction) const
+{
+    switch (direction) {
+
+    case AgU25xxDIGital::DigitalDirection::INPut:
+        return "INP";
+    case AgU25xxDIGital::DigitalDirection::OUTPut:
+        return "OUTP";
+    }
+
+    return "INP";
+}
+
+const char* IAg25xxSubsystem::extGetTimeBaseSrcMode(AgU25xxTIMEbase::TimeSrcModes timeBaseMode) const
+{
+    switch (timeBaseMode) {
+
+    case AgU25xxTIMEbase::TimeSrcModes::INTernal:
+        return "INT";
+    case AgU25xxTIMEbase::TimeSrcModes::EXTernal:
+        return "EXT";
+    case AgU25xxTIMEbase::TimeSrcModes::CCG:
+        return "CCG";
+    }
+
+    return "INT";
+}
+
+const char *IAg25xxSubsystem::extGetSSIMode(SSIModes ssiMode) const
+{
+    switch (ssiMode) {
+
+    case SSIModes::None:
+        return "NONE";
+    case SSIModes::Master:
+        return "MAST";
+    case SSIModes::Slave:
+        return "SLAV";
+    }
+
+    return "NONE";
 }

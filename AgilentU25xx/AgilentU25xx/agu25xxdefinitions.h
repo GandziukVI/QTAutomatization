@@ -11,4 +11,34 @@ namespace AgU25xxAnalogOutput
     };
 }
 
+namespace AgU25xxDIGital
+{
+    enum class AGILENTU25XXSHARED_EXPORT DigitalDirection {
+        INPut,
+        OUTPut
+    };
+
+    enum class AGILENTU25XXSHARED_EXPORT DigitalChannels {
+        D01,
+        D02,
+        D03,
+        D04
+    };
+}
+
+namespace AgU25xxTIMEbase
+{
+    enum class AGILENTU25XXSHARED_EXPORT TimeSrcModes {
+        INTernal,
+        EXTernal,
+        CCG
+    };
+}
+
+enum class AGILENTU25XXSHARED_EXPORT SSIModes {
+    None,
+    Master,
+    Slave
+};
+
 #endif // AGU25XXDEFINITIONS_H

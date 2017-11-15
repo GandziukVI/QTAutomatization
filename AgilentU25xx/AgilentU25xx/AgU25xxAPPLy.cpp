@@ -45,7 +45,7 @@ QString AgU25xxAPPLy::cmdApplySineWave(double amplitude, double offset, AgU25xxA
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplySineWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channel)
+QString AgU25xxAPPLy::cmdApplySineWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -79,7 +79,7 @@ QString AgU25xxAPPLy::cmdApplySquareWave(double amplitude, double offset, AgU25x
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplySquareWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channel)
+QString AgU25xxAPPLy::cmdApplySquareWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -113,7 +113,7 @@ QString AgU25xxAPPLy::cmdApplySawToothWave(double amplitude, double offset, AgU2
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplySawToothWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channel)
+QString AgU25xxAPPLy::cmdApplySawToothWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -147,7 +147,7 @@ QString AgU25xxAPPLy::cmdApplyTriangleWave(double amplitude, double offset, AgU2
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplyTriangleWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channel)
+QString AgU25xxAPPLy::cmdApplyTriangleWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -181,7 +181,7 @@ QString AgU25xxAPPLy::cmdApplyNoise(double amplitude, double offset, AgU25xxAnal
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplyNoise(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channel)
+QString AgU25xxAPPLy::cmdApplyNoise(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -213,7 +213,7 @@ QString AgU25xxAPPLy::cmdApplyUser(double amplitude, double offset, AgU25xxAnalo
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplyUser(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channel)
+QString AgU25xxAPPLy::cmdApplyUser(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();

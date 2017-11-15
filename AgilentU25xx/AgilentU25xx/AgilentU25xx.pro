@@ -14,14 +14,18 @@ DEFINES += AGILENTU25XX_LIBRARY
 SOURCES += AgilentU25xx.cpp \
     IAgU25xxSubsystem.cpp \
     AgU25xxACQuire.cpp \
-    AgU25xxAPPLy.cpp
+    AgU25xxAPPLy.cpp \
+    AgU25xxCALibration.cpp \
+    AgU25xxCONFigure.cpp
 
 HEADERS += AgilentU25xx.h\
         agilentu25xx_global.h \
     IAgU25xxSubsystem.h \
     AgU25xxACQuire.h \
     AgU25xxAPPLy.h \
-    AgU25xxDefinitions.h
+    AgU25xxDefinitions.h \
+    AgU25xxCALibration.h \
+    AgU25xxCONFigure.h
 
 unix {
     target.path = /usr/lib

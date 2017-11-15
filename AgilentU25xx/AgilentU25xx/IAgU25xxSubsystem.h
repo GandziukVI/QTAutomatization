@@ -29,6 +29,11 @@ protected:
     void                  extCopyString(char* dest, const char* src) const;
     unsigned int          extGetAOChannel(AgU25xxAnalogOutput::AOChannels channel) const;
     QVector<unsigned int> extGetAOChannels(QVector<AgU25xxAnalogOutput::AOChannels> channels) const;
+    unsigned int          extGetDigChannel(AgU25xxDIGital::DigitalChannels channel) const;
+    QVector<unsigned int> extGetDigChannels(QVector<AgU25xxDIGital::DigitalChannels> channels) const;
+    const char*           extGetDigDirection(AgU25xxDIGital::DigitalDirection direction) const;
+    const char*           extGetTimeBaseSrcMode(AgU25xxTIMEbase::TimeSrcModes timeBaseMode) const;
+    const char*           extGetSSIMode(SSIModes ssiMode) const;
 
 private:
     QString commandString;
