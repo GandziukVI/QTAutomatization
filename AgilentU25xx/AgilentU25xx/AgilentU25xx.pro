@@ -16,7 +16,8 @@ SOURCES += AgilentU25xx.cpp \
     AgU25xxACQuire.cpp \
     AgU25xxAPPLy.cpp \
     AgU25xxCALibration.cpp \
-    AgU25xxCONFigure.cpp
+    AgU25xxCONFigure.cpp \
+    AgU25xxMEASure.cpp
 
 HEADERS += AgilentU25xx.h\
         agilentu25xx_global.h \
@@ -25,7 +26,8 @@ HEADERS += AgilentU25xx.h\
     AgU25xxAPPLy.h \
     AgU25xxDefinitions.h \
     AgU25xxCALibration.h \
-    AgU25xxCONFigure.h
+    AgU25xxCONFigure.h \
+    AgU25xxMEASure.h
 
 unix {
     target.path = /usr/lib

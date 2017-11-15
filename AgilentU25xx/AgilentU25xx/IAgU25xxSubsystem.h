@@ -34,6 +34,8 @@ protected:
     const char*           extGetDigDirection(AgU25xxDIGital::DigitalDirection direction) const;
     const char*           extGetTimeBaseSrcMode(AgU25xxTIMEbase::TimeSrcModes timeBaseMode) const;
     const char*           extGetSSIMode(SSIModes ssiMode) const;
+    unsigned int          extGetVoltageChannel(AgU25xxVOLTage::VoltageChannels channel) const;
+    QVector<unsigned int> extGetVoltageChannels(QVector<AgU25xxVOLTage::VoltageChannels> channels) const;
 
 private:
     QString commandString;

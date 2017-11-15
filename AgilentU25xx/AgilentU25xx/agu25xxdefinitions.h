@@ -35,6 +35,16 @@ namespace AgU25xxTIMEbase
     };
 }
 
+namespace AgU25xxVOLTage
+{
+    enum class AGILENTU25XXSHARED_EXPORT VoltageChannels {
+        CH01,
+        CH02,
+        CH03,
+        CH04
+    };
+}
+
 enum class AGILENTU25XXSHARED_EXPORT SSIModes {
     None,
     Master,

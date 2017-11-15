@@ -154,3 +154,33 @@ const char *IAg25xxSubsystem::extGetSSIMode(SSIModes ssiMode) const
 
     return "NONE";
 }
+
+unsigned int IAg25xxSubsystem::extGetVoltageChannel(AgU25xxVOLTage::VoltageChannels channel) const
+{
+    switch (channel) {
+
+    case AgU25xxVOLTage::VoltageChannels::CH01:
+        return 101;
+    case AgU25xxVOLTage::VoltageChannels::CH02:
+        return 102;
+    case AgU25xxVOLTage::VoltageChannels::CH03:
+        return 103;
+    case AgU25xxVOLTage::VoltageChannels::CH04:
+        return 104;
+    }
+
+    return 101;
+}
+
+QVector<unsigned int> IAg25xxSubsystem::extGetVoltageChannels(QVector<AgU25xxVOLTage::VoltageChannels> channels) const
+{
+    QVector<unsigned int> res;
+    QVector<AgU25xxVOLTage::VoltageChannels>::const_iterator iter = channels.cbegin();
+
+    for (; iter != channels.cend(); ) {
+        res.push_back(extGetVoltageChannel(*iter));
+        ++iter;
+    }
+
+    return res;
+}

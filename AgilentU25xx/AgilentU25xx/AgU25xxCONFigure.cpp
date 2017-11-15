@@ -42,7 +42,7 @@ QString AgU25xxCONFigure::cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirecti
 QString AgU25xxCONFigure::cmdGetConfDigitalDirection(AgU25xxDIGital::DigitalChannels channel)
 {
     QString cmdStr = QObject::tr("DIR? (@%1")
-            .arg(channel);
+            .arg(extGetDigChannel(channel));
 
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
