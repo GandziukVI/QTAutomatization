@@ -136,7 +136,7 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterTotalizeCountingDir {
     DOWN
 };
 
-enum class AGILENTU25XXSHARED_EXPORT SSIModes {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxSSIModes {
     None,
     Master,
     Slave

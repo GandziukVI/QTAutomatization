@@ -89,15 +89,15 @@ const char* IAgU25xxSubsystemExtensions::extGetTimeBaseSrcMode(AgU25xxTimeSrcMod
     return "INT";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetSSIMode(SSIModes ssiMode) const
+const char* IAgU25xxSubsystemExtensions::extGetSSIMode(AgU25xxSSIModes ssiMode) const
 {
     switch (ssiMode) {
 
-    case SSIModes::None:
+    case AgU25xxSSIModes::None:
         return "NONE";
-    case SSIModes::Master:
+    case AgU25xxSSIModes::Master:
         return "MAST";
-    case SSIModes::Slave:
+    case AgU25xxSSIModes::Slave:
         return "SLAV";
     }
 

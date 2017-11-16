@@ -14,5 +14,5 @@ QString AgU25xxCALibrationSubSys::cmdStartSelfCalibration()
 
 QString AgU25xxCALibrationSubSys::cmdCheckCalibrationStatus()
 {
-    return QString("OPC?");
+    return QString("*OPC?");
 }

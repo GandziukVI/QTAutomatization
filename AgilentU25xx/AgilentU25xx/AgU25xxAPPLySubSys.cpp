@@ -27,7 +27,7 @@ QString AgU25xxAPPLySubSys::cmdGetAOParams(QVector<AgU25xxAOChannels> channels)
 
 QString AgU25xxAPPLySubSys::cmdApplySineWave(double amplitude, double offset, AgU25xxAOChannels channel)
 {
-    QString cmdStr = QObject::tr("SIN %1,%2,%3)")
+    QString cmdStr = QObject::tr("SIN %1,%2,(@%3)")
             .arg(amplitude)
             .arg(offset)
             .arg(extGetAOChannel(channel));
@@ -49,7 +49,7 @@ QString AgU25xxAPPLySubSys::cmdApplySineWave(double amplitude, double offset, QV
 
 QString AgU25xxAPPLySubSys::cmdApplySquareWave(double amplitude, double offset, AgU25xxAOChannels channel)
 {
-    QString cmdStr = QObject::tr("SQU %1,%2,%3)")
+    QString cmdStr = QObject::tr("SQU %1,%2,(@%3)")
             .arg(amplitude)
             .arg(offset)
             .arg(extGetAOChannel(channel));
@@ -71,7 +71,7 @@ QString AgU25xxAPPLySubSys::cmdApplySquareWave(double amplitude, double offset, 
 
 QString AgU25xxAPPLySubSys::cmdApplySawToothWave(double amplitude, double offset, AgU25xxAOChannels channel)
 {
-    QString cmdStr = QObject::tr("SAWT %1,%2,%3)")
+    QString cmdStr = QObject::tr("SAWT %1,%2,(@%3)")
             .arg(amplitude)
             .arg(offset)
             .arg(extGetAOChannel(channel));
@@ -93,7 +93,7 @@ QString AgU25xxAPPLySubSys::cmdApplySawToothWave(double amplitude, double offset
 
 QString AgU25xxAPPLySubSys::cmdApplyTriangleWave(double amplitude, double offset, AgU25xxAOChannels channel)
 {
-    QString cmdStr = QObject::tr("TRI %1,%2,%3)")
+    QString cmdStr = QObject::tr("TRI %1,%2,(@%3)")
             .arg(amplitude)
             .arg(offset)
             .arg(extGetAOChannel(channel));
@@ -115,7 +115,7 @@ QString AgU25xxAPPLySubSys::cmdApplyTriangleWave(double amplitude, double offset
 
 QString AgU25xxAPPLySubSys::cmdApplyNoise(double amplitude, double offset, AgU25xxAOChannels channel)
 {
-    QString cmdStr = QObject::tr("NOIS %1,%2,%3)")
+    QString cmdStr = QObject::tr("NOIS %1,%2,(@%3)")
             .arg(amplitude)
             .arg(offset)
             .arg(extGetAOChannel(channel));

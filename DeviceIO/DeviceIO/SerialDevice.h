@@ -4,8 +4,10 @@
 #include "deviceio_global.h"
 #include "IDeviceIO.h"
 
+#include <QMutex>
 #include <QtSerialPort/QSerialPort>
 #include <QTextStream>
+
 
 class DEVICEIOSHARED_EXPORT SerialDevice : public IDeviceIO
 {

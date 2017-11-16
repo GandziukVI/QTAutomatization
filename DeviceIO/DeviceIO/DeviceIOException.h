@@ -9,7 +9,7 @@ class DEVICEIOSHARED_EXPORT DeviceIOException : public QException
 {
 public:
     DeviceIOException();
-    DeviceIOException(QString& msg);
+    DeviceIOException(QString msg);
 
     void               raise() const;
     DeviceIOException* clone() const;

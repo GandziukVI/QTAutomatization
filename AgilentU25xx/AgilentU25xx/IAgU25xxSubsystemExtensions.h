@@ -19,7 +19,7 @@ public:
     QVector<unsigned int> extGetDigChannels(QVector<AgU25xxDigitalChannels> channels) const;
     const char*           extGetDigDirection(AgU25xxDigitalDirection direction) const;
     const char*           extGetTimeBaseSrcMode(AgU25xxTimeSrcModes timeBaseMode) const;
-    const char*           extGetSSIMode(SSIModes ssiMode) const;
+    const char*           extGetSSIMode(AgU25xxSSIModes ssiMode) const;
     unsigned int          extGetCounterChannel(AgU25xxCounterChannels channel) const;
     QVector<unsigned int> extGetCounterChannels(QVector<AgU25xxCounterChannels> channels) const;
     unsigned int          extGetOutputState(AgU25xxOutputState outpState) const;

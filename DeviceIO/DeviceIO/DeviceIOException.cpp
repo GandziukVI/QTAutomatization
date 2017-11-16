@@ -4,7 +4,7 @@ DeviceIOException::DeviceIOException()
 {
 }
 
-DeviceIOException::DeviceIOException(QString& msg)
+DeviceIOException::DeviceIOException(QString msg)
 {
     errmsg = msg;
 }

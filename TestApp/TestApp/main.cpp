@@ -14,17 +14,141 @@
 #include <Keithley4200UserModePage.h>
 #include <Keithley4200CommonCommands.h>
 
-#include <AgU25xxMEASureSubSys.h>
 
+#include <AgU25xxACQuireSubSys.h>
+#include <AgU25xxAPPLySubSys.h>
 #include <AgU25xxMEASureSubSys.h>
+#include <AgU25xxCALibrationSubSys.h>
+#include <AgU25xxCONFigureSubSys.h>
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QCoreApplication a(argc, argv);    
 
-    AgU25xxMEASureSubSys commands;
+    // Counter channels
+    AgU25xxCounterChannels ch1 = AgU25xxCounterChannels::COUNT01;
+    AgU25xxCounterChannels ch2 = AgU25xxCounterChannels::COUNT02;
 
-    qDebug() << commands.cmdMeasureDigitalBit(1, AgU25xxDigitalChannels::DIG01).toStdString().c_str();
+    QVector<AgU25xxCounterChannels> counChVec;
+
+    counChVec.push_back(ch1);
+    counChVec.push_back(ch2);
+
+    // Digital channels
+
+    AgU25xxDigitalChannels DigCh01 = AgU25xxDigitalChannels::DIG01;
+    AgU25xxDigitalChannels DigCh02 = AgU25xxDigitalChannels::DIG02;
+    AgU25xxDigitalChannels DigCh03 = AgU25xxDigitalChannels::DIG03;
+    AgU25xxDigitalChannels DigCh04 = AgU25xxDigitalChannels::DIG04;
+
+    QVector<AgU25xxDigitalChannels> digChVec;
+
+    digChVec.push_back(DigCh01);
+    digChVec.push_back(DigCh02);
+    digChVec.push_back(DigCh03);
+    digChVec.push_back(DigCh04);
+
+    // Analog in channels
+
+    AgU25xxAInChannels AIn01 = AgU25xxAInChannels::AIn01;
+    AgU25xxAInChannels AIn02 = AgU25xxAInChannels::AIn02;
+    AgU25xxAInChannels AIn03 = AgU25xxAInChannels::AIn03;
+    AgU25xxAInChannels AIn04 = AgU25xxAInChannels::AIn04;
+
+    QVector<AgU25xxAInChannels> aInChVec;
+
+    aInChVec.push_back(AIn01);
+    aInChVec.push_back(AIn02);
+    aInChVec.push_back(AIn03);
+    aInChVec.push_back(AIn04);
+
+    // Analog out channels
+
+    AgU25xxAOChannels AOut01 = AgU25xxAOChannels::AOut01;
+    AgU25xxAOChannels AOut02 = AgU25xxAOChannels::AOut02;
+
+    QVector<AgU25xxAOChannels> aOutChVec;
+
+    aOutChVec.push_back(AOut01);
+    aOutChVec.push_back(AOut02);
+
+    /* Testing commands to the device */
+
+    // ACQuire subsystem
+
+//    AgU25xxACQuireSubSys ACQuireCommands;
+
+//    qDebug() << ACQuireCommands.cmdSetPointsSingleShot(1000).toStdString().c_str();
+//    qDebug() << ACQuireCommands.cmdGetPointsSingleShot().toStdString().c_str();
+//    qDebug() << ACQuireCommands.cmdSetSamplingRate(10).toStdString().c_str();
+//    qDebug() << ACQuireCommands.cmdGetSamplingrate().toStdString().c_str();
+
+    // APPLy subsystem
+
+//    AgU25xxAPPLySubSys APPLyCommands;
+
+//    qDebug() << APPLyCommands.cmdApplyNoise(10.0, 0.0, AOut01).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdApplyNoise(5.0, 1.0, aOutChVec).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdApplySawToothWave(1.0, 2.0, AOut01).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdApplySawToothWave(1.0, 2.0, aOutChVec).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdApplySineWave(1.0, 2.0, AOut01).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdApplySineWave(1.0, 2.0, aOutChVec).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdApplySquareWave(1.0, 2.0, AOut01).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdApplySquareWave(1.0, 2.0, aOutChVec).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdApplyTriangleWave(1.0, 2.0, AOut01).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdApplyTriangleWave(1.0, 2.0, aOutChVec).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdApplyUser(AOut01).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdApplyUser(aOutChVec).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdGetAOParams(AOut01).toStdString().c_str();
+//    qDebug() << APPLyCommands.cmdGetAOParams(aOutChVec).toStdString().c_str();
+
+    // CALibration subsystem
+
+//    AgU25xxCALibrationSubSys CALibrationCommands;
+
+//    qDebug() << CALibrationCommands.cmdStartSelfCalibration().toStdString().c_str();
+//    qDebug() << CALibrationCommands.cmdCheckCalibrationStatus().toStdString().c_str();
+
+    // CONFigure subsystem
+
+//    AgU25xxCONFigureSubSys CONFigureCommands;
+
+//    qDebug() << CONFigureCommands.cmdSetDigitalDirection(AgU25xxDigitalDirection::INPut, DigCh01).toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdSetDigitalDirection(AgU25xxDigitalDirection::OUTPut, digChVec).toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdGetDigitalDirection(DigCh02).toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdGetDigitalDirection(digChVec).toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdSetExtClockFreq(10000).toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdGetExtClockFreq().toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdSetSSIMode(AgU25xxSSIModes::Master).toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdGetSSIMode().toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdSetTimeBaseSrc(AgU25xxTimeSrcModes::INTernal).toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdGetTimeBaseSrc().toStdString().c_str();
+
+
+    // MEASure subsystem
+
+//    AgU25xxMEASureSubSys MEASureCommands;
+
+//    qDebug() << MEASureCommands.cmdMeasureCounterData(ch1).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureCounterData(counChVec).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureCounterFrequency(ch1).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureCounterFrequency(counChVec).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureCounterPeriod(ch1).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureCounterPeriod(counChVec).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureDigitalBit(1, AgU25xxDigitalChannels::DIG01).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureCounterPulseWidth(ch1).toStdString().c_str();;
+//    qDebug() << MEASureCommands.cmdMeasureCounterPulseWidth(counChVec).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureCounterTotalize(ch1).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureCounterTotalize(counChVec).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureCounterTotalize(ch1).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureCounterTotalize(counChVec).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureDigitalBit(2, DigCh01).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureDigitalBit(4, digChVec).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureDigitalByte(DigCh02).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureDigitalByte(digChVec).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureVoltage(AIn03).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureVoltage(aInChVec).toStdString().c_str();
+
 
 //    Keithley4200SMUChannel smu;
 
