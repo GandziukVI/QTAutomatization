@@ -14,7 +14,7 @@
 #include <Keithley4200UserModePage.h>
 #include <Keithley4200CommonCommands.h>
 
-#include <Keithley4200SMUChannel.h>
+#include <AgU25xxMEASureSubSys.h>
 
 #include <AgU25xxMEASureSubSys.h>
 
