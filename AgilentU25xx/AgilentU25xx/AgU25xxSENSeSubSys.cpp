@@ -478,23 +478,11 @@ QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingSrc(AgU25xxCounterTotal
 
 QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingSrc(AgU25xxCounterTotalizeCountingSrc totSrc, QVector<AgU25xxCounterChannels> channels)
 {
-    QString cmdStr;
-    QTextStream cmdStrStream(&cmdStr);
-
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
-    QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
 
-    cmdStrStream << QObject::tr("SOUR %1 (@")
-                    .arg(extGetCOUNterTotalizeCountingSrc(totSrc));
-
-    for (; iter != channelNums.cend(); ) {
-        if (iter != channelNums.cend() - 1)
-            cmdStrStream << *iter << ',';
-        else
-            cmdStrStream << *iter << ')';
-
-        ++iter;
-    }
+    QString cmdStr = QObject::tr("SOUR %1 %2")
+            .arg(extGetCOUNterTotalizeCountingSrc(totSrc))
+            .arg(extCreateChannelsString(channelNums));
 
     return COUNterTotalizeUDOWnSubsubsystem.buildCommand(cmdStr);
 }
@@ -509,22 +497,10 @@ QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingSrc(AgU25xxCounterChann
 
 QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingSrc(QVector<AgU25xxCounterChannels> channels)
 {
-    QString cmdStr;
-    QTextStream cmdStrStream(&cmdStr);
-
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
-    QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
 
-    cmdStrStream << QString("SOUR? (@");
-
-    for (; iter != channelNums.cend(); ) {
-        if (iter != channelNums.cend() - 1)
-            cmdStrStream << *iter << ',';
-        else
-            cmdStrStream << *iter << ')';
-
-        ++iter;
-    }
+    QString cmdStr = QObject::tr("SOUR? %1")
+            .arg(extCreateChannelsString(channelNums));
 
     return COUNterTotalizeUDOWnSubsubsystem.buildCommand(cmdStr);
 }
@@ -540,23 +516,11 @@ QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingDir(AgU25xxCounterTotal
 
 QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingDir(AgU25xxCounterTotalizeCountingDir totDir, QVector<AgU25xxCounterChannels> channels)
 {
-    QString cmdStr;
-    QTextStream cmdStrStream(&cmdStr);
-
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
-    QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
 
-    cmdStrStream << QObject::tr("DIR %1 (@")
-                    .arg(extGetCOUNterTotalizeCountingDir(totDir));
-
-    for (; iter != channelNums.cend(); ) {
-        if (iter != channelNums.cend() - 1)
-            cmdStrStream << *iter << ',';
-        else
-            cmdStrStream << *iter << ')';
-
-        ++iter;
-    }
+    QString cmdStr = QObject::tr("DIR %1 %2")
+            .arg(extGetCOUNterTotalizeCountingDir(totDir))
+            .arg(extCreateChannelsString(channelNums));
 
     return COUNterTotalizeUDOWnSubsubsystem.buildCommand(cmdStr);
 }
@@ -571,22 +535,10 @@ QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingDir(AgU25xxCounterChann
 
 QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingDir(QVector<AgU25xxCounterChannels> channels)
 {
-    QString cmdStr;
-    QTextStream cmdStrStream(&cmdStr);
-
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
-    QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
 
-    cmdStrStream << QString("DIR? (@");
-
-    for (; iter != channelNums.cend(); ) {
-        if (iter != channelNums.cend() - 1)
-            cmdStrStream << *iter << ',';
-        else
-            cmdStrStream << *iter << ')';
-
-        ++iter;
-    }
+    QString cmdStr = QObject::tr("DIR? %1")
+            .arg(extCreateChannelsString(channelNums));
 
     return COUNterTotalizeUDOWnSubsubsystem.buildCommand(cmdStr);
 }

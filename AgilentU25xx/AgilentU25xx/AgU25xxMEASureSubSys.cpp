@@ -149,6 +149,7 @@ QString AgU25xxMEASureSubSys::cmdMeasureDigitalBit(unsigned short bitNum, QVecto
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
 
     QString cmdStr = QObject::tr("BIT? %1,%2")
+            .arg(bitNum)
             .arg(extCreateChannelsString(channelNums));
 
     return DIGitalSubsystem.buildCommand(cmdStr);
