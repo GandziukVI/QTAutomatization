@@ -3,8 +3,9 @@
 
 #include "agilentu25xx_global.h"
 #include "IAgU25xxSubsystem.h"
+#include "IAgU25xxSubsystemExtensions.h"
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxMEASureSubSys : public IAg25xxSubsystem
+class AGILENTU25XXSHARED_EXPORT AgU25xxMEASureSubSys : public IAgU25xxSubsystem, public IAgU25xxSubsystemExtensions
 {
 public:
     AgU25xxMEASureSubSys();
@@ -27,8 +28,8 @@ public:
     QString cmdMeasureDigitalBit(unsigned short int bitNum, QVector<AgU25xxDigitalChannels> channels);
 
 private:
-    IAg25xxSubsystem COUNterSubsystem;
-    IAg25xxSubsystem DIGitalSubsystem;
+    IAgU25xxSubsystem COUNterSubsystem;
+    IAgU25xxSubsystem DIGitalSubsystem;
 };
 
 #endif // AGU25XXMEASURE_H

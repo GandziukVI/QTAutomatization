@@ -1,7 +1,8 @@
 #include "AgU25xxROUTeSubSys.h"
 
 AgU25xxROUTeSubSys::AgU25xxROUTeSubSys()
-    : IAg25xxSubsystem("ROUT")
+    : IAgU25xxSubsystem("ROUT"),
+      IAgU25xxSubsystemExtensions()
 {
     CHANnelSubSys = getSubSubSystem("CHAN");
 }
@@ -335,4 +336,3 @@ QString AgU25xxROUTeSubSys::cmdGetRouteEnabled(QVector<AgU25xxAOChannels> channe
 
     return buildCommand(cmdStr);
 }
-

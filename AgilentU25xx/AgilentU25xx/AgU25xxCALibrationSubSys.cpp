@@ -1,7 +1,8 @@
 #include "AgU25xxCALibrationSubSys.h"
 
 AgU25xxCALibrationSubSys::AgU25xxCALibrationSubSys()
-    : IAg25xxSubsystem("CAL")
+    : IAgU25xxSubsystem("CAL"),
+      IAgU25xxSubsystemExtensions()
 {
 }
 

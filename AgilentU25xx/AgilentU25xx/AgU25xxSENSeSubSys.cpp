@@ -1,7 +1,8 @@
 #include "AgU25xxSENSeSubSys.h"
 
 AgU25xxSENSeSubSys::AgU25xxSENSeSubSys()
-    : IAg25xxSubsystem("SENS")
+    : IAgU25xxSubsystem("SENS"),
+      IAgU25xxSubsystemExtensions()
 {
     VOLTageSubsystem = getSubSubSystem("VOLT");
     COUNterSubsystem = getSubSubSystem("COUN");

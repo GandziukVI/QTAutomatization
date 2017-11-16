@@ -2,10 +2,10 @@
 #define AGU25XXSENSESUBSYS_H
 
 #include "agilentu25xx_global.h"
-#include "AgU25xxDefinitions.h"
 #include "IAgU25xxSubsystem.h"
+#include "IAgU25xxSubsystemExtensions.h"
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxSENSeSubSys : public IAg25xxSubsystem
+class AGILENTU25XXSHARED_EXPORT AgU25xxSENSeSubSys : public IAgU25xxSubsystem, public IAgU25xxSubsystemExtensions
 {
 public:
     AgU25xxSENSeSubSys();
@@ -69,12 +69,12 @@ public:
     QString cmdGetCounterTOTalizeCountingDir(QVector<AgU25xxCounterChannels> channels);
 
 private:
-    IAg25xxSubsystem VOLTageSubsystem;
-    IAg25xxSubsystem COUNterSubsystem;
-    IAg25xxSubsystem COUNterGateSubsubsystem;
-    IAg25xxSubsystem COUNterClockSubsubsystem;
-    IAg25xxSubsystem COUNterTotalizeSubsubsystem;
-    IAg25xxSubsystem COUNterTotalizeUDOWnSubsubsystem;
+    IAgU25xxSubsystem VOLTageSubsystem;
+    IAgU25xxSubsystem COUNterSubsystem;
+    IAgU25xxSubsystem COUNterGateSubsubsystem;
+    IAgU25xxSubsystem COUNterClockSubsubsystem;
+    IAgU25xxSubsystem COUNterTotalizeSubsubsystem;
+    IAgU25xxSubsystem COUNterTotalizeUDOWnSubsubsystem;
 };
 
 #endif // AGU25XXSENSESUBSYS_H

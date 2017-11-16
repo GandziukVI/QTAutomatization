@@ -3,8 +3,9 @@
 
 #include "agilentu25xx_global.h"
 #include "IAgU25xxSubsystem.h"
+#include "IAgU25xxSubsystemExtensions.h"
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxCONFigureSubSys : public IAg25xxSubsystem
+class AGILENTU25XXSHARED_EXPORT AgU25xxCONFigureSubSys : public IAgU25xxSubsystem, public IAgU25xxSubsystemExtensions
 {
 public:
     AgU25xxCONFigureSubSys();
@@ -22,8 +23,8 @@ public:
     QString cmdGetSSIMode();
 
 private:
-    IAg25xxSubsystem DIGitalSubsystem;
-    IAg25xxSubsystem TIMEbaseSubsystem;
+    IAgU25xxSubsystem DIGitalSubsystem;
+    IAgU25xxSubsystem TIMEbaseSubsystem;
 };
 
 #endif // AGU25XXCONFIGURE_H

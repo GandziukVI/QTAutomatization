@@ -2,10 +2,10 @@
 #define AGU25XXROUTESUBSYS_H
 
 #include "agilentu25xx_global.h"
-#include "AgU25xxDefinitions.h"
 #include "IAgU25xxSubsystem.h"
+#include "IAgU25xxSubsystemExtensions.h"
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxROUTeSubSys : public IAg25xxSubsystem
+class AGILENTU25XXSHARED_EXPORT AgU25xxROUTeSubSys : public IAgU25xxSubsystem, public IAgU25xxSubsystemExtensions
 {
 public:
     AgU25xxROUTeSubSys();
@@ -34,7 +34,7 @@ public:
     QString cmdGetRouteEnabled(QVector<AgU25xxAOChannels> channels);
 
 private:
-    IAg25xxSubsystem CHANnelSubSys;
+    IAgU25xxSubsystem CHANnelSubSys;
 };
 
 #endif // AGU25XXROUTESUBSYS_H

@@ -3,9 +3,9 @@
 
 #include "agilentu25xx_global.h"
 #include "IAgU25xxSubsystem.h"
-#include "AgU25xxDefinitions.h"
+#include "IAgU25xxSubsystemExtensions.h"
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxOUTPutSubSys : public IAg25xxSubsystem
+class AGILENTU25XXSHARED_EXPORT AgU25xxOUTPutSubSys : public IAgU25xxSubsystem, public IAgU25xxSubsystemExtensions
 {
 public:
     AgU25xxOUTPutSubSys();
@@ -35,10 +35,10 @@ public:
     QString cmdGetDTRiGgerPolarity();
 
 private:
-    IAg25xxSubsystem WAVeformSubsystem;
-    IAg25xxSubsystem TRIGgerSubsystem;
-    IAg25xxSubsystem TRIGgerATRiGgerSubsystem;
-    IAg25xxSubsystem TRIGgerDTRiGgerSubsystem;
+    IAgU25xxSubsystem WAVeformSubsystem;
+    IAgU25xxSubsystem TRIGgerSubsystem;
+    IAgU25xxSubsystem TRIGgerATRiGgerSubsystem;
+    IAgU25xxSubsystem TRIGgerDTRiGgerSubsystem;
 };
 
 #endif // AGU25XXOUTPUT_H

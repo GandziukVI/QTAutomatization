@@ -1,7 +1,8 @@
 #include "AgU25xxMEASureSubSys.h"
 
 AgU25xxMEASureSubSys::AgU25xxMEASureSubSys()
-    : IAg25xxSubsystem("MEAS")
+    : IAgU25xxSubsystem("MEAS"),
+      IAgU25xxSubsystemExtensions()
 {
     COUNterSubsystem = getSubSubSystem("COUN");
     DIGitalSubsystem = getSubSubSystem("DIG");

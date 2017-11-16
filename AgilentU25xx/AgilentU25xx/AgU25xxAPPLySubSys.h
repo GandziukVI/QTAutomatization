@@ -3,10 +3,10 @@
 
 #include "agilentu25xx_global.h"
 #include "IAgU25xxSubsystem.h"
-#include "AgU25xxDefinitions.h"
+#include "IAgU25xxSubsystemExtensions.h"
 
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxAPPLySubSys : public IAg25xxSubsystem
+class AGILENTU25XXSHARED_EXPORT AgU25xxAPPLySubSys : public IAgU25xxSubsystem, public IAgU25xxSubsystemExtensions
 {
 public:
     AgU25xxAPPLySubSys();

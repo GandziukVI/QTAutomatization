@@ -1,7 +1,8 @@
 #include "AgU25xxACQuireSubSys.h"
 
 AgU25xxACQuireSubSys::AgU25xxACQuireSubSys()
-    : IAg25xxSubsystem("ACQ")
+    : IAgU25xxSubsystem("ACQ"),
+      IAgU25xxSubsystemExtensions()
 {
 }
 

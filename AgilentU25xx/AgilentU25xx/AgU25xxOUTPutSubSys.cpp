@@ -1,7 +1,8 @@
 #include "AgU25xxOUTPutSubSys.h"
 
 AgU25xxOUTPutSubSys::AgU25xxOUTPutSubSys()
-    : IAg25xxSubsystem("OUTP")
+    : IAgU25xxSubsystem("OUTP"),
+      IAgU25xxSubsystemExtensions()
 {
     WAVeformSubsystem = getSubSubSystem("WAV");
     TRIGgerSubsystem  = getSubSubSystem("TRIG");

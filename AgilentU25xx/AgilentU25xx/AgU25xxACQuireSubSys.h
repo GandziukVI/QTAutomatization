@@ -4,10 +4,11 @@
 #include "agilentu25xx_global.h"
 
 #include "IAgU25xxSubsystem.h"
+#include "IAgU25xxSubsystemExtensions.h"
 
 #include <QString>
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxACQuireSubSys : public IAg25xxSubsystem
+class AGILENTU25XXSHARED_EXPORT AgU25xxACQuireSubSys : public IAgU25xxSubsystem, public IAgU25xxSubsystemExtensions
 {
 public:
     AgU25xxACQuireSubSys();

@@ -1,7 +1,8 @@
 #include "AgU25xxCONFigureSubSys.h"
 
 AgU25xxCONFigureSubSys::AgU25xxCONFigureSubSys()
-    : IAg25xxSubsystem("CONF")
+    : IAgU25xxSubsystem("CONF"),
+      IAgU25xxSubsystemExtensions()
 {
     DIGitalSubsystem = getSubSubSystem("DIG");
     TIMEbaseSubsystem = getSubSubSystem("TIME");

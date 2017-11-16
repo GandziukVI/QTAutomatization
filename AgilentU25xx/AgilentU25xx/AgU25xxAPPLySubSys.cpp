@@ -1,7 +1,8 @@
 #include "AgU25xxAPPLySubSys.h"
 
 AgU25xxAPPLySubSys::AgU25xxAPPLySubSys()
-    : IAg25xxSubsystem("APPL")
+    : IAgU25xxSubsystem("APPL"),
+      IAgU25xxSubsystemExtensions()
 {
 }
 
