@@ -44,6 +44,11 @@ protected:
     const char*           extGetOutputATRiGgerSource(AgU25xxOUTPut::ATRiGgerSources triggerSource) const;
     const char*           extGetOutputATRiGgerCondition(AgU25xxOUTPut::ATRiGgerConditions triggerCondition) const;
     const char*           extGetOutputDTRiGgerPolarity(AgU25xxOUTPut::DTRiGgerPolarities triggerPolarity) const;
+    unsigned int          extGetAnalogInChannel(AgU25xxROUTe::AnalogInChannels channel) const;
+    QVector<unsigned int> extGetAnalogInChannels(QVector<AgU25xxROUTe::AnalogInChannels> channels) const;
+    double                extGetAnalogInChannelRange(AgU25xxROUTe::AnalogInChannelRanges range) const;
+    const char*           extGetAnalogInChannelPolarity(AgU25xxROUTe::AnalogInChannelPolaities polarity) const;
+    const char*           extGetAnalogOutChannelRefereceSource(AgU25xxROUTe::AnalogOutChannelRSouRCes rSource) const;
 
 private:
     QString commandString;

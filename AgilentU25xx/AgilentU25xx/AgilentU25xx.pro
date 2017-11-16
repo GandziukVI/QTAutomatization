@@ -18,7 +18,8 @@ SOURCES += AgilentU25xx.cpp \
     AgU25xxAPPLySubSys.cpp \
     AgU25xxCONFigureSubSys.cpp \
     AgU25xxCALibrationSubSys.cpp \
-    AgU25xxMEASureSubSys.cpp
+    AgU25xxMEASureSubSys.cpp \
+    AgU25xxROUTeSubSys.cpp
 
 HEADERS += AgilentU25xx.h\
         agilentu25xx_global.h \
@@ -29,7 +30,8 @@ HEADERS += AgilentU25xx.h\
     AgU25xxAPPLySubSys.h \
     AgU25xxCALibrationSubSys.h \
     AgU25xxCONFigureSubSys.h \
-    AgU25xxMEASureSubSys.h
+    AgU25xxMEASureSubSys.h \
+    AgU25xxROUTeSubSys.h
 
 unix {
     target.path = /usr/lib

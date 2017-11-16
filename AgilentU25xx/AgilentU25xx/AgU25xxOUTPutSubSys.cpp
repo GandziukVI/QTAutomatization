@@ -71,7 +71,7 @@ QString AgU25xxOUTPutSubSys::cmdSetTRIGSource(AgU25xxOUTPut::TriggerSources trig
 QString AgU25xxOUTPutSubSys::cmdGetTRIGSource()
 {
     QString cmdStr = QString("SOUR?");
-    return TRIGgerSubsystem.buildCommand(cndStr);
+    return TRIGgerSubsystem.buildCommand(cmdStr);
 }
 
 QString AgU25xxOUTPutSubSys::cmdSetTRIGType(AgU25xxOUTPut::TriggerTypes triggerType)

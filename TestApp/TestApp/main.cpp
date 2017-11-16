@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     AgU25xxMEASureSubSys commands;
 
-    qDebug() << commands.cmdMeasureDigitalBit(1, AgU25xxDIGital::DigitalChannels::D01).toStdString().c_str();
+    qDebug() << commands.cmdMeasureDigitalBit(1, AgU25xxDIGital::DigitalChannels::DIG01).toStdString().c_str();
 
 //    Keithley4200SMUChannel smu;
 

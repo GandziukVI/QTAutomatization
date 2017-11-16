@@ -86,13 +86,13 @@ unsigned int IAg25xxSubsystem::extGetDigChannel(AgU25xxDIGital::DigitalChannels 
 {
     switch (channel) {
 
-    case AgU25xxDIGital::DigitalChannels::D01:
+    case AgU25xxDIGital::DigitalChannels::DIG01:
         return 501;
-    case AgU25xxDIGital::DigitalChannels::D02:
+    case AgU25xxDIGital::DigitalChannels::DIG02:
         return 502;
-    case AgU25xxDIGital::DigitalChannels::D03:
+    case AgU25xxDIGital::DigitalChannels::DIG03:
         return 503;
-    case AgU25xxDIGital::DigitalChannels::D04:
+    case AgU25xxDIGital::DigitalChannels::DIG04:
         return 504;
     }
 
@@ -241,7 +241,7 @@ const char* IAg25xxSubsystem::extGetOutputTriggerSource(AgU25xxOUTPut::TriggerSo
     return "NONE";
 }
 
-const char *IAg25xxSubsystem::extGetOutputTriggerType(AgU25xxOUTPut::TriggerTypes triggerType) const
+const char* IAg25xxSubsystem::extGetOutputTriggerType(AgU25xxOUTPut::TriggerTypes triggerType) const
 {
     switch (triggerType) {
 
@@ -298,4 +298,77 @@ const char* IAg25xxSubsystem::extGetOutputDTRiGgerPolarity(AgU25xxOUTPut::DTRiGg
     }
 
     return "POS";
+}
+
+unsigned int IAg25xxSubsystem::extGetAnalogInChannel(AgU25xxROUTe::AnalogInChannels channel) const
+{
+    switch (channel) {
+
+    case AgU25xxROUTe::AnalogInChannels::AIn01:
+        return 101;
+    case AgU25xxROUTe::AnalogInChannels::AIn02:
+        return 102;
+    case AgU25xxROUTe::AnalogInChannels::AIn03:
+        return 103;
+    case AgU25xxROUTe::AnalogInChannels::AIn04:
+        return 104;
+    }
+
+    return 101;
+}
+
+QVector<unsigned int> IAg25xxSubsystem::extGetAnalogInChannels(QVector<AgU25xxROUTe::AnalogInChannels> channels) const
+{
+    QVector<unsigned int> res;
+    QVector<AgU25xxROUTe::AnalogInChannels>::const_iterator iter = channels.cbegin();
+
+    for (; iter != channels.cend(); ) {
+        res.push_back(extGetAnalogInChannel(*iter));
+        ++iter;
+    }
+
+    return res;
+}
+
+double IAg25xxSubsystem::extGetAnalogInChannelRange(AgU25xxROUTe::AnalogInChannelRanges range) const
+{
+    switch (range) {
+
+    case AgU25xxROUTe::AnalogInChannelRanges::Range10V:
+        return 10.0;
+    case AgU25xxROUTe::AnalogInChannelRanges::Range5V:
+        return 5.0;
+    case AgU25xxROUTe::AnalogInChannelRanges::Range2_5V:
+        return 2.5;
+    case AgU25xxROUTe::AnalogInChannelRanges::Range1_25V:
+        return 1.25;
+    }
+
+    return 10.0;
+}
+
+const char* IAg25xxSubsystem::extGetAnalogInChannelPolarity(AgU25xxROUTe::AnalogInChannelPolaities polarity) const
+{
+    switch (polarity) {
+
+    case AgU25xxROUTe::AnalogInChannelPolaities::BIP:
+        return "BIP";
+    case AgU25xxROUTe::AnalogInChannelPolaities::UNIP:
+        return "UNIP";
+    }
+
+    return"BIP";
+}
+
+const char *IAg25xxSubsystem::extGetAnalogOutChannelRefereceSource(AgU25xxROUTe::AnalogOutChannelRSouRCes rSource) const
+{
+    switch (rSource) {
+
+    case AgU25xxROUTe::AnalogOutChannelRSouRCes::INT:
+        return "INT";
+    case AgU25xxROUTe::AnalogOutChannelRSouRCes::EXT:
+        return "EXT";
+    }
+
+    return "INT";
 }

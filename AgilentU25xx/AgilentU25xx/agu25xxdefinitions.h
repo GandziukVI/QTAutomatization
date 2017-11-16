@@ -47,6 +47,38 @@ namespace AgU25xxOUTPut
     };
 }
 
+namespace AgU25xxROUTe
+{
+    enum class AGILENTU25XXSHARED_EXPORT AnalogInChannels {
+        AIn01,
+        AIn02,
+        AIn03,
+        AIn04
+    };
+
+    enum class AGILENTU25XXSHARED_EXPORT AnalogInChannelRanges {
+        Range10V,
+        Range5V,
+        Range2_5V,
+        Range1_25V
+    };
+
+    enum class AGILENTU25XXSHARED_EXPORT AnalogInChannelPolaities {
+        BIP,
+        UNIP
+    };
+
+    enum class AGILENTU25XXSHARED_EXPORT AnalogOutChannels {
+        AOut01,
+        AOut02
+    };
+
+    enum class AGILENTU25XXSHARED_EXPORT AnalogOutChannelRSouRCes {
+        INT,
+        EXT
+    };
+}
+
 namespace AgU25xxDIGital
 {
     enum class AGILENTU25XXSHARED_EXPORT DigitalDirection {
@@ -55,10 +87,10 @@ namespace AgU25xxDIGital
     };
 
     enum class AGILENTU25XXSHARED_EXPORT DigitalChannels {
-        D01,
-        D02,
-        D03,
-        D04
+        DIG01,
+        DIG02,
+        DIG03,
+        DIG04
     };
 }
 
