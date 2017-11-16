@@ -184,3 +184,29 @@ QVector<unsigned int> IAg25xxSubsystem::extGetVoltageChannels(QVector<AgU25xxVOL
 
     return res;
 }
+
+unsigned int IAg25xxSubsystem::extGetCounterChannel(AgU25xxCOUNter::CounterChannels channel) const
+{
+    switch (channel) {
+
+    case AgU25xxCOUNter::CounterChannels::CH01:
+            return 301;
+    case AgU25xxCOUNter::CounterChannels::CH02:
+            return 302;
+    }
+
+    return 301;
+}
+
+QVector<unsigned int> IAg25xxSubsystem::extGetCounterChannels(QVector<AgU25xxCOUNter::CounterChannels> channels) const
+{
+    QVector<unsigned int> res;
+    QVector<AgU25xxCOUNter::CounterChannels>::const_iterator iter = channels.cbegin();
+
+    for (; iter != channels.cend(); ) {
+        res.push_back(extGetCounterChannel(*iter));
+        ++iter;
+    }
+
+    return res;
+}

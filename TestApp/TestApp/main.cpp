@@ -16,18 +16,24 @@
 
 #include <Keithley4200SMUChannel.h>
 
+#include <AgU25xxMEASure.h>
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    Keithley4200SMUChannel smu;
+    AgU25xxMEASure commands;
 
-    smu.SwitchOFF();
-    smu.SwitchOFF();
-    smu.SetSourceVoltage(20.0);
-    smu.SwitchOFF();
-    smu.SetSourceVoltage(20.0);
-    smu.SetSourceVoltage(20.0);
+    qDebug() << commands.cmdMeasureDigitalBit(1, AgU25xxDIGital::DigitalChannels::D01).toStdString().c_str();
+
+//    Keithley4200SMUChannel smu;
+
+//    smu.SwitchOFF();
+//    smu.SwitchOFF();
+//    smu.SetSourceVoltage(20.0);
+//    smu.SwitchOFF();
+//    smu.SetSourceVoltage(20.0);
+//    smu.SetSourceVoltage(20.0);
 
 
 //    Keithley4200ChannelDefinitionPage defPage;

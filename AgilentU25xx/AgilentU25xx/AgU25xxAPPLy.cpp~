@@ -205,15 +205,15 @@ QString AgU25xxAPPLy::cmdApplyNoise(double amplitude, double offset, QVector<AgU
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplyUser(AgU25xxAnalogOutput::AOChannels channel)
+QString AgU25xxAPPLy::cmdApplyUser(double amplitude, double offset, AgU25xxAnalogOutput::AOChannels channel)
 {
     QString cmdStr = QObject::tr("USER (@%1)")
-            .arg(extGetAOChannel(channel));
+            .arg(amplitude);
 
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplyUser(QVector<AgU25xxAnalogOutput::AOChannels> channels)
+QString AgU25xxAPPLy::cmdApplyUser(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();

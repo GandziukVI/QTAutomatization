@@ -23,8 +23,8 @@ public:
     QString cmdApplyTriangleWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels);
     QString cmdApplyNoise(double amplitude, double offset, AgU25xxAnalogOutput::AOChannels channel);
     QString cmdApplyNoise(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels);
-    QString cmdApplyUser(double amplitude, double offset, AgU25xxAnalogOutput::AOChannels channel);
-    QString cmdApplyUser(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels);
+    QString cmdApplyUser(AgU25xxAnalogOutput::AOChannels channel);
+    QString cmdApplyUser(QVector<AgU25xxAnalogOutput::AOChannels> channels);
 };
 
 #endif // AGU25XXAPPLY_H

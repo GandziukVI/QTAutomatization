@@ -45,6 +45,14 @@ namespace AgU25xxVOLTage
     };
 }
 
+namespace AgU25xxCOUNter
+{
+    enum class AGILENTU25XXSHARED_EXPORT CounterChannels {
+        CH01,
+        CH02
+    };
+}
+
 enum class AGILENTU25XXSHARED_EXPORT SSIModes {
     None,
     Master,

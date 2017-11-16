@@ -39,3 +39,9 @@ else:unix: LIBS += -L$$OUT_PWD/../../Keithley4200/ -lKeithley4200
 
 INCLUDEPATH += $$PWD/../../Keithley4200
 DEPENDPATH += $$PWD/../../Keithley4200
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../AgilentU25xx/AgilentU25xx/release/ -lAgilentU25xx
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../AgilentU25xx/AgilentU25xx/debug/ -lAgilentU25xx
+
+INCLUDEPATH += $$PWD/../../AgilentU25xx/AgilentU25xx
+DEPENDPATH += $$PWD/../../AgilentU25xx/AgilentU25xx

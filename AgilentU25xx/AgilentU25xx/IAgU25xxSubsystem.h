@@ -36,6 +36,8 @@ protected:
     const char*           extGetSSIMode(SSIModes ssiMode) const;
     unsigned int          extGetVoltageChannel(AgU25xxVOLTage::VoltageChannels channel) const;
     QVector<unsigned int> extGetVoltageChannels(QVector<AgU25xxVOLTage::VoltageChannels> channels) const;
+    unsigned int          extGetCounterChannel(AgU25xxCOUNter::CounterChannels channel) const;
+    QVector<unsigned int> extGetCounterChannels(QVector<AgU25xxCOUNter::CounterChannels> channels) const;
 
 private:
     QString commandString;
