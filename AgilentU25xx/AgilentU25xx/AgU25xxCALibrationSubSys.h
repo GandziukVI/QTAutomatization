@@ -4,10 +4,10 @@
 #include "agilentu25xx_global.h"
 #include "IAgU25xxSubsystem.h"
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxCALibration : public IAg25xxSubsystem
+class AGILENTU25XXSHARED_EXPORT AgU25xxCALibrationSubSys : public IAg25xxSubsystem
 {
 public:
-    AgU25xxCALibration();
+    AgU25xxCALibrationSubSys();
 
     QString cmdStartSelfCalibration();
     QString cmdCheckCalibrationStatus();

@@ -7,10 +7,10 @@
 
 #include <QString>
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxACQuire : public IAg25xxSubsystem
+class AGILENTU25XXSHARED_EXPORT AgU25xxACQuireSubSys : public IAg25xxSubsystem
 {
 public:
-    AgU25xxACQuire();
+    AgU25xxACQuireSubSys();
 
     QString cmdSetSamplingRate(const unsigned int samplingRate);
     QString cmdGetSamplingrate();

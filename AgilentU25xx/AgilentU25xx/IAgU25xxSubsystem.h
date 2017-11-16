@@ -27,8 +27,8 @@ public:
 
 protected:
     void                  extCopyString(char* dest, const char* src) const;
-    unsigned int          extGetAOChannel(AgU25xxAnalogOutput::AOChannels channel) const;
-    QVector<unsigned int> extGetAOChannels(QVector<AgU25xxAnalogOutput::AOChannels> channels) const;
+    unsigned int          extGetAOChannel(AgU25xxOUTPut::AOChannels channel) const;
+    QVector<unsigned int> extGetAOChannels(QVector<AgU25xxOUTPut::AOChannels> channels) const;
     unsigned int          extGetDigChannel(AgU25xxDIGital::DigitalChannels channel) const;
     QVector<unsigned int> extGetDigChannels(QVector<AgU25xxDIGital::DigitalChannels> channels) const;
     const char*           extGetDigDirection(AgU25xxDIGital::DigitalDirection direction) const;
@@ -38,6 +38,12 @@ protected:
     QVector<unsigned int> extGetVoltageChannels(QVector<AgU25xxVOLTage::VoltageChannels> channels) const;
     unsigned int          extGetCounterChannel(AgU25xxCOUNter::CounterChannels channel) const;
     QVector<unsigned int> extGetCounterChannels(QVector<AgU25xxCOUNter::CounterChannels> channels) const;
+    unsigned int          extGetOutputState(AgU25xxOUTPut::OutputState outpState) const;
+    const char*           extGetOutputTriggerSource(AgU25xxOUTPut::TriggerSources triggerSource) const;
+    const char*           extGetOutputTriggerType(AgU25xxOUTPut::TriggerTypes triggerType) const;
+    const char*           extGetOutputATRiGgerSource(AgU25xxOUTPut::ATRiGgerSources triggerSource) const;
+    const char*           extGetOutputATRiGgerCondition(AgU25xxOUTPut::ATRiGgerConditions triggerCondition) const;
+    const char*           extGetOutputDTRiGgerPolarity(AgU25xxOUTPut::DTRiGgerPolarities triggerPolarity) const;
 
 private:
     QString commandString;

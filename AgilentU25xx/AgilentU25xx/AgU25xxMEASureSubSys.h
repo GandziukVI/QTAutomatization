@@ -4,10 +4,10 @@
 #include "agilentu25xx_global.h"
 #include "IAgU25xxSubsystem.h"
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxMEASure : public IAg25xxSubsystem
+class AGILENTU25XXSHARED_EXPORT AgU25xxMEASureSubSys : public IAg25xxSubsystem
 {
 public:
-    AgU25xxMEASure();
+    AgU25xxMEASureSubSys();
 
     QString cmdMeasureVoltage(AgU25xxVOLTage::VoltageChannels channel);
     QString cmdMeasureVoltage(QVector<AgU25xxVOLTage::VoltageChannels> channels);

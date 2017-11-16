@@ -1,13 +1,13 @@
-#include "AgU25xxMEASure.h"
+#include "AgU25xxMEASureSubSys.h"
 
-AgU25xxMEASure::AgU25xxMEASure()
+AgU25xxMEASureSubSys::AgU25xxMEASureSubSys()
     : IAg25xxSubsystem("MEAS")
 {
     COUNterSubsystem = getSubSubSystem("COUN");
     DIGitalSubsystem = getSubSubSystem("DIG");
 }
 
-QString AgU25xxMEASure::cmdMeasureVoltage(AgU25xxVOLTage::VoltageChannels channel)
+QString AgU25xxMEASureSubSys::cmdMeasureVoltage(AgU25xxVOLTage::VoltageChannels channel)
 {
     QString cmdStr = QObject::tr("VOLT:DC? (@%1)")
             .arg(extGetVoltageChannel(channel));
@@ -15,7 +15,7 @@ QString AgU25xxMEASure::cmdMeasureVoltage(AgU25xxVOLTage::VoltageChannels channe
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureVoltage(QVector<AgU25xxVOLTage::VoltageChannels> channels)
+QString AgU25xxMEASureSubSys::cmdMeasureVoltage(QVector<AgU25xxVOLTage::VoltageChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetVoltageChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -37,7 +37,7 @@ QString AgU25xxMEASure::cmdMeasureVoltage(QVector<AgU25xxVOLTage::VoltageChannel
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureCounterData(AgU25xxCOUNter::CounterChannels channel)
+QString AgU25xxMEASureSubSys::cmdMeasureCounterData(AgU25xxCOUNter::CounterChannels channel)
 {
     QString cmdStr = QObject::tr("DATA? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -45,7 +45,7 @@ QString AgU25xxMEASure::cmdMeasureCounterData(AgU25xxCOUNter::CounterChannels ch
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureCounterData(QVector<AgU25xxCOUNter::CounterChannels> channels)
+QString AgU25xxMEASureSubSys::cmdMeasureCounterData(QVector<AgU25xxCOUNter::CounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -67,7 +67,7 @@ QString AgU25xxMEASure::cmdMeasureCounterData(QVector<AgU25xxCOUNter::CounterCha
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureCounterFrequency(AgU25xxCOUNter::CounterChannels channel)
+QString AgU25xxMEASureSubSys::cmdMeasureCounterFrequency(AgU25xxCOUNter::CounterChannels channel)
 {
     QString cmdStr = QObject::tr("FREQ? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -75,7 +75,7 @@ QString AgU25xxMEASure::cmdMeasureCounterFrequency(AgU25xxCOUNter::CounterChanne
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureCounterFrequency(QVector<AgU25xxCOUNter::CounterChannels> channels)
+QString AgU25xxMEASureSubSys::cmdMeasureCounterFrequency(QVector<AgU25xxCOUNter::CounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -97,7 +97,7 @@ QString AgU25xxMEASure::cmdMeasureCounterFrequency(QVector<AgU25xxCOUNter::Count
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureCounterPeriod(AgU25xxCOUNter::CounterChannels channel)
+QString AgU25xxMEASureSubSys::cmdMeasureCounterPeriod(AgU25xxCOUNter::CounterChannels channel)
 {
     QString cmdStr = QObject::tr("PER? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -105,7 +105,7 @@ QString AgU25xxMEASure::cmdMeasureCounterPeriod(AgU25xxCOUNter::CounterChannels 
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureCounterPeriod(QVector<AgU25xxCOUNter::CounterChannels> channels)
+QString AgU25xxMEASureSubSys::cmdMeasureCounterPeriod(QVector<AgU25xxCOUNter::CounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -127,7 +127,7 @@ QString AgU25xxMEASure::cmdMeasureCounterPeriod(QVector<AgU25xxCOUNter::CounterC
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureCounterPulseWidth(AgU25xxCOUNter::CounterChannels channel)
+QString AgU25xxMEASureSubSys::cmdMeasureCounterPulseWidth(AgU25xxCOUNter::CounterChannels channel)
 {
     QString cmdStr = QObject::tr("PWID? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -135,7 +135,7 @@ QString AgU25xxMEASure::cmdMeasureCounterPulseWidth(AgU25xxCOUNter::CounterChann
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureCounterPulseWidth(QVector<AgU25xxCOUNter::CounterChannels> channels)
+QString AgU25xxMEASureSubSys::cmdMeasureCounterPulseWidth(QVector<AgU25xxCOUNter::CounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -157,7 +157,7 @@ QString AgU25xxMEASure::cmdMeasureCounterPulseWidth(QVector<AgU25xxCOUNter::Coun
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureCounterTotalize(AgU25xxCOUNter::CounterChannels channel)
+QString AgU25xxMEASureSubSys::cmdMeasureCounterTotalize(AgU25xxCOUNter::CounterChannels channel)
 {
     QString cmdStr = QObject::tr("TOT? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -165,7 +165,7 @@ QString AgU25xxMEASure::cmdMeasureCounterTotalize(AgU25xxCOUNter::CounterChannel
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureCounterTotalize(QVector<AgU25xxCOUNter::CounterChannels> channels)
+QString AgU25xxMEASureSubSys::cmdMeasureCounterTotalize(QVector<AgU25xxCOUNter::CounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -187,7 +187,7 @@ QString AgU25xxMEASure::cmdMeasureCounterTotalize(QVector<AgU25xxCOUNter::Counte
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureDigitalByte(AgU25xxDIGital::DigitalChannels channel)
+QString AgU25xxMEASureSubSys::cmdMeasureDigitalByte(AgU25xxDIGital::DigitalChannels channel)
 {
     QString cmdStr = QObject::tr("DIG? (@%1)")
             .arg(extGetDigChannel(channel));
@@ -195,7 +195,7 @@ QString AgU25xxMEASure::cmdMeasureDigitalByte(AgU25xxDIGital::DigitalChannels ch
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureDigitalByte(QVector<AgU25xxDIGital::DigitalChannels> channels)
+QString AgU25xxMEASureSubSys::cmdMeasureDigitalByte(QVector<AgU25xxDIGital::DigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -217,7 +217,7 @@ QString AgU25xxMEASure::cmdMeasureDigitalByte(QVector<AgU25xxDIGital::DigitalCha
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureDigitalBit(unsigned short bitNum, AgU25xxDIGital::DigitalChannels channel)
+QString AgU25xxMEASureSubSys::cmdMeasureDigitalBit(unsigned short bitNum, AgU25xxDIGital::DigitalChannels channel)
 {
     QString cmdStr = QObject::tr("BIT? %1,(@%2)")
             .arg(bitNum)
@@ -226,7 +226,7 @@ QString AgU25xxMEASure::cmdMeasureDigitalBit(unsigned short bitNum, AgU25xxDIGit
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASure::cmdMeasureDigitalBit(unsigned short bitNum, QVector<AgU25xxDIGital::DigitalChannels> channels)
+QString AgU25xxMEASureSubSys::cmdMeasureDigitalBit(unsigned short bitNum, QVector<AgU25xxDIGital::DigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();

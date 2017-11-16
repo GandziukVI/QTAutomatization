@@ -16,13 +16,13 @@
 
 #include <Keithley4200SMUChannel.h>
 
-#include <AgU25xxMEASure.h>
+#include <AgU25xxMEASureSubSys.h>
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    AgU25xxMEASure commands;
+    AgU25xxMEASureSubSys commands;
 
     qDebug() << commands.cmdMeasureDigitalBit(1, AgU25xxDIGital::DigitalChannels::D01).toStdString().c_str();
 

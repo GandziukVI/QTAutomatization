@@ -13,21 +13,23 @@ DEFINES += AGILENTU25XX_LIBRARY
 
 SOURCES += AgilentU25xx.cpp \
     IAgU25xxSubsystem.cpp \
-    AgU25xxACQuire.cpp \
-    AgU25xxAPPLy.cpp \
-    AgU25xxCALibration.cpp \
-    AgU25xxCONFigure.cpp \
-    AgU25xxMEASure.cpp
+    AgU25xxOUTPutSubSys.cpp \
+    AgU25xxACQuireSubSys.cpp \
+    AgU25xxAPPLySubSys.cpp \
+    AgU25xxCONFigureSubSys.cpp \
+    AgU25xxCALibrationSubSys.cpp \
+    AgU25xxMEASureSubSys.cpp
 
 HEADERS += AgilentU25xx.h\
         agilentu25xx_global.h \
     IAgU25xxSubsystem.h \
-    AgU25xxACQuire.h \
-    AgU25xxAPPLy.h \
     AgU25xxDefinitions.h \
-    AgU25xxCALibration.h \
-    AgU25xxCONFigure.h \
-    AgU25xxMEASure.h
+    AgU25xxOUTPutSubSys.h \
+    AgU25xxACQuireSubSys.h \
+    AgU25xxAPPLySubSys.h \
+    AgU25xxCALibrationSubSys.h \
+    AgU25xxCONFigureSubSys.h \
+    AgU25xxMEASureSubSys.h
 
 unix {
     target.path = /usr/lib

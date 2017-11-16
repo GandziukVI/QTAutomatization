@@ -4,11 +4,11 @@
 #include "agilentu25xx_global.h"
 #include "IAgU25xxSubsystem.h"
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxCONFigure : public IAg25xxSubsystem
+class AGILENTU25XXSHARED_EXPORT AgU25xxCONFigureSubSys : public IAg25xxSubsystem
 {
 public:
-    AgU25xxCONFigure();
-    ~AgU25xxCONFigure();
+    AgU25xxCONFigureSubSys();
+    ~AgU25xxCONFigureSubSys();
 
     QString cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirection direction, AgU25xxDIGital::DigitalChannels channel);
     QString cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirection direction, QVector<AgU25xxDIGital::DigitalChannels> channels);

@@ -1,13 +1,13 @@
-#include "AgU25xxCONFigure.h"
+#include "AgU25xxCONFigureSubSys.h"
 
-AgU25xxCONFigure::AgU25xxCONFigure()
+AgU25xxCONFigureSubSys::AgU25xxCONFigureSubSys()
     : IAg25xxSubsystem("CONF")
 {
     DIGitalSubsystem = getSubSubSystem("DIG");
     TIMEbaseSubsystem = getSubSubSystem("TIME");
 }
 
-QString AgU25xxCONFigure::cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirection direction, AgU25xxDIGital::DigitalChannels channel)
+QString AgU25xxCONFigureSubSys::cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirection direction, AgU25xxDIGital::DigitalChannels channel)
 {
     QString cmdStr = QObject::tr("DIR %1,(@%2)")
             .arg(extGetDigDirection(direction))
@@ -16,7 +16,7 @@ QString AgU25xxCONFigure::cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirecti
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigure::cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirection direction, QVector<AgU25xxDIGital::DigitalChannels> channels)
+QString AgU25xxCONFigureSubSys::cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirection direction, QVector<AgU25xxDIGital::DigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -39,7 +39,7 @@ QString AgU25xxCONFigure::cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirecti
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigure::cmdGetConfDigitalDirection(AgU25xxDIGital::DigitalChannels channel)
+QString AgU25xxCONFigureSubSys::cmdGetConfDigitalDirection(AgU25xxDIGital::DigitalChannels channel)
 {
     QString cmdStr = QObject::tr("DIR? (@%1")
             .arg(extGetDigChannel(channel));
@@ -47,7 +47,7 @@ QString AgU25xxCONFigure::cmdGetConfDigitalDirection(AgU25xxDIGital::DigitalChan
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigure::cmdGetConfDigitalDirection(QVector<AgU25xxDIGital::DigitalChannels> channels)
+QString AgU25xxCONFigureSubSys::cmdGetConfDigitalDirection(QVector<AgU25xxDIGital::DigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -69,7 +69,7 @@ QString AgU25xxCONFigure::cmdGetConfDigitalDirection(QVector<AgU25xxDIGital::Dig
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigure::cmdSetTimeBaseSrc(AgU25xxTIMEbase::TimeSrcModes timeSrcMode)
+QString AgU25xxCONFigureSubSys::cmdSetTimeBaseSrc(AgU25xxTIMEbase::TimeSrcModes timeSrcMode)
 {
     QString cmdStr = QObject::tr("SOUR %1")
             .arg(extGetTimeBaseSrcMode(timeSrcMode));
@@ -77,13 +77,13 @@ QString AgU25xxCONFigure::cmdSetTimeBaseSrc(AgU25xxTIMEbase::TimeSrcModes timeSr
     return TIMEbaseSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigure::cmdGetTimeBaseSrc()
+QString AgU25xxCONFigureSubSys::cmdGetTimeBaseSrc()
 {
     QString cmdStr = QString("SOUR?");
     return TIMEbaseSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigure::cmdConfExtClockFreq(unsigned int frequency)
+QString AgU25xxCONFigureSubSys::cmdConfExtClockFreq(unsigned int frequency)
 {
     QString cmdStr = QObject::tr("ECL %1")
             .arg(frequency);
@@ -91,14 +91,14 @@ QString AgU25xxCONFigure::cmdConfExtClockFreq(unsigned int frequency)
     return TIMEbaseSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigure::cmdGetExtClockFreq()
+QString AgU25xxCONFigureSubSys::cmdGetExtClockFreq()
 {
     QString cmdStr = QString("ECL?");
 
     return TIMEbaseSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigure::cmdConfSSI(SSIModes ssiMode)
+QString AgU25xxCONFigureSubSys::cmdConfSSI(SSIModes ssiMode)
 {
     QString cmdStr = QObject::tr("SSI %1")
             .arg(extGetSSIMode(ssiMode));
@@ -106,7 +106,7 @@ QString AgU25xxCONFigure::cmdConfSSI(SSIModes ssiMode)
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigure::cmdGetSSIMode()
+QString AgU25xxCONFigureSubSys::cmdGetSSIMode()
 {
     QString cmdStr = QString("SSI?");
     return buildCommand(cmdStr);

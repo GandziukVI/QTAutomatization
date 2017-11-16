@@ -1,11 +1,11 @@
-#include "AgU25xxAPPLy.h"
+#include "AgU25xxAPPLySubSys.h"
 
-AgU25xxAPPLy::AgU25xxAPPLy()
+AgU25xxAPPLySubSys::AgU25xxAPPLySubSys()
     : IAg25xxSubsystem("APPL")
 {
 }
 
-QString AgU25xxAPPLy::cmdGetAOParams(AgU25xxAnalogOutput::AOChannels channel)
+QString AgU25xxAPPLySubSys::cmdGetAOParams(AgU25xxOUTPut::AOChannels channel)
 {
     QString cmdStr = QObject::tr("APPL? (@%1)")
             .arg(extGetAOChannel(channel));
@@ -13,7 +13,7 @@ QString AgU25xxAPPLy::cmdGetAOParams(AgU25xxAnalogOutput::AOChannels channel)
     return cmdStr;
 }
 
-QString AgU25xxAPPLy::cmdGetAOParams(QVector<AgU25xxAnalogOutput::AOChannels> channels)
+QString AgU25xxAPPLySubSys::cmdGetAOParams(QVector<AgU25xxOUTPut::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -35,7 +35,7 @@ QString AgU25xxAPPLy::cmdGetAOParams(QVector<AgU25xxAnalogOutput::AOChannels> ch
     return cmdStr;
 }
 
-QString AgU25xxAPPLy::cmdApplySineWave(double amplitude, double offset, AgU25xxAnalogOutput::AOChannels channel)
+QString AgU25xxAPPLySubSys::cmdApplySineWave(double amplitude, double offset, AgU25xxOUTPut::AOChannels channel)
 {
     QString cmdStr = QObject::tr("SIN %1,%2,(@%3)")
             .arg(amplitude)
@@ -45,7 +45,7 @@ QString AgU25xxAPPLy::cmdApplySineWave(double amplitude, double offset, AgU25xxA
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplySineWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
+QString AgU25xxAPPLySubSys::cmdApplySineWave(double amplitude, double offset, QVector<AgU25xxOUTPut::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -69,7 +69,7 @@ QString AgU25xxAPPLy::cmdApplySineWave(double amplitude, double offset, QVector<
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplySquareWave(double amplitude, double offset, AgU25xxAnalogOutput::AOChannels channel)
+QString AgU25xxAPPLySubSys::cmdApplySquareWave(double amplitude, double offset, AgU25xxOUTPut::AOChannels channel)
 {
     QString cmdStr = QObject::tr("SQU %1,%2,(@%3)")
             .arg(amplitude)
@@ -79,7 +79,7 @@ QString AgU25xxAPPLy::cmdApplySquareWave(double amplitude, double offset, AgU25x
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplySquareWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
+QString AgU25xxAPPLySubSys::cmdApplySquareWave(double amplitude, double offset, QVector<AgU25xxOUTPut::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -103,7 +103,7 @@ QString AgU25xxAPPLy::cmdApplySquareWave(double amplitude, double offset, QVecto
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplySawToothWave(double amplitude, double offset, AgU25xxAnalogOutput::AOChannels channel)
+QString AgU25xxAPPLySubSys::cmdApplySawToothWave(double amplitude, double offset, AgU25xxOUTPut::AOChannels channel)
 {
     QString cmdStr = QObject::tr("SAWT %1,%2,(@%3)")
             .arg(amplitude)
@@ -113,7 +113,7 @@ QString AgU25xxAPPLy::cmdApplySawToothWave(double amplitude, double offset, AgU2
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplySawToothWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
+QString AgU25xxAPPLySubSys::cmdApplySawToothWave(double amplitude, double offset, QVector<AgU25xxOUTPut::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -137,7 +137,7 @@ QString AgU25xxAPPLy::cmdApplySawToothWave(double amplitude, double offset, QVec
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplyTriangleWave(double amplitude, double offset, AgU25xxAnalogOutput::AOChannels channel)
+QString AgU25xxAPPLySubSys::cmdApplyTriangleWave(double amplitude, double offset, AgU25xxOUTPut::AOChannels channel)
 {
     QString cmdStr = QObject::tr("TRI %1,%2,(@%3)")
             .arg(amplitude)
@@ -147,7 +147,7 @@ QString AgU25xxAPPLy::cmdApplyTriangleWave(double amplitude, double offset, AgU2
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplyTriangleWave(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
+QString AgU25xxAPPLySubSys::cmdApplyTriangleWave(double amplitude, double offset, QVector<AgU25xxOUTPut::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -171,7 +171,7 @@ QString AgU25xxAPPLy::cmdApplyTriangleWave(double amplitude, double offset, QVec
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplyNoise(double amplitude, double offset, AgU25xxAnalogOutput::AOChannels channel)
+QString AgU25xxAPPLySubSys::cmdApplyNoise(double amplitude, double offset, AgU25xxOUTPut::AOChannels channel)
 {
     QString cmdStr = QObject::tr("NOIS %1,%2,(@%3)")
             .arg(amplitude)
@@ -181,7 +181,7 @@ QString AgU25xxAPPLy::cmdApplyNoise(double amplitude, double offset, AgU25xxAnal
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplyNoise(double amplitude, double offset, QVector<AgU25xxAnalogOutput::AOChannels> channels)
+QString AgU25xxAPPLySubSys::cmdApplyNoise(double amplitude, double offset, QVector<AgU25xxOUTPut::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -205,7 +205,7 @@ QString AgU25xxAPPLy::cmdApplyNoise(double amplitude, double offset, QVector<AgU
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplyUser(AgU25xxAnalogOutput::AOChannels channel)
+QString AgU25xxAPPLySubSys::cmdApplyUser(AgU25xxOUTPut::AOChannels channel)
 {
     QString cmdStr = QObject::tr("USER (@%1)")
             .arg(extGetAOChannel(channel));
@@ -213,7 +213,7 @@ QString AgU25xxAPPLy::cmdApplyUser(AgU25xxAnalogOutput::AOChannels channel)
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxAPPLy::cmdApplyUser(QVector<AgU25xxAnalogOutput::AOChannels> channels)
+QString AgU25xxAPPLySubSys::cmdApplyUser(QVector<AgU25xxOUTPut::AOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
