@@ -155,36 +155,6 @@ const char *IAg25xxSubsystem::extGetSSIMode(SSIModes ssiMode) const
     return "NONE";
 }
 
-unsigned int IAg25xxSubsystem::extGetVoltageChannel(AgU25xxVoltageChannels channel) const
-{
-    switch (channel) {
-
-    case AgU25xxVoltageChannels::CH01:
-        return 101;
-    case AgU25xxVoltageChannels::CH02:
-        return 102;
-    case AgU25xxVoltageChannels::CH03:
-        return 103;
-    case AgU25xxVoltageChannels::CH04:
-        return 104;
-    }
-
-    return 101;
-}
-
-QVector<unsigned int> IAg25xxSubsystem::extGetVoltageChannels(QVector<AgU25xxVoltageChannels> channels) const
-{
-    QVector<unsigned int> res;
-    QVector<AgU25xxVoltageChannels>::const_iterator iter = channels.cbegin();
-
-    for (; iter != channels.cend(); ) {
-        res.push_back(extGetVoltageChannel(*iter));
-        ++iter;
-    }
-
-    return res;
-}
-
 unsigned int IAg25xxSubsystem::extGetCounterChannel(AgU25xxCounterChannels channel) const
 {
     switch (channel) {

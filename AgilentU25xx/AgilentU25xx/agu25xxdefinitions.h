@@ -88,12 +88,12 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxTimeSrcModes {
     CCG
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxVoltageChannels {
-    CH01,
-    CH02,
-    CH03,
-    CH04
-};
+//enum class AGILENTU25XXSHARED_EXPORT AgU25xxVoltageChannels {
+//    CH01,
+//    CH02,
+//    CH03,
+//    CH04
+//};
 
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterChannels {
     CH01,

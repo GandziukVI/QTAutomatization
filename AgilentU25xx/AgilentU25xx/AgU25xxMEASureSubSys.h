@@ -9,8 +9,8 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxMEASureSubSys : public IAg25xxSubsystem
 public:
     AgU25xxMEASureSubSys();
 
-    QString cmdMeasureVoltage(AgU25xxVoltageChannels channel);
-    QString cmdMeasureVoltage(QVector<AgU25xxVoltageChannels> channels);
+    QString cmdMeasureVoltage(AgU25xxAInChannels channel);
+    QString cmdMeasureVoltage(QVector<AgU25xxAInChannels> channels);
     QString cmdMeasureCounterData(AgU25xxCounterChannels channel);
     QString cmdMeasureCounterData(QVector<AgU25xxCounterChannels> channels);
     QString cmdMeasureCounterFrequency(AgU25xxCounterChannels channel);

@@ -34,8 +34,6 @@ protected:
     const char*           extGetDigDirection(AgU25xxDigitalDirection direction) const;
     const char*           extGetTimeBaseSrcMode(AgU25xxTimeSrcModes timeBaseMode) const;
     const char*           extGetSSIMode(SSIModes ssiMode) const;
-    unsigned int          extGetVoltageChannel(AgU25xxVoltageChannels channel) const;
-    QVector<unsigned int> extGetVoltageChannels(QVector<AgU25xxVoltageChannels> channels) const;
     unsigned int          extGetCounterChannel(AgU25xxCounterChannels channel) const;
     QVector<unsigned int> extGetCounterChannels(QVector<AgU25xxCounterChannels> channels) const;
     unsigned int          extGetOutputState(AgU25xxOutputState outpState) const;
