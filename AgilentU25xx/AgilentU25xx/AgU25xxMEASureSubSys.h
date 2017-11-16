@@ -9,22 +9,22 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxMEASureSubSys : public IAg25xxSubsystem
 public:
     AgU25xxMEASureSubSys();
 
-    QString cmdMeasureVoltage(AgU25xxVOLTage::VoltageChannels channel);
-    QString cmdMeasureVoltage(QVector<AgU25xxVOLTage::VoltageChannels> channels);
-    QString cmdMeasureCounterData(AgU25xxCOUNter::CounterChannels channel);
-    QString cmdMeasureCounterData(QVector<AgU25xxCOUNter::CounterChannels> channels);
-    QString cmdMeasureCounterFrequency(AgU25xxCOUNter::CounterChannels channel);
-    QString cmdMeasureCounterFrequency(QVector<AgU25xxCOUNter::CounterChannels> channels);
-    QString cmdMeasureCounterPeriod(AgU25xxCOUNter::CounterChannels channel);
-    QString cmdMeasureCounterPeriod(QVector<AgU25xxCOUNter::CounterChannels> channels);
-    QString cmdMeasureCounterPulseWidth(AgU25xxCOUNter::CounterChannels channel);
-    QString cmdMeasureCounterPulseWidth(QVector<AgU25xxCOUNter::CounterChannels> channels);
-    QString cmdMeasureCounterTotalize(AgU25xxCOUNter::CounterChannels channel);
-    QString cmdMeasureCounterTotalize(QVector<AgU25xxCOUNter::CounterChannels> channels);
-    QString cmdMeasureDigitalByte(AgU25xxDIGital::DigitalChannels channel);
-    QString cmdMeasureDigitalByte(QVector<AgU25xxDIGital::DigitalChannels> channels);
-    QString cmdMeasureDigitalBit(unsigned short int bitNum, AgU25xxDIGital::DigitalChannels channel);
-    QString cmdMeasureDigitalBit(unsigned short int bitNum, QVector<AgU25xxDIGital::DigitalChannels> channels);
+    QString cmdMeasureVoltage(AgU25xxVoltageChannels channel);
+    QString cmdMeasureVoltage(QVector<AgU25xxVoltageChannels> channels);
+    QString cmdMeasureCounterData(AgU25xxCounterChannels channel);
+    QString cmdMeasureCounterData(QVector<AgU25xxCounterChannels> channels);
+    QString cmdMeasureCounterFrequency(AgU25xxCounterChannels channel);
+    QString cmdMeasureCounterFrequency(QVector<AgU25xxCounterChannels> channels);
+    QString cmdMeasureCounterPeriod(AgU25xxCounterChannels channel);
+    QString cmdMeasureCounterPeriod(QVector<AgU25xxCounterChannels> channels);
+    QString cmdMeasureCounterPulseWidth(AgU25xxCounterChannels channel);
+    QString cmdMeasureCounterPulseWidth(QVector<AgU25xxCounterChannels> channels);
+    QString cmdMeasureCounterTotalize(AgU25xxCounterChannels channel);
+    QString cmdMeasureCounterTotalize(QVector<AgU25xxCounterChannels> channels);
+    QString cmdMeasureDigitalByte(AgU25xxDigitalChannels channel);
+    QString cmdMeasureDigitalByte(QVector<AgU25xxDigitalChannels> channels);
+    QString cmdMeasureDigitalBit(unsigned short int bitNum, AgU25xxDigitalChannels channel);
+    QString cmdMeasureDigitalBit(unsigned short int bitNum, QVector<AgU25xxDigitalChannels> channels);
 
 private:
     IAg25xxSubsystem COUNterSubsystem;

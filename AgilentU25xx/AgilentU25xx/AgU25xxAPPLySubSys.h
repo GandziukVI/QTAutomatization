@@ -11,20 +11,20 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxAPPLySubSys : public IAg25xxSubsystem
 public:
     AgU25xxAPPLySubSys();
 
-    QString cmdGetAOParams(AgU25xxOUTPut::AOChannels channel);
-    QString cmdGetAOParams(QVector<AgU25xxOUTPut::AOChannels> channels);
-    QString cmdApplySineWave(double amplitude, double offset, AgU25xxOUTPut::AOChannels channel);
-    QString cmdApplySineWave(double amplitude, double offset, QVector<AgU25xxOUTPut::AOChannels> channels);
-    QString cmdApplySquareWave(double amplitude, double offset, AgU25xxOUTPut::AOChannels channel);
-    QString cmdApplySquareWave(double amplitude, double offset, QVector<AgU25xxOUTPut::AOChannels> channels);
-    QString cmdApplySawToothWave(double amplitude, double offset, AgU25xxOUTPut::AOChannels channel);
-    QString cmdApplySawToothWave(double amplitude, double offset, QVector<AgU25xxOUTPut::AOChannels> channels);
-    QString cmdApplyTriangleWave(double amplitude, double offset, AgU25xxOUTPut::AOChannels channel);
-    QString cmdApplyTriangleWave(double amplitude, double offset, QVector<AgU25xxOUTPut::AOChannels> channels);
-    QString cmdApplyNoise(double amplitude, double offset, AgU25xxOUTPut::AOChannels channel);
-    QString cmdApplyNoise(double amplitude, double offset, QVector<AgU25xxOUTPut::AOChannels> channels);
-    QString cmdApplyUser(AgU25xxOUTPut::AOChannels channel);
-    QString cmdApplyUser(QVector<AgU25xxOUTPut::AOChannels> channels);
+    QString cmdGetAOParams(AgU25xxAOChannels channel);
+    QString cmdGetAOParams(QVector<AgU25xxAOChannels> channels);
+    QString cmdApplySineWave(double amplitude, double offset, AgU25xxAOChannels channel);
+    QString cmdApplySineWave(double amplitude, double offset, QVector<AgU25xxAOChannels> channels);
+    QString cmdApplySquareWave(double amplitude, double offset, AgU25xxAOChannels channel);
+    QString cmdApplySquareWave(double amplitude, double offset, QVector<AgU25xxAOChannels> channels);
+    QString cmdApplySawToothWave(double amplitude, double offset, AgU25xxAOChannels channel);
+    QString cmdApplySawToothWave(double amplitude, double offset, QVector<AgU25xxAOChannels> channels);
+    QString cmdApplyTriangleWave(double amplitude, double offset, AgU25xxAOChannels channel);
+    QString cmdApplyTriangleWave(double amplitude, double offset, QVector<AgU25xxAOChannels> channels);
+    QString cmdApplyNoise(double amplitude, double offset, AgU25xxAOChannels channel);
+    QString cmdApplyNoise(double amplitude, double offset, QVector<AgU25xxAOChannels> channels);
+    QString cmdApplyUser(AgU25xxAOChannels channel);
+    QString cmdApplyUser(QVector<AgU25xxAOChannels> channels);
 };
 
 #endif // AGU25XXAPPLY_H

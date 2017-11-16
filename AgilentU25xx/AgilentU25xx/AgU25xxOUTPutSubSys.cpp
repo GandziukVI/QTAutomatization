@@ -9,7 +9,7 @@ AgU25xxOUTPutSubSys::AgU25xxOUTPutSubSys()
     TRIGgerDTRiGgerSubsystem = TRIGgerSubsystem.getSubSubSystem("DTRG");
 }
 
-QString AgU25xxOUTPutSubSys::cmdSetOutputState(AgU25xxOUTPut::OutputState outpState) const
+QString AgU25xxOUTPutSubSys::cmdSetOutputState(AgU25xxOutputState outpState) const
 {
     QString cmdStr = QObject::tr("%1 %2")
             .arg(subsystemIdentifier)
@@ -60,7 +60,7 @@ QString AgU25xxOUTPutSubSys::cmdGetWAVSamplingFreq()
     return WAVeformSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxOUTPutSubSys::cmdSetTRIGSource(AgU25xxOUTPut::TriggerSources triggerSource)
+QString AgU25xxOUTPutSubSys::cmdSetTRIGSource(AgU25xxTriggerSources triggerSource)
 {
     QString cmdStr = QObject::tr("SOUR %1")
             .arg(extGetOutputTriggerSource(triggerSource));
@@ -74,7 +74,7 @@ QString AgU25xxOUTPutSubSys::cmdGetTRIGSource()
     return TRIGgerSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxOUTPutSubSys::cmdSetTRIGType(AgU25xxOUTPut::TriggerTypes triggerType)
+QString AgU25xxOUTPutSubSys::cmdSetTRIGType(AgU25xxTriggerTypes triggerType)
 {
     QString cmdStr = QObject::tr("TYP %1")
             .arg(extGetOutputTriggerType(triggerType));
@@ -102,7 +102,7 @@ QString AgU25xxOUTPutSubSys::cmdGetTRIGDelayCount()
     return TRIGgerSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxOUTPutSubSys::cmdSetATRiGgerSrc(AgU25xxOUTPut::ATRiGgerSources triggerSource)
+QString AgU25xxOUTPutSubSys::cmdSetATRiGgerSrc(AgU25xxATRiGgerSources triggerSource)
 {
     QString cmdStr = QObject::tr("SOUR %1")
             .arg(extGetOutputATRiGgerSource(triggerSource));
@@ -116,7 +116,7 @@ QString AgU25xxOUTPutSubSys::cmdGetATRiGgerSrc()
     return TRIGgerATRiGgerSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxOUTPutSubSys::cmdSetATRiGgerCondition(AgU25xxOUTPut::ATRiGgerConditions triggerCondition)
+QString AgU25xxOUTPutSubSys::cmdSetATRiGgerCondition(AgU25xxATRiGgerConditions triggerCondition)
 {
     QString cmdStr = QObject::tr("COND %1")
             .arg(extGetOutputATRiGgerCondition(triggerCondition));
@@ -158,7 +158,7 @@ QString AgU25xxOUTPutSubSys::cmdGetATRiGgerLowVoltTreshold()
     return TRIGgerATRiGgerSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxOUTPutSubSys::cmdSetDTRiGgerPolarity(AgU25xxOUTPut::DTRiGgerPolarities triggerPolarity)
+QString AgU25xxOUTPutSubSys::cmdSetDTRiGgerPolarity(AgU25xxDTRiGgerPolarities triggerPolarity)
 {
     QString cmdStr = QObject::tr("POL %1")
             .arg(extGetOutputDTRiGgerPolarity(triggerPolarity));

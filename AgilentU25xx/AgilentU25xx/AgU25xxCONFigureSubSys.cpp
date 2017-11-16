@@ -7,7 +7,7 @@ AgU25xxCONFigureSubSys::AgU25xxCONFigureSubSys()
     TIMEbaseSubsystem = getSubSubSystem("TIME");
 }
 
-QString AgU25xxCONFigureSubSys::cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirection direction, AgU25xxDIGital::DigitalChannels channel)
+QString AgU25xxCONFigureSubSys::cmdConfDigitalDirection(AgU25xxDigitalDirection direction, AgU25xxDigitalChannels channel)
 {
     QString cmdStr = QObject::tr("DIR %1,(@%2)")
             .arg(extGetDigDirection(direction))
@@ -16,7 +16,7 @@ QString AgU25xxCONFigureSubSys::cmdConfDigitalDirection(AgU25xxDIGital::DigitalD
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigureSubSys::cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirection direction, QVector<AgU25xxDIGital::DigitalChannels> channels)
+QString AgU25xxCONFigureSubSys::cmdConfDigitalDirection(AgU25xxDigitalDirection direction, QVector<AgU25xxDigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -39,7 +39,7 @@ QString AgU25xxCONFigureSubSys::cmdConfDigitalDirection(AgU25xxDIGital::DigitalD
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigureSubSys::cmdGetConfDigitalDirection(AgU25xxDIGital::DigitalChannels channel)
+QString AgU25xxCONFigureSubSys::cmdGetConfDigitalDirection(AgU25xxDigitalChannels channel)
 {
     QString cmdStr = QObject::tr("DIR? (@%1")
             .arg(extGetDigChannel(channel));
@@ -47,7 +47,7 @@ QString AgU25xxCONFigureSubSys::cmdGetConfDigitalDirection(AgU25xxDIGital::Digit
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigureSubSys::cmdGetConfDigitalDirection(QVector<AgU25xxDIGital::DigitalChannels> channels)
+QString AgU25xxCONFigureSubSys::cmdGetConfDigitalDirection(QVector<AgU25xxDigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
@@ -69,7 +69,7 @@ QString AgU25xxCONFigureSubSys::cmdGetConfDigitalDirection(QVector<AgU25xxDIGita
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigureSubSys::cmdSetTimeBaseSrc(AgU25xxTIMEbase::TimeSrcModes timeSrcMode)
+QString AgU25xxCONFigureSubSys::cmdSetTimeBaseSrc(AgU25xxTimeSrcModes timeSrcMode)
 {
     QString cmdStr = QObject::tr("SOUR %1")
             .arg(extGetTimeBaseSrcMode(timeSrcMode));

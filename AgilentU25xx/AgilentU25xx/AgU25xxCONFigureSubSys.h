@@ -10,11 +10,11 @@ public:
     AgU25xxCONFigureSubSys();
     ~AgU25xxCONFigureSubSys();
 
-    QString cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirection direction, AgU25xxDIGital::DigitalChannels channel);
-    QString cmdConfDigitalDirection(AgU25xxDIGital::DigitalDirection direction, QVector<AgU25xxDIGital::DigitalChannels> channels);
-    QString cmdGetConfDigitalDirection(AgU25xxDIGital::DigitalChannels channel);
-    QString cmdGetConfDigitalDirection(QVector<AgU25xxDIGital::DigitalChannels> channels);
-    QString cmdSetTimeBaseSrc(AgU25xxTIMEbase::TimeSrcModes timeSrcMode);
+    QString cmdConfDigitalDirection(AgU25xxDigitalDirection direction, AgU25xxDigitalChannels channel);
+    QString cmdConfDigitalDirection(AgU25xxDigitalDirection direction, QVector<AgU25xxDigitalChannels> channels);
+    QString cmdGetConfDigitalDirection(AgU25xxDigitalChannels channel);
+    QString cmdGetConfDigitalDirection(QVector<AgU25xxDigitalChannels> channels);
+    QString cmdSetTimeBaseSrc(AgU25xxTimeSrcModes timeSrcMode);
     QString cmdGetTimeBaseSrc();
     QString cmdConfExtClockFreq(unsigned int frequency);
     QString cmdGetExtClockFreq();

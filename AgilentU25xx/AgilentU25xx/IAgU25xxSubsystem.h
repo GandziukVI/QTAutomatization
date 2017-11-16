@@ -27,28 +27,28 @@ public:
 
 protected:
     void                  extCopyString(char* dest, const char* src) const;
-    unsigned int          extGetAOChannel(AgU25xxOUTPut::AOChannels channel) const;
-    QVector<unsigned int> extGetAOChannels(QVector<AgU25xxOUTPut::AOChannels> channels) const;
-    unsigned int          extGetDigChannel(AgU25xxDIGital::DigitalChannels channel) const;
-    QVector<unsigned int> extGetDigChannels(QVector<AgU25xxDIGital::DigitalChannels> channels) const;
-    const char*           extGetDigDirection(AgU25xxDIGital::DigitalDirection direction) const;
-    const char*           extGetTimeBaseSrcMode(AgU25xxTIMEbase::TimeSrcModes timeBaseMode) const;
+    unsigned int          extGetAOChannel(AgU25xxAOChannels channel) const;
+    QVector<unsigned int> extGetAOChannels(QVector<AgU25xxAOChannels> channels) const;
+    unsigned int          extGetDigChannel(AgU25xxDigitalChannels channel) const;
+    QVector<unsigned int> extGetDigChannels(QVector<AgU25xxDigitalChannels> channels) const;
+    const char*           extGetDigDirection(AgU25xxDigitalDirection direction) const;
+    const char*           extGetTimeBaseSrcMode(AgU25xxTimeSrcModes timeBaseMode) const;
     const char*           extGetSSIMode(SSIModes ssiMode) const;
-    unsigned int          extGetVoltageChannel(AgU25xxVOLTage::VoltageChannels channel) const;
-    QVector<unsigned int> extGetVoltageChannels(QVector<AgU25xxVOLTage::VoltageChannels> channels) const;
-    unsigned int          extGetCounterChannel(AgU25xxCOUNter::CounterChannels channel) const;
-    QVector<unsigned int> extGetCounterChannels(QVector<AgU25xxCOUNter::CounterChannels> channels) const;
-    unsigned int          extGetOutputState(AgU25xxOUTPut::OutputState outpState) const;
-    const char*           extGetOutputTriggerSource(AgU25xxOUTPut::TriggerSources triggerSource) const;
-    const char*           extGetOutputTriggerType(AgU25xxOUTPut::TriggerTypes triggerType) const;
-    const char*           extGetOutputATRiGgerSource(AgU25xxOUTPut::ATRiGgerSources triggerSource) const;
-    const char*           extGetOutputATRiGgerCondition(AgU25xxOUTPut::ATRiGgerConditions triggerCondition) const;
-    const char*           extGetOutputDTRiGgerPolarity(AgU25xxOUTPut::DTRiGgerPolarities triggerPolarity) const;
-    unsigned int          extGetAnalogInChannel(AgU25xxROUTe::AnalogInChannels channel) const;
-    QVector<unsigned int> extGetAnalogInChannels(QVector<AgU25xxROUTe::AnalogInChannels> channels) const;
-    double                extGetAnalogInChannelRange(AgU25xxROUTe::AnalogInChannelRanges range) const;
-    const char*           extGetAnalogInChannelPolarity(AgU25xxROUTe::AnalogInChannelPolaities polarity) const;
-    const char*           extGetAnalogOutChannelRefereceSource(AgU25xxROUTe::AnalogOutChannelRSouRCes rSource) const;
+    unsigned int          extGetVoltageChannel(AgU25xxVoltageChannels channel) const;
+    QVector<unsigned int> extGetVoltageChannels(QVector<AgU25xxVoltageChannels> channels) const;
+    unsigned int          extGetCounterChannel(AgU25xxCounterChannels channel) const;
+    QVector<unsigned int> extGetCounterChannels(QVector<AgU25xxCounterChannels> channels) const;
+    unsigned int          extGetOutputState(AgU25xxOutputState outpState) const;
+    const char*           extGetOutputTriggerSource(AgU25xxTriggerSources triggerSource) const;
+    const char*           extGetOutputTriggerType(AgU25xxTriggerTypes triggerType) const;
+    const char*           extGetOutputATRiGgerSource(AgU25xxATRiGgerSources triggerSource) const;
+    const char*           extGetOutputATRiGgerCondition(AgU25xxATRiGgerConditions triggerCondition) const;
+    const char*           extGetOutputDTRiGgerPolarity(AgU25xxDTRiGgerPolarities triggerPolarity) const;
+    unsigned int          extGetAnalogInChannel(AgU25xxAInChannels channel) const;
+    QVector<unsigned int> extGetAnalogInChannels(QVector<AgU25xxAInChannels> channels) const;
+    double                extGetAnalogInChannelRange(AgU25xxAInChannelRanges range) const;
+    const char*           extGetAnalogInChannelPolarity(AgU25xxAInChannelPolaities polarity) const;
+    const char*           extGetAnalogOutChannelRefereceSource(AgU25xxAOutChannelRSouRCes rSource) const;
 
 private:
     QString commandString;
