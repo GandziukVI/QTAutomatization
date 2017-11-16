@@ -2,10 +2,9 @@
 #define IAGU25XXSUBSYSTEM_H
 
 #include "agilentu25xx_global.h"
-#include "AgU25xxDefinitions.h"
 
 #include <QString>
-#include <QTextStream>
+#include <QVector>
 
 class AGILENTU25XXSHARED_EXPORT IAgU25xxSubsystem {
 
@@ -22,7 +21,8 @@ public:
     IAgU25xxSubsystem getSubSubSystem(const char* subSubSystemID) const;
 
 protected:
-    void                  extCopyString(char* dest, const char* src) const;
+    void    extCopyString(char* dest, const char* src) const;
+    QString extCreateChannelsString(const QVector<unsigned int>& channels) const;
 
 private:
     QString commandString;

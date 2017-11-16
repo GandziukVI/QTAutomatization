@@ -1,4 +1,5 @@
 #include "AgU25xxCONFigureSubSys.h"
+#include <QObject>
 
 AgU25xxCONFigureSubSys::AgU25xxCONFigureSubSys()
     : IAgU25xxSubsystem("CONF"),
@@ -20,22 +21,10 @@ QString AgU25xxCONFigureSubSys::cmdConfDigitalDirection(AgU25xxDigitalDirection 
 QString AgU25xxCONFigureSubSys::cmdConfDigitalDirection(AgU25xxDigitalDirection direction, QVector<AgU25xxDigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
-    QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
 
-    QString cmdStr;
-    QTextStream cmdStrStream(&cmdStr);
-
-    cmdStrStream << QObject::tr("DIR %1,(@")
-                    .arg(extGetDigDirection(direction));
-
-    for (; iter != channelNums.cend(); ) {
-        if (iter != channelNums.cend() - 1)
-            cmdStrStream << *iter << ',';
-        else
-            cmdStrStream << *iter << ')';
-
-        ++iter;
-    }
+    QString cmdStr = QObject::tr("DIR %1,%2")
+            .arg(extGetDigDirection(direction))
+            .arg(extCreateChannelsString(channelNums));
 
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
@@ -51,21 +40,9 @@ QString AgU25xxCONFigureSubSys::cmdGetConfDigitalDirection(AgU25xxDigitalChannel
 QString AgU25xxCONFigureSubSys::cmdGetConfDigitalDirection(QVector<AgU25xxDigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
-    QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
 
-    QString cmdStr;
-    QTextStream cmdStrStream(&cmdStr);
-
-    cmdStrStream << "DIR? (@";
-
-    for (; iter != channelNums.cend(); ) {
-        if (iter != channelNums.cend() - 1)
-            cmdStrStream << *iter << ',';
-        else
-            cmdStrStream << *iter << ')';
-
-        ++iter;
-    }
+    QString cmdStr = QObject::tr("DIR? %1")
+            .arg(extCreateChannelsString(channelNums));
 
     return DIGitalSubsystem.buildCommand(cmdStr);
 }

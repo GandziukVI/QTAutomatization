@@ -1,5 +1,8 @@
 #include "IAgU25xxSubsystem.h"
 
+#include <QTextStream>
+#include <iterator>
+#include <algorithm>
 
 IAgU25xxSubsystem::IAgU25xxSubsystem()
 {
@@ -54,4 +57,24 @@ void IAgU25xxSubsystem::extCopyString(char *dest, const char *src) const
     std::string srcStr(src);
     std::size_t len = srcStr.copy(dest, srcStr.length());
     dest[len] = '\0';
+}
+
+QString IAgU25xxSubsystem::extCreateChannelsString(const QVector<unsigned int>& channels) const
+{
+    QString res;
+    QTextStream resStream(&res);
+
+    resStream << "(@";
+
+    QVector<unsigned int>::const_iterator iter = channels.cbegin();
+
+    for(; iter != channels.cend(); ) {
+        if (iter != channels.cend() - 1)
+            resStream << *iter << ',';
+        else
+            resStream << *iter << ')';
+        ++iter;
+    }
+
+    return res;
 }

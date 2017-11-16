@@ -1,4 +1,5 @@
 #include "AgU25xxOUTPutSubSys.h"
+#include <QObject>
 
 AgU25xxOUTPutSubSys::AgU25xxOUTPutSubSys()
     : IAgU25xxSubsystem("OUTP"),

@@ -1,4 +1,5 @@
 #include "AgU25xxACQuireSubSys.h"
+#include <QObject>
 
 AgU25xxACQuireSubSys::AgU25xxACQuireSubSys()
     : IAgU25xxSubsystem("ACQ"),
