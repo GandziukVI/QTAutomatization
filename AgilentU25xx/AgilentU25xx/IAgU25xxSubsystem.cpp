@@ -159,9 +159,9 @@ unsigned int IAg25xxSubsystem::extGetCounterChannel(AgU25xxCounterChannels chann
 {
     switch (channel) {
 
-    case AgU25xxCounterChannels::CH01:
+    case AgU25xxCounterChannels::COUNT01:
             return 301;
-    case AgU25xxCounterChannels::CH02:
+    case AgU25xxCounterChannels::COUNT02:
             return 302;
     }
 
@@ -270,7 +270,7 @@ const char* IAg25xxSubsystem::extGetOutputDTRiGgerPolarity(AgU25xxDTRiGgerPolari
     return "POS";
 }
 
-unsigned int IAg25xxSubsystem::extGetAnalogInChannel(AgU25xxAInChannels channel) const
+unsigned int IAg25xxSubsystem::extGetAIChannel(AgU25xxAInChannels channel) const
 {
     switch (channel) {
 
@@ -287,37 +287,39 @@ unsigned int IAg25xxSubsystem::extGetAnalogInChannel(AgU25xxAInChannels channel)
     return 101;
 }
 
-QVector<unsigned int> IAg25xxSubsystem::extGetAnalogInChannels(QVector<AgU25xxAInChannels> channels) const
+QVector<unsigned int> IAg25xxSubsystem::extGetAIChannels(QVector<AgU25xxAInChannels> channels) const
 {
     QVector<unsigned int> res;
     QVector<AgU25xxAInChannels>::const_iterator iter = channels.cbegin();
 
     for (; iter != channels.cend(); ) {
-        res.push_back(extGetAnalogInChannel(*iter));
+        res.push_back(extGetAIChannel(*iter));
         ++iter;
     }
 
     return res;
 }
 
-double IAg25xxSubsystem::extGetAnalogInChannelRange(AgU25xxAInChannelRanges range) const
+const char* IAg25xxSubsystem::extGetAIChannelRange(AgU25xxAInChannelRanges range) const
 {
     switch (range) {
 
+    case AgU25xxAInChannelRanges::AUTO:
+        return "AUTO";
     case AgU25xxAInChannelRanges::Range10V:
-        return 10.0;
+        return "10.0";
     case AgU25xxAInChannelRanges::Range5V:
-        return 5.0;
+        return "5.0";
     case AgU25xxAInChannelRanges::Range2_5V:
-        return 2.5;
+        return "2.5";
     case AgU25xxAInChannelRanges::Range1_25V:
-        return 1.25;
+        return "1.25";
     }
 
-    return 10.0;
+    return "AUTO";
 }
 
-const char* IAg25xxSubsystem::extGetAnalogInChannelPolarity(AgU25xxAInChannelPolaities polarity) const
+const char* IAg25xxSubsystem::extGetAIChannelPolarity(AgU25xxAInChannelPolaities polarity) const
 {
     switch (polarity) {
 
@@ -330,7 +332,7 @@ const char* IAg25xxSubsystem::extGetAnalogInChannelPolarity(AgU25xxAInChannelPol
     return"BIP";
 }
 
-const char *IAg25xxSubsystem::extGetAnalogOutChannelRefereceSource(AgU25xxAOutChannelRSouRCes rSource) const
+const char* IAg25xxSubsystem::extGetAOChannelRefereceSource(AgU25xxAOutChannelRSouRCes rSource) const
 {
     switch (rSource) {
 
@@ -341,4 +343,112 @@ const char *IAg25xxSubsystem::extGetAnalogOutChannelRefereceSource(AgU25xxAOutCh
     }
 
     return "INT";
+}
+
+const char* IAg25xxSubsystem::extGetCOUNterFunc(AgU25xxCounterFunctions function) const
+{
+    switch (function) {
+
+    case AgU25xxCounterFunctions::FREQ:
+        return "FREQ";
+    case AgU25xxCounterFunctions::PER:
+        return "PER";
+    case AgU25xxCounterFunctions::PWID:
+        return "PWID";
+    case AgU25xxCounterFunctions::TOT:
+        return "TOT";
+    }
+
+    return "FREQ";
+}
+
+const char* IAg25xxSubsystem::extGetCOUNterGateSource(AgU25xxCounterGateSources counterGateSrc) const
+{
+    switch (counterGateSrc) {
+
+    case AgU25xxCounterGateSources::INT:
+        return "INT";
+    case AgU25xxCounterGateSources::EXT:
+        return "EXT";
+    }
+
+    return "INT";
+}
+
+const char* IAg25xxSubsystem::extGetCOUNterGatePolarity(AgU25xxCounterGatePolarities counterPolarity) const
+{
+    switch (counterPolarity) {
+
+    case AgU25xxCounterGatePolarities::AHI:
+        return "AHI";
+    case AgU25xxCounterGatePolarities::ALO:
+        return "ALO";
+    }
+
+    return "AHI";
+}
+
+const char* IAg25xxSubsystem::extGetCOUNterGateState(AgU25xxCounterGateStates counterControl) const
+{
+    switch (counterControl) {
+
+    case AgU25xxCounterGateStates::DIS:
+        return "DIS";
+    case AgU25xxCounterGateStates::ENAB:
+        return "ENAB";
+    }
+
+    return "DIS";
+}
+
+const char* IAg25xxSubsystem::extGetCOUNterClockSource(AgU25xxCounterClockSources counterClockSrc) const
+{
+    switch (counterClockSrc) {
+
+    case AgU25xxCounterClockSources::INT:
+        return "INT";
+    case AgU25xxCounterClockSources::EXT:
+        return "EXT";
+    }
+
+    return "INT";
+}
+
+const char* IAg25xxSubsystem::extGetCOUNterClockPolarity(AgU25xxCounterClockPolarities counterClkPolarity) const
+{
+    switch (counterClkPolarity) {
+
+    case AgU25xxCounterClockPolarities::AHI:
+        return "AHI";
+    case AgU25xxCounterClockPolarities::ALO:
+        return "ALO";
+    }
+
+    return "AHI";
+}
+
+const char* IAg25xxSubsystem::extGetCOUNterTotalizeCountingSrc(AgU25xxCounterTotalizeCountingSrc counterTotalizeSrc) const
+{
+    switch (counterTotalizeSrc) {
+
+    case AgU25xxCounterTotalizeCountingSrc::INT:
+        return "INT";
+    case AgU25xxCounterTotalizeCountingSrc::EXT:
+        return "EXT";
+    }
+
+    return "INT";
+}
+
+const char* IAg25xxSubsystem::extGetCOUNterTotalizeCountingDir(AgU25xxCounterTotalizeCountingDir counterTotalizeDir) const
+{
+    switch (counterTotalizeDir) {
+
+    case AgU25xxCounterTotalizeCountingDir::UP:
+        return "UP";
+    case AgU25xxCounterTotalizeCountingDir::DOWN:
+        return "DOWN";
+    }
+
+    return "UP";
 }

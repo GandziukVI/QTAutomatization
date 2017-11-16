@@ -42,11 +42,19 @@ protected:
     const char*           extGetOutputATRiGgerSource(AgU25xxATRiGgerSources triggerSource) const;
     const char*           extGetOutputATRiGgerCondition(AgU25xxATRiGgerConditions triggerCondition) const;
     const char*           extGetOutputDTRiGgerPolarity(AgU25xxDTRiGgerPolarities triggerPolarity) const;
-    unsigned int          extGetAnalogInChannel(AgU25xxAInChannels channel) const;
-    QVector<unsigned int> extGetAnalogInChannels(QVector<AgU25xxAInChannels> channels) const;
-    double                extGetAnalogInChannelRange(AgU25xxAInChannelRanges range) const;
-    const char*           extGetAnalogInChannelPolarity(AgU25xxAInChannelPolaities polarity) const;
-    const char*           extGetAnalogOutChannelRefereceSource(AgU25xxAOutChannelRSouRCes rSource) const;
+    unsigned int          extGetAIChannel(AgU25xxAInChannels channel) const;
+    QVector<unsigned int> extGetAIChannels(QVector<AgU25xxAInChannels> channels) const;
+    const char*           extGetAIChannelRange(AgU25xxAInChannelRanges range) const;
+    const char*           extGetAIChannelPolarity(AgU25xxAInChannelPolaities polarity) const;
+    const char*           extGetAOChannelRefereceSource(AgU25xxAOutChannelRSouRCes rSource) const;
+    const char*           extGetCOUNterFunc(AgU25xxCounterFunctions function) const;
+    const char*           extGetCOUNterGateSource(AgU25xxCounterGateSources counterGateSrc) const;
+    const char*           extGetCOUNterGatePolarity(AgU25xxCounterGatePolarities counterPolarity) const;
+    const char*           extGetCOUNterGateState(AgU25xxCounterGateStates counterControl) const;
+    const char*           extGetCOUNterClockSource(AgU25xxCounterClockSources counterClockSrc) const;
+    const char*           extGetCOUNterClockPolarity(AgU25xxCounterClockPolarities counterClkPolarity) const;
+    const char*           extGetCOUNterTotalizeCountingSrc(AgU25xxCounterTotalizeCountingSrc counterTotalizeSrc) const;
+    const char*           extGetCOUNterTotalizeCountingDir(AgU25xxCounterTotalizeCountingDir counterTotalizeDir) const;
 
 private:
     QString commandString;

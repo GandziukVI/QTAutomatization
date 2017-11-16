@@ -10,14 +10,14 @@ AgU25xxMEASureSubSys::AgU25xxMEASureSubSys()
 QString AgU25xxMEASureSubSys::cmdMeasureVoltage(AgU25xxAInChannels channel)
 {
     QString cmdStr = QObject::tr("VOLT:DC? (@%1)")
-            .arg(extGetAnalogInChannel(channel));
+            .arg(extGetAIChannel(channel));
 
     return buildCommand(cmdStr);
 }
 
 QString AgU25xxMEASureSubSys::cmdMeasureVoltage(QVector<AgU25xxAInChannels> channels)
 {
-    QVector<unsigned int> channelNums = extGetAnalogInChannels(channels);
+    QVector<unsigned int> channelNums = extGetAIChannels(channels);
     QVector<unsigned int>::const_iterator iter = channelNums.cbegin();
 
     QString cmdStr;

@@ -54,6 +54,7 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxAInChannels {
 };
 
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxAInChannelRanges {
+    AUTO,
     Range10V,
     Range5V,
     Range2_5V,
@@ -88,16 +89,51 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxTimeSrcModes {
     CCG
 };
 
-//enum class AGILENTU25XXSHARED_EXPORT AgU25xxVoltageChannels {
-//    CH01,
-//    CH02,
-//    CH03,
-//    CH04
-//};
-
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterChannels {
-    CH01,
-    CH02
+    COUNT01,
+    COUNT02
+};
+
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterFunctions {
+    FREQ,
+    PER,
+    PWID,
+    TOT
+};
+
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterGateSources {
+    INT,
+    EXT
+};
+
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterGatePolarities {
+    AHI,
+    ALO
+};
+
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterGateStates {
+    DIS,
+    ENAB
+};
+
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterClockSources {
+    INT,
+    EXT
+};
+
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterClockPolarities {
+    AHI,
+    ALO
+};
+
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterTotalizeCountingSrc {
+    INT,
+    EXT
+};
+
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterTotalizeCountingDir {
+    UP,
+    DOWN
 };
 
 enum class AGILENTU25XXSHARED_EXPORT SSIModes {
