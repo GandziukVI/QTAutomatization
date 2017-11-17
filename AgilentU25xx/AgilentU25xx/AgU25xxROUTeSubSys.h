@@ -10,28 +10,28 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxROUTeSubSys : public IAgU25xxSubsystem, p
 public:
     AgU25xxROUTeSubSys();
 
-    QString cmdSetAIChannelRange(AgU25xxAIChannelRanges range, AgU25xxAIChannels channel);
-    QString cmdSetAIChannelRanges(AgU25xxAIChannelRanges range, QVector<AgU25xxAIChannels> channels);
-    QString cmdGetAIChannelRange(AgU25xxAIChannels channel);
-    QString cmdGetAIChannelRanges(QVector<AgU25xxAIChannels> channels);
-    QString cmdSetAIChannelPolarity(AgU25xxAIChannelPolaities polarity, AgU25xxAIChannels channel);
-    QString cmdSetAIChannelPolarities(AgU25xxAIChannelPolaities polarity, QVector<AgU25xxAIChannels> channels);
-    QString cmdGetAIChannelPolarity(AgU25xxAIChannels channel);
-    QString cmdGetAIChannelPolarities(QVector<AgU25xxAIChannels> channels);
-    QString cmdSetAOChannelReferenceSource(AgU25xxAOChannelRSouRCes rSource, AgU25xxAOChannels channel);
-    QString cmdSetAOChannelsReferenceSource(AgU25xxAOChannelRSouRCes rSource, QVector<AgU25xxAOChannels> channels);
-    QString cmdGetAOChannelReferenceSource(AgU25xxAOChannels channel);
-    QString cmdGetAOChannelsReferenceSource(QVector<AgU25xxAOChannels> channels);
+    QString cmdSetAIChannelRange(AgU25xxEnumAIChannelRanges range, AgU25xxEnumAIChannels channel);
+    QString cmdSetAIChannelRanges(AgU25xxEnumAIChannelRanges range, QVector<AgU25xxEnumAIChannels> channels);
+    QString cmdGetAIChannelRange(AgU25xxEnumAIChannels channel);
+    QString cmdGetAIChannelRanges(QVector<AgU25xxEnumAIChannels> channels);
+    QString cmdSetAIChannelPolarity(AgU25xxEnumAIChannelPolaities polarity, AgU25xxEnumAIChannels channel);
+    QString cmdSetAIChannelPolarities(AgU25xxEnumAIChannelPolaities polarity, QVector<AgU25xxEnumAIChannels> channels);
+    QString cmdGetAIChannelPolarity(AgU25xxEnumAIChannels channel);
+    QString cmdGetAIChannelPolarities(QVector<AgU25xxEnumAIChannels> channels);
+    QString cmdSetAOChannelReferenceSource(AgU25xxEnumAOChannelRSouRCes rSource, AgU25xxEnumAOChannels channel);
+    QString cmdSetAOChannelsReferenceSource(AgU25xxEnumAOChannelRSouRCes rSource, QVector<AgU25xxEnumAOChannels> channels);
+    QString cmdGetAOChannelReferenceSource(AgU25xxEnumAOChannels channel);
+    QString cmdGetAOChannelsReferenceSource(QVector<AgU25xxEnumAOChannels> channels);
     QString cmdSetAOChannelsReferenceVoltage(double voltage);
     QString cmdGetAOChannelsReferenceVoltage();
-    QString cmdSetRouteEnabled(bool enabled, AgU25xxAIChannels channel);
-    QString cmdSetRouteEnabled(bool enabled, QVector<AgU25xxAIChannels> channels);
-    QString cmdSetRouteEnabled(bool enabled, AgU25xxAOChannels channel);
-    QString cmdSetRouteEnabled(bool enabled, QVector<AgU25xxAOChannels> channels);
-    QString cmdGetRouteEnabled(AgU25xxAIChannels channel);
-    QString cmdGetRouteEnabled(QVector<AgU25xxAIChannels> channels);
-    QString cmdGetRouteEnabled(AgU25xxAOChannels channel);
-    QString cmdGetRouteEnabled(QVector<AgU25xxAOChannels> channels);
+    QString cmdSetRouteEnabled(bool enabled, AgU25xxEnumAIChannels channel);
+    QString cmdSetRouteEnabled(bool enabled, QVector<AgU25xxEnumAIChannels> channels);
+    QString cmdSetRouteEnabled(bool enabled, AgU25xxEnumAOChannels channel);
+    QString cmdSetRouteEnabled(bool enabled, QVector<AgU25xxEnumAOChannels> channels);
+    QString cmdGetRouteEnabled(AgU25xxEnumAIChannels channel);
+    QString cmdGetRouteEnabled(QVector<AgU25xxEnumAIChannels> channels);
+    QString cmdGetRouteEnabled(AgU25xxEnumAOChannels channel);
+    QString cmdGetRouteEnabled(QVector<AgU25xxEnumAOChannels> channels);
 
 private:
     IAgU25xxSubsystem CHANnelSubSys;

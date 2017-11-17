@@ -15,14 +15,16 @@ DEFINES += DEVICEIO_LIBRARY
 SOURCES += VisaDevice.cpp \
     SerialDevice.cpp \
     DeviceIOException.cpp \
-    ReadBuffer.cpp
+    ReadBuffer.cpp \
+    IEEE4882CommonCommands.cpp
 
 HEADERS += VisaDevice.h\
         deviceio_global.h \
     IDeviceIO.h \
     SerialDevice.h \
     DeviceIOException.h \
-    ReadBuffer.h
+    ReadBuffer.h \
+    IEEE4882CommonCommands.h
 
 unix {
     target.path = /usr/lib

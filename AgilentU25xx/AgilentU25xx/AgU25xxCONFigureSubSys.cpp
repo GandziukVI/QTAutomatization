@@ -9,7 +9,7 @@ AgU25xxCONFigureSubSys::AgU25xxCONFigureSubSys()
     TIMEbaseSubsystem = getSubSubSystem("TIME");
 }
 
-QString AgU25xxCONFigureSubSys::cmdSetDigitalDirection(AgU25xxDigitalDirection direction, AgU25xxDigitalChannels channel)
+QString AgU25xxCONFigureSubSys::cmdSetDigitalDirection(AgU25xxEnumDigitalDirection direction, AgU25xxEnumDigitalChannels channel)
 {
     QString cmdStr = QObject::tr("DIR %1,(@%2)")
             .arg(extGetDigDirection(direction))
@@ -18,7 +18,7 @@ QString AgU25xxCONFigureSubSys::cmdSetDigitalDirection(AgU25xxDigitalDirection d
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigureSubSys::cmdSetDigitalDirection(AgU25xxDigitalDirection direction, QVector<AgU25xxDigitalChannels> channels)
+QString AgU25xxCONFigureSubSys::cmdSetDigitalDirection(AgU25xxEnumDigitalDirection direction, QVector<AgU25xxEnumDigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
 
@@ -29,7 +29,7 @@ QString AgU25xxCONFigureSubSys::cmdSetDigitalDirection(AgU25xxDigitalDirection d
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigureSubSys::cmdGetDigitalDirection(AgU25xxDigitalChannels channel)
+QString AgU25xxCONFigureSubSys::cmdGetDigitalDirection(AgU25xxEnumDigitalChannels channel)
 {
     QString cmdStr = QObject::tr("DIR? (@%1)")
             .arg(extGetDigChannel(channel));
@@ -37,7 +37,7 @@ QString AgU25xxCONFigureSubSys::cmdGetDigitalDirection(AgU25xxDigitalChannels ch
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigureSubSys::cmdGetDigitalDirection(QVector<AgU25xxDigitalChannels> channels)
+QString AgU25xxCONFigureSubSys::cmdGetDigitalDirection(QVector<AgU25xxEnumDigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
 
@@ -47,7 +47,7 @@ QString AgU25xxCONFigureSubSys::cmdGetDigitalDirection(QVector<AgU25xxDigitalCha
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigureSubSys::cmdSetTimeBaseSrc(AgU25xxTimeSrcModes timeSrcMode)
+QString AgU25xxCONFigureSubSys::cmdSetTimeBaseSrc(AgU25xxEnumTimeSrcModes timeSrcMode)
 {
     QString cmdStr = QObject::tr("SOUR %1")
             .arg(extGetTimeBaseSrcMode(timeSrcMode));
@@ -76,7 +76,7 @@ QString AgU25xxCONFigureSubSys::cmdGetExtClockFreq()
     return TIMEbaseSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxCONFigureSubSys::cmdSetSSIMode(AgU25xxSSIModes ssiMode)
+QString AgU25xxCONFigureSubSys::cmdSetSSIMode(AgU25xxEnumSSIModes ssiMode)
 {
     QString cmdStr = QObject::tr("SSI %1")
             .arg(extGetSSIMode(ssiMode));

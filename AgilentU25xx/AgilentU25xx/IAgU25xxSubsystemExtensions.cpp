@@ -1,27 +1,31 @@
 #include "IAgU25xxSubsystemExtensions.h"
+#include "AgU25xxException.h"
+
+#include <QObject>
+#include <QRegularExpression>
 
 IAgU25xxSubsystemExtensions::IAgU25xxSubsystemExtensions()
 {
 
 }
 
-unsigned int IAgU25xxSubsystemExtensions::extGetAOChannel(AgU25xxAOChannels channel) const
+unsigned int IAgU25xxSubsystemExtensions::extGetAOChannel(AgU25xxEnumAOChannels channel) const
 {
     switch (channel) {
 
-    case AgU25xxAOChannels::AOut01:
+    case AgU25xxEnumAOChannels::AOut01:
         return 201;
-    case AgU25xxAOChannels::AOut02:
+    case AgU25xxEnumAOChannels::AOut02:
         return 202;
     }
 
     return 201;
 }
 
-QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetAOChannels(QVector<AgU25xxAOChannels> channels) const
+QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetAOChannels(QVector<AgU25xxEnumAOChannels> channels) const
 {
     QVector<unsigned int> res;
-    QVector<AgU25xxAOChannels>::const_iterator iter = channels.cbegin();
+    QVector<AgU25xxEnumAOChannels>::const_iterator iter = channels.cbegin();
 
     for (; iter != channels.cend();) {
         res.push_back(extGetAOChannel(*iter));
@@ -31,40 +35,40 @@ QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetAOChannels(QVector<AgU2
     return res;
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetAOChannelPolarity(AgU25xxAOChannelPolarities polarity) const
+const char* IAgU25xxSubsystemExtensions::extGetAOChannelPolarity(AgU25xxEnumAOChannelPolarities polarity) const
 {
     switch (polarity) {
 
-    case AgU25xxAOChannelPolarities::BIP:
+    case AgU25xxEnumAOChannelPolarities::BIP:
         return "BIP";
-    case AgU25xxAOChannelPolarities::UNIP:
+    case AgU25xxEnumAOChannelPolarities::UNIP:
         return "UNIP";
     }
 
     return "BIP";
 }
 
-unsigned int IAgU25xxSubsystemExtensions::extGetDigChannel(AgU25xxDigitalChannels channel) const
+unsigned int IAgU25xxSubsystemExtensions::extGetDigChannel(AgU25xxEnumDigitalChannels channel) const
 {
     switch (channel) {
 
-    case AgU25xxDigitalChannels::DIG01:
+    case AgU25xxEnumDigitalChannels::DIG01:
         return 501;
-    case AgU25xxDigitalChannels::DIG02:
+    case AgU25xxEnumDigitalChannels::DIG02:
         return 502;
-    case AgU25xxDigitalChannels::DIG03:
+    case AgU25xxEnumDigitalChannels::DIG03:
         return 503;
-    case AgU25xxDigitalChannels::DIG04:
+    case AgU25xxEnumDigitalChannels::DIG04:
         return 504;
     }
 
     return 501;
 }
 
-QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetDigChannels(QVector<AgU25xxDigitalChannels> channels) const
+QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetDigChannels(QVector<AgU25xxEnumDigitalChannels> channels) const
 {
     QVector<unsigned int> res;
-    QVector<AgU25xxDigitalChannels>::const_iterator iter = channels.cbegin();
+    QVector<AgU25xxEnumDigitalChannels>::const_iterator iter = channels.cbegin();
 
     for (; iter != channels.cend(); ) {
         res.push_back(extGetDigChannel(*iter));
@@ -74,66 +78,66 @@ QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetDigChannels(QVector<AgU
     return res;
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetDigDirection(AgU25xxDigitalDirection direction) const
+const char* IAgU25xxSubsystemExtensions::extGetDigDirection(AgU25xxEnumDigitalDirection direction) const
 {
     switch (direction) {
 
-    case AgU25xxDigitalDirection::INPut:
+    case AgU25xxEnumDigitalDirection::INPut:
         return "INP";
-    case AgU25xxDigitalDirection::OUTPut:
+    case AgU25xxEnumDigitalDirection::OUTPut:
         return "OUTP";
     }
 
     return "INP";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetTimeBaseSrcMode(AgU25xxTimeSrcModes timeBaseMode) const
+const char* IAgU25xxSubsystemExtensions::extGetTimeBaseSrcMode(AgU25xxEnumTimeSrcModes timeBaseMode) const
 {
     switch (timeBaseMode) {
 
-    case AgU25xxTimeSrcModes::INTernal:
+    case AgU25xxEnumTimeSrcModes::INTernal:
         return "INT";
-    case AgU25xxTimeSrcModes::EXTernal:
+    case AgU25xxEnumTimeSrcModes::EXTernal:
         return "EXT";
-    case AgU25xxTimeSrcModes::CCG:
+    case AgU25xxEnumTimeSrcModes::CCG:
         return "CCG";
     }
 
     return "INT";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetSSIMode(AgU25xxSSIModes ssiMode) const
+const char* IAgU25xxSubsystemExtensions::extGetSSIMode(AgU25xxEnumSSIModes ssiMode) const
 {
     switch (ssiMode) {
 
-    case AgU25xxSSIModes::None:
+    case AgU25xxEnumSSIModes::None:
         return "NONE";
-    case AgU25xxSSIModes::Master:
+    case AgU25xxEnumSSIModes::Master:
         return "MAST";
-    case AgU25xxSSIModes::Slave:
+    case AgU25xxEnumSSIModes::Slave:
         return "SLAV";
     }
 
     return "NONE";
 }
 
-unsigned int IAgU25xxSubsystemExtensions::extGetCounterChannel(AgU25xxCounterChannels channel) const
+unsigned int IAgU25xxSubsystemExtensions::extGetCounterChannel(AgU25xxEnumCounterChannels channel) const
 {
     switch (channel) {
 
-    case AgU25xxCounterChannels::COUNT01:
+    case AgU25xxEnumCounterChannels::COUNT01:
             return 301;
-    case AgU25xxCounterChannels::COUNT02:
+    case AgU25xxEnumCounterChannels::COUNT02:
             return 302;
     }
 
     return 301;
 }
 
-QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetCounterChannels(QVector<AgU25xxCounterChannels> channels) const
+QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetCounterChannels(QVector<AgU25xxEnumCounterChannels> channels) const
 {
     QVector<unsigned int> res;
-    QVector<AgU25xxCounterChannels>::const_iterator iter = channels.cbegin();
+    QVector<AgU25xxEnumCounterChannels>::const_iterator iter = channels.cbegin();
 
     for (; iter != channels.cend(); ) {
         res.push_back(extGetCounterChannel(*iter));
@@ -143,187 +147,187 @@ QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetCounterChannels(QVector
     return res;
 }
 
-unsigned int IAgU25xxSubsystemExtensions::extGetOutputState(AgU25xxOutputState outpState) const
+unsigned int IAgU25xxSubsystemExtensions::extGetOutputState(AgU25xxEnumOutputState outpState) const
 {
     switch (outpState) {
 
-    case AgU25xxOutputState::ON:
+    case AgU25xxEnumOutputState::ON:
         return 1;
-    case AgU25xxOutputState::OFF:
+    case AgU25xxEnumOutputState::OFF:
         return 0;
     }
 
     return 0;
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetInputTriggerSource(AgU25xxTriggerSources triggerSource) const
+const char* IAgU25xxSubsystemExtensions::extGetInputTriggerSource(AgU25xxEnumTriggerSources triggerSource) const
 {
     switch (triggerSource) {
 
-    case AgU25xxTriggerSources::NONE:
+    case AgU25xxEnumTriggerSources::NONE:
         return "NONE";
-    case AgU25xxTriggerSources::EXTD:
+    case AgU25xxEnumTriggerSources::EXTD:
         return "EXTD";
-    case AgU25xxTriggerSources::EXTA:
+    case AgU25xxEnumTriggerSources::EXTA:
         return "EXTA";
-    case AgU25xxTriggerSources::STRG:
+    case AgU25xxEnumTriggerSources::STRG:
         return "STRG";
     }
 
     return "NONE";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetOutputTriggerSource(AgU25xxTriggerSources triggerSource) const
+const char* IAgU25xxSubsystemExtensions::extGetOutputTriggerSource(AgU25xxEnumTriggerSources triggerSource) const
 {
     switch (triggerSource) {
 
-    case AgU25xxTriggerSources::NONE:
+    case AgU25xxEnumTriggerSources::NONE:
         return "NONE";
-    case AgU25xxTriggerSources::EXTD:
+    case AgU25xxEnumTriggerSources::EXTD:
         return "EXTD";
-    case AgU25xxTriggerSources::EXTA:
+    case AgU25xxEnumTriggerSources::EXTA:
         return "EXTA";
-    case AgU25xxTriggerSources::STRG:
+    case AgU25xxEnumTriggerSources::STRG:
         return "STRG";
     }
 
     return "NONE";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetInputTriggerType(AgU25xxTriggerTypes triggerType) const
+const char* IAgU25xxSubsystemExtensions::extGetInputTriggerType(AgU25xxEnumTriggerTypes triggerType) const
 {
     switch (triggerType) {
 
-    case AgU25xxTriggerTypes::POST:
+    case AgU25xxEnumTriggerTypes::POST:
         return "POST";
-    case AgU25xxTriggerTypes::PRE:
+    case AgU25xxEnumTriggerTypes::PRE:
         return "PRE";
-    case AgU25xxTriggerTypes::MID:
+    case AgU25xxEnumTriggerTypes::MID:
         return "MID";
-    case AgU25xxTriggerTypes::DEL:
+    case AgU25xxEnumTriggerTypes::DEL:
         return "DEL";
     }
 
     return "POST";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetOutputTriggerType(AgU25xxTriggerTypes triggerType) const
+const char* IAgU25xxSubsystemExtensions::extGetOutputTriggerType(AgU25xxEnumTriggerTypes triggerType) const
 {
     switch (triggerType) {
 
-    case AgU25xxTriggerTypes::POST:
+    case AgU25xxEnumTriggerTypes::POST:
         return "POST";
-    case AgU25xxTriggerTypes::DEL:
+    case AgU25xxEnumTriggerTypes::DEL:
         return "DEL";
     }
 
     return "POST";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetInputATRiGgerSource(AgU25xxATRiGgerSources triggerSource) const
+const char* IAgU25xxSubsystemExtensions::extGetInputATRiGgerSource(AgU25xxEnumATRiGgerSources triggerSource) const
 {
-    if (triggerSource == AgU25xxATRiGgerSources::EXTAP)
+    if (triggerSource == AgU25xxEnumATRiGgerSources::EXTAP)
         return "EXTAP";
     else
         return "EXTAP";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetOutputATRiGgerSource(AgU25xxATRiGgerSources triggerSource) const
+const char* IAgU25xxSubsystemExtensions::extGetOutputATRiGgerSource(AgU25xxEnumATRiGgerSources triggerSource) const
 {
     switch (triggerSource) {
 
-    case AgU25xxATRiGgerSources::EXTAP:
+    case AgU25xxEnumATRiGgerSources::EXTAP:
         return "EXTAP";
-    case AgU25xxATRiGgerSources::CH101:
+    case AgU25xxEnumATRiGgerSources::CH101:
         return "CH101";
-    case AgU25xxATRiGgerSources::CH102:
+    case AgU25xxEnumATRiGgerSources::CH102:
         return "CH102";
-    case AgU25xxATRiGgerSources::CH103:
+    case AgU25xxEnumATRiGgerSources::CH103:
         return "CH103";
-    case AgU25xxATRiGgerSources::CH104:
+    case AgU25xxEnumATRiGgerSources::CH104:
         return "CH104";
     }
 
     return "EXTAP";
 }
 
-const char *IAgU25xxSubsystemExtensions::extGetInputATRiGgerCondition(AgU25xxATRiGgerConditions triggerCondition) const
+const char *IAgU25xxSubsystemExtensions::extGetInputATRiGgerCondition(AgU25xxEnumATRiGgerConditions triggerCondition) const
 {
     switch (triggerCondition) {
 
-    case AgU25xxATRiGgerConditions::AHIG:
+    case AgU25xxEnumATRiGgerConditions::AHIG:
         return "AHIG";
-    case AgU25xxATRiGgerConditions::BLOW:
+    case AgU25xxEnumATRiGgerConditions::BLOW:
         return "BLOW";
-    case AgU25xxATRiGgerConditions::WIND:
+    case AgU25xxEnumATRiGgerConditions::WIND:
         return "WIND";
     }
 
     return "BLOW";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetOutputATRiGgerCondition(AgU25xxATRiGgerConditions triggerCondition) const
+const char* IAgU25xxSubsystemExtensions::extGetOutputATRiGgerCondition(AgU25xxEnumATRiGgerConditions triggerCondition) const
 {
     switch (triggerCondition) {
 
-    case AgU25xxATRiGgerConditions::AHIG:
+    case AgU25xxEnumATRiGgerConditions::AHIG:
         return "AHIG";
-    case AgU25xxATRiGgerConditions::BLOW:
+    case AgU25xxEnumATRiGgerConditions::BLOW:
         return "BLOW";
-    case AgU25xxATRiGgerConditions::WIND:
+    case AgU25xxEnumATRiGgerConditions::WIND:
         return "WIND";
     }
 
     return "BLOW";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetInputDTRiGgerPolarity(AgU25xxDTRiGgerPolarities triggerPolarity) const
+const char* IAgU25xxSubsystemExtensions::extGetInputDTRiGgerPolarity(AgU25xxEnumDTRiGgerPolarities triggerPolarity) const
 {
     switch (triggerPolarity) {
 
-    case AgU25xxDTRiGgerPolarities::POS:
+    case AgU25xxEnumDTRiGgerPolarities::POS:
         return "POS";
-    case AgU25xxDTRiGgerPolarities::NEG:
+    case AgU25xxEnumDTRiGgerPolarities::NEG:
         return "NEG";
     }
 
     return "POS";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetOutputDTRiGgerPolarity(AgU25xxDTRiGgerPolarities triggerPolarity) const
+const char* IAgU25xxSubsystemExtensions::extGetOutputDTRiGgerPolarity(AgU25xxEnumDTRiGgerPolarities triggerPolarity) const
 {
     switch (triggerPolarity) {
 
-    case AgU25xxDTRiGgerPolarities::POS:
+    case AgU25xxEnumDTRiGgerPolarities::POS:
         return "POS";
-    case AgU25xxDTRiGgerPolarities::NEG:
+    case AgU25xxEnumDTRiGgerPolarities::NEG:
         return "NEG";
     }
 
     return "POS";
 }
 
-unsigned int IAgU25xxSubsystemExtensions::extGetAIChannel(AgU25xxAIChannels channel) const
+unsigned int IAgU25xxSubsystemExtensions::extGetAIChannel(AgU25xxEnumAIChannels channel) const
 {
     switch (channel) {
 
-    case AgU25xxAIChannels::AIn01:
+    case AgU25xxEnumAIChannels::AIn01:
         return 101;
-    case AgU25xxAIChannels::AIn02:
+    case AgU25xxEnumAIChannels::AIn02:
         return 102;
-    case AgU25xxAIChannels::AIn03:
+    case AgU25xxEnumAIChannels::AIn03:
         return 103;
-    case AgU25xxAIChannels::AIn04:
+    case AgU25xxEnumAIChannels::AIn04:
         return 104;
     }
 
     return 101;
 }
 
-QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetAIChannels(QVector<AgU25xxAIChannels> channels) const
+QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetAIChannels(QVector<AgU25xxEnumAIChannels> channels) const
 {
     QVector<unsigned int> res;
-    QVector<AgU25xxAIChannels>::const_iterator iter = channels.cbegin();
+    QVector<AgU25xxEnumAIChannels>::const_iterator iter = channels.cbegin();
 
     for (; iter != channels.cend(); ) {
         res.push_back(extGetAIChannel(*iter));
@@ -333,155 +337,185 @@ QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetAIChannels(QVector<AgU2
     return res;
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetAIChannelRange(AgU25xxAIChannelRanges range) const
+const char* IAgU25xxSubsystemExtensions::extGetAIChannelRangeStr(AgU25xxEnumAIChannelRanges range) const
 {
-    switch (range) {
-
-    case AgU25xxAIChannelRanges::AUTO:
+    if (range == AgU25xxEnumAIChannelRanges::AUTO)
         return "AUTO";
-    case AgU25xxAIChannelRanges::Range10V:
+    else if(range == AgU25xxEnumAIChannelRanges::Range10V)
         return "10.0";
-    case AgU25xxAIChannelRanges::Range5V:
+    else if(range == AgU25xxEnumAIChannelRanges::Range5V)
         return "5.0";
-    case AgU25xxAIChannelRanges::Range2_5V:
+    else if(range == AgU25xxEnumAIChannelRanges::Range2_5V)
         return "2.5";
-    case AgU25xxAIChannelRanges::Range1_25V:
+    else if(range == AgU25xxEnumAIChannelRanges::Range1_25V)
         return "1.25";
-    }
-
-    return "AUTO";
+    else
+        throw AgU25xxException(QString("Unable to convert range."));
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetAIChannelPolarity(AgU25xxAIChannelPolaities polarity) const
+AgU25xxEnumAIChannelRanges IAgU25xxSubsystemExtensions::extGetAIChannelRangeEnum(QString &rangeStr)
 {
-    switch (polarity) {
-
-    case AgU25xxAIChannelPolaities::BIP:
-        return "BIP";
-    case AgU25xxAIChannelPolaities::UNIP:
-        return "UNIP";
-    }
-
-    return"BIP";
+    if (areStringsEqual("AUTO", rangeStr))
+        return AgU25xxEnumAIChannelRanges::AUTO;
+    else if (areStringsEqual("10.0", rangeStr))
+        return AgU25xxEnumAIChannelRanges::Range10V;
+    else if (areStringsEqual("5.0", rangeStr))
+        return AgU25xxEnumAIChannelRanges::Range5V;
+    else if (areStringsEqual("2.5", rangeStr))
+        return AgU25xxEnumAIChannelRanges::Range2_5V;
+    else if (areStringsEqual("1.25", rangeStr))
+        return AgU25xxEnumAIChannelRanges::Range1_25V;
+    else
+        throw AgU25xxException(QString("Unable to convert range."));
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetAOChannelRefereceSource(AgU25xxAOChannelRSouRCes rSource) const
+const char* IAgU25xxSubsystemExtensions::extGetAIChannelPolarityStr(AgU25xxEnumAIChannelPolaities polarity) const
+{
+    if (polarity == AgU25xxEnumAIChannelPolaities::BIP)
+        return "BIP";
+    else if (polarity == AgU25xxEnumAIChannelPolaities::UNIP)
+        return "UNIP";
+    else
+        throw AgU25xxException(QString("Unable to convert polarity."));
+}
+
+AgU25xxEnumAIChannelPolaities IAgU25xxSubsystemExtensions::extGetAIChannelPolarityEnum(QString& polarityStr)
+{
+    if (areStringsEqual("BIP", polarityStr))
+        return AgU25xxEnumAIChannelPolaities::BIP;
+    else if (areStringsEqual("UNIP", polarityStr))
+        return AgU25xxEnumAIChannelPolaities::UNIP;
+    else
+        throw AgU25xxException(QString("Unable to convert polarity."));
+}
+
+const char* IAgU25xxSubsystemExtensions::extGetAOChannelRefereceSource(AgU25xxEnumAOChannelRSouRCes rSource) const
 {
     switch (rSource) {
 
-    case AgU25xxAOChannelRSouRCes::INT:
+    case AgU25xxEnumAOChannelRSouRCes::INT:
         return "INT";
-    case AgU25xxAOChannelRSouRCes::EXT:
+    case AgU25xxEnumAOChannelRSouRCes::EXT:
         return "EXT";
     }
 
     return "INT";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetCOUNterFunc(AgU25xxCounterFunctions function) const
+const char* IAgU25xxSubsystemExtensions::extGetCOUNterFunc(AgU25xxEnumCounterFunctions function) const
 {
     switch (function) {
 
-    case AgU25xxCounterFunctions::FREQ:
+    case AgU25xxEnumCounterFunctions::FREQ:
         return "FREQ";
-    case AgU25xxCounterFunctions::PER:
+    case AgU25xxEnumCounterFunctions::PER:
         return "PER";
-    case AgU25xxCounterFunctions::PWID:
+    case AgU25xxEnumCounterFunctions::PWID:
         return "PWID";
-    case AgU25xxCounterFunctions::TOT:
+    case AgU25xxEnumCounterFunctions::TOT:
         return "TOT";
     }
 
     return "FREQ";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetCOUNterGateSource(AgU25xxCounterGateSources counterGateSrc) const
+const char* IAgU25xxSubsystemExtensions::extGetCOUNterGateSource(AgU25xxEnumCounterGateSources counterGateSrc) const
 {
     switch (counterGateSrc) {
 
-    case AgU25xxCounterGateSources::INT:
+    case AgU25xxEnumCounterGateSources::INT:
         return "INT";
-    case AgU25xxCounterGateSources::EXT:
+    case AgU25xxEnumCounterGateSources::EXT:
         return "EXT";
     }
 
     return "INT";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetCOUNterGatePolarity(AgU25xxCounterGatePolarities counterPolarity) const
+const char* IAgU25xxSubsystemExtensions::extGetCOUNterGatePolarity(AgU25xxEnumCounterGatePolarities counterPolarity) const
 {
     switch (counterPolarity) {
 
-    case AgU25xxCounterGatePolarities::AHI:
+    case AgU25xxEnumCounterGatePolarities::AHI:
         return "AHI";
-    case AgU25xxCounterGatePolarities::ALO:
+    case AgU25xxEnumCounterGatePolarities::ALO:
         return "ALO";
     }
 
     return "AHI";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetCOUNterGateState(AgU25xxCounterGateStates counterControl) const
+const char* IAgU25xxSubsystemExtensions::extGetCOUNterGateState(AgU25xxEnumCounterGateStates counterControl) const
 {
     switch (counterControl) {
 
-    case AgU25xxCounterGateStates::DIS:
+    case AgU25xxEnumCounterGateStates::DIS:
         return "DIS";
-    case AgU25xxCounterGateStates::ENAB:
+    case AgU25xxEnumCounterGateStates::ENAB:
         return "ENAB";
     }
 
     return "DIS";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetCOUNterClockSource(AgU25xxCounterClockSources counterClockSrc) const
+const char* IAgU25xxSubsystemExtensions::extGetCOUNterClockSource(AgU25xxEnumCounterClockSources counterClockSrc) const
 {
     switch (counterClockSrc) {
 
-    case AgU25xxCounterClockSources::INT:
+    case AgU25xxEnumCounterClockSources::INT:
         return "INT";
-    case AgU25xxCounterClockSources::EXT:
+    case AgU25xxEnumCounterClockSources::EXT:
         return "EXT";
     }
 
     return "INT";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetCOUNterClockPolarity(AgU25xxCounterClockPolarities counterClkPolarity) const
+const char* IAgU25xxSubsystemExtensions::extGetCOUNterClockPolarity(AgU25xxCounterEnumClockPolarities counterClkPolarity) const
 {
     switch (counterClkPolarity) {
 
-    case AgU25xxCounterClockPolarities::AHI:
+    case AgU25xxCounterEnumClockPolarities::AHI:
         return "AHI";
-    case AgU25xxCounterClockPolarities::ALO:
+    case AgU25xxCounterEnumClockPolarities::ALO:
         return "ALO";
     }
 
     return "AHI";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetCOUNterTotalizeCountingSrc(AgU25xxCounterTotalizeCountingSrc counterTotalizeSrc) const
+const char* IAgU25xxSubsystemExtensions::extGetCOUNterTotalizeCountingSrc(AgU25xxEnumCounterTotalizeCountingSrc counterTotalizeSrc) const
 {
     switch (counterTotalizeSrc) {
 
-    case AgU25xxCounterTotalizeCountingSrc::INT:
+    case AgU25xxEnumCounterTotalizeCountingSrc::INT:
         return "INT";
-    case AgU25xxCounterTotalizeCountingSrc::EXT:
+    case AgU25xxEnumCounterTotalizeCountingSrc::EXT:
         return "EXT";
     }
 
     return "INT";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetCOUNterTotalizeCountingDir(AgU25xxCounterTotalizeCountingDir counterTotalizeDir) const
+const char* IAgU25xxSubsystemExtensions::extGetCOUNterTotalizeCountingDir(AgU25xxEnumCounterTotalizeCountingDir counterTotalizeDir) const
 {
     switch (counterTotalizeDir) {
 
-    case AgU25xxCounterTotalizeCountingDir::UP:
+    case AgU25xxEnumCounterTotalizeCountingDir::UP:
         return "UP";
-    case AgU25xxCounterTotalizeCountingDir::DOWN:
+    case AgU25xxEnumCounterTotalizeCountingDir::DOWN:
         return "DOWN";
     }
 
     return "UP";
+}
+
+bool IAgU25xxSubsystemExtensions::areStringsEqual(const char *str1, QString& str2)
+{
+    QRegularExpression termCharsExp("[\r\n\f]");
+
+    QString toComp1 = QString(str1).remove(termCharsExp);
+    QString toComp2 = QString(str2).remove(termCharsExp);
+
+    return toComp1 == toComp2;
 }

@@ -10,28 +10,28 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxSOURceSubSys : public IAgU25xxSubsystem, 
 public:
     AgU25xxSOURceSubSys();
 
-    QString cmdSetVoltage(double voltage, AgU25xxAOChannels channel);
-    QString cmdSetVoltage(double voltage, QVector<AgU25xxAOChannels> channels);
-    QString cmdGetVoltage(AgU25xxAOChannels channel);
-    QString cmdGetVoltage(QVector<AgU25xxAOChannels> channels);
-    QString cmdSetVoltagePolarity(AgU25xxAOChannelPolarities polarity, AgU25xxAOChannels channel);
-    QString cmdSetVoltagePolarity(AgU25xxAOChannelPolarities polarity, QVector<AgU25xxAOChannels> channels);
-    QString cmdGetVoltagePolarity(AgU25xxAOChannels channel);
-    QString cmdGetVoltagePolarity(QVector<AgU25xxAOChannels> channels);
-    QString cmdSetVoltageRefSource(AgU25xxAOChannelRSouRCes refSource, AgU25xxAOChannels channel);
-    QString cmdSetVoltageRefSource(AgU25xxAOChannelRSouRCes refSource, QVector<AgU25xxAOChannels> channels);
-    QString cmdGetVoltageRefSource(AgU25xxAOChannels channel);
-    QString cmdGetVoltageRefSource(QVector<AgU25xxAOChannels> channels);
+    QString cmdSetVoltage(double voltage, AgU25xxEnumAOChannels channel);
+    QString cmdSetVoltage(double voltage, QVector<AgU25xxEnumAOChannels> channels);
+    QString cmdGetVoltage(AgU25xxEnumAOChannels channel);
+    QString cmdGetVoltage(QVector<AgU25xxEnumAOChannels> channels);
+    QString cmdSetVoltagePolarity(AgU25xxEnumAOChannelPolarities polarity, AgU25xxEnumAOChannels channel);
+    QString cmdSetVoltagePolarity(AgU25xxEnumAOChannelPolarities polarity, QVector<AgU25xxEnumAOChannels> channels);
+    QString cmdGetVoltagePolarity(AgU25xxEnumAOChannels channel);
+    QString cmdGetVoltagePolarity(QVector<AgU25xxEnumAOChannels> channels);
+    QString cmdSetVoltageRefSource(AgU25xxEnumAOChannelRSouRCes refSource, AgU25xxEnumAOChannels channel);
+    QString cmdSetVoltageRefSource(AgU25xxEnumAOChannelRSouRCes refSource, QVector<AgU25xxEnumAOChannels> channels);
+    QString cmdGetVoltageRefSource(AgU25xxEnumAOChannels channel);
+    QString cmdGetVoltageRefSource(QVector<AgU25xxEnumAOChannels> channels);
     QString cmdSetVoltageRefValue(double voltage);
     QString cmdGetVoltageRefValue();
-    QString cmdSetDigByte(unsigned short int data, AgU25xxDigitalChannels channel);
-    QString cmdSetDigByte(unsigned short int data, QVector<AgU25xxDigitalChannels> channels);
-    QString cmdGetDigByte(AgU25xxDigitalChannels channel);
-    QString cmdGetDigByte(QVector<AgU25xxDigitalChannels> channels);
-    QString cmdSetDigBit(bool value, unsigned short int bitNum, AgU25xxDigitalChannels channel);
-    QString cmdSetDigBit(bool value, unsigned short int bitNum, QVector<AgU25xxDigitalChannels> channels);
-    QString cmdGetDigBit(unsigned short int bitNum, AgU25xxDigitalChannels channel);
-    QString cmdGetDigBit(unsigned short int bitNum, QVector<AgU25xxDigitalChannels> channels);
+    QString cmdSetDigByte(unsigned short int data, AgU25xxEnumDigitalChannels channel);
+    QString cmdSetDigByte(unsigned short int data, QVector<AgU25xxEnumDigitalChannels> channels);
+    QString cmdGetDigByte(AgU25xxEnumDigitalChannels channel);
+    QString cmdGetDigByte(QVector<AgU25xxEnumDigitalChannels> channels);
+    QString cmdSetDigBit(bool value, unsigned short int bitNum, AgU25xxEnumDigitalChannels channel);
+    QString cmdSetDigBit(bool value, unsigned short int bitNum, QVector<AgU25xxEnumDigitalChannels> channels);
+    QString cmdGetDigBit(unsigned short int bitNum, AgU25xxEnumDigitalChannels channel);
+    QString cmdGetDigBit(unsigned short int bitNum, QVector<AgU25xxEnumDigitalChannels> channels);
 
 private:
     IAgU25xxSubsystem VOLTageSubsystem;

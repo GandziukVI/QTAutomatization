@@ -10,28 +10,28 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxOUTPutSubSys : public IAgU25xxSubsystem, 
 public:
     AgU25xxOUTPutSubSys();
 
-    QString cmdSetOutputState(AgU25xxOutputState outpState) const;
+    QString cmdSetOutputState(AgU25xxEnumOutputState outpState) const;
     QString cmdSetWAVNumIterations(unsigned int numIter);
     QString cmdGetWAVNumIterations();
     QString cmdSetWAVSamplingRate(unsigned int samplingRate);
     QString cmdGetWAVSamplingRate();
     QString cmdSetWAVSamplingFreq(unsigned int samplingFreq);
     QString cmdGetWAVSamplingFreq();
-    QString cmdSetTRIGSource(AgU25xxTriggerSources triggerSource);
+    QString cmdSetTRIGSource(AgU25xxEnumTriggerSources triggerSource);
     QString cmdGetTRIGSource();
-    QString cmdSetTRIGType(AgU25xxTriggerTypes triggerType);
+    QString cmdSetTRIGType(AgU25xxEnumTriggerTypes triggerType);
     QString cmdGetTRIGType();
     QString cmdSetTRIGDelayCount(unsigned int delayCount);
     QString cmdGetTRIGDelayCount();
-    QString cmdSetATRiGgerSrc(AgU25xxATRiGgerSources triggerSource);
+    QString cmdSetATRiGgerSrc(AgU25xxEnumATRiGgerSources triggerSource);
     QString cmdGetATRiGgerSrc();
-    QString cmdSetATRiGgerCondition(AgU25xxATRiGgerConditions triggerCondition);
+    QString cmdSetATRiGgerCondition(AgU25xxEnumATRiGgerConditions triggerCondition);
     QString cmdGetATRiGgerCondition();
     QString cmdSetATRiGgerHighVoltTreshold(double highVoltageTreshold);
     QString cmdGetATRiGgerHighVoltTreshold();
     QString cmdSetATRiGgerLowVoltTreshold(double lowVoltageTreshold);
     QString cmdGetATRiGgerLowVoltTreshold();
-    QString cmdSetDTRiGgerPolarity(AgU25xxDTRiGgerPolarities triggerPolarity);
+    QString cmdSetDTRiGgerPolarity(AgU25xxEnumDTRiGgerPolarities triggerPolarity);
     QString cmdGetDTRiGgerPolarity();
 
 private:

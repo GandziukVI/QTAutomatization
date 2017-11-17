@@ -5,41 +5,41 @@
 
 // Analog output
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxAOChannels {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAOChannels {
     AOut01,
     AOut02
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxAOChannelRSouRCes {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAOChannelRSouRCes {
     INT,
     EXT
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxAOChannelPolarities {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAOChannelPolarities {
     UNIP,
     BIP
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxOutputState {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumOutputState {
     ON,
     OFF
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxTriggerSources {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumTriggerSources {
     NONE, // Immediate triggering
     EXTD, // Selects the external digital trigger (EXTD_AO_TRIG) pin as the triggering source
     EXTA, // Selects the external analog trigger (EXTA_TRIG) pin as the triggering source
     STRG  // Star triggering
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxTriggerTypes {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumTriggerTypes {
     POST, // (Post-trigger): The instrument output is generated immediately after the trigger condition is met.
     DEL,   // (Delay-trigger): The instrument output is generated when the delay count reaches zero. The delay count starts immediately after the trigger condition is met.
     PRE,
     MID
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxATRiGgerSources {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumATRiGgerSources {
     EXTAP,
     CH101,
     CH102,
@@ -47,25 +47,25 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxATRiGgerSources {
     CH104
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxATRiGgerConditions {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumATRiGgerConditions {
     AHIG, // (Above-High- Level triggering): The trigger signal is generated when the analog signal is higher than the high- threshold voltage.
     BLOW, // (Below- Low-Level triggering): The trigger signal is generated when the analog signal is lower than the low- threshold voltage.
     WIND  // (Window (inside region) triggering): The trigger signal is generated when the analog signal falls within the range of the high- threshold and low- threshold voltages.
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxDTRiGgerPolarities {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumDTRiGgerPolarities {
     POS, // (Positive- edge triggering): The trigger signal is generated when a rising edge is detected in the digital signal.
     NEG  // (Negative- edge triggering): The trigger signal is generated when a falling edge is detected in the digital signal.
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannels {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAIChannels {
     AIn01,
     AIn02,
     AIn03,
     AIn04
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannelRanges {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAIChannelRanges {
     AUTO,
     Range10V,
     Range5V,
@@ -73,83 +73,83 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannelRanges {
     Range1_25V
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannelPolaities {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAIChannelPolaities {
     BIP,
     UNIP
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxDigitalDirection {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumDigitalDirection {
     INPut,
     OUTPut
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxDigitalChannels {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumDigitalChannels {
     DIG01,
     DIG02,
     DIG03,
     DIG04
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxTimeSrcModes {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumTimeSrcModes {
     INTernal,
     EXTernal,
     CCG
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterChannels {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumCounterChannels {
     COUNT01,
     COUNT02
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterFunctions {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumCounterFunctions {
     FREQ,
     PER,
     PWID,
     TOT
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterGateSources {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumCounterGateSources {
     INT,
     EXT
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterGatePolarities {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumCounterGatePolarities {
     AHI,
     ALO
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterGateStates {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumCounterGateStates {
     DIS,
     ENAB
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterClockSources {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumCounterClockSources {
     INT,
     EXT
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterClockPolarities {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterEnumClockPolarities {
     AHI,
     ALO
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterTotalizeCountingSrc {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumCounterTotalizeCountingSrc {
     INT,
     EXT
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxCounterTotalizeCountingDir {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumCounterTotalizeCountingDir {
     UP,
     DOWN
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxSSIModes {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumSSIModes {
     None,
     Master,
     Slave
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxBufferStatus {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumBufferStatus {
     EPTY,
     FRAG,
     DATA,

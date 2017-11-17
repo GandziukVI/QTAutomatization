@@ -10,7 +10,7 @@ AgU25xxSOURceSubSys::AgU25xxSOURceSubSys()
     DIGitalDataSubSubsystem = DIGitalSubsystem.getSubSubSystem("DATA");
 }
 
-QString AgU25xxSOURceSubSys::cmdSetVoltage(double voltage, AgU25xxAOChannels channel)
+QString AgU25xxSOURceSubSys::cmdSetVoltage(double voltage, AgU25xxEnumAOChannels channel)
 {
     QString cmdStr = QObject::tr("LEV %1, (@%2)")
             .arg(voltage)
@@ -19,7 +19,7 @@ QString AgU25xxSOURceSubSys::cmdSetVoltage(double voltage, AgU25xxAOChannels cha
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdSetVoltage(double voltage, QVector<AgU25xxAOChannels> channels)
+QString AgU25xxSOURceSubSys::cmdSetVoltage(double voltage, QVector<AgU25xxEnumAOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
 
@@ -30,7 +30,7 @@ QString AgU25xxSOURceSubSys::cmdSetVoltage(double voltage, QVector<AgU25xxAOChan
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdGetVoltage(AgU25xxAOChannels channel)
+QString AgU25xxSOURceSubSys::cmdGetVoltage(AgU25xxEnumAOChannels channel)
 {
     QString cmdStr = QObject::tr("LEV? (@%1)")
             .arg(extGetAOChannel(channel));
@@ -38,7 +38,7 @@ QString AgU25xxSOURceSubSys::cmdGetVoltage(AgU25xxAOChannels channel)
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdGetVoltage(QVector<AgU25xxAOChannels> channels)
+QString AgU25xxSOURceSubSys::cmdGetVoltage(QVector<AgU25xxEnumAOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
 
@@ -48,7 +48,7 @@ QString AgU25xxSOURceSubSys::cmdGetVoltage(QVector<AgU25xxAOChannels> channels)
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdSetVoltagePolarity(AgU25xxAOChannelPolarities polarity, AgU25xxAOChannels channel)
+QString AgU25xxSOURceSubSys::cmdSetVoltagePolarity(AgU25xxEnumAOChannelPolarities polarity, AgU25xxEnumAOChannels channel)
 {
     QString cmdStr = QObject::tr("POL %1, (@%2)")
             .arg(extGetAOChannelPolarity(polarity))
@@ -57,7 +57,7 @@ QString AgU25xxSOURceSubSys::cmdSetVoltagePolarity(AgU25xxAOChannelPolarities po
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdSetVoltagePolarity(AgU25xxAOChannelPolarities polarity, QVector<AgU25xxAOChannels> channels)
+QString AgU25xxSOURceSubSys::cmdSetVoltagePolarity(AgU25xxEnumAOChannelPolarities polarity, QVector<AgU25xxEnumAOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
 
@@ -68,7 +68,7 @@ QString AgU25xxSOURceSubSys::cmdSetVoltagePolarity(AgU25xxAOChannelPolarities po
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdGetVoltagePolarity(AgU25xxAOChannels channel)
+QString AgU25xxSOURceSubSys::cmdGetVoltagePolarity(AgU25xxEnumAOChannels channel)
 {
     QString cmdStr = QObject::tr("POL? (@%1)")
             .arg(extGetAOChannel(channel));
@@ -76,7 +76,7 @@ QString AgU25xxSOURceSubSys::cmdGetVoltagePolarity(AgU25xxAOChannels channel)
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdGetVoltagePolarity(QVector<AgU25xxAOChannels> channels)
+QString AgU25xxSOURceSubSys::cmdGetVoltagePolarity(QVector<AgU25xxEnumAOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
 
@@ -86,7 +86,7 @@ QString AgU25xxSOURceSubSys::cmdGetVoltagePolarity(QVector<AgU25xxAOChannels> ch
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdSetVoltageRefSource(AgU25xxAOChannelRSouRCes refSource, AgU25xxAOChannels channel)
+QString AgU25xxSOURceSubSys::cmdSetVoltageRefSource(AgU25xxEnumAOChannelRSouRCes refSource, AgU25xxEnumAOChannels channel)
 {
     QString cmdStr = QObject::tr("RSRC %1, (@%2)")
             .arg(extGetAOChannelRefereceSource(refSource))
@@ -95,7 +95,7 @@ QString AgU25xxSOURceSubSys::cmdSetVoltageRefSource(AgU25xxAOChannelRSouRCes ref
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdSetVoltageRefSource(AgU25xxAOChannelRSouRCes refSource, QVector<AgU25xxAOChannels> channels)
+QString AgU25xxSOURceSubSys::cmdSetVoltageRefSource(AgU25xxEnumAOChannelRSouRCes refSource, QVector<AgU25xxEnumAOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
 
@@ -106,7 +106,7 @@ QString AgU25xxSOURceSubSys::cmdSetVoltageRefSource(AgU25xxAOChannelRSouRCes ref
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdGetVoltageRefSource(AgU25xxAOChannels channel)
+QString AgU25xxSOURceSubSys::cmdGetVoltageRefSource(AgU25xxEnumAOChannels channel)
 {
     QString cmdStr = QObject::tr("RSRC? (@%1)")
             .arg(extGetAOChannel(channel));
@@ -114,7 +114,7 @@ QString AgU25xxSOURceSubSys::cmdGetVoltageRefSource(AgU25xxAOChannels channel)
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdGetVoltageRefSource(QVector<AgU25xxAOChannels> channels)
+QString AgU25xxSOURceSubSys::cmdGetVoltageRefSource(QVector<AgU25xxEnumAOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
 
@@ -138,7 +138,7 @@ QString AgU25xxSOURceSubSys::cmdGetVoltageRefValue()
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdSetDigByte(unsigned short data, AgU25xxDigitalChannels channel)
+QString AgU25xxSOURceSubSys::cmdSetDigByte(unsigned short data, AgU25xxEnumDigitalChannels channel)
 {
     QString cmdStr = QObject::tr("DATA %1, (@%2)")
             .arg(data)
@@ -147,7 +147,7 @@ QString AgU25xxSOURceSubSys::cmdSetDigByte(unsigned short data, AgU25xxDigitalCh
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdSetDigByte(unsigned short data, QVector<AgU25xxDigitalChannels> channels)
+QString AgU25xxSOURceSubSys::cmdSetDigByte(unsigned short data, QVector<AgU25xxEnumDigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
 
@@ -158,7 +158,7 @@ QString AgU25xxSOURceSubSys::cmdSetDigByte(unsigned short data, QVector<AgU25xxD
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdGetDigByte(AgU25xxDigitalChannels channel)
+QString AgU25xxSOURceSubSys::cmdGetDigByte(AgU25xxEnumDigitalChannels channel)
 {
     QString cmdStr = QObject::tr("DATA? (@%1)")
             .arg(extGetDigChannel(channel));
@@ -166,7 +166,7 @@ QString AgU25xxSOURceSubSys::cmdGetDigByte(AgU25xxDigitalChannels channel)
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdGetDigByte(QVector<AgU25xxDigitalChannels> channels)
+QString AgU25xxSOURceSubSys::cmdGetDigByte(QVector<AgU25xxEnumDigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
 
@@ -176,7 +176,7 @@ QString AgU25xxSOURceSubSys::cmdGetDigByte(QVector<AgU25xxDigitalChannels> chann
     return DIGitalSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdSetDigBit(bool value, unsigned short bitNum, AgU25xxDigitalChannels channel)
+QString AgU25xxSOURceSubSys::cmdSetDigBit(bool value, unsigned short bitNum, AgU25xxEnumDigitalChannels channel)
 {
     unsigned short int bitVal = value? 1 : 0;
 
@@ -188,7 +188,7 @@ QString AgU25xxSOURceSubSys::cmdSetDigBit(bool value, unsigned short bitNum, AgU
     return DIGitalDataSubSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdSetDigBit(bool value, unsigned short bitNum, QVector<AgU25xxDigitalChannels> channels)
+QString AgU25xxSOURceSubSys::cmdSetDigBit(bool value, unsigned short bitNum, QVector<AgU25xxEnumDigitalChannels> channels)
 {
     unsigned short int bitVal = value? 1 : 0;
 
@@ -202,7 +202,7 @@ QString AgU25xxSOURceSubSys::cmdSetDigBit(bool value, unsigned short bitNum, QVe
     return DIGitalDataSubSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdGetDigBit(unsigned short bitNum, AgU25xxDigitalChannels channel)
+QString AgU25xxSOURceSubSys::cmdGetDigBit(unsigned short bitNum, AgU25xxEnumDigitalChannels channel)
 {
     QString cmdStr = QObject::tr("BIT? %1 (@%2)")
             .arg(bitNum)
@@ -211,7 +211,7 @@ QString AgU25xxSOURceSubSys::cmdGetDigBit(unsigned short bitNum, AgU25xxDigitalC
     return DIGitalDataSubSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSOURceSubSys::cmdGetDigBit(unsigned short bitNum, QVector<AgU25xxDigitalChannels> channels)
+QString AgU25xxSOURceSubSys::cmdGetDigBit(unsigned short bitNum, QVector<AgU25xxEnumDigitalChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetDigChannels(channels);
 

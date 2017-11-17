@@ -9,7 +9,7 @@ AgU25xxTRIGgerSubSys::AgU25xxTRIGgerSubSys()
     DTRiGgerSubsystem = getSubSubSystem("DTRG");
 }
 
-QString AgU25xxTRIGgerSubSys::cmdSetTriggerInpSrc(AgU25xxTriggerSources inpSrc)
+QString AgU25xxTRIGgerSubSys::cmdSetTriggerInpSrc(AgU25xxEnumTriggerSources inpSrc)
 {
     QString cmdStr = QObject::tr("SOUR %1")
             .arg(extGetInputTriggerSource(inpSrc));
@@ -22,7 +22,7 @@ QString AgU25xxTRIGgerSubSys::cmdGetTriggerInpSrc()
     return buildCommand(QString("SOUR?"));
 }
 
-QString AgU25xxTRIGgerSubSys::cmdSetTriggerInpType(AgU25xxTriggerTypes inpType)
+QString AgU25xxTRIGgerSubSys::cmdSetTriggerInpType(AgU25xxEnumTriggerTypes inpType)
 {
     QString cmdStr = QObject::tr("TYP %1")
             .arg(extGetInputTriggerType(inpType));
@@ -51,7 +51,7 @@ QString AgU25xxTRIGgerSubSys::cmdGetTriggerInputDelayCount()
 QString AgU25xxTRIGgerSubSys::cmdSetATRiGgerExtSrc()
 {
     QString cmdStr = QObject::tr("SOUR %1")
-            .arg(extGetInputATRiGgerSource(AgU25xxATRiGgerSources::EXTAP));
+            .arg(extGetInputATRiGgerSource(AgU25xxEnumATRiGgerSources::EXTAP));
 
     return ATRiGgerSubsystem.buildCommand(cmdStr);
 }
@@ -61,7 +61,7 @@ QString AgU25xxTRIGgerSubSys::cmdGetATRiGgerExtSrc()
     return ATRiGgerSubsystem.buildCommand(QString("SOUR?"));
 }
 
-QString AgU25xxTRIGgerSubSys::cmdSetATRiGgerInpCondition(AgU25xxATRiGgerConditions atrigCondition)
+QString AgU25xxTRIGgerSubSys::cmdSetATRiGgerInpCondition(AgU25xxEnumATRiGgerConditions atrigCondition)
 {
     QString cmdStr = QObject::tr("COND %1")
             .arg(extGetInputATRiGgerCondition(atrigCondition));
@@ -100,7 +100,7 @@ QString AgU25xxTRIGgerSubSys::cmdGetATRiGgerInpLowThr()
     return ATRiGgerSubsystem.buildCommand(QString("LTHR?"));
 }
 
-QString AgU25xxTRIGgerSubSys::cmdSetDTRiGgerPolarity(AgU25xxDTRiGgerPolarities polarity)
+QString AgU25xxTRIGgerSubSys::cmdSetDTRiGgerPolarity(AgU25xxEnumDTRiGgerPolarities polarity)
 {
     QString cmdStr = QObject::tr("POL %1")
             .arg(extGetInputDTRiGgerPolarity(polarity));

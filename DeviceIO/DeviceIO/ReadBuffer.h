@@ -10,8 +10,8 @@ public:
     ReadBuffer(int n);
     ~ReadBuffer();
 
-    unsigned int Size;
-    char*        Buffer;
+    unsigned int   Size;
+    unsigned char* Buffer;
 };
 
 #endif // READBUFFER_H

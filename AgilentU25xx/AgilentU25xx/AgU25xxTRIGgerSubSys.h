@@ -12,21 +12,21 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxTRIGgerSubSys :
 public:
     AgU25xxTRIGgerSubSys();
 
-    QString cmdSetTriggerInpSrc(AgU25xxTriggerSources inpSrc);
+    QString cmdSetTriggerInpSrc(AgU25xxEnumTriggerSources inpSrc);
     QString cmdGetTriggerInpSrc();
-    QString cmdSetTriggerInpType(AgU25xxTriggerTypes inpType);
+    QString cmdSetTriggerInpType(AgU25xxEnumTriggerTypes inpType);
     QString cmdGetTriggerInpType();
     QString cmdSetTriggerInputDelayCount(unsigned int delCount);
     QString cmdGetTriggerInputDelayCount();
     QString cmdSetATRiGgerExtSrc();
     QString cmdGetATRiGgerExtSrc();
-    QString cmdSetATRiGgerInpCondition(AgU25xxATRiGgerConditions atrigCondition);
+    QString cmdSetATRiGgerInpCondition(AgU25xxEnumATRiGgerConditions atrigCondition);
     QString cmdGetATRiGgerInpCondition();
     QString cmdSetATRiGgerInpHighThr(double thresholdVoltage);
     QString cmdGetATRiGgerInpHighThr();
     QString cmdSetATRiGgerInpLowThr(double thresholdVoltage);
     QString cmdGetATRiGgerInpLowThr();
-    QString cmdSetDTRiGgerPolarity(AgU25xxDTRiGgerPolarities polarity);
+    QString cmdSetDTRiGgerPolarity(AgU25xxEnumDTRiGgerPolarities polarity);
     QString cmdGetDTRiGgerPolarity();
 
 private:

@@ -26,22 +26,22 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);    
 
     // Counter channels
-    AgU25xxCounterChannels ch1 = AgU25xxCounterChannels::COUNT01;
-    AgU25xxCounterChannels ch2 = AgU25xxCounterChannels::COUNT02;
+    AgU25xxEnumCounterChannels ch1 = AgU25xxEnumCounterChannels::COUNT01;
+    AgU25xxEnumCounterChannels ch2 = AgU25xxEnumCounterChannels::COUNT02;
 
-    QVector<AgU25xxCounterChannels> counChVec;
+    QVector<AgU25xxEnumCounterChannels> counChVec;
 
     counChVec.push_back(ch1);
     counChVec.push_back(ch2);
 
     // Digital channels
 
-    AgU25xxDigitalChannels DigCh01 = AgU25xxDigitalChannels::DIG01;
-    AgU25xxDigitalChannels DigCh02 = AgU25xxDigitalChannels::DIG02;
-    AgU25xxDigitalChannels DigCh03 = AgU25xxDigitalChannels::DIG03;
-    AgU25xxDigitalChannels DigCh04 = AgU25xxDigitalChannels::DIG04;
+    AgU25xxEnumDigitalChannels DigCh01 = AgU25xxEnumDigitalChannels::DIG01;
+    AgU25xxEnumDigitalChannels DigCh02 = AgU25xxEnumDigitalChannels::DIG02;
+    AgU25xxEnumDigitalChannels DigCh03 = AgU25xxEnumDigitalChannels::DIG03;
+    AgU25xxEnumDigitalChannels DigCh04 = AgU25xxEnumDigitalChannels::DIG04;
 
-    QVector<AgU25xxDigitalChannels> digChVec;
+    QVector<AgU25xxEnumDigitalChannels> digChVec;
 
     digChVec.push_back(DigCh01);
     digChVec.push_back(DigCh02);
@@ -50,12 +50,12 @@ int main(int argc, char *argv[])
 
     // Analog in channels
 
-    AgU25xxAIChannels AIn01 = AgU25xxAIChannels::AIn01;
-    AgU25xxAIChannels AIn02 = AgU25xxAIChannels::AIn02;
-    AgU25xxAIChannels AIn03 = AgU25xxAIChannels::AIn03;
-    AgU25xxAIChannels AIn04 = AgU25xxAIChannels::AIn04;
+    AgU25xxEnumAIChannels AIn01 = AgU25xxEnumAIChannels::AIn01;
+    AgU25xxEnumAIChannels AIn02 = AgU25xxEnumAIChannels::AIn02;
+    AgU25xxEnumAIChannels AIn03 = AgU25xxEnumAIChannels::AIn03;
+    AgU25xxEnumAIChannels AIn04 = AgU25xxEnumAIChannels::AIn04;
 
-    QVector<AgU25xxAIChannels> aInChVec;
+    QVector<AgU25xxEnumAIChannels> aInChVec;
 
     aInChVec.push_back(AIn01);
     aInChVec.push_back(AIn02);
@@ -64,10 +64,10 @@ int main(int argc, char *argv[])
 
     // Analog out channels
 
-    AgU25xxAOChannels AOut01 = AgU25xxAOChannels::AOut01;
-    AgU25xxAOChannels AOut02 = AgU25xxAOChannels::AOut02;
+    AgU25xxEnumAOChannels AOut01 = AgU25xxEnumAOChannels::AOut01;
+    AgU25xxEnumAOChannels AOut02 = AgU25xxEnumAOChannels::AOut02;
 
-    QVector<AgU25xxAOChannels> aOutChVec;
+    QVector<AgU25xxEnumAOChannels> aOutChVec;
 
     aOutChVec.push_back(AOut01);
     aOutChVec.push_back(AOut02);
@@ -113,15 +113,15 @@ int main(int argc, char *argv[])
 
 //    AgU25xxCONFigureSubSys CONFigureCommands;
 
-//    qDebug() << CONFigureCommands.cmdSetDigitalDirection(AgU25xxDigitalDirection::INPut, DigCh01).toStdString().c_str();
-//    qDebug() << CONFigureCommands.cmdSetDigitalDirection(AgU25xxDigitalDirection::OUTPut, digChVec).toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdSetDigitalDirection(AgU25xxEnumDigitalDirection::INPut, DigCh01).toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdSetDigitalDirection(AgU25xxEnumDigitalDirection::OUTPut, digChVec).toStdString().c_str();
 //    qDebug() << CONFigureCommands.cmdGetDigitalDirection(DigCh02).toStdString().c_str();
 //    qDebug() << CONFigureCommands.cmdGetDigitalDirection(digChVec).toStdString().c_str();
 //    qDebug() << CONFigureCommands.cmdSetExtClockFreq(10000).toStdString().c_str();
 //    qDebug() << CONFigureCommands.cmdGetExtClockFreq().toStdString().c_str();
-//    qDebug() << CONFigureCommands.cmdSetSSIMode(AgU25xxSSIModes::Master).toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdSetSSIMode(AgU25xxEnumSSIModes::Master).toStdString().c_str();
 //    qDebug() << CONFigureCommands.cmdGetSSIMode().toStdString().c_str();
-//    qDebug() << CONFigureCommands.cmdSetTimeBaseSrc(AgU25xxTimeSrcModes::INTernal).toStdString().c_str();
+//    qDebug() << CONFigureCommands.cmdSetTimeBaseSrc(AgU25xxEnumTimeSrcModes::INTernal).toStdString().c_str();
 //    qDebug() << CONFigureCommands.cmdGetTimeBaseSrc().toStdString().c_str();
 
 
@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
 //    qDebug() << MEASureCommands.cmdMeasureCounterFrequency(counChVec).toStdString().c_str();
 //    qDebug() << MEASureCommands.cmdMeasureCounterPeriod(ch1).toStdString().c_str();
 //    qDebug() << MEASureCommands.cmdMeasureCounterPeriod(counChVec).toStdString().c_str();
-//    qDebug() << MEASureCommands.cmdMeasureDigitalBit(1, AgU25xxDigitalChannels::DIG01).toStdString().c_str();
+//    qDebug() << MEASureCommands.cmdMeasureDigitalBit(1, AgU25xxEnumDigitalChannels::DIG01).toStdString().c_str();
 //    qDebug() << MEASureCommands.cmdMeasureCounterPulseWidth(ch1).toStdString().c_str();;
 //    qDebug() << MEASureCommands.cmdMeasureCounterPulseWidth(counChVec).toStdString().c_str();
 //    qDebug() << MEASureCommands.cmdMeasureCounterTotalize(ch1).toStdString().c_str();

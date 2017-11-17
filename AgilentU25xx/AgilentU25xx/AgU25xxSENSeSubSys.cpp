@@ -13,27 +13,27 @@ AgU25xxSENSeSubSys::AgU25xxSENSeSubSys()
     COUNterTotalizeUDOWnSubsubsystem = COUNterTotalizeSubsubsystem.getSubSubSystem("UDOW");
 }
 
-QString AgU25xxSENSeSubSys::cmdSetVoltageRange(AgU25xxAIChannelRanges range, AgU25xxAIChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetVoltageRange(AgU25xxEnumAIChannelRanges range, AgU25xxEnumAIChannels channel)
 {
     QString cmdStr = QObject::tr("RANG %1, (@%2)")
-            .arg(extGetAIChannelRange(range))
+            .arg(extGetAIChannelRangeStr(range))
             .arg(extGetAIChannel(channel));
 
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetVoltageRange(AgU25xxAIChannelRanges range, QVector<AgU25xxAIChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetVoltageRange(AgU25xxEnumAIChannelRanges range, QVector<AgU25xxEnumAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
     QString cmdStr = QObject::tr("RANG %1, %2")
-            .arg(extGetAIChannelRange(range))
+            .arg(extGetAIChannelRangeStr(range))
             .arg(extCreateChannelsString(channelNums));
 
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetVoltageRange(AgU25xxAIChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetVoltageRange(AgU25xxEnumAIChannels channel)
 {
     QString cmdStr = QObject::tr("RANG? (@%1)")
             .arg(extGetAIChannel(channel));
@@ -41,7 +41,7 @@ QString AgU25xxSENSeSubSys::cmdGetVoltageRange(AgU25xxAIChannels channel)
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetVoltageRange(QVector<AgU25xxAIChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetVoltageRange(QVector<AgU25xxEnumAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
@@ -51,27 +51,27 @@ QString AgU25xxSENSeSubSys::cmdGetVoltageRange(QVector<AgU25xxAIChannels> channe
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetVoltagePolarity(AgU25xxAIChannelPolaities polarity, AgU25xxAIChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetVoltagePolarity(AgU25xxEnumAIChannelPolaities polarity, AgU25xxEnumAIChannels channel)
 {
     QString cmdStr = QObject::tr("POL %1, (@%2)")
-            .arg(extGetAIChannelPolarity(polarity))
+            .arg(extGetAIChannelPolarityStr(polarity))
             .arg(extGetAIChannel(channel));
 
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetVoltagePolarity(AgU25xxAIChannelPolaities polarity, QVector<AgU25xxAIChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetVoltagePolarity(AgU25xxEnumAIChannelPolaities polarity, QVector<AgU25xxEnumAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
     QString cmdStr = QObject::tr("POL %1, %2")
-            .arg(extGetAIChannelPolarity(polarity))
+            .arg(extGetAIChannelPolarityStr(polarity))
             .arg(extCreateChannelsString(channelNums));
 
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetVoltagePolarity(AgU25xxAIChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetVoltagePolarity(AgU25xxEnumAIChannels channel)
 {
     QString cmdStr = QObject::tr("POL? (@%1)")
             .arg(extGetAIChannel(channel));
@@ -79,7 +79,7 @@ QString AgU25xxSENSeSubSys::cmdGetVoltagePolarity(AgU25xxAIChannels channel)
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetVoltagePolarity(QVector<AgU25xxAIChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetVoltagePolarity(QVector<AgU25xxEnumAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
@@ -103,7 +103,7 @@ QString AgU25xxSENSeSubSys::cmdGetVoltageAveraging()
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterFunction(AgU25xxCounterFunctions function, AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetCounterFunction(AgU25xxEnumCounterFunctions function, AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("FUNC %1, (@%2)")
             .arg(extGetCOUNterFunc(function))
@@ -112,7 +112,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterFunction(AgU25xxCounterFunctions functi
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterFunction(AgU25xxCounterFunctions function, QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetCounterFunction(AgU25xxEnumCounterFunctions function, QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -123,7 +123,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterFunction(AgU25xxCounterFunctions functi
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterFunction(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetCounterFunction(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("FUNC? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -131,7 +131,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterFunction(AgU25xxCounterChannels channel
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterFunction(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetCounterFunction(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -141,7 +141,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterFunction(QVector<AgU25xxCounterChannels
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdCounterMeasAbort(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdCounterMeasAbort(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("ABOR (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -149,7 +149,7 @@ QString AgU25xxSENSeSubSys::cmdCounterMeasAbort(AgU25xxCounterChannels channel)
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdCounterMeasAbort(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdCounterMeasAbort(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -159,7 +159,7 @@ QString AgU25xxSENSeSubSys::cmdCounterMeasAbort(QVector<AgU25xxCounterChannels> 
     return COUNterSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterGateSource(AgU25xxCounterGateSources counterSrc, AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetCounterGateSource(AgU25xxEnumCounterGateSources counterSrc, AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("SOUR %1, (@%2)")
             .arg(extGetCOUNterGateSource(counterSrc))
@@ -168,7 +168,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterGateSource(AgU25xxCounterGateSources co
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterGateSources(AgU25xxCounterGateSources counterSrc, QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetCounterGateSources(AgU25xxEnumCounterGateSources counterSrc, QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -179,7 +179,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterGateSources(AgU25xxCounterGateSources c
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterGateSource(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetCounterGateSource(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("SOUR? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -187,7 +187,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterGateSource(AgU25xxCounterChannels chann
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterGateSources(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetCounterGateSources(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -197,7 +197,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterGateSources(QVector<AgU25xxCounterChann
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterGatePolarity(AgU25xxCounterGatePolarities gatePolarity, AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetCounterGatePolarity(AgU25xxEnumCounterGatePolarities gatePolarity, AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("POL %1, (@%2)")
             .arg(extGetCOUNterGatePolarity(gatePolarity))
@@ -206,7 +206,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterGatePolarity(AgU25xxCounterGatePolariti
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterGatePolarities(AgU25xxCounterGatePolarities gatePolarity, QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetCounterGatePolarities(AgU25xxEnumCounterGatePolarities gatePolarity, QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -217,7 +217,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterGatePolarities(AgU25xxCounterGatePolari
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterGatePolarity(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetCounterGatePolarity(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("POL? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -225,7 +225,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterGatePolarity(AgU25xxCounterChannels cha
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterGatePolarities(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetCounterGatePolarities(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -235,7 +235,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterGatePolarities(QVector<AgU25xxCounterCh
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterGateEnabled(AgU25xxCounterGateStates gateState, AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetCounterGateEnabled(AgU25xxEnumCounterGateStates gateState, AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("CONT %1, (@%2)")
             .arg(extGetCOUNterGateState(gateState))
@@ -244,7 +244,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterGateEnabled(AgU25xxCounterGateStates ga
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterGateEnabled(AgU25xxCounterGateStates gateState, QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetCounterGateEnabled(AgU25xxEnumCounterGateStates gateState, QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -255,7 +255,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterGateEnabled(AgU25xxCounterGateStates ga
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterGateEnabled(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetCounterGateEnabled(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("CONT? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -263,7 +263,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterGateEnabled(AgU25xxCounterChannels chan
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterGateEnabled(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetCounterGateEnabled(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -273,7 +273,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterGateEnabled(QVector<AgU25xxCounterChann
     return COUNterGateSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterClockSrc(AgU25xxCounterClockSources clkSrc, AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetCounterClockSrc(AgU25xxEnumCounterClockSources clkSrc, AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("SOUR %1, (@%2)")
             .arg(extGetCOUNterClockSource(clkSrc))
@@ -282,7 +282,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterClockSrc(AgU25xxCounterClockSources clk
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterClockSrc(AgU25xxCounterClockSources clkSrc, QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetCounterClockSrc(AgU25xxEnumCounterClockSources clkSrc, QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -293,7 +293,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterClockSrc(AgU25xxCounterClockSources clk
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterClockSrc(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetCounterClockSrc(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("SOUR? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -301,7 +301,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterClockSrc(AgU25xxCounterChannels channel
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterClockSrc(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetCounterClockSrc(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -317,7 +317,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterInternalClockFreq()
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterExternalClockFreq(unsigned int clkFreq, AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetCounterExternalClockFreq(unsigned int clkFreq, AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("EXT %1, (@%2)")
             .arg(clkFreq)
@@ -326,7 +326,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterExternalClockFreq(unsigned int clkFreq,
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterExternalClockFreq(unsigned int clkFreq, QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetCounterExternalClockFreq(unsigned int clkFreq, QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -337,7 +337,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterExternalClockFreq(unsigned int clkFreq,
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterExternalClockFreq(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetCounterExternalClockFreq(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("EXT (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -345,7 +345,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterExternalClockFreq(AgU25xxCounterChannel
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterExternalClockFreq(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetCounterExternalClockFreq(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -355,7 +355,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterExternalClockFreq(QVector<AgU25xxCounte
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterClockPolarity(AgU25xxCounterClockPolarities clkPolarity, AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetCounterClockPolarity(AgU25xxCounterEnumClockPolarities clkPolarity, AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("POL %1, (@%2)")
             .arg(extGetCOUNterClockPolarity(clkPolarity))
@@ -364,7 +364,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterClockPolarity(AgU25xxCounterClockPolari
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterClockPolarity(AgU25xxCounterClockPolarities clkPolarity, QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetCounterClockPolarity(AgU25xxCounterEnumClockPolarities clkPolarity, QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -375,7 +375,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterClockPolarity(AgU25xxCounterClockPolari
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterClockPolarity(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetCounterClockPolarity(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("POL? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -383,7 +383,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterClockPolarity(AgU25xxCounterChannels ch
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterClockPolarity(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetCounterClockPolarity(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -393,7 +393,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterClockPolarity(QVector<AgU25xxCounterCha
     return COUNterClockSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeInitVal(unsigned int initVal, AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeInitVal(unsigned int initVal, AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("IVAL %1, (@%2)")
             .arg(initVal)
@@ -402,7 +402,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeInitVal(unsigned int initVal, A
     return COUNterTotalizeSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeInitVal(unsigned int initVal, QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeInitVal(unsigned int initVal, QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -413,7 +413,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeInitVal(unsigned int initVal, Q
     return COUNterTotalizeSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeInitVal(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeInitVal(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("IVAL? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -421,7 +421,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeInitVal(AgU25xxCounterChannels 
     return COUNterTotalizeSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeInitVal(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeInitVal(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -431,7 +431,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeInitVal(QVector<AgU25xxCounterC
     return COUNterTotalizeSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdCounterTOTalizeInitiate(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdCounterTOTalizeInitiate(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("INIT (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -439,7 +439,7 @@ QString AgU25xxSENSeSubSys::cmdCounterTOTalizeInitiate(AgU25xxCounterChannels ch
     return COUNterTotalizeSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdCounterTOTalizeInitiate(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdCounterTOTalizeInitiate(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -449,7 +449,7 @@ QString AgU25xxSENSeSubSys::cmdCounterTOTalizeInitiate(QVector<AgU25xxCounterCha
     return COUNterTotalizeSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdCounterTOTalizeClear(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdCounterTOTalizeClear(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("CLE (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -457,7 +457,7 @@ QString AgU25xxSENSeSubSys::cmdCounterTOTalizeClear(AgU25xxCounterChannels chann
     return COUNterTotalizeSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdCounterTOTalizeClear(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdCounterTOTalizeClear(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -467,7 +467,7 @@ QString AgU25xxSENSeSubSys::cmdCounterTOTalizeClear(QVector<AgU25xxCounterChanne
     return COUNterTotalizeSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingSrc(AgU25xxCounterTotalizeCountingSrc totSrc, AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingSrc(AgU25xxEnumCounterTotalizeCountingSrc totSrc, AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("SOUR %1, (@%2)")
             .arg(extGetCOUNterTotalizeCountingSrc(totSrc))
@@ -476,7 +476,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingSrc(AgU25xxCounterTotal
     return COUNterTotalizeUDOWnSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingSrc(AgU25xxCounterTotalizeCountingSrc totSrc, QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingSrc(AgU25xxEnumCounterTotalizeCountingSrc totSrc, QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -487,7 +487,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingSrc(AgU25xxCounterTotal
     return COUNterTotalizeUDOWnSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingSrc(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingSrc(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("SOUR? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -495,7 +495,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingSrc(AgU25xxCounterChann
     return COUNterTotalizeUDOWnSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingSrc(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingSrc(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -505,7 +505,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingSrc(QVector<AgU25xxCoun
     return COUNterTotalizeUDOWnSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingDir(AgU25xxCounterTotalizeCountingDir totDir, AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingDir(AgU25xxEnumCounterTotalizeCountingDir totDir, AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("DIR %1, (@%2)")
             .arg(extGetCOUNterTotalizeCountingDir(totDir))
@@ -514,7 +514,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingDir(AgU25xxCounterTotal
     return COUNterTotalizeUDOWnSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingDir(AgU25xxCounterTotalizeCountingDir totDir, QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingDir(AgU25xxEnumCounterTotalizeCountingDir totDir, QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 
@@ -525,7 +525,7 @@ QString AgU25xxSENSeSubSys::cmdSetCounterTOTalizeCountingDir(AgU25xxCounterTotal
     return COUNterTotalizeUDOWnSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingDir(AgU25xxCounterChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingDir(AgU25xxEnumCounterChannels channel)
 {
     QString cmdStr = QObject::tr("DIR? (@%1)")
             .arg(extGetCounterChannel(channel));
@@ -533,7 +533,7 @@ QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingDir(AgU25xxCounterChann
     return COUNterTotalizeUDOWnSubsubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingDir(QVector<AgU25xxCounterChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetCounterTOTalizeCountingDir(QVector<AgU25xxEnumCounterChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetCounterChannels(channels);
 

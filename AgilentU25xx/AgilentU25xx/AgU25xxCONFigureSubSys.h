@@ -10,15 +10,15 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxCONFigureSubSys : public IAgU25xxSubsyste
 public:
     AgU25xxCONFigureSubSys();    
 
-    QString cmdSetDigitalDirection(AgU25xxDigitalDirection direction, AgU25xxDigitalChannels channel);
-    QString cmdSetDigitalDirection(AgU25xxDigitalDirection direction, QVector<AgU25xxDigitalChannels> channels);
-    QString cmdGetDigitalDirection(AgU25xxDigitalChannels channel);
-    QString cmdGetDigitalDirection(QVector<AgU25xxDigitalChannels> channels);
-    QString cmdSetTimeBaseSrc(AgU25xxTimeSrcModes timeSrcMode);
+    QString cmdSetDigitalDirection(AgU25xxEnumDigitalDirection direction, AgU25xxEnumDigitalChannels channel);
+    QString cmdSetDigitalDirection(AgU25xxEnumDigitalDirection direction, QVector<AgU25xxEnumDigitalChannels> channels);
+    QString cmdGetDigitalDirection(AgU25xxEnumDigitalChannels channel);
+    QString cmdGetDigitalDirection(QVector<AgU25xxEnumDigitalChannels> channels);
+    QString cmdSetTimeBaseSrc(AgU25xxEnumTimeSrcModes timeSrcMode);
     QString cmdGetTimeBaseSrc();
     QString cmdSetExtClockFreq(unsigned int frequency);
     QString cmdGetExtClockFreq();
-    QString cmdSetSSIMode(AgU25xxSSIModes ssiMode);
+    QString cmdSetSSIMode(AgU25xxEnumSSIModes ssiMode);
     QString cmdGetSSIMode();
 
 private:

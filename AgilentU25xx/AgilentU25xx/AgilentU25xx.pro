@@ -26,7 +26,10 @@ SOURCES += AgilentU25xx.cpp \
     AgU25xxTRIGgerSubSys.cpp \
     AgU25xxSYSTemSubSys.cpp \
     AgU25xxWAVeformSubSys.cpp \
-    AgU25xxRootCommands.cpp
+    AgU25xxRootCommands.cpp \
+    AgU25xxAIChannel.cpp \
+    AgU25xxException.cpp \
+    AgU25xxAIChannelSet.cpp
 
 HEADERS += AgilentU25xx.h\
         agilentu25xx_global.h \
@@ -45,7 +48,10 @@ HEADERS += AgilentU25xx.h\
     AgU25xxTRIGgerSubSys.h \
     AgU25xxSYSTemSubSys.h \
     AgU25xxWAVeformSubSys.h \
-    AgU25xxRootCommands.h
+    AgU25xxRootCommands.h \
+    AgU25xxAIChannel.h \
+    AgU25xxException.h \
+    AgU25xxAIChannelSet.h
 
 unix {
     target.path = /usr/lib
