@@ -149,4 +149,11 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxSSIModes {
     Slave
 };
 
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxBufferStatus {
+    EPTY,
+    FRAG,
+    DATA,
+    OVER
+};
+
 #endif // AGU25XXDEFINITIONS_H
