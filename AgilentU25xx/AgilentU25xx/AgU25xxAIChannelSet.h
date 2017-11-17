@@ -4,11 +4,11 @@
 #include "agilentu25xx_global.h"
 #include "AgU25xxAIChannel.h"
 
-class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAIChannelset
+class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannelSet
 {
 public:
-    AgU25xxEnumAIChannelset();
-    AgU25xxEnumAIChannelset(IDeviceIO& driver);
+    AgU25xxAIChannelSet();
+    AgU25xxAIChannelSet(IDeviceIO& driver);
 
     QVector<AgU25xxAIChannel> AIChannels;
 
