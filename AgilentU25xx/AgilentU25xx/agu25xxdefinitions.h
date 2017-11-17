@@ -34,7 +34,9 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxTriggerSources {
 
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxTriggerTypes {
     POST, // (Post-trigger): The instrument output is generated immediately after the trigger condition is met.
-    DEL   // (Delay-trigger): The instrument output is generated when the delay count reaches zero. The delay count starts immediately after the trigger condition is met.
+    DEL,   // (Delay-trigger): The instrument output is generated when the delay count reaches zero. The delay count starts immediately after the trigger condition is met.
+    PRE,
+    MID
 };
 
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxATRiGgerSources {

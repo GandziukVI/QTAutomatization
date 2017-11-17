@@ -24,10 +24,15 @@ public:
     unsigned int          extGetCounterChannel(AgU25xxCounterChannels channel) const;
     QVector<unsigned int> extGetCounterChannels(QVector<AgU25xxCounterChannels> channels) const;
     unsigned int          extGetOutputState(AgU25xxOutputState outpState) const;
+    const char*           extGetInputTriggerSource(AgU25xxTriggerSources triggerSource) const;
     const char*           extGetOutputTriggerSource(AgU25xxTriggerSources triggerSource) const;
+    const char*           extGetInputTriggerType(AgU25xxTriggerTypes triggerType) const;
     const char*           extGetOutputTriggerType(AgU25xxTriggerTypes triggerType) const;
+    const char*           extGetInputATRiGgerSource(AgU25xxATRiGgerSources triggerSource) const;
     const char*           extGetOutputATRiGgerSource(AgU25xxATRiGgerSources triggerSource) const;
+    const char*           extGetInputATRiGgerCondition(AgU25xxATRiGgerConditions triggerCondition) const;
     const char*           extGetOutputATRiGgerCondition(AgU25xxATRiGgerConditions triggerCondition) const;
+    const char*           extGetInputDTRiGgerPolarity(AgU25xxDTRiGgerPolarities triggerPolarity) const;
     const char*           extGetOutputDTRiGgerPolarity(AgU25xxDTRiGgerPolarities triggerPolarity) const;
     unsigned int          extGetAIChannel(AgU25xxAIChannels channel) const;
     QVector<unsigned int> extGetAIChannels(QVector<AgU25xxAIChannels> channels) const;

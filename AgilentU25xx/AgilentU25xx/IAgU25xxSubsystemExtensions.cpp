@@ -156,6 +156,23 @@ unsigned int IAgU25xxSubsystemExtensions::extGetOutputState(AgU25xxOutputState o
     return 0;
 }
 
+const char* IAgU25xxSubsystemExtensions::extGetInputTriggerSource(AgU25xxTriggerSources triggerSource) const
+{
+    switch (triggerSource) {
+
+    case AgU25xxTriggerSources::NONE:
+        return "NONE";
+    case AgU25xxTriggerSources::EXTD:
+        return "EXTD";
+    case AgU25xxTriggerSources::EXTA:
+        return "EXTA";
+    case AgU25xxTriggerSources::STRG:
+        return "STRG";
+    }
+
+    return "NONE";
+}
+
 const char* IAgU25xxSubsystemExtensions::extGetOutputTriggerSource(AgU25xxTriggerSources triggerSource) const
 {
     switch (triggerSource) {
@@ -173,6 +190,23 @@ const char* IAgU25xxSubsystemExtensions::extGetOutputTriggerSource(AgU25xxTrigge
     return "NONE";
 }
 
+const char* IAgU25xxSubsystemExtensions::extGetInputTriggerType(AgU25xxTriggerTypes triggerType) const
+{
+    switch (triggerType) {
+
+    case AgU25xxTriggerTypes::POST:
+        return "POST";
+    case AgU25xxTriggerTypes::PRE:
+        return "PRE";
+    case AgU25xxTriggerTypes::MID:
+        return "MID";
+    case AgU25xxTriggerTypes::DEL:
+        return "DEL";
+    }
+
+    return "POST";
+}
+
 const char* IAgU25xxSubsystemExtensions::extGetOutputTriggerType(AgU25xxTriggerTypes triggerType) const
 {
     switch (triggerType) {
@@ -182,7 +216,16 @@ const char* IAgU25xxSubsystemExtensions::extGetOutputTriggerType(AgU25xxTriggerT
     case AgU25xxTriggerTypes::DEL:
         return "DEL";
     }
+
     return "POST";
+}
+
+const char* IAgU25xxSubsystemExtensions::extGetInputATRiGgerSource(AgU25xxATRiGgerSources triggerSource) const
+{
+    if (triggerSource == AgU25xxATRiGgerSources::EXTAP)
+        return "EXTAP";
+    else
+        return "EXTAP";
 }
 
 const char* IAgU25xxSubsystemExtensions::extGetOutputATRiGgerSource(AgU25xxATRiGgerSources triggerSource) const
@@ -204,6 +247,21 @@ const char* IAgU25xxSubsystemExtensions::extGetOutputATRiGgerSource(AgU25xxATRiG
     return "EXTAP";
 }
 
+const char *IAgU25xxSubsystemExtensions::extGetInputATRiGgerCondition(AgU25xxATRiGgerConditions triggerCondition) const
+{
+    switch (triggerCondition) {
+
+    case AgU25xxATRiGgerConditions::AHIG:
+        return "AHIG";
+    case AgU25xxATRiGgerConditions::BLOW:
+        return "BLOW";
+    case AgU25xxATRiGgerConditions::WIND:
+        return "WIND";
+    }
+
+    return "BLOW";
+}
+
 const char* IAgU25xxSubsystemExtensions::extGetOutputATRiGgerCondition(AgU25xxATRiGgerConditions triggerCondition) const
 {
     switch (triggerCondition) {
@@ -217,6 +275,19 @@ const char* IAgU25xxSubsystemExtensions::extGetOutputATRiGgerCondition(AgU25xxAT
     }
 
     return "BLOW";
+}
+
+const char* IAgU25xxSubsystemExtensions::extGetInputDTRiGgerPolarity(AgU25xxDTRiGgerPolarities triggerPolarity) const
+{
+    switch (triggerPolarity) {
+
+    case AgU25xxDTRiGgerPolarities::POS:
+        return "POS";
+    case AgU25xxDTRiGgerPolarities::NEG:
+        return "NEG";
+    }
+
+    return "POS";
 }
 
 const char* IAgU25xxSubsystemExtensions::extGetOutputDTRiGgerPolarity(AgU25xxDTRiGgerPolarities triggerPolarity) const

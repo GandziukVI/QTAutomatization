@@ -5,12 +5,12 @@
 #include "IAgU25xxSubsystem.h"
 #include "IAgU25xxSubsystemExtensions.h"
 
-class AGILENTU25XXSHARED_EXPORT SYSTemSubSys :
+class AGILENTU25XXSHARED_EXPORT AgU25xxSYSTemSubSys :
         public IAgU25xxSubsystem,
         public IAgU25xxSubsystemExtensions
 {
 public:
-    SYSTemSubSys();
+    AgU25xxSYSTemSubSys();
 
     QString cmdGetChassisDescription();
     QString cmdGetDAQErrorMsg();
