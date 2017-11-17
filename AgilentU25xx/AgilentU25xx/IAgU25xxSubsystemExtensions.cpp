@@ -31,6 +31,19 @@ QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetAOChannels(QVector<AgU2
     return res;
 }
 
+const char* IAgU25xxSubsystemExtensions::extGetAOChannelPolarity(AgU25xxAOChannelPolarities polarity) const
+{
+    switch (polarity) {
+
+    case AgU25xxAOChannelPolarities::BIP:
+        return "BIP";
+    case AgU25xxAOChannelPolarities::UNIP:
+        return "UNIP";
+    }
+
+    return "BIP";
+}
+
 unsigned int IAgU25xxSubsystemExtensions::extGetDigChannel(AgU25xxDigitalChannels channel) const
 {
     switch (channel) {
@@ -219,27 +232,27 @@ const char* IAgU25xxSubsystemExtensions::extGetOutputDTRiGgerPolarity(AgU25xxDTR
     return "POS";
 }
 
-unsigned int IAgU25xxSubsystemExtensions::extGetAIChannel(AgU25xxAInChannels channel) const
+unsigned int IAgU25xxSubsystemExtensions::extGetAIChannel(AgU25xxAIChannels channel) const
 {
     switch (channel) {
 
-    case AgU25xxAInChannels::AIn01:
+    case AgU25xxAIChannels::AIn01:
         return 101;
-    case AgU25xxAInChannels::AIn02:
+    case AgU25xxAIChannels::AIn02:
         return 102;
-    case AgU25xxAInChannels::AIn03:
+    case AgU25xxAIChannels::AIn03:
         return 103;
-    case AgU25xxAInChannels::AIn04:
+    case AgU25xxAIChannels::AIn04:
         return 104;
     }
 
     return 101;
 }
 
-QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetAIChannels(QVector<AgU25xxAInChannels> channels) const
+QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetAIChannels(QVector<AgU25xxAIChannels> channels) const
 {
     QVector<unsigned int> res;
-    QVector<AgU25xxAInChannels>::const_iterator iter = channels.cbegin();
+    QVector<AgU25xxAIChannels>::const_iterator iter = channels.cbegin();
 
     for (; iter != channels.cend(); ) {
         res.push_back(extGetAIChannel(*iter));
@@ -249,45 +262,45 @@ QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetAIChannels(QVector<AgU2
     return res;
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetAIChannelRange(AgU25xxAInChannelRanges range) const
+const char* IAgU25xxSubsystemExtensions::extGetAIChannelRange(AgU25xxAIChannelRanges range) const
 {
     switch (range) {
 
-    case AgU25xxAInChannelRanges::AUTO:
+    case AgU25xxAIChannelRanges::AUTO:
         return "AUTO";
-    case AgU25xxAInChannelRanges::Range10V:
+    case AgU25xxAIChannelRanges::Range10V:
         return "10.0";
-    case AgU25xxAInChannelRanges::Range5V:
+    case AgU25xxAIChannelRanges::Range5V:
         return "5.0";
-    case AgU25xxAInChannelRanges::Range2_5V:
+    case AgU25xxAIChannelRanges::Range2_5V:
         return "2.5";
-    case AgU25xxAInChannelRanges::Range1_25V:
+    case AgU25xxAIChannelRanges::Range1_25V:
         return "1.25";
     }
 
     return "AUTO";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetAIChannelPolarity(AgU25xxAInChannelPolaities polarity) const
+const char* IAgU25xxSubsystemExtensions::extGetAIChannelPolarity(AgU25xxAIChannelPolaities polarity) const
 {
     switch (polarity) {
 
-    case AgU25xxAInChannelPolaities::BIP:
+    case AgU25xxAIChannelPolaities::BIP:
         return "BIP";
-    case AgU25xxAInChannelPolaities::UNIP:
+    case AgU25xxAIChannelPolaities::UNIP:
         return "UNIP";
     }
 
     return"BIP";
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetAOChannelRefereceSource(AgU25xxAOutChannelRSouRCes rSource) const
+const char* IAgU25xxSubsystemExtensions::extGetAOChannelRefereceSource(AgU25xxAOChannelRSouRCes rSource) const
 {
     switch (rSource) {
 
-    case AgU25xxAOutChannelRSouRCes::INT:
+    case AgU25xxAOChannelRSouRCes::INT:
         return "INT";
-    case AgU25xxAOutChannelRSouRCes::EXT:
+    case AgU25xxAOChannelRSouRCes::EXT:
         return "EXT";
     }
 

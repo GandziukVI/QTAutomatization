@@ -50,12 +50,12 @@ int main(int argc, char *argv[])
 
     // Analog in channels
 
-    AgU25xxAInChannels AIn01 = AgU25xxAInChannels::AIn01;
-    AgU25xxAInChannels AIn02 = AgU25xxAInChannels::AIn02;
-    AgU25xxAInChannels AIn03 = AgU25xxAInChannels::AIn03;
-    AgU25xxAInChannels AIn04 = AgU25xxAInChannels::AIn04;
+    AgU25xxAIChannels AIn01 = AgU25xxAIChannels::AIn01;
+    AgU25xxAIChannels AIn02 = AgU25xxAIChannels::AIn02;
+    AgU25xxAIChannels AIn03 = AgU25xxAIChannels::AIn03;
+    AgU25xxAIChannels AIn04 = AgU25xxAIChannels::AIn04;
 
-    QVector<AgU25xxAInChannels> aInChVec;
+    QVector<AgU25xxAIChannels> aInChVec;
 
     aInChVec.push_back(AIn01);
     aInChVec.push_back(AIn02);

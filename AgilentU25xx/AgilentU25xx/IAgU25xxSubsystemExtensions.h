@@ -15,6 +15,7 @@ public:
 
     unsigned int          extGetAOChannel(AgU25xxAOChannels channel) const;
     QVector<unsigned int> extGetAOChannels(QVector<AgU25xxAOChannels> channels) const;
+    const char*           extGetAOChannelPolarity(AgU25xxAOChannelPolarities polarity) const;
     unsigned int          extGetDigChannel(AgU25xxDigitalChannels channel) const;
     QVector<unsigned int> extGetDigChannels(QVector<AgU25xxDigitalChannels> channels) const;
     const char*           extGetDigDirection(AgU25xxDigitalDirection direction) const;
@@ -28,11 +29,11 @@ public:
     const char*           extGetOutputATRiGgerSource(AgU25xxATRiGgerSources triggerSource) const;
     const char*           extGetOutputATRiGgerCondition(AgU25xxATRiGgerConditions triggerCondition) const;
     const char*           extGetOutputDTRiGgerPolarity(AgU25xxDTRiGgerPolarities triggerPolarity) const;
-    unsigned int          extGetAIChannel(AgU25xxAInChannels channel) const;
-    QVector<unsigned int> extGetAIChannels(QVector<AgU25xxAInChannels> channels) const;
-    const char*           extGetAIChannelRange(AgU25xxAInChannelRanges range) const;
-    const char*           extGetAIChannelPolarity(AgU25xxAInChannelPolaities polarity) const;
-    const char*           extGetAOChannelRefereceSource(AgU25xxAOutChannelRSouRCes rSource) const;
+    unsigned int          extGetAIChannel(AgU25xxAIChannels channel) const;
+    QVector<unsigned int> extGetAIChannels(QVector<AgU25xxAIChannels> channels) const;
+    const char*           extGetAIChannelRange(AgU25xxAIChannelRanges range) const;
+    const char*           extGetAIChannelPolarity(AgU25xxAIChannelPolaities polarity) const;
+    const char*           extGetAOChannelRefereceSource(AgU25xxAOChannelRSouRCes rSource) const;
     const char*           extGetCOUNterFunc(AgU25xxCounterFunctions function) const;
     const char*           extGetCOUNterGateSource(AgU25xxCounterGateSources counterGateSrc) const;
     const char*           extGetCOUNterGatePolarity(AgU25xxCounterGatePolarities counterPolarity) const;

@@ -13,7 +13,7 @@ AgU25xxSENSeSubSys::AgU25xxSENSeSubSys()
     COUNterTotalizeUDOWnSubsubsystem = COUNterTotalizeSubsubsystem.getSubSubSystem("UDOW");
 }
 
-QString AgU25xxSENSeSubSys::cmdSetVoltageRange(AgU25xxAInChannelRanges range, AgU25xxAInChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetVoltageRange(AgU25xxAIChannelRanges range, AgU25xxAIChannels channel)
 {
     QString cmdStr = QObject::tr("RANG %1, (@%2)")
             .arg(extGetAIChannelRange(range))
@@ -22,7 +22,7 @@ QString AgU25xxSENSeSubSys::cmdSetVoltageRange(AgU25xxAInChannelRanges range, Ag
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetVoltageRange(AgU25xxAInChannelRanges range, QVector<AgU25xxAInChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetVoltageRange(AgU25xxAIChannelRanges range, QVector<AgU25xxAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
@@ -33,7 +33,7 @@ QString AgU25xxSENSeSubSys::cmdSetVoltageRange(AgU25xxAInChannelRanges range, QV
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetVoltageRange(AgU25xxAInChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetVoltageRange(AgU25xxAIChannels channel)
 {
     QString cmdStr = QObject::tr("RANG? (@%1)")
             .arg(extGetAIChannel(channel));
@@ -41,7 +41,7 @@ QString AgU25xxSENSeSubSys::cmdGetVoltageRange(AgU25xxAInChannels channel)
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetVoltageRange(QVector<AgU25xxAInChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetVoltageRange(QVector<AgU25xxAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
@@ -51,7 +51,7 @@ QString AgU25xxSENSeSubSys::cmdGetVoltageRange(QVector<AgU25xxAInChannels> chann
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetVoltagePolarity(AgU25xxAInChannelPolaities polarity, AgU25xxAInChannels channel)
+QString AgU25xxSENSeSubSys::cmdSetVoltagePolarity(AgU25xxAIChannelPolaities polarity, AgU25xxAIChannels channel)
 {
     QString cmdStr = QObject::tr("POL %1, (@%2)")
             .arg(extGetAIChannelPolarity(polarity))
@@ -60,7 +60,7 @@ QString AgU25xxSENSeSubSys::cmdSetVoltagePolarity(AgU25xxAInChannelPolaities pol
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdSetVoltagePolarity(AgU25xxAInChannelPolaities polarity, QVector<AgU25xxAInChannels> channels)
+QString AgU25xxSENSeSubSys::cmdSetVoltagePolarity(AgU25xxAIChannelPolaities polarity, QVector<AgU25xxAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
@@ -71,7 +71,7 @@ QString AgU25xxSENSeSubSys::cmdSetVoltagePolarity(AgU25xxAInChannelPolaities pol
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetVoltagePolarity(AgU25xxAInChannels channel)
+QString AgU25xxSENSeSubSys::cmdGetVoltagePolarity(AgU25xxAIChannels channel)
 {
     QString cmdStr = QObject::tr("POL? (@%1)")
             .arg(extGetAIChannel(channel));
@@ -79,7 +79,7 @@ QString AgU25xxSENSeSubSys::cmdGetVoltagePolarity(AgU25xxAInChannels channel)
     return VOLTageSubsystem.buildCommand(cmdStr);
 }
 
-QString AgU25xxSENSeSubSys::cmdGetVoltagePolarity(QVector<AgU25xxAInChannels> channels)
+QString AgU25xxSENSeSubSys::cmdGetVoltagePolarity(QVector<AgU25xxAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 

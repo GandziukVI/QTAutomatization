@@ -10,14 +10,14 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxSENSeSubSys : public IAgU25xxSubsystem, p
 public:
     AgU25xxSENSeSubSys();
 
-    QString cmdSetVoltageRange(AgU25xxAInChannelRanges range, AgU25xxAInChannels channel);
-    QString cmdSetVoltageRange(AgU25xxAInChannelRanges range, QVector<AgU25xxAInChannels> channels);
-    QString cmdGetVoltageRange(AgU25xxAInChannels channel);
-    QString cmdGetVoltageRange(QVector<AgU25xxAInChannels> channels);
-    QString cmdSetVoltagePolarity(AgU25xxAInChannelPolaities polarity, AgU25xxAInChannels channel);
-    QString cmdSetVoltagePolarity(AgU25xxAInChannelPolaities polarity, QVector<AgU25xxAInChannels> channels);
-    QString cmdGetVoltagePolarity(AgU25xxAInChannels channel);
-    QString cmdGetVoltagePolarity(QVector<AgU25xxAInChannels> channels);
+    QString cmdSetVoltageRange(AgU25xxAIChannelRanges range, AgU25xxAIChannels channel);
+    QString cmdSetVoltageRange(AgU25xxAIChannelRanges range, QVector<AgU25xxAIChannels> channels);
+    QString cmdGetVoltageRange(AgU25xxAIChannels channel);
+    QString cmdGetVoltageRange(QVector<AgU25xxAIChannels> channels);
+    QString cmdSetVoltagePolarity(AgU25xxAIChannelPolaities polarity, AgU25xxAIChannels channel);
+    QString cmdSetVoltagePolarity(AgU25xxAIChannelPolaities polarity, QVector<AgU25xxAIChannels> channels);
+    QString cmdGetVoltagePolarity(AgU25xxAIChannels channel);
+    QString cmdGetVoltagePolarity(QVector<AgU25xxAIChannels> channels);
     QString cmdSetVoltageAveraging(unsigned int avgNum);
     QString cmdGetVoltageAveraging();
     QString cmdSetCounterFunction(AgU25xxCounterFunctions function, AgU25xxCounterChannels channel);

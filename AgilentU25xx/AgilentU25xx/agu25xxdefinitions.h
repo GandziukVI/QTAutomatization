@@ -10,6 +10,16 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxAOChannels {
     AOut02
 };
 
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxAOChannelRSouRCes {
+    INT,
+    EXT
+};
+
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxAOChannelPolarities {
+    UNIP,
+    BIP
+};
+
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxOutputState {
     ON,
     OFF
@@ -46,14 +56,14 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxDTRiGgerPolarities {
     NEG  // (Negative- edge triggering): The trigger signal is generated when a falling edge is detected in the digital signal.
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxAInChannels {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannels {
     AIn01,
     AIn02,
     AIn03,
     AIn04
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxAInChannelRanges {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannelRanges {
     AUTO,
     Range10V,
     Range5V,
@@ -61,14 +71,9 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxAInChannelRanges {
     Range1_25V
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxAInChannelPolaities {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannelPolaities {
     BIP,
     UNIP
-};
-
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxAOutChannelRSouRCes {
-    INT,
-    EXT
 };
 
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxDigitalDirection {

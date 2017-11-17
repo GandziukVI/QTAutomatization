@@ -9,7 +9,7 @@ AgU25xxMEASureSubSys::AgU25xxMEASureSubSys()
     DIGitalSubsystem = getSubSubSystem("DIG");
 }
 
-QString AgU25xxMEASureSubSys::cmdMeasureVoltage(AgU25xxAInChannels channel)
+QString AgU25xxMEASureSubSys::cmdMeasureVoltage(AgU25xxAIChannels channel)
 {
     QString cmdStr = QObject::tr("VOLT:DC? (@%1)")
             .arg(extGetAIChannel(channel));
@@ -17,7 +17,7 @@ QString AgU25xxMEASureSubSys::cmdMeasureVoltage(AgU25xxAInChannels channel)
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxMEASureSubSys::cmdMeasureVoltage(QVector<AgU25xxAInChannels> channels)
+QString AgU25xxMEASureSubSys::cmdMeasureVoltage(QVector<AgU25xxAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 

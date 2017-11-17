@@ -8,7 +8,7 @@ AgU25xxROUTeSubSys::AgU25xxROUTeSubSys()
     CHANnelSubSys = getSubSubSystem("CHAN");
 }
 
-QString AgU25xxROUTeSubSys::cmdSetAIChannelRange(AgU25xxAInChannelRanges range, AgU25xxAInChannels channel)
+QString AgU25xxROUTeSubSys::cmdSetAIChannelRange(AgU25xxAIChannelRanges range, AgU25xxAIChannels channel)
 {
     QString cmdStr = QObject::tr("RANG %1, (@%2)")
             .arg(extGetAIChannelRange(range))
@@ -17,7 +17,7 @@ QString AgU25xxROUTeSubSys::cmdSetAIChannelRange(AgU25xxAInChannelRanges range, 
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdSetAIChannelRanges(AgU25xxAInChannelRanges range, QVector<AgU25xxAInChannels> channels)
+QString AgU25xxROUTeSubSys::cmdSetAIChannelRanges(AgU25xxAIChannelRanges range, QVector<AgU25xxAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
@@ -28,7 +28,7 @@ QString AgU25xxROUTeSubSys::cmdSetAIChannelRanges(AgU25xxAInChannelRanges range,
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdGetAIChannelRange(AgU25xxAInChannels channel)
+QString AgU25xxROUTeSubSys::cmdGetAIChannelRange(AgU25xxAIChannels channel)
 {
     QString cmdStr = QObject::tr("RANG? (@%1)")
             .arg(extGetAIChannel(channel));
@@ -36,7 +36,7 @@ QString AgU25xxROUTeSubSys::cmdGetAIChannelRange(AgU25xxAInChannels channel)
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdGetAIChannelRanges(QVector<AgU25xxAInChannels> channels)
+QString AgU25xxROUTeSubSys::cmdGetAIChannelRanges(QVector<AgU25xxAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
@@ -46,7 +46,7 @@ QString AgU25xxROUTeSubSys::cmdGetAIChannelRanges(QVector<AgU25xxAInChannels> ch
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdSetAIChannelPolarity(AgU25xxAInChannelPolaities polarity, AgU25xxAInChannels channel)
+QString AgU25xxROUTeSubSys::cmdSetAIChannelPolarity(AgU25xxAIChannelPolaities polarity, AgU25xxAIChannels channel)
 {
     QString cmdStr = QObject::tr("POL %1, (@%2)")
             .arg(extGetAIChannelPolarity(polarity))
@@ -55,7 +55,7 @@ QString AgU25xxROUTeSubSys::cmdSetAIChannelPolarity(AgU25xxAInChannelPolaities p
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdSetAIChannelPolarities(AgU25xxAInChannelPolaities polarity, QVector<AgU25xxAInChannels> channels)
+QString AgU25xxROUTeSubSys::cmdSetAIChannelPolarities(AgU25xxAIChannelPolaities polarity, QVector<AgU25xxAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
@@ -66,7 +66,7 @@ QString AgU25xxROUTeSubSys::cmdSetAIChannelPolarities(AgU25xxAInChannelPolaities
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdGetAIChannelPolarity(AgU25xxAInChannels channel)
+QString AgU25xxROUTeSubSys::cmdGetAIChannelPolarity(AgU25xxAIChannels channel)
 {
     QString cmdStr = QObject::tr("POL? (@%1)")
             .arg(extGetAIChannel(channel));
@@ -74,7 +74,7 @@ QString AgU25xxROUTeSubSys::cmdGetAIChannelPolarity(AgU25xxAInChannels channel)
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdGetAIChannelPolarities(QVector<AgU25xxAInChannels> channels)
+QString AgU25xxROUTeSubSys::cmdGetAIChannelPolarities(QVector<AgU25xxAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
@@ -84,7 +84,7 @@ QString AgU25xxROUTeSubSys::cmdGetAIChannelPolarities(QVector<AgU25xxAInChannels
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdSetAOChannelReferenceSource(AgU25xxAOutChannelRSouRCes rSource, AgU25xxAOChannels channel)
+QString AgU25xxROUTeSubSys::cmdSetAOChannelReferenceSource(AgU25xxAOChannelRSouRCes rSource, AgU25xxAOChannels channel)
 {
     QString cmdStr = QObject::tr("RSRC %1, (@%2)")
             .arg(extGetAOChannelRefereceSource(rSource))
@@ -93,7 +93,7 @@ QString AgU25xxROUTeSubSys::cmdSetAOChannelReferenceSource(AgU25xxAOutChannelRSo
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdSetAOChannelsReferenceSource(AgU25xxAOutChannelRSouRCes rSource, QVector<AgU25xxAOChannels> channels)
+QString AgU25xxROUTeSubSys::cmdSetAOChannelsReferenceSource(AgU25xxAOChannelRSouRCes rSource, QVector<AgU25xxAOChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
 
@@ -136,7 +136,7 @@ QString AgU25xxROUTeSubSys::cmdGetAOChannelsReferenceVoltage()
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdSetRouteEnabled(bool enabled, AgU25xxAInChannels channel)
+QString AgU25xxROUTeSubSys::cmdSetRouteEnabled(bool enabled, AgU25xxAIChannels channel)
 {
     int state = enabled? 1 : 0;
     QString cmdStr = QObject::tr("ENAB %1, (@%2)")
@@ -146,7 +146,7 @@ QString AgU25xxROUTeSubSys::cmdSetRouteEnabled(bool enabled, AgU25xxAInChannels 
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdSetRouteEnabled(bool enabled, QVector<AgU25xxAInChannels> channels)
+QString AgU25xxROUTeSubSys::cmdSetRouteEnabled(bool enabled, QVector<AgU25xxAIChannels> channels)
 {
     int state = enabled? 1 : 0;
 
@@ -182,7 +182,7 @@ QString AgU25xxROUTeSubSys::cmdSetRouteEnabled(bool enabled, QVector<AgU25xxAOCh
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdGetRouteEnabled(AgU25xxAInChannels channel)
+QString AgU25xxROUTeSubSys::cmdGetRouteEnabled(AgU25xxAIChannels channel)
 {
     QString cmdStr = QObject::tr("ENAB? (@%1)")
             .arg(extGetAIChannel(channel));
@@ -190,7 +190,7 @@ QString AgU25xxROUTeSubSys::cmdGetRouteEnabled(AgU25xxAInChannels channel)
     return buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdGetRouteEnabled(QVector<AgU25xxAInChannels> channels)
+QString AgU25xxROUTeSubSys::cmdGetRouteEnabled(QVector<AgU25xxAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
