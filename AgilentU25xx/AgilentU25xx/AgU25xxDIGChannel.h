@@ -3,12 +3,7 @@
 
 #include "agilentu25xx_global.h"
 
-#include "AgU25xxCONFigureSubSys.h"
-#include "AgU25xxMEASureSubSys.h"
-#include "AgU25xxSOURceSubSys.h"
-#include "AgU25xxTRIGgerSubSys.h"
-
-#include <IDeviceIO.h>
+#include "AgU25xxDIGitalBit.h"
 
 class AGILENTU25XXSHARED_EXPORT AgU25xxDIGChannel : public IAgU25xxSubsystemExtensions
 {
@@ -16,6 +11,9 @@ public:
     AgU25xxDIGChannel();
     AgU25xxDIGChannel(AgU25xxEnumDigitalChannels channelName, IDeviceIO& driver);
 
+    QVector<AgU25xxDIGitalBit> DIGitalBits;
+
+    AgU25xxDIGitalBit &operator [] (const unsigned short index);
 private:
     IDeviceIO                  *mDriver;
 
@@ -26,11 +24,9 @@ private:
 
     void setByte(const unsigned short int byteVal);
     unsigned short int getByte();
-    void setBit(bool state, const unsigned short int bitNum);
-    bool getBit(const unsigned short int bitNum);
-    void bitPulse(const unsigned short int bitNum, unsigned int msec = 1000);
 
     AgU25xxEnumDigitalChannels mChannelID;
+    unsigned short             nBits;
 };
 
 #endif // AGU25XXDIGCHANNEL_H

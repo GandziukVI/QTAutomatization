@@ -11,6 +11,29 @@ AgU25xxDIGChannel::AgU25xxDIGChannel(AgU25xxEnumDigitalChannels channelName, IDe
 {
     mChannelID = channelName;
     mDriver    = &driver;
+
+    if (channelName == AgU25xxEnumDigitalChannels::DIG01
+            || channelName == AgU25xxEnumDigitalChannels::DIG02)
+        nBits = 8;
+    else if (channelName == AgU25xxEnumDigitalChannels::DIG03
+             || channelName == AgU25xxEnumDigitalChannels::DIG04)
+        nBits = 4;
+    else
+        throw AgU25xxException(QString("Unable to initialize BIT array."));
+
+    unsigned short i = 0;
+    for (; i != nBits; ) {
+        DIGitalBits.push_back(AgU25xxDIGitalBit(channelName, i, driver));
+        ++i;
+    }
+}
+
+AgU25xxDIGitalBit &AgU25xxDIGChannel::operator [](const unsigned short index)
+{
+    if (index > nBits)
+        throw AgU25xxException(QString("Out of range. Index is too large."));
+
+    return DIGitalBits[index];
 }
 
 void AgU25xxDIGChannel::setByte(const unsigned short byteVal)
@@ -34,63 +57,4 @@ unsigned short AgU25xxDIGChannel::getByte()
     QString strResponse = mDriver->RequestQuery(query);
 
     return (unsigned short)extConvertResponseToIntValue(strResponse);
-}
-
-void AgU25xxDIGChannel::setBit(bool state, const unsigned short bitNum)
-{
-    if (bitNum > 7)
-        throw AgU25xxException(QString("Unable to write bit. Value is too high."));
-
-    QString cmdSetDIGDirOUT = mCONFigureSubSys.cmdSetDigitalDirection(AgU25xxEnumDigitalDirection::OUTPut, mChannelID);
-    mDriver->SendCommandRequest(cmdSetDIGDirOUT);
-
-    QString cmd = mSOURceSubSys.cmdSetDigBit(state, bitNum, mChannelID);
-    mDriver->SendCommandRequest(cmd);
-}
-
-bool AgU25xxDIGChannel::getBit(const unsigned short bitNum)
-{
-    if (bitNum > 7)
-        throw AgU25xxException(QString("Unable to write bit. Value is too high."));
-
-    QString cmdSetDIGDirIN = mCONFigureSubSys.cmdSetDigitalDirection(AgU25xxEnumDigitalDirection::INPut, mChannelID);
-    mDriver->SendCommandRequest(cmdSetDIGDirIN);
-
-    QString query = mMEASureSubSys.cmdMeasureDigitalBit(bitNum, mChannelID);
-    QString strResponse = mDriver->RequestQuery(query);
-
-    int intResponse = extConvertResponseToIntValue(strResponse);
-
-    if (intResponse == 0)
-        return false;
-    else if (intResponse == 1)
-        return true;
-    else
-        throw AgU25xxException(QString("Unable to convert read bit."));
-}
-
-void AgU25xxDIGChannel::bitPulse(const unsigned short bitNum, unsigned int msec)
-{
-    if (bitNum > 7)
-        throw AgU25xxException(QString("Unable to pulse bit. Value is too high."));
-
-    int nCounts = (int)((double)msec / 1000.0 * 48000000.0);
-
-    QString cmdSetDIGDirOUT = mCONFigureSubSys.cmdSetDigitalDirection(AgU25xxEnumDigitalDirection::OUTPut, mChannelID);
-
-    QString cmdSetBitToOne  = mSOURceSubSys.cmdSetDigBit(true, bitNum, mChannelID);
-    QString cmdSetBitToZero = mSOURceSubSys.cmdSetDigBit(false, bitNum, mChannelID);
-
-    QString cmdConfTimebaseSrc = mCONFigureSubSys.cmdSetTimeBaseSrc(AgU25xxEnumTimeSrcModes::INTernal);
-    QString cmdSetTriggerSrc   = mTRIGgerSubSys.cmdSetTriggerInpSrc(AgU25xxEnumTriggerSources::NONE);
-    QString cmdSetTriggerType  = mTRIGgerSubSys.cmdSetTriggerInpType(AgU25xxEnumTriggerTypes::DEL);
-    QString cmdSetTriggerDCNT  = mTRIGgerSubSys.cmdSetTriggerInputDelayCount(nCounts);
-
-    mDriver->SendCommandRequest(cmdConfTimebaseSrc);
-    mDriver->SendCommandRequest(cmdSetDIGDirOUT);
-    mDriver->SendCommandRequest(cmdSetBitToOne);
-    mDriver->SendCommandRequest(cmdSetTriggerSrc);
-    mDriver->SendCommandRequest(cmdSetTriggerType);
-    mDriver->SendCommandRequest(cmdSetTriggerDCNT);
-    mDriver->SendCommandRequest(cmdSetBitToZero);
 }
