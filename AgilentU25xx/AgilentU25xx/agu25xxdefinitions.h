@@ -6,8 +6,8 @@
 // Analog output
 
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAOChannels {
-    AOut01,
-    AOut02
+    AOut01 = 0,
+    AOut02 = 1
 };
 
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAOChannelRSouRCes {
@@ -59,10 +59,10 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumDTRiGgerPolarities {
 };
 
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAIChannels {
-    AIn01,
-    AIn02,
-    AIn03,
-    AIn04
+    AIn01 = 0,
+    AIn02 = 1,
+    AIn03 = 2,
+    AIn04 = 3
 };
 
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAIChannelRanges {
@@ -84,10 +84,10 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumDigitalDirection {
 };
 
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumDigitalChannels {
-    DIG01,
-    DIG02,
-    DIG03,
-    DIG04
+    DIG01 = 0,
+    DIG02 = 1,
+    DIG03 = 2,
+    DIG04 = 3
 };
 
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumTimeSrcModes {

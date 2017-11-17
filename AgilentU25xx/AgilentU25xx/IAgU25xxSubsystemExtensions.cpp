@@ -6,7 +6,12 @@
 
 IAgU25xxSubsystemExtensions::IAgU25xxSubsystemExtensions()
 {
+    regExDouble = new QRegularExpression(QString("[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?"), QRegularExpression::MultilineOption);
+}
 
+IAgU25xxSubsystemExtensions::~IAgU25xxSubsystemExtensions()
+{
+    delete regExDouble;
 }
 
 unsigned int IAgU25xxSubsystemExtensions::extGetAOChannel(AgU25xxEnumAOChannels channel) const
@@ -35,17 +40,24 @@ QVector<unsigned int> IAgU25xxSubsystemExtensions::extGetAOChannels(QVector<AgU2
     return res;
 }
 
-const char* IAgU25xxSubsystemExtensions::extGetAOChannelPolarity(AgU25xxEnumAOChannelPolarities polarity) const
+const char* IAgU25xxSubsystemExtensions::extGetAOChannelPolarityStr(AgU25xxEnumAOChannelPolarities polarity) const
 {
-    switch (polarity) {
-
-    case AgU25xxEnumAOChannelPolarities::BIP:
+    if (polarity == AgU25xxEnumAOChannelPolarities::BIP)
         return "BIP";
-    case AgU25xxEnumAOChannelPolarities::UNIP:
+    else if (polarity == AgU25xxEnumAOChannelPolarities::UNIP)
         return "UNIP";
-    }
+    else
+        throw AgU25xxException(QString("Unable to convert polarity."));
+}
 
-    return "BIP";
+AgU25xxEnumAOChannelPolarities IAgU25xxSubsystemExtensions::extGetAOChannelPolarityEnum(QString &polarityStr)
+{
+    if (areStringsEqual("BIP", polarityStr))
+        return AgU25xxEnumAOChannelPolarities::BIP;
+    else if (areStringsEqual("UNIP", polarityStr))
+        return AgU25xxEnumAOChannelPolarities::UNIP;
+    else
+        throw AgU25xxException(QString("Unable to convert polarity."));
 }
 
 unsigned int IAgU25xxSubsystemExtensions::extGetDigChannel(AgU25xxEnumDigitalChannels channel) const
@@ -508,6 +520,40 @@ const char* IAgU25xxSubsystemExtensions::extGetCOUNterTotalizeCountingDir(AgU25x
     }
 
     return "UP";
+}
+
+int IAgU25xxSubsystemExtensions::extConvertResponseToIntValue(QString strResponse)
+{
+    int  intResponse;
+    bool conversionIsOk;
+
+    QRegularExpressionMatch responseMatch = regExDouble->match(strResponse);
+    if(responseMatch.hasMatch())
+        intResponse = responseMatch.captured(0).toInt(&conversionIsOk);
+    else
+        throw AgU25xxException(QString("Unable to read instrument response."));
+
+    if(conversionIsOk)
+        return intResponse;
+    else
+        throw AgU25xxException(QString("Unable to convert read value."));
+}
+
+double IAgU25xxSubsystemExtensions::extConvertResponseToRealValue(QString strResponse)
+{
+    double doubleResponse;
+    bool   conversionIsOk;
+
+    QRegularExpressionMatch responseMatch = regExDouble->match(strResponse);
+    if(responseMatch.hasMatch())
+        doubleResponse = responseMatch.captured(0).toDouble(&conversionIsOk);
+    else
+        throw AgU25xxException(QString("Unable to read instrument response."));
+
+    if(conversionIsOk)
+        return doubleResponse;
+    else
+        throw AgU25xxException(QString("Unable to convert read value."));
 }
 
 bool IAgU25xxSubsystemExtensions::areStringsEqual(const char *str1, QString& str2)

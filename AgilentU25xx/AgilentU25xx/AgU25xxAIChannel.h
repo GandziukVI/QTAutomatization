@@ -17,13 +17,13 @@ public:
     AgU25xxAIChannel(AgU25xxEnumAIChannels channelName, IDeviceIO& driver);
     ~AgU25xxAIChannel();
 
-    void setSamplingRate                  (const unsigned int samplingRate);
-    void setEnabled                       (const bool enabled);
-    bool getEnabled                       ();
-    void                      setPolarity (AgU25xxEnumAIChannelPolaities polarity);
-    AgU25xxEnumAIChannelPolaities getPolarity ();
-    void                      setRange    (AgU25xxEnumAIChannelRanges range);
-    AgU25xxEnumAIChannelRanges    getRange    ();
+    void                          setSamplingRate (const unsigned int samplingRate);
+    void                          setEnabled      (const bool enabled);
+    bool                          getEnabled      ();
+    void                          setPolarity     (AgU25xxEnumAIChannelPolaities polarity);
+    AgU25xxEnumAIChannelPolaities getPolarity     ();
+    void                          setRange        (AgU25xxEnumAIChannelRanges range);
+    AgU25xxEnumAIChannelRanges    getRange        ();
 
 private:
     IDeviceIO*           mDriver;
@@ -31,12 +31,9 @@ private:
     AgU25xxACQuireSubSys mACQuireSubsys;
     AgU25xxROUTeSubSys   mROUTeSubSys;
 
-    AgU25xxEnumAIChannels    mChannelID;
+    AgU25xxEnumAIChannels mChannelID;
 
-    QRegularExpression   *regExDouble;
-
-    int    convertResponseToIntValue(QString strResponse);
-    double convertResponseToRealValue(QString strResponse);
+    QRegularExpression    *regExDouble;
 };
 
 #endif // AGU25XXAICHANNEL_H

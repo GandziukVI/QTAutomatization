@@ -38,7 +38,7 @@ bool AgU25xxAIChannel::getEnabled()
     QString query       = mROUTeSubSys.cmdGetRouteEnabled(mChannelID);
     QString strResponse = mDriver->RequestQuery(query);
 
-    int intResponse = extConvertResponseToIntValue(strResponse);
+    int intResponse = convertResponseToIntValue(strResponse);
 
     return intResponse == 1? true : false;
 }

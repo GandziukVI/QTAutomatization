@@ -55,7 +55,7 @@ QString AgU25xxROUTeSubSys::cmdSetAIChannelPolarity(AgU25xxEnumAIChannelPolaitie
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdSetAIChannelPolarities(AgU25xxEnumAIChannelPolaities polarity, QVector<AgU25xxEnumAIChannels> channels)
+QString AgU25xxROUTeSubSys::cmdSetAIChannelPolarity(AgU25xxEnumAIChannelPolaities polarity, QVector<AgU25xxEnumAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
 
@@ -74,9 +74,47 @@ QString AgU25xxROUTeSubSys::cmdGetAIChannelPolarity(AgU25xxEnumAIChannels channe
     return CHANnelSubSys.buildCommand(cmdStr);
 }
 
-QString AgU25xxROUTeSubSys::cmdGetAIChannelPolarities(QVector<AgU25xxEnumAIChannels> channels)
+QString AgU25xxROUTeSubSys::cmdGetAIChannelPolarity(QVector<AgU25xxEnumAIChannels> channels)
 {
     QVector<unsigned int> channelNums = extGetAIChannels(channels);
+
+    QString cmdStr = QObject::tr("POL? %1")
+            .arg(extCreateChannelsString(channelNums));
+
+    return CHANnelSubSys.buildCommand(cmdStr);
+}
+
+QString AgU25xxROUTeSubSys::cmdSetAOChannelPolarity(AgU25xxEnumAOChannelPolarities polarity, AgU25xxEnumAOChannels channel)
+{
+    QString cmdStr = QObject::tr("POL %1, (@%2)")
+            .arg(extGetAOChannelPolarityStr(polarity))
+            .arg(extGetAOChannel(channel));
+
+    return CHANnelSubSys.buildCommand(cmdStr);
+}
+
+QString AgU25xxROUTeSubSys::cmdSetAOChannelPolarity(AgU25xxEnumAOChannelPolarities polarity, QVector<AgU25xxEnumAOChannels> channels)
+{
+    QVector<unsigned int> channelNums = extGetAOChannels(channels);
+
+    QString cmdStr = QObject::tr("POL %1, %2")
+            .arg(extGetAOChannelPolarityStr(polarity))
+            .arg(extCreateChannelsString(channelNums));
+
+    return CHANnelSubSys.buildCommand(cmdStr);
+}
+
+QString AgU25xxROUTeSubSys::cmdGetAOChannelPolarity(AgU25xxEnumAOChannels channel)
+{
+    QString cmdStr = QObject::tr("POL? (@%1)")
+            .arg(extGetAOChannel(channel));
+
+    return CHANnelSubSys.buildCommand(cmdStr);
+}
+
+QString AgU25xxROUTeSubSys::cmdGetAOChannelPolarity(QVector<AgU25xxEnumAOChannels> channels)
+{
+    QVector<unsigned int> channelNums = extGetAOChannels(channels);
 
     QString cmdStr = QObject::tr("POL? %1")
             .arg(extCreateChannelsString(channelNums));

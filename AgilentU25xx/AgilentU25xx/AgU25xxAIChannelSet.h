@@ -12,8 +12,8 @@ public:
 
     QVector<AgU25xxAIChannel> AIChannels;
 
-    AgU25xxAIChannel &operator[](const int index);
-    AgU25xxAIChannel &operator[](const AgU25xxEnumAIChannels channelID);
+    AgU25xxAIChannel &operator [] (const int index);
+    AgU25xxAIChannel &operator [] (const AgU25xxEnumAIChannels channelID);
 };
 
 #endif // AgU25xxEnumAIChannels_H

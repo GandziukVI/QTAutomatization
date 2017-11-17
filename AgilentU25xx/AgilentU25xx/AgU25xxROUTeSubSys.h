@@ -15,9 +15,13 @@ public:
     QString cmdGetAIChannelRange(AgU25xxEnumAIChannels channel);
     QString cmdGetAIChannelRanges(QVector<AgU25xxEnumAIChannels> channels);
     QString cmdSetAIChannelPolarity(AgU25xxEnumAIChannelPolaities polarity, AgU25xxEnumAIChannels channel);
-    QString cmdSetAIChannelPolarities(AgU25xxEnumAIChannelPolaities polarity, QVector<AgU25xxEnumAIChannels> channels);
+    QString cmdSetAIChannelPolarity(AgU25xxEnumAIChannelPolaities polarity, QVector<AgU25xxEnumAIChannels> channels);
     QString cmdGetAIChannelPolarity(AgU25xxEnumAIChannels channel);
-    QString cmdGetAIChannelPolarities(QVector<AgU25xxEnumAIChannels> channels);
+    QString cmdGetAIChannelPolarity(QVector<AgU25xxEnumAIChannels> channels);
+    QString cmdSetAOChannelPolarity(AgU25xxEnumAOChannelPolarities polarity, AgU25xxEnumAOChannels channel);
+    QString cmdSetAOChannelPolarity(AgU25xxEnumAOChannelPolarities polarity, QVector<AgU25xxEnumAOChannels> channels);
+    QString cmdGetAOChannelPolarity(AgU25xxEnumAOChannels channel);
+    QString cmdGetAOChannelPolarity(QVector<AgU25xxEnumAOChannels> channels);
     QString cmdSetAOChannelReferenceSource(AgU25xxEnumAOChannelRSouRCes rSource, AgU25xxEnumAOChannels channel);
     QString cmdSetAOChannelsReferenceSource(AgU25xxEnumAOChannelRSouRCes rSource, QVector<AgU25xxEnumAOChannels> channels);
     QString cmdGetAOChannelReferenceSource(AgU25xxEnumAOChannels channel);

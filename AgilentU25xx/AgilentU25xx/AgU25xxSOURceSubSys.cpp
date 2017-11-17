@@ -51,7 +51,7 @@ QString AgU25xxSOURceSubSys::cmdGetVoltage(QVector<AgU25xxEnumAOChannels> channe
 QString AgU25xxSOURceSubSys::cmdSetVoltagePolarity(AgU25xxEnumAOChannelPolarities polarity, AgU25xxEnumAOChannels channel)
 {
     QString cmdStr = QObject::tr("POL %1, (@%2)")
-            .arg(extGetAOChannelPolarity(polarity))
+            .arg(extGetAOChannelPolarityStr(polarity))
             .arg(extGetAOChannel(channel));
 
     return VOLTageSubsystem.buildCommand(cmdStr);
@@ -62,7 +62,7 @@ QString AgU25xxSOURceSubSys::cmdSetVoltagePolarity(AgU25xxEnumAOChannelPolaritie
     QVector<unsigned int> channelNums = extGetAOChannels(channels);
 
     QString cmdStr = QObject::tr("POL %1, %2")
-            .arg(extGetAOChannelPolarity(polarity))
+            .arg(extGetAOChannelPolarityStr(polarity))
             .arg(extCreateChannelsString(channelNums));
 
     return VOLTageSubsystem.buildCommand(cmdStr);
