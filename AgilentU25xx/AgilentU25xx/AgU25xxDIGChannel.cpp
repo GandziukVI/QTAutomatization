@@ -21,11 +21,18 @@ AgU25xxDIGChannel::AgU25xxDIGChannel(AgU25xxEnumDigitalChannels channelName, IDe
     else
         throw AgU25xxException(QString("Unable to initialize BIT array."));
 
+    DIGitalBits = new AgU25xxDIGitalBit*[nBits];
+
     unsigned short i = 0;
     for (; i != nBits; ) {
-        DIGitalBits.push_back(AgU25xxDIGitalBit(channelName, i, driver));
+        DIGitalBits[i] = new AgU25xxDIGitalBit(channelName, i, driver);
         ++i;
     }
+}
+
+AgU25xxDIGChannel::~AgU25xxDIGChannel()
+{
+    delete[] DIGitalBits;
 }
 
 AgU25xxDIGitalBit &AgU25xxDIGChannel::operator [](const unsigned short index)
@@ -33,7 +40,7 @@ AgU25xxDIGitalBit &AgU25xxDIGChannel::operator [](const unsigned short index)
     if (index > nBits)
         throw AgU25xxException(QString("Out of range. Index is too large."));
 
-    return DIGitalBits[index];
+    return *DIGitalBits[index];
 }
 
 void AgU25xxDIGChannel::setByte(const unsigned short byteVal)

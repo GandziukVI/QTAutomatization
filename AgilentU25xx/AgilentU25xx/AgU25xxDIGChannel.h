@@ -10,10 +10,15 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxDIGChannel : public IAgU25xxSubsystemExte
 public:
     AgU25xxDIGChannel();
     AgU25xxDIGChannel(AgU25xxEnumDigitalChannels channelName, IDeviceIO& driver);
+    ~AgU25xxDIGChannel();
 
-    QVector<AgU25xxDIGitalBit> DIGitalBits;
+    AgU25xxDIGitalBit **DIGitalBits;
 
     AgU25xxDIGitalBit &operator [] (const unsigned short index);
+
+    void setByte(const unsigned short int byteVal);
+    unsigned short int getByte();
+
 private:
     IDeviceIO                  *mDriver;
 
@@ -21,9 +26,6 @@ private:
     AgU25xxMEASureSubSys       mMEASureSubSys;
     AgU25xxSOURceSubSys        mSOURceSubSys;
     AgU25xxTRIGgerSubSys       mTRIGgerSubSys;
-
-    void setByte(const unsigned short int byteVal);
-    unsigned short int getByte();
 
     AgU25xxEnumDigitalChannels mChannelID;
     unsigned short             nBits;

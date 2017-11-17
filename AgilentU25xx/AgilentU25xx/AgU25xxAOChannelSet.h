@@ -9,8 +9,9 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxAOChannelSet
 public:
     AgU25xxAOChannelSet();
     AgU25xxAOChannelSet(IDeviceIO& driver);
+    ~AgU25xxAOChannelSet();
 
-    QVector<AgU25xxAOChannel> AOChannels;
+    AgU25xxAOChannel *AOChannels;
 
     AgU25xxAOChannel &operator [] (const int index);
     AgU25xxAOChannel &operator [] (const AgU25xxEnumAOChannels channelID);

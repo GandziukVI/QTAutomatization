@@ -9,8 +9,9 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxDIGitalChannelSet
 public:
     AgU25xxDIGitalChannelSet();
     AgU25xxDIGitalChannelSet(IDeviceIO& driver);
+    ~AgU25xxDIGitalChannelSet();
 
-    QVector<AgU25xxDIGChannel> DIGitalChannels;
+    AgU25xxDIGChannel *DIGitalChannels;
 
     AgU25xxDIGChannel &operator [] (const int index);
     AgU25xxDIGChannel &operator [] (const AgU25xxEnumDigitalChannels channelID);

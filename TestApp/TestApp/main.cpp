@@ -15,62 +15,89 @@
 #include <Keithley4200CommonCommands.h>
 
 
-#include <AgU25xxACQuireSubSys.h>
-#include <AgU25xxAPPLySubSys.h>
-#include <AgU25xxMEASureSubSys.h>
-#include <AgU25xxCALibrationSubSys.h>
-#include <AgU25xxCONFigureSubSys.h>
+//#include <AgU25xxACQuireSubSys.h>
+//#include <AgU25xxAPPLySubSys.h>
+//#include <AgU25xxMEASureSubSys.h>
+//#include <AgU25xxCALibrationSubSys.h>
+//#include <AgU25xxCONFigureSubSys.h>
+
+#include "AgilentU25xx.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);    
 
-    // Counter channels
-    AgU25xxEnumCounterChannels ch1 = AgU25xxEnumCounterChannels::COUNT01;
-    AgU25xxEnumCounterChannels ch2 = AgU25xxEnumCounterChannels::COUNT02;
+    IDeviceIO *driver = new VisaDevice("USB0::0x0957::0x1718::TW54334510::INSTR");
 
-    QVector<AgU25xxEnumCounterChannels> counChVec;
+    driver->SendCommandRequest("*CLS; *RST");
 
-    counChVec.push_back(ch1);
-    counChVec.push_back(ch2);
+    AgilentU25xx device(*driver);
 
-    // Digital channels
+//    device.resetDevice();
 
-    AgU25xxEnumDigitalChannels DigCh01 = AgU25xxEnumDigitalChannels::DIG01;
-    AgU25xxEnumDigitalChannels DigCh02 = AgU25xxEnumDigitalChannels::DIG02;
-    AgU25xxEnumDigitalChannels DigCh03 = AgU25xxEnumDigitalChannels::DIG03;
-    AgU25xxEnumDigitalChannels DigCh04 = AgU25xxEnumDigitalChannels::DIG04;
+//    qDebug() << "Reading value from the 1st DIGital channel";
+//    qDebug() << device.DIGitalChannelSet->DIGitalChannels[0].getByte();
+//    qDebug() << "Setting byte to 1 on the 1st DIGital channel";
+//    device.DIGitalChannelSet->DIGitalChannels[0].setByte(1);
+//    qDebug() << "Reading value from the 1st DIGital channel";
+//    qDebug() << device.DIGitalChannelSet->DIGitalChannels[0].getByte();
+//    qDebug() << "Setting byte to 2 on the 1st DIGital channel";
+//    device.DIGitalChannelSet->DIGitalChannels[0].setByte(2);
+//    qDebug() << "Reading value from the 1st DIGital channel";
+//    qDebug() << device.DIGitalChannelSet->DIGitalChannels[0].getByte();
+//    qDebug() << "Setting byte to 0 on the 1st DIGital channel";
+//    device.DIGitalChannelSet->DIGitalChannels[0].setByte(0);
+//    qDebug() << "Reading value from the 1st DIGital channel";
+//    qDebug() << device.DIGitalChannelSet->DIGitalChannels[0].getByte();
 
-    QVector<AgU25xxEnumDigitalChannels> digChVec;
+    delete driver;
 
-    digChVec.push_back(DigCh01);
-    digChVec.push_back(DigCh02);
-    digChVec.push_back(DigCh03);
-    digChVec.push_back(DigCh04);
+//    // Counter channels
+//    AgU25xxEnumCounterChannels ch1 = AgU25xxEnumCounterChannels::COUNT01;
+//    AgU25xxEnumCounterChannels ch2 = AgU25xxEnumCounterChannels::COUNT02;
 
-    // Analog in channels
+//    QVector<AgU25xxEnumCounterChannels> counChVec;
 
-    AgU25xxEnumAIChannels AIn01 = AgU25xxEnumAIChannels::AIn01;
-    AgU25xxEnumAIChannels AIn02 = AgU25xxEnumAIChannels::AIn02;
-    AgU25xxEnumAIChannels AIn03 = AgU25xxEnumAIChannels::AIn03;
-    AgU25xxEnumAIChannels AIn04 = AgU25xxEnumAIChannels::AIn04;
+//    counChVec.push_back(ch1);
+//    counChVec.push_back(ch2);
 
-    QVector<AgU25xxEnumAIChannels> aInChVec;
+//    // Digital channels
 
-    aInChVec.push_back(AIn01);
-    aInChVec.push_back(AIn02);
-    aInChVec.push_back(AIn03);
-    aInChVec.push_back(AIn04);
+//    AgU25xxEnumDigitalChannels DigCh01 = AgU25xxEnumDigitalChannels::DIG01;
+//    AgU25xxEnumDigitalChannels DigCh02 = AgU25xxEnumDigitalChannels::DIG02;
+//    AgU25xxEnumDigitalChannels DigCh03 = AgU25xxEnumDigitalChannels::DIG03;
+//    AgU25xxEnumDigitalChannels DigCh04 = AgU25xxEnumDigitalChannels::DIG04;
 
-    // Analog out channels
+//    QVector<AgU25xxEnumDigitalChannels> digChVec;
 
-    AgU25xxEnumAOChannels AOut01 = AgU25xxEnumAOChannels::AOut01;
-    AgU25xxEnumAOChannels AOut02 = AgU25xxEnumAOChannels::AOut02;
+//    digChVec.push_back(DigCh01);
+//    digChVec.push_back(DigCh02);
+//    digChVec.push_back(DigCh03);
+//    digChVec.push_back(DigCh04);
 
-    QVector<AgU25xxEnumAOChannels> aOutChVec;
+//    // Analog in channels
 
-    aOutChVec.push_back(AOut01);
-    aOutChVec.push_back(AOut02);
+//    AgU25xxEnumAIChannels AIn01 = AgU25xxEnumAIChannels::AIn01;
+//    AgU25xxEnumAIChannels AIn02 = AgU25xxEnumAIChannels::AIn02;
+//    AgU25xxEnumAIChannels AIn03 = AgU25xxEnumAIChannels::AIn03;
+//    AgU25xxEnumAIChannels AIn04 = AgU25xxEnumAIChannels::AIn04;
+
+//    QVector<AgU25xxEnumAIChannels> aInChVec;
+
+//    aInChVec.push_back(AIn01);
+//    aInChVec.push_back(AIn02);
+//    aInChVec.push_back(AIn03);
+//    aInChVec.push_back(AIn04);
+
+//    // Analog out channels
+
+//    AgU25xxEnumAOChannels AOut01 = AgU25xxEnumAOChannels::AOut01;
+//    AgU25xxEnumAOChannels AOut02 = AgU25xxEnumAOChannels::AOut02;
+
+//    QVector<AgU25xxEnumAOChannels> aOutChVec;
+
+//    aOutChVec.push_back(AOut01);
+//    aOutChVec.push_back(AOut02);
 
     /* Testing commands to the device */
 

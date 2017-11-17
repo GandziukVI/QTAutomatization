@@ -3,19 +3,22 @@
 
 AgU25xxDIGitalChannelSet::AgU25xxDIGitalChannelSet()
 {
+    DIGitalChannels = new AgU25xxDIGChannel[4];
 }
 
 AgU25xxDIGitalChannelSet::AgU25xxDIGitalChannelSet(IDeviceIO &driver)
 {
-    AgU25xxDIGChannel DIG01(AgU25xxEnumDigitalChannels::DIG01, driver);
-    AgU25xxDIGChannel DIG02(AgU25xxEnumDigitalChannels::DIG02, driver);
-    AgU25xxDIGChannel DIG03(AgU25xxEnumDigitalChannels::DIG03, driver);
-    AgU25xxDIGChannel DIG04(AgU25xxEnumDigitalChannels::DIG04, driver);
+    DIGitalChannels = new AgU25xxDIGChannel[4];
 
-    DIGitalChannels.push_back(DIG01);
-    DIGitalChannels.push_back(DIG02);
-    DIGitalChannels.push_back(DIG03);
-    DIGitalChannels.push_back(DIG04);
+    DIGitalChannels[0] = AgU25xxDIGChannel(AgU25xxEnumDigitalChannels::DIG01, driver);
+    DIGitalChannels[1] = AgU25xxDIGChannel(AgU25xxEnumDigitalChannels::DIG02, driver);
+    DIGitalChannels[2] = AgU25xxDIGChannel(AgU25xxEnumDigitalChannels::DIG03, driver);
+    DIGitalChannels[3] = AgU25xxDIGChannel(AgU25xxEnumDigitalChannels::DIG04, driver);
+}
+
+AgU25xxDIGitalChannelSet::~AgU25xxDIGitalChannelSet()
+{
+    delete[] DIGitalChannels;
 }
 
 AgU25xxDIGChannel &AgU25xxDIGitalChannelSet::operator [](const int index)
