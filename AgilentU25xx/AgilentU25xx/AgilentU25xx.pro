@@ -31,7 +31,8 @@ SOURCES += AgilentU25xx.cpp \
     AgU25xxException.cpp \
     AgU25xxAIChannelSet.cpp \
     AgU25xxAOChannel.cpp \
-    AgU25xxAOChannelSet.cpp
+    AgU25xxAOChannelSet.cpp \
+    AgU25xxDIGChannel.cpp
 
 HEADERS += AgilentU25xx.h\
         agilentu25xx_global.h \
@@ -55,7 +56,8 @@ HEADERS += AgilentU25xx.h\
     AgU25xxException.h \
     AgU25xxAIChannelSet.h \
     AgU25xxAOChannel.h \
-    AgU25xxAOChannelSet.h
+    AgU25xxAOChannelSet.h \
+    AgU25xxDIGChannel.h
 
 unix {
     target.path = /usr/lib

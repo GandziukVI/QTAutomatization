@@ -4,21 +4,13 @@
 AgU25xxAIChannel::AgU25xxAIChannel()
     : IAgU25xxSubsystemExtensions()
 {
-    regExDouble = new QRegularExpression(QString("[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?"), QRegularExpression::MultilineOption);
 }
 
 AgU25xxAIChannel::AgU25xxAIChannel(AgU25xxEnumAIChannels channelName, IDeviceIO& driver)
     : IAgU25xxSubsystemExtensions()
 {
-    regExDouble = new QRegularExpression(QString("[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?"), QRegularExpression::MultilineOption);
-
     mChannelID = channelName;
     mDriver    = &driver;
-}
-
-AgU25xxAIChannel::~AgU25xxAIChannel()
-{
-    delete regExDouble;
 }
 
 void AgU25xxAIChannel::setSamplingRate(const unsigned int samplingRate)

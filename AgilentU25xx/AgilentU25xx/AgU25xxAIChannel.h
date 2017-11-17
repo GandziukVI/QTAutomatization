@@ -8,14 +8,11 @@
 
 #include <IDeviceIO.h>
 
-#include <QRegularExpression>
-
 class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannel : public IAgU25xxSubsystemExtensions
 {
 public:
     AgU25xxAIChannel();
     AgU25xxAIChannel(AgU25xxEnumAIChannels channelName, IDeviceIO& driver);
-    ~AgU25xxAIChannel();
 
     void                          setSamplingRate (const unsigned int samplingRate);
     void                          setEnabled      (const bool enabled);
@@ -32,8 +29,6 @@ private:
     AgU25xxROUTeSubSys   mROUTeSubSys;
 
     AgU25xxEnumAIChannels mChannelID;
-
-    QRegularExpression    *regExDouble;
 };
 
 #endif // AGU25XXAICHANNEL_H
