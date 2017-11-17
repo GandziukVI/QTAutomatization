@@ -97,7 +97,7 @@ QString AgU25xxSOURceSubSys::cmdSetVoltageRefSource(AgU25xxAOChannelRSouRCes ref
 
 QString AgU25xxSOURceSubSys::cmdSetVoltageRefSource(AgU25xxAOChannelRSouRCes refSource, QVector<AgU25xxAOChannels> channels)
 {
-    QVector<unsigned int> channelNums = extGetAIChannels(channels);
+    QVector<unsigned int> channelNums = extGetAOChannels(channels);
 
     QString cmdStr = QObject::tr("RSRC %1, %2")
             .arg(extGetAOChannelRefereceSource(refSource))
@@ -192,7 +192,7 @@ QString AgU25xxSOURceSubSys::cmdSetDigBit(bool value, unsigned short bitNum, QVe
 {
     unsigned short int bitVal = value? 1 : 0;
 
-    QVector<unsigned int> channelNums = extGetAIChannels(channels);
+    QVector<unsigned int> channelNums = extGetDigChannels(channels);
 
     QString cmdStr = QObject::tr("BIT %1, %2, %3")
             .arg(bitVal)
