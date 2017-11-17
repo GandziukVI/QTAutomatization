@@ -3,17 +3,17 @@
 
 AgU25xxAIChannelSet::AgU25xxAIChannelSet()
 {
-    AIChannels = new AgU25xxAIChannel[4];
+    AIChannels = new AgU25xxAIChannel*[4];
 }
 
 AgU25xxAIChannelSet::AgU25xxAIChannelSet(IDeviceIO &driver)
 {
-    AIChannels = new AgU25xxAIChannel[4];
+    AIChannels = new AgU25xxAIChannel*[4];
 
-    AIChannels[0] = AgU25xxAIChannel(AgU25xxEnumAIChannels::AIn01, driver);
-    AIChannels[1] = AgU25xxAIChannel(AgU25xxEnumAIChannels::AIn02, driver);
-    AIChannels[2] = AgU25xxAIChannel(AgU25xxEnumAIChannels::AIn03, driver);
-    AIChannels[3] = AgU25xxAIChannel(AgU25xxEnumAIChannels::AIn04, driver);
+    AIChannels[0] = new AgU25xxAIChannel(AgU25xxEnumAIChannels::AIn01, driver);
+    AIChannels[1] = new AgU25xxAIChannel(AgU25xxEnumAIChannels::AIn02, driver);
+    AIChannels[2] = new AgU25xxAIChannel(AgU25xxEnumAIChannels::AIn03, driver);
+    AIChannels[3] = new AgU25xxAIChannel(AgU25xxEnumAIChannels::AIn04, driver);
 }
 
 AgU25xxAIChannelSet::~AgU25xxAIChannelSet()
@@ -26,10 +26,10 @@ AgU25xxAIChannel &AgU25xxAIChannelSet::operator [](const int index)
     if(index < 0 || index > 3)
         throw AgU25xxException(QString("Invalid index."));
 
-    return AIChannels[index];
+    return *AIChannels[index];
 }
 
 AgU25xxAIChannel &AgU25xxAIChannelSet::operator [](const AgU25xxEnumAIChannels channelID)
 {
-    return AIChannels[(int)channelID];
+    return *AIChannels[(int)channelID];
 }

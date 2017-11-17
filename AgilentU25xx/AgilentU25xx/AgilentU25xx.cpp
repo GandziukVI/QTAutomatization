@@ -29,3 +29,8 @@ void AgilentU25xx::resetDevice()
 
     mDriver->SendCommandRequest(cmd);
 }
+
+void AgilentU25xx::waitForOperationsCpmplete()
+{
+    mDriver->SendCommandRequest(mIEEE4882Commands.cmdWaitOperationComplete());
+}

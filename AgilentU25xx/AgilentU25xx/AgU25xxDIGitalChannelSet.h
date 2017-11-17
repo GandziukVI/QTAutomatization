@@ -11,10 +11,10 @@ public:
     AgU25xxDIGitalChannelSet(IDeviceIO& driver);
     ~AgU25xxDIGitalChannelSet();
 
-    AgU25xxDIGChannel *DIGitalChannels;
+    AgU25xxDIGChannel **DIGitalChannels;
 
-    AgU25xxDIGChannel &operator [] (const int index);
-    AgU25xxDIGChannel &operator [] (const AgU25xxEnumDigitalChannels channelID);
+    AgU25xxDIGChannel & operator [] (const int index);
+    AgU25xxDIGChannel & operator [] (const AgU25xxEnumDigitalChannels channelID);
 };
 
 #endif // AGU25XXDIGITALCHANNELSET_H

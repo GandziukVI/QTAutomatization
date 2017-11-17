@@ -22,6 +22,7 @@
 //#include <AgU25xxCONFigureSubSys.h>
 
 #include "AgilentU25xx.h"
+#include "AgU25xxException.h"
 
 int main(int argc, char *argv[])
 {
@@ -29,26 +30,34 @@ int main(int argc, char *argv[])
 
     IDeviceIO *driver = new VisaDevice("USB0::0x0957::0x1718::TW54334510::INSTR");
 
-    driver->SendCommandRequest("*CLS; *RST");
-
     AgilentU25xx device(*driver);
 
-//    device.resetDevice();
+    device.resetDevice();
 
-//    qDebug() << "Reading value from the 1st DIGital channel";
-//    qDebug() << device.DIGitalChannelSet->DIGitalChannels[0].getByte();
-//    qDebug() << "Setting byte to 1 on the 1st DIGital channel";
-//    device.DIGitalChannelSet->DIGitalChannels[0].setByte(1);
-//    qDebug() << "Reading value from the 1st DIGital channel";
-//    qDebug() << device.DIGitalChannelSet->DIGitalChannels[0].getByte();
-//    qDebug() << "Setting byte to 2 on the 1st DIGital channel";
-//    device.DIGitalChannelSet->DIGitalChannels[0].setByte(2);
-//    qDebug() << "Reading value from the 1st DIGital channel";
-//    qDebug() << device.DIGitalChannelSet->DIGitalChannels[0].getByte();
-//    qDebug() << "Setting byte to 0 on the 1st DIGital channel";
-//    device.DIGitalChannelSet->DIGitalChannels[0].setByte(0);
-//    qDebug() << "Reading value from the 1st DIGital channel";
-//    qDebug() << device.DIGitalChannelSet->DIGitalChannels[0].getByte();
+    try
+    {
+//        qDebug() << "Reading value from the 1st DIGital channel";
+//        qDebug() << (*device.DIGitalChannelSet)[0].getByte();
+//        qDebug() << "Setting byte to 1 on the 1st DIGital channel";
+//        (*device.DIGitalChannelSet)[0].setByte(1);
+//        qDebug() << "Reading value from the 1st DIGital channel";
+//        qDebug() << (*device.DIGitalChannelSet)[0].getByte();
+//        qDebug() << "Setting byte to 2 on the 1st DIGital channel";
+//        (*device.DIGitalChannelSet)[0].setByte(2);
+//        qDebug() << "Reading value from the 1st DIGital channel";
+//        qDebug() << (*device.DIGitalChannelSet)[0].getByte();
+//        qDebug() << "Setting byte to 0 on the 1st DIGital channel";
+//        (*device.DIGitalChannelSet)[0].setByte(0);
+//        qDebug() << "Reading value from the 1st DIGital channel";
+//        qDebug() << (*device.DIGitalChannelSet)[0].getByte();
+
+        (*device.DIGitalChannelSet)[1][2].bitPulse(100);
+
+    }
+    catch(AgU25xxException ex)
+    {
+        qDebug() << ex.message();
+    }
 
     delete driver;
 

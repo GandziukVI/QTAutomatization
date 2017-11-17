@@ -18,6 +18,7 @@ public:
     ~AgilentU25xx();
 
     void resetDevice();
+    void waitForOperationsCpmplete();
 
     AgU25xxAIChannelSet      *AInChannelSet;
     AgU25xxAOChannelSet      *AOutChannelSet;

@@ -11,7 +11,7 @@ public:
     AgU25xxAOChannelSet(IDeviceIO& driver);
     ~AgU25xxAOChannelSet();
 
-    AgU25xxAOChannel *AOChannels;
+    AgU25xxAOChannel **AOChannels;
 
     AgU25xxAOChannel &operator [] (const int index);
     AgU25xxAOChannel &operator [] (const AgU25xxEnumAOChannels channelID);

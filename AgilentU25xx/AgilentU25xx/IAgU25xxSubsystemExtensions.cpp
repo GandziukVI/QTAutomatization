@@ -524,36 +524,38 @@ const char* IAgU25xxSubsystemExtensions::extGetCOUNterTotalizeCountingDir(AgU25x
 
 int IAgU25xxSubsystemExtensions::extConvertResponseToIntValue(QString strResponse)
 {
-    int  intResponse;
-    bool conversionIsOk;
+//    int  intResponse = 0;
+//    bool conversionIsOk;
 
-    QRegularExpressionMatch responseMatch = regExDouble->match(strResponse);
-    if(responseMatch.hasMatch())
-        intResponse = responseMatch.captured(0).toInt(&conversionIsOk);
-    else
-        throw AgU25xxException(QString("Unable to read instrument response."));
+//    QRegularExpressionMatchIterator responseMatch = regExDouble->globalMatch(strResponse);
+//    if(responseMatch.hasNext())
+//        intResponse = responseMatch.next().captured(0).toInt(&conversionIsOk);
+//    else
+//        throw AgU25xxException(QString("Unable to read instrument response."));
 
-    if(conversionIsOk)
-        return intResponse;
-    else
-        throw AgU25xxException(QString("Unable to convert read value."));
+//    if(conversionIsOk)
+//        return intResponse;
+//    else
+//        throw AgU25xxException(QString("Unable to convert read value."));
+    return strResponse.toInt();
 }
 
 double IAgU25xxSubsystemExtensions::extConvertResponseToRealValue(QString strResponse)
 {
-    double doubleResponse;
-    bool   conversionIsOk;
+//    double doubleResponse;
+//    bool   conversionIsOk;
 
-    QRegularExpressionMatch responseMatch = regExDouble->match(strResponse);
-    if(responseMatch.hasMatch())
-        doubleResponse = responseMatch.captured(0).toDouble(&conversionIsOk);
-    else
-        throw AgU25xxException(QString("Unable to read instrument response."));
+//    QRegularExpressionMatch responseMatch = regExDouble->match(strResponse);
+//    if(responseMatch.hasMatch())
+//        doubleResponse = responseMatch.captured(0).toDouble(&conversionIsOk);
+//    else
+//        throw AgU25xxException(QString("Unable to read instrument response."));
 
-    if(conversionIsOk)
-        return doubleResponse;
-    else
-        throw AgU25xxException(QString("Unable to convert read value."));
+//    if(conversionIsOk)
+//        return doubleResponse;
+//    else
+//        throw AgU25xxException(QString("Unable to convert read value."));
+    return strResponse.toDouble();
 }
 
 bool IAgU25xxSubsystemExtensions::areStringsEqual(const char *str1, QString& str2)
