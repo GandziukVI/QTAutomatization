@@ -31,6 +31,7 @@ public:
     void fetch(short int *data);
     void fetchScale();
     QVector<int> getNumEnabledChannels();
+    int  getSamplingRate();
 
     void setPolarity(AgU25xxEnumAIChannelPolaities polarity);
     AgU25xxEnumAIChannelPolaities getPolarity();

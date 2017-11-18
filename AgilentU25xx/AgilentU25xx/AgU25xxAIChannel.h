@@ -13,6 +13,7 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannel : public IAgU25xxSubsystemExten
 public:
     AgU25xxAIChannel();
     AgU25xxAIChannel(AgU25xxEnumAIChannels channelName, IDeviceIO& driver);
+    ~AgU25xxAIChannel();
 
     void                          setSamplingRate (const unsigned int samplingRate);
     void                          setEnabled      (const bool enabled);
@@ -23,7 +24,7 @@ public:
     AgU25xxEnumAIChannelRanges    getRange        ();
     double                        getScaleValue   (short &val);
     double                        (*getScaleFunction)();
-    QVector<double>               ACQuisitionData;
+    double                        *ACQuisitionData;
 
 
 private:

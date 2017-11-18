@@ -98,12 +98,11 @@ void AgU25xxAIChannelSet::fetch(short *data)
 
     mDriver->SendCommandRequest(cmdGetData);
 
-    QString dataStr = readAgU25xxIEEEBlock();
+    QString dataStr             = readAgU25xxIEEEBlock();
+    const char *dataStrResponse = dataStr.toStdString().c_str();
 
     int i = 0, j = 0;
     int bufSize = strlen(dataStrResponse);
-
-    const char *dataStrResponse = dataStr.toStdString().c_str();
 
     data = new short[bufSize / 2];
 
@@ -125,25 +124,30 @@ void AgU25xxAIChannelSet::fetchScale()
 
     resetAIDataBuffers();
 
-    int i = 0, j = 0;
+    int i = 0, j = 0, k = 0;
     int bufSize = strlen(dataStrResponse);
 
-    QVector<int> activeChannels       = getNumEnabledChannels();
-    QVector<int>::const_iterator iter = activeChannels.cbegin();
+    QVector<int> activeChannels     = getNumEnabledChannels();
+    unsigned int activeChannelsSize = activeChannels.size();
+    unsigned int iter               = 0;
+    unsigned int srat               = getSamplingRate();
 
-    int counter = 0;
-    for (; i != bufSize; ) {
+    for (; k != activeChannelsSize; ){
+        (*this)[activeChannels[k]].ACQuisitionData = new double[srat];
+        ++k;
+    }
+
+    k = 0;
+    for (; i != bufSize - 2; ) {
         short untransformedVal = (short)(dataStrResponse[i] | (dataStrResponse[i + 1] << 8));
-        AIChannels[*iter]->ACQuisitionData.push_back(
-                    AIChannels[*iter]->getScaleValue(untransformedVal)
-                );
+        (*this)[activeChannels[iter]].ACQuisitionData[k] = (*this)[activeChannels[iter]].getScaleValue(untransformedVal);
 
-        if(iter != activeChannels.cend())
-            ++iter;
-        else
-            iter = activeChannels.cbegin();
+        if(++iter == activeChannelsSize)
+            iter = 0;
 
         i += 2; ++j;
+        if (i % activeChannelsSize == 0)
+            ++k;
     }
 }
 
@@ -151,11 +155,18 @@ QVector<int> AgU25xxAIChannelSet::getNumEnabledChannels()
 {
     QVector<int> res;
     int i = 0;
-    for (; i != 4; ++i )
+    for (; i != 4; ) {
         if ((*this)[i].getEnabled())
             res.push_back(i);
+        ++i;
+    }
 
     return res;
+}
+
+int AgU25xxAIChannelSet::getSamplingRate()
+{
+    return mDriver->RequestQuery(mACQuireCommands.cmdGetSamplingrate()).toInt();
 }
 
 QString AgU25xxAIChannelSet::readAgU25xxIEEEBlock()
@@ -202,6 +213,11 @@ QString AgU25xxAIChannelSet::readAgU25xxIEEEBlock()
 void AgU25xxAIChannelSet::resetAIDataBuffers()
 {
     int i = 0;
-    for (; i != 4; )
-        (*this)[i].ACQuisitionData.clear();
+    for (; i != 4; ){
+        if ((*this)[i].ACQuisitionData != NULL) {
+            delete[] (*this)[i].ACQuisitionData;
+            (*this)[i].ACQuisitionData = NULL;
+        }
+        ++i;
+    }
 }

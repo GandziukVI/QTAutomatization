@@ -43,9 +43,22 @@ int main(int argc, char *argv[])
         device.AInChannelSet[i].setPolarity(polarity);
     }
 
-    device.AInChannelSet.acquireSingleShot(samplingRate);
+    QString outputStr;
+    QTextStream outputStrStream(&outputStr);
 
-    qDebug() << "Acquisition successful";
+    for (int i = 0; i != 50; i++) {
+        device.AInChannelSet.acquireSingleShot(samplingRate);
+        qDebug() << "Acquisition successful";
+
+        outputStr.clear();
+
+        for (int j = 0; j != 5; j++)
+            outputStrStream << device.AInChannelSet[0].ACQuisitionData[j] << ' ';
+
+        qDebug() << outputStr.toStdString().c_str();
+    }
+
+    qDebug() << "End of acquisition";
 
 //    try
 //    {

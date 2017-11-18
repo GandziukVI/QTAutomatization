@@ -5,7 +5,8 @@
 
 AgU25xxAIChannel::AgU25xxAIChannel()
     : IAgU25xxSubsystemExtensions(),
-      isEnabled(false)
+      isEnabled(false),
+      ACQuisitionData(NULL)
 {
     mChPolarity = AgU25xxEnumAIChannelPolaities::BIP;
     mChRange    = AgU25xxEnumAIChannelRanges::Range10V;
@@ -13,13 +14,22 @@ AgU25xxAIChannel::AgU25xxAIChannel()
 
 AgU25xxAIChannel::AgU25xxAIChannel(AgU25xxEnumAIChannels channelName, IDeviceIO& driver)
     : IAgU25xxSubsystemExtensions(),
-      isEnabled(false)
+      isEnabled(false),
+      ACQuisitionData(NULL)
 {
     mChannelID = channelName;
     mDriver    = &driver;
 
     mChPolarity = AgU25xxEnumAIChannelPolaities::BIP;
     mChRange    = AgU25xxEnumAIChannelRanges::Range10V;
+}
+
+AgU25xxAIChannel::~AgU25xxAIChannel()
+{
+    if(ACQuisitionData != NULL) {
+        delete[] ACQuisitionData;
+        ACQuisitionData = NULL;
+    }
 }
 
 void AgU25xxAIChannel::setSamplingRate(const unsigned int samplingRate)
