@@ -12,17 +12,6 @@ AgilentU25xx::AgilentU25xx(IDeviceIO &driver)
     AInChannelSet.initialize(driver);
     AOutChannelSet.initialize(driver);
     DIGitalChannelSet.initialize(driver);
-
-//    AInChannelSet = new AgU25xxAIChannelSet(driver);
-//    AOutChannelSet = new AgU25xxAOChannelSet(driver);
-//    DIGitalChannelSet = new AgU25xxDIGitalChannelSet(driver);
-}
-
-AgilentU25xx::~AgilentU25xx()
-{
-//    delete AInChannelSet;
-//    delete AOutChannelSet;
-//    delete DIGitalChannelSet;
 }
 
 void AgilentU25xx::resetDevice()

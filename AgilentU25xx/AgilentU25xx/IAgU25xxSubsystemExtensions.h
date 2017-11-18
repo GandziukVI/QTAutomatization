@@ -51,6 +51,8 @@ public:
     const char*                   extGetCOUNterClockPolarity(AgU25xxCounterEnumClockPolarities counterClkPolarity) const;
     const char*                   extGetCOUNterTotalizeCountingSrc(AgU25xxEnumCounterTotalizeCountingSrc counterTotalizeSrc) const;
     const char*                   extGetCOUNterTotalizeCountingDir(AgU25xxEnumCounterTotalizeCountingDir counterTotalizeDir) const;
+    AgU25xxEnumBufferStatus       extGetWAWeformBufferStatus(QString bufStatus);
+    AgU25xxEnumAcquisitionStates  extGetWAWeformSingleShotStatus(QString compStatus);
 
     int                           extConvertResponseToIntValue(QString strResponse);
     double                        extConvertResponseToRealValue(QString strResponse);

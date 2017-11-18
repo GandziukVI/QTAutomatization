@@ -522,6 +522,30 @@ const char* IAgU25xxSubsystemExtensions::extGetCOUNterTotalizeCountingDir(AgU25x
     return "UP";
 }
 
+AgU25xxEnumBufferStatus IAgU25xxSubsystemExtensions::extGetWAWeformBufferStatus(QString bufStatus)
+{
+    if (areStringsEqual("EPTY", bufStatus))
+        return AgU25xxEnumBufferStatus::EPTY;
+    else if (areStringsEqual("FRAG", bufStatus))
+        return AgU25xxEnumBufferStatus::FRAG;
+    else if (areStringsEqual("DATA", bufStatus))
+        return AgU25xxEnumBufferStatus::DATA;
+    else if (areStringsEqual("OVER", bufStatus))
+        return AgU25xxEnumBufferStatus::OVER;
+    else
+        throw AgU25xxException(QString("Unable to convert buffer status."));
+}
+
+AgU25xxEnumAcquisitionStates IAgU25xxSubsystemExtensions::extGetWAWeformSingleShotStatus(QString compStatus)
+{
+    if (areStringsEqual("YES", compStatus))
+        return AgU25xxEnumAcquisitionStates::Complete;
+    else if (areStringsEqual("NO", compStatus))
+        return AgU25xxEnumAcquisitionStates::Running;
+    else
+        throw AgU25xxException(QString("Unable to convert acquisition complete status."));
+}
+
 int IAgU25xxSubsystemExtensions::extConvertResponseToIntValue(QString strResponse)
 {
 //    int  intResponse = 0;

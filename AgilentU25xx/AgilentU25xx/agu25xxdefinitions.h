@@ -78,6 +78,11 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAIChannelPolaities {
     UNIP
 };
 
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAcquisitionStates {
+    Complete,
+    Running
+};
+
 enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumDigitalDirection {
     INPut,
     OUTPut

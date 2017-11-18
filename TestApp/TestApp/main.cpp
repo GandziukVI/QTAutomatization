@@ -26,7 +26,8 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);    
+    QCoreApplication a(argc, argv);
+
 
     IDeviceIO *driver = new VisaDevice("USB0::0x0957::0x1718::TW54334510::INSTR");
 
@@ -34,8 +35,13 @@ int main(int argc, char *argv[])
 
     device.resetDevice();
 
-    try
-    {
+    short *data;
+    device.AInChannelSet.acquireSingleShot(1000, data);
+
+    delete[] data;
+
+//    try
+//    {
 //        qDebug() << "Reading value from the 1st DIGital channel";
 //        qDebug() << (*device.DIGitalChannelSet)[0].getByte();
 //        qDebug() << "Setting byte to 1 on the 1st DIGital channel";
@@ -51,13 +57,13 @@ int main(int argc, char *argv[])
 //        qDebug() << "Reading value from the 1st DIGital channel";
 //        qDebug() << (*device.DIGitalChannelSet)[0].getByte();
 
-        device.DIGitalChannelSet[1][2].bitPulse(100);
+//        device.DIGitalChannelSet[1][2].bitPulse(100);
 
-    }
-    catch(AgU25xxException ex)
-    {
-        qDebug() << ex.message();
-    }
+//    }
+//    catch(AgU25xxException ex)
+//    {
+//        qDebug() << ex.message();
+//    }
 
     delete driver;
 
