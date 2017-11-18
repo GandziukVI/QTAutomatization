@@ -77,7 +77,8 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq, short *data)
     int i = 0, j = 0;
     int bufSize = strlen(dataStrResponse);
     for (; i != bufSize; ) {
-        data[j] = extract_bigend16(dataStrResponse + i);
+        data[j] = (((short)dataStrResponse[i]) << 0) |
+                (((short)dataStrResponse[i + 1]) << 8);
         i += 2; ++j;
     }
 
