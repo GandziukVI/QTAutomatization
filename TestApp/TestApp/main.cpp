@@ -35,12 +35,7 @@ int main(int argc, char *argv[])
 
     device.resetDevice();
 
-    int samplingRate = 500000;
-    short *data = new short[samplingRate];
-
-    for(int i = 0; i < samplingRate; i++) {
-        data[i] = 0;
-    }
+    int samplingRate = 500000;    
 
     for (int i = 0; i != 4; i++) {
         device.AInChannelSet[i].setEnabled(true);
@@ -48,15 +43,9 @@ int main(int argc, char *argv[])
         device.AInChannelSet[i].setPolarity(polarity);
     }
 
-    device.AInChannelSet.acquireSingleShot(samplingRate, data);
+    device.AInChannelSet.acquireSingleShot(samplingRate);
 
     qDebug() << "Acquisition successful";
-
-    for(int i = 0; i < 100; i++) {
-        qDebug() << data[i];
-    }
-
-    delete[] data;
 
 //    try
 //    {

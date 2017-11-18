@@ -9,7 +9,7 @@
 #include <IDeviceIO.h>
 
 class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannel : public IAgU25xxSubsystemExtensions
-{
+{    
 public:
     AgU25xxAIChannel();
     AgU25xxAIChannel(AgU25xxEnumAIChannels channelName, IDeviceIO& driver);
@@ -21,6 +21,10 @@ public:
     AgU25xxEnumAIChannelPolaities getPolarity     ();
     void                          setRange        (AgU25xxEnumAIChannelRanges range);
     AgU25xxEnumAIChannelRanges    getRange        ();
+    double                        getScaleValue   (short &val);
+    double                        (*getScaleFunction)();
+    QVector<double>               ACQuisitionData;
+
 
 private:
     IDeviceIO*           mDriver;
@@ -29,6 +33,11 @@ private:
     AgU25xxROUTeSubSys   mROUTeSubSys;
 
     AgU25xxEnumAIChannels mChannelID;
+
+    bool isEnabled;
+    AgU25xxEnumAIChannelPolaities mChPolarity;
+    AgU25xxEnumAIChannelRanges    mChRange;
+
 };
 
 #endif // AGU25XXAICHANNEL_H

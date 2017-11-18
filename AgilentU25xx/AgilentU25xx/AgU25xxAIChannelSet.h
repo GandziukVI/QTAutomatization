@@ -24,11 +24,13 @@ public:
 
     void initialize(IDeviceIO& driver);
 
-    void acquireSingleShot(int samplingFreq, short *data);
+    void acquireSingleShot(int samplingFreq);
     void startContinuousAcquisition();
     void stopAcquisition();
     bool checkDataReady();
-    void fetch(short int* data);
+    void fetch(short int *data);
+    void fetchScale();
+    QVector<int> getNumEnabledChannels();
 
     void setPolarity(AgU25xxEnumAIChannelPolaities polarity);
     AgU25xxEnumAIChannelPolaities getPolarity();
@@ -43,9 +45,7 @@ private:
     AgU25xxWAVeformSubSys mWAVeformCommands;
 
     QString               readAgU25xxIEEEBlock();
-
-    short extract_littleend16(const char *buf);
-    short extract_bigend16(const char *buf);
+    void                  resetAIDataBuffers();
 };
 
 #endif // AgU25xxEnumAIChannels_H

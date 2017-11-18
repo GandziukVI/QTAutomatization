@@ -48,8 +48,8 @@ void AgU25xxAIChannelSet::initialize(IDeviceIO &driver)
     mDriver = &driver;
 }
 
-void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq, short *data)
-{
+void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq)
+{       
     QString cmdSetSamplingFreq = mACQuireCommands.cmdSetSamplingRate(samplingFreq);
     QString cmdSetPOINOutput   = mACQuireCommands.cmdSetPointsSingleShot(samplingFreq);
     QString cmdStartSingleShot = mRootCommands.cmdStartSingleShotAcquisition();
@@ -66,23 +66,7 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq, short *data)
             break;
     }
 
-    QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
-
-    mDriver->SendCommandRequest(cmdGetData);
-
-    QString dataStr = readAgU25xxIEEEBlock();
-
-    const char* dataStrResponse = dataStr.toStdString().c_str();
-
-    int i = 0, j = 0;
-    int bufSize = strlen(dataStrResponse);
-    for (; i != bufSize; ) {
-        data[j] = (((short)dataStrResponse[i]) << 0) |
-                (((short)dataStrResponse[i + 1]) << 8);
-        i += 2; ++j;
-    }
-
-//    memcpy(data, dataStrResponse, strlen(dataStrResponse) * sizeof(char));
+    fetchScale();
 }
 
 void AgU25xxAIChannelSet::startContinuousAcquisition()
@@ -110,18 +94,68 @@ bool AgU25xxAIChannelSet::checkDataReady()
 
 void AgU25xxAIChannelSet::fetch(short *data)
 {
-    QString cmd = mWAVeformCommands.cmdQueryAcquisitionData();
-    mDriver->SendCommandRequest(cmd);
+    QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
+
+    mDriver->SendCommandRequest(cmdGetData);
 
     QString dataStr = readAgU25xxIEEEBlock();
 
-    qDebug() << dataStr;
+    int i = 0, j = 0;
+    int bufSize = strlen(dataStrResponse);
 
-    int conversionDivider = sizeof(short) / sizeof(char);
+    const char *dataStrResponse = dataStr.toStdString().c_str();
 
-    data = new short[dataStr.size() / conversionDivider];
+    data = new short[bufSize / 2];
 
-    memcpy(data, dataStr.toStdString().c_str(), sizeof(data));
+    for (; i != bufSize; ) {
+        data[j] = (short)(dataStrResponse[i] | (dataStrResponse[i + 1] << 8));
+        i += 2; ++j;
+    }
+    //    memcpy(data, dataStrResponse, strlen(dataStrResponse) * sizeof(char));
+}
+
+void AgU25xxAIChannelSet::fetchScale()
+{
+    QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
+
+    mDriver->SendCommandRequest(cmdGetData);
+
+    QString    dataStr = readAgU25xxIEEEBlock();
+    const char *dataStrResponse = dataStr.toStdString().c_str();
+
+    resetAIDataBuffers();
+
+    int i = 0, j = 0;
+    int bufSize = strlen(dataStrResponse);
+
+    QVector<int> activeChannels       = getNumEnabledChannels();
+    QVector<int>::const_iterator iter = activeChannels.cbegin();
+
+    int counter = 0;
+    for (; i != bufSize; ) {
+        short untransformedVal = (short)(dataStrResponse[i] | (dataStrResponse[i + 1] << 8));
+        AIChannels[*iter]->ACQuisitionData.push_back(
+                    AIChannels[*iter]->getScaleValue(untransformedVal)
+                );
+
+        if(iter != activeChannels.cend())
+            ++iter;
+        else
+            iter = activeChannels.cbegin();
+
+        i += 2; ++j;
+    }
+}
+
+QVector<int> AgU25xxAIChannelSet::getNumEnabledChannels()
+{
+    QVector<int> res;
+    int i = 0;
+    for (; i != 4; ++i )
+        if ((*this)[i].getEnabled())
+            res.push_back(i);
+
+    return res;
 }
 
 QString AgU25xxAIChannelSet::readAgU25xxIEEEBlock()
@@ -165,14 +199,9 @@ QString AgU25xxAIChannelSet::readAgU25xxIEEEBlock()
     return dataStr;
 }
 
-short AgU25xxAIChannelSet::extract_littleend16(const char *buf)
+void AgU25xxAIChannelSet::resetAIDataBuffers()
 {
-    return (((short)buf[0]) << 0) |
-            (((short)buf[1]) << 8);
-}
-
-short AgU25xxAIChannelSet::extract_bigend16(const char *buf)
-{
-    return (((short)buf[0]) << 8) |
-            (((short)buf[1]) << 0);
+    int i = 0;
+    for (; i != 4; )
+        (*this)[i].ACQuisitionData.clear();
 }
