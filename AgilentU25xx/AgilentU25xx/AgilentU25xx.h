@@ -15,7 +15,6 @@ class AGILENTU25XXSHARED_EXPORT AgilentU25xx
 public:
     AgilentU25xx();
     AgilentU25xx(IDeviceIO &driver);
-    ~AgilentU25xx();
 
     void resetDevice();
     void waitForOperationsCpmplete();

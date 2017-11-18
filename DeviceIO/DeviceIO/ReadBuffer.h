@@ -11,7 +11,7 @@ public:
     ~ReadBuffer();
 
     unsigned int   Size;
-    unsigned char* Buffer;
+    char           *Buffer;
 };
 
 #endif // READBUFFER_H

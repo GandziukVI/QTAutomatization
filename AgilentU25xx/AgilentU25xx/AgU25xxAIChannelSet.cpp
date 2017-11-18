@@ -1,6 +1,7 @@
 #include "AgU25xxAIChannelSet.h"
 #include "AgU25xxException.h"
 
+#include <QDebug>
 #include <QTextStream>
 
 AgU25xxAIChannelSet::AgU25xxAIChannelSet()
@@ -65,13 +66,22 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq, short *data)
             break;
     }
 
+    QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
+
+    mDriver->SendCommandRequest(cmdGetData);
+
     QString dataStr = readAgU25xxIEEEBlock();
 
-    int conversionDivider = sizeof(short) / sizeof(char);
+    const char* dataStrResponse = dataStr.toStdString().c_str();
 
-    data = new short[dataStr.size() / conversionDivider];
+    int i = 0, j = 0;
+    int bufSize = strlen(dataStrResponse);
+    for (; i != bufSize; ) {
+        data[j] = extract_bigend16(dataStrResponse + i);
+        i += 2; ++j;
+    }
 
-    memcpy(data, dataStr.toStdString().c_str(), sizeof(data));
+//    memcpy(data, dataStrResponse, strlen(dataStrResponse) * sizeof(char));
 }
 
 void AgU25xxAIChannelSet::startContinuousAcquisition()
@@ -104,6 +114,8 @@ void AgU25xxAIChannelSet::fetch(short *data)
 
     QString dataStr = readAgU25xxIEEEBlock();
 
+    qDebug() << dataStr;
+
     int conversionDivider = sizeof(short) / sizeof(char);
 
     data = new short[dataStr.size() / conversionDivider];
@@ -114,7 +126,7 @@ void AgU25xxAIChannelSet::fetch(short *data)
 QString AgU25xxAIChannelSet::readAgU25xxIEEEBlock()
 {
     QString headerLenStr = mDriver->ReceiveDeviceAnswer(2, true);
-    QStringRef headerLenRef(&headerLenStr, 1, headerLenStr.size());
+    QString headerLenRef = headerLenStr.mid(1);
 
     int headerLen = headerLenRef.toInt();
     int dataLen = mDriver->ReceiveDeviceAnswer(headerLen, true).toInt();
@@ -129,12 +141,12 @@ QString AgU25xxAIChannelSet::readAgU25xxIEEEBlock()
 
         lastBlockSize = dataLen - nReadings * readBufSize;
         if (lastBlockSize > 0)
-            ++readBufSize;
+            ++nReadings;
     }
     else {
         readBufSize = dataLen;
         nReadings = 1;
-        lastBlockSize = 0;
+        lastBlockSize = 1;
     }
 
     QString dataStr;
@@ -150,4 +162,16 @@ QString AgU25xxAIChannelSet::readAgU25xxIEEEBlock()
         dataStrStream << mDriver->ReceiveDeviceAnswer(lastBlockSize, true);
 
     return dataStr;
+}
+
+short AgU25xxAIChannelSet::extract_littleend16(const char *buf)
+{
+    return (((short)buf[0]) << 0) |
+            (((short)buf[1]) << 8);
+}
+
+short AgU25xxAIChannelSet::extract_bigend16(const char *buf)
+{
+    return (((short)buf[0]) << 8) |
+            (((short)buf[1]) << 0);
 }

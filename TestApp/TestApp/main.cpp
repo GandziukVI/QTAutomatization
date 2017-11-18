@@ -35,8 +35,26 @@ int main(int argc, char *argv[])
 
     device.resetDevice();
 
-    short *data;
-    device.AInChannelSet.acquireSingleShot(1000, data);
+    int samplingRate = 500000;
+    short *data = new short[samplingRate];
+
+    for(int i = 0; i < samplingRate; i++) {
+        data[i] = 0;
+    }
+
+    for (int i = 0; i != 4; i++) {
+        device.AInChannelSet[i].setEnabled(true);
+        auto polarity = i % 2 == 0? AgU25xxEnumAIChannelPolaities::BIP : AgU25xxEnumAIChannelPolaities::BIP;
+        device.AInChannelSet[i].setPolarity(polarity);
+    }
+
+    device.AInChannelSet.acquireSingleShot(samplingRate, data);
+
+    qDebug() << "Acquisition successful";
+
+    for(int i = 0; i < 100; i++) {
+        qDebug() << data[i];
+    }
 
     delete[] data;
 
