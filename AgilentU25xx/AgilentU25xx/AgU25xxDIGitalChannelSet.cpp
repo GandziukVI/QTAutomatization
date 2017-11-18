@@ -8,12 +8,7 @@ AgU25xxDIGitalChannelSet::AgU25xxDIGitalChannelSet()
 
 AgU25xxDIGitalChannelSet::AgU25xxDIGitalChannelSet(IDeviceIO &driver)
 {
-    DIGitalChannels = new AgU25xxDIGChannel*[4];
-
-    DIGitalChannels[0] = new AgU25xxDIGChannel(AgU25xxEnumDigitalChannels::DIG01, driver);
-    DIGitalChannels[1] = new AgU25xxDIGChannel(AgU25xxEnumDigitalChannels::DIG02, driver);
-    DIGitalChannels[2] = new AgU25xxDIGChannel(AgU25xxEnumDigitalChannels::DIG03, driver);
-    DIGitalChannels[3] = new AgU25xxDIGChannel(AgU25xxEnumDigitalChannels::DIG04, driver);
+    initialize(driver);
 }
 
 AgU25xxDIGitalChannelSet::~AgU25xxDIGitalChannelSet()
@@ -32,4 +27,15 @@ AgU25xxDIGChannel &AgU25xxDIGitalChannelSet::operator [] (const int index)
 AgU25xxDIGChannel &AgU25xxDIGitalChannelSet::operator [] (const AgU25xxEnumDigitalChannels channelID)
 {
     return *DIGitalChannels[(int)channelID];
+}
+
+void AgU25xxDIGitalChannelSet::initialize(IDeviceIO &driver)
+{
+    DIGitalChannels = new AgU25xxDIGChannel*[4];
+
+    int i = 0;
+    for(; i != 4; ) {
+        DIGitalChannels[i] = new AgU25xxDIGChannel(static_cast<AgU25xxEnumDigitalChannels>(i), driver);
+        ++i;
+    }
 }

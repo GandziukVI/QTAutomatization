@@ -9,7 +9,7 @@ class AGILENTU25XXSHARED_EXPORT AgU25xxException : public QException
 {
 public:
     AgU25xxException();
-    AgU25xxException(QString& msg);
+    AgU25xxException(QString msg);
 
     void             raise() const;
     AgU25xxException *clone() const;

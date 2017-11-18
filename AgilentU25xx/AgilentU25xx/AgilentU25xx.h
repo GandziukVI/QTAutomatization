@@ -20,9 +20,9 @@ public:
     void resetDevice();
     void waitForOperationsCpmplete();
 
-    AgU25xxAIChannelSet      *AInChannelSet;
-    AgU25xxAOChannelSet      *AOutChannelSet;
-    AgU25xxDIGitalChannelSet *DIGitalChannelSet;
+    AgU25xxAIChannelSet      AInChannelSet;
+    AgU25xxAOChannelSet      AOutChannelSet;
+    AgU25xxDIGitalChannelSet DIGitalChannelSet;
 
 private:
     IDeviceIO*             mDriver;

@@ -5,7 +5,7 @@
 
 // Analog output
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAOChannels {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAOChannels : unsigned int {
     AOut01 = 0,
     AOut02 = 1
 };
@@ -58,7 +58,7 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumDTRiGgerPolarities {
     NEG  // (Negative- edge triggering): The trigger signal is generated when a falling edge is detected in the digital signal.
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAIChannels {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumAIChannels : unsigned int {
     AIn01 = 0,
     AIn02 = 1,
     AIn03 = 2,
@@ -83,7 +83,7 @@ enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumDigitalDirection {
     OUTPut
 };
 
-enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumDigitalChannels {
+enum class AGILENTU25XXSHARED_EXPORT AgU25xxEnumDigitalChannels : unsigned int {
     DIG01 = 0,
     DIG02 = 1,
     DIG03 = 2,

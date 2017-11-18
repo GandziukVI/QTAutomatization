@@ -15,6 +15,8 @@ public:
 
     AgU25xxAOChannel &operator [] (const int index);
     AgU25xxAOChannel &operator [] (const AgU25xxEnumAOChannels channelID);
+
+    void initialize(IDeviceIO& driver);
 };
 
 #endif // AGU25XXAOCHANNELSET_H

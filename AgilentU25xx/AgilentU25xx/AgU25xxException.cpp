@@ -5,7 +5,7 @@ AgU25xxException::AgU25xxException()
 
 }
 
-AgU25xxException::AgU25xxException(QString &msg)
+AgU25xxException::AgU25xxException(QString msg)
 {
     errmsg = msg;
 }

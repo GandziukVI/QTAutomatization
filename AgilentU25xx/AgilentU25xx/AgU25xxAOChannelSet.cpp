@@ -8,10 +8,7 @@ AgU25xxAOChannelSet::AgU25xxAOChannelSet()
 
 AgU25xxAOChannelSet::AgU25xxAOChannelSet(IDeviceIO &driver)
 {
-    AOChannels = new AgU25xxAOChannel*[2];
-
-    AOChannels[0] = new AgU25xxAOChannel(AgU25xxEnumAOChannels::AOut01, driver);
-    AOChannels[1] = new AgU25xxAOChannel(AgU25xxEnumAOChannels::AOut02, driver);
+    initialize(driver);
 }
 
 AgU25xxAOChannelSet::~AgU25xxAOChannelSet()
@@ -30,4 +27,15 @@ AgU25xxAOChannel &AgU25xxAOChannelSet::operator [](const int index)
 AgU25xxAOChannel &AgU25xxAOChannelSet::operator [](const AgU25xxEnumAOChannels channelID)
 {
     return *AOChannels[(int)channelID];
+}
+
+void AgU25xxAOChannelSet::initialize(IDeviceIO &driver)
+{
+    AOChannels = new AgU25xxAOChannel*[2];
+
+    int i = 0;
+    for (; i!= 2; ) {
+        AOChannels[i] = new AgU25xxAOChannel(static_cast<AgU25xxEnumAOChannels>(i), driver);
+        ++i;
+    }
 }

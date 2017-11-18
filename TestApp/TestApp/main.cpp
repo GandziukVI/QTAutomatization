@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 //        qDebug() << "Reading value from the 1st DIGital channel";
 //        qDebug() << (*device.DIGitalChannelSet)[0].getByte();
 
-        (*device.DIGitalChannelSet)[1][2].bitPulse(100);
+        device.DIGitalChannelSet[1][2].bitPulse(100);
 
     }
     catch(AgU25xxException ex)
