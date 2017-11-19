@@ -133,61 +133,56 @@ void AgU25xxAIChannelSet::fetch(short *data)
 
 void AgU25xxAIChannelSet::fetchScale()
 {
+    QVector<int> activeChannels = getNumEnabledChannels();
+    int estimatedDataBufSize = activeChannels.size() * mAIChannelsSamplingFreq * 2;
+
     QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
     mDriver->SendCommandRequest(cmdGetData);
-
-    QVector<int> activeChannels = getNumEnabledChannels();
-    int estimatedDataBufSize = activeChannels.size() * mAIChannelsSamplingFreq * 2 + 256;
 
     qDebug() << "Starting data reading.";
     QElapsedTimer readTimer;    
     readTimer.start();
 
-    mDriver->ReceiveDeviceAnswer(estimatedDataBufSize, false);
-    qDebug() << QObject::tr("Reading from device took %1").arg(readTimer.elapsed());
+    QString dataStr = mDriver->ReceiveDeviceAnswer(estimatedDataBufSize + 256, false);
+
+    qDebug() << QObject::tr("Reading from device took %1. Estimated data size is %2")
+                .arg(readTimer.elapsed())
+                .arg(estimatedDataBufSize)
+                .toStdString().c_str();
+
     readTimer.restart();
 
-//    qDebug() << "Starting data reading.";
-//    QElapsedTimer readTimer;
+    const char *dataStrResponse = dataStr.mid(10).toStdString().c_str();
+    int bufSize = estimatedDataBufSize;
 
-//    readTimer.start();
+    qDebug() << QObject::tr("Data transform took %1")
+                .arg(readTimer.elapsed())
+                .toStdString().c_str();
 
-//    QString    dataStr = readAgU25xxIEEEBlock();
+    resetAIDataBuffers();
 
-//    qDebug() << QObject::tr("Reading from device took %1").arg(readTimer.elapsed());
-//    readTimer.restart();
+    int i = 0, j = 0, k = 0, l = 0;
 
-//    const char *dataStrResponse = dataStr.toStdString().c_str();
+    unsigned int activeChannelsSize = activeChannels.size();
+    unsigned int srat               = mAIChannelsSamplingFreq;
 
-//     qDebug() << QObject::tr("Data transform took %1").arg(readTimer.elapsed());
+    for (; i != activeChannelsSize; ){
+        (*this)[activeChannels[i]].ACQuisitionData = new double[srat];
+        ++i;
+    }
 
-//    resetAIDataBuffers();
+    for (; j != bufSize - 2; ) {
+        short untransformedVal = 0;//(short)dataStrResponse[j] | ((short)dataStrResponse[j + 1] << 8);
 
-//    int i = 0, j = 0, k = 0;
-//    int bufSize = strlen(dataStrResponse);
+//        (*this)[activeChannels[k]].ACQuisitionData[l] = (*this)[activeChannels[k]].getScaleValue(untransformedVal);
 
-//    QVector<int> activeChannels     = getNumEnabledChannels();
-//    unsigned int activeChannelsSize = activeChannels.size();
-//    unsigned int iter               = 0;
-//    unsigned int srat               = getSamplingRate();
+//        if(++k == activeChannelsSize)
+//            k = 0;
 
-//    for (; k != activeChannelsSize; ){
-//        (*this)[activeChannels[k]].ACQuisitionData = new double[srat];
-//        ++k;
-//    }
-
-//    k = 0;
-//    for (; i != bufSize - 2; ) {
-//        short untransformedVal = (short)(dataStrResponse[i] | (dataStrResponse[i + 1] << 8));
-//        (*this)[activeChannels[iter]].ACQuisitionData[k] = (*this)[activeChannels[iter]].getScaleValue(untransformedVal);
-
-//        if(++iter == activeChannelsSize)
-//            iter = 0;
-
-//        i += 2; ++j;
-//        if (j % activeChannelsSize == 0)
-//            ++k;
-//    }
+        j += 2;
+//        if (l % activeChannelsSize == 0)
+//            ++l;
+    }
 }
 
 QVector<int> AgU25xxAIChannelSet::getNumEnabledChannels()
@@ -199,6 +194,8 @@ QVector<int> AgU25xxAIChannelSet::getNumEnabledChannels()
             res.push_back(i);
         ++i;
     }
+
+    mAIChannelsEnabledCount = res.size();
 
     return res;
 }

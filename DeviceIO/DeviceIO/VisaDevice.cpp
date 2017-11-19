@@ -3,8 +3,6 @@
 
 #include <memory>
 
-#include <QDebug>
-
 VisaDevice::VisaDevice()
 {
     const char* termChars = "\r\n\f\0";
@@ -109,11 +107,11 @@ QString VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
-            container << tempBuffer.Buffer;
+            container << QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
             break;
         }
         else if (retCount == tempBuffer.Size) {
-            container << tempBuffer.Buffer;
+            container << QString::fromLocal8Bit(tempBuffer.Buffer);
             if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
             if(readExactOrMax == true)
@@ -226,11 +224,11 @@ QString VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
-            container << tempBuffer.Buffer;
+            container << QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
             break;
         }
         else if (retCount == tempBuffer.Size) {
-            container << tempBuffer.Buffer;
+            container << QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
             if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
         }
@@ -271,11 +269,11 @@ QString VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSize)
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
-            container << tempBuffer.Buffer;
+            container << QString::fromLocal8Bit(tempBuffer.Buffer);
             break;
         }
         else if (retCount == tempBuffer.Size) {
-            container << tempBuffer.Buffer;
+            container << QString::fromLocal8Bit(tempBuffer.Buffer);
             if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
         }
@@ -316,6 +314,14 @@ bool VisaDevice::OpenConnection(const char* ResourceString)
     }
 
     currentReadBufferSize = standardReadBufSize;
+
+    // Setting large output buffer value
+
+//    status = viSetBuf(instr, VI_READ_BUF, (ViUInt32)4000256);
+//    if(status < VI_SUCCESS) {
+//        CloseConnection();
+//        return false;
+//    }
 
     return true;
 }
