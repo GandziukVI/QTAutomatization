@@ -177,12 +177,11 @@ void AgU25xxAIChannelSet::fetchScale()
 
         (*this)[activeChannels[k]].ACQuisitionData[l] = (*this)[activeChannels[k]].getScaleValue(untransformedVal);
 
-        if(++k == activeChannelsSize)
-            k = 0;
+        if(++k == activeChannelsSize) {
+            k = 0; ++l;
+        }
 
         j += 2;
-        if (l % activeChannelsSize == 0)
-            ++l;
     }
 }
 

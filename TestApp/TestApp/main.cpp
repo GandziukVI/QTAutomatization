@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i != 4; i++) {
         device.AInChannelSet[i].setEnabled(true);
-        auto polarity = i % 2 == 0? AgU25xxEnumAIChannelPolaities::BIP : AgU25xxEnumAIChannelPolaities::UNIP;
+        auto polarity = AgU25xxEnumAIChannelPolaities::BIP;// i % 2 == 0? AgU25xxEnumAIChannelPolaities::BIP : AgU25xxEnumAIChannelPolaities::UNIP;
         device.AInChannelSet[i].setPolarity(polarity);
     }
 
