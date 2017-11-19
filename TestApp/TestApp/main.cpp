@@ -54,10 +54,10 @@ int main(int argc, char *argv[])
 
         outputStr.clear();
 
-//        for (int j = 0; j != 5; j++)
-//            outputStrStream << device.AInChannelSet[0].ACQuisitionData[j] << ' ';
+        for (int j = 0; j != 5; j++)
+            outputStrStream << device.AInChannelSet[0].ACQuisitionData[j] << ' ';
 
-//        qDebug() << outputStr.toStdString().c_str();
+        qDebug() << outputStr.toStdString().c_str();
     }
 
     qDebug() << "End of acquisition";

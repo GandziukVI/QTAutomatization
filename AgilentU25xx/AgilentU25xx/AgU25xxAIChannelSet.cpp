@@ -152,11 +152,12 @@ void AgU25xxAIChannelSet::fetchScale()
 
     readTimer.restart();
 
-    const char *dataStrResponse = dataStr.mid(10).toStdString().c_str();
+    auto dataStrResponse = dataStr.mid(10).toLocal8Bit();
     int bufSize = estimatedDataBufSize;
 
-    qDebug() << QObject::tr("Data transform took %1")
+    qDebug() << QObject::tr("Data transform took %1.\r\nData size is %2")
                 .arg(readTimer.elapsed())
+                .arg(dataStrResponse.size())
                 .toStdString().c_str();
 
     resetAIDataBuffers();
@@ -172,16 +173,16 @@ void AgU25xxAIChannelSet::fetchScale()
     }
 
     for (; j != bufSize - 2; ) {
-        short untransformedVal = 0;//(short)dataStrResponse[j] | ((short)dataStrResponse[j + 1] << 8);
+        short untransformedVal = (short)dataStrResponse[j] | ((short)dataStrResponse[j + 1] << 8);
 
-//        (*this)[activeChannels[k]].ACQuisitionData[l] = (*this)[activeChannels[k]].getScaleValue(untransformedVal);
+        (*this)[activeChannels[k]].ACQuisitionData[l] = (*this)[activeChannels[k]].getScaleValue(untransformedVal);
 
-//        if(++k == activeChannelsSize)
-//            k = 0;
+        if(++k == activeChannelsSize)
+            k = 0;
 
         j += 2;
-//        if (l % activeChannelsSize == 0)
-//            ++l;
+        if (l % activeChannelsSize == 0)
+            ++l;
     }
 }
 
