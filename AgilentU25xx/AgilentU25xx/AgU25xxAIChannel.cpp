@@ -5,7 +5,7 @@
 
 AgU25xxAIChannel::AgU25xxAIChannel()
     : IAgU25xxSubsystemExtensions(),
-      isEnabled(false),
+      mIsEnabled(false),
       ACQuisitionData(NULL)
 {
     mChPolarity = AgU25xxEnumAIChannelPolaities::BIP;
@@ -14,7 +14,7 @@ AgU25xxAIChannel::AgU25xxAIChannel()
 
 AgU25xxAIChannel::AgU25xxAIChannel(AgU25xxEnumAIChannels channelName, IDeviceIO& driver)
     : IAgU25xxSubsystemExtensions(),
-      isEnabled(false),
+      mIsEnabled(false),
       ACQuisitionData(NULL)
 {
     mChannelID = channelName;
@@ -40,7 +40,7 @@ void AgU25xxAIChannel::setSamplingRate(const unsigned int samplingRate)
 
 void AgU25xxAIChannel::setEnabled(const bool enabled)
 {
-    isEnabled = enabled;
+    mIsEnabled = enabled;
 
     QString cmd = mROUTeSubSys.cmdSetRouteEnabled(enabled, mChannelID);
     mDriver->SendCommandRequest(cmd);
@@ -53,8 +53,13 @@ bool AgU25xxAIChannel::getEnabled()
 
     int intResponse = extConvertResponseToIntValue(strResponse);
 
-    isEnabled = intResponse == 1? true : false;
-    return isEnabled;
+    mIsEnabled = intResponse == 1? true : false;
+    return mIsEnabled;
+}
+
+bool AgU25xxAIChannel::isEnabled()
+{
+    return mIsEnabled;
 }
 
 void AgU25xxAIChannel::setPolarity(AgU25xxEnumAIChannelPolaities polarity)

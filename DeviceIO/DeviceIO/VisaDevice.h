@@ -34,6 +34,9 @@ private:
     ViUInt32  retCount;
     ViUInt32  writeCount;
 
+    ViUInt32 standardReadBufSize;
+    ViUInt32 currentReadBufferSize;
+
     ViChar TerminationCharacters[4];
 
     bool OpenConnection  (const char* ResourceString);

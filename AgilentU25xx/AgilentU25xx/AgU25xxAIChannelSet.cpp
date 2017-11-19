@@ -1,17 +1,23 @@
 #include "AgU25xxAIChannelSet.h"
 #include "AgU25xxException.h"
 
-#include <QDebug>
 #include <QTextStream>
 
+#include <QDebug>
+#include <QElapsedTimer>
+
 AgU25xxAIChannelSet::AgU25xxAIChannelSet()
-    : IAgU25xxSubsystemExtensions()
+    : IAgU25xxSubsystemExtensions(),
+      mAIChannelsSamplingFreq(1000),
+      mAIChannelsEnabledCount(0)
 {
     AIChannels = new AgU25xxAIChannel*[4];
 }
 
 AgU25xxAIChannelSet::AgU25xxAIChannelSet(IDeviceIO &driver)
-    : IAgU25xxSubsystemExtensions()
+    : IAgU25xxSubsystemExtensions(),
+      mAIChannelsSamplingFreq(1000),
+      mAIChannelsEnabledCount(0)
 {
     initialize(driver);
 }
@@ -50,6 +56,8 @@ void AgU25xxAIChannelSet::initialize(IDeviceIO &driver)
 
 void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq)
 {       
+    mAIChannelsSamplingFreq = samplingFreq;
+
     QString cmdSetSamplingFreq = mACQuireCommands.cmdSetSamplingRate(samplingFreq);
     QString cmdSetPOINOutput   = mACQuireCommands.cmdSetPointsSingleShot(samplingFreq);
     QString cmdStartSingleShot = mRootCommands.cmdStartSingleShotAcquisition();
@@ -98,8 +106,18 @@ void AgU25xxAIChannelSet::fetch(short *data)
 
     mDriver->SendCommandRequest(cmdGetData);
 
+    qDebug() << "Starting data reading.";
+    QElapsedTimer readTimer;
+
+    readTimer.start();
+
     QString dataStr             = readAgU25xxIEEEBlock();
+
+    qDebug() << QObject::tr("Reading from device took %1").arg(readTimer.elapsed());
+
     const char *dataStrResponse = dataStr.toStdString().c_str();
+
+    qDebug() << QObject::tr("Data transform took %1").arg(readTimer.elapsed());
 
     int i = 0, j = 0;
     int bufSize = strlen(dataStrResponse);
@@ -116,39 +134,60 @@ void AgU25xxAIChannelSet::fetch(short *data)
 void AgU25xxAIChannelSet::fetchScale()
 {
     QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
-
     mDriver->SendCommandRequest(cmdGetData);
 
-    QString    dataStr = readAgU25xxIEEEBlock();
-    const char *dataStrResponse = dataStr.toStdString().c_str();
+    QVector<int> activeChannels = getNumEnabledChannels();
+    int estimatedDataBufSize = activeChannels.size() * mAIChannelsSamplingFreq * 2 + 256;
 
-    resetAIDataBuffers();
+    qDebug() << "Starting data reading.";
+    QElapsedTimer readTimer;    
+    readTimer.start();
 
-    int i = 0, j = 0, k = 0;
-    int bufSize = strlen(dataStrResponse);
+    mDriver->ReceiveDeviceAnswer(estimatedDataBufSize, false);
+    qDebug() << QObject::tr("Reading from device took %1").arg(readTimer.elapsed());
+    readTimer.restart();
 
-    QVector<int> activeChannels     = getNumEnabledChannels();
-    unsigned int activeChannelsSize = activeChannels.size();
-    unsigned int iter               = 0;
-    unsigned int srat               = getSamplingRate();
+//    qDebug() << "Starting data reading.";
+//    QElapsedTimer readTimer;
 
-    for (; k != activeChannelsSize; ){
-        (*this)[activeChannels[k]].ACQuisitionData = new double[srat];
-        ++k;
-    }
+//    readTimer.start();
 
-    k = 0;
-    for (; i != bufSize - 2; ) {
-        short untransformedVal = (short)(dataStrResponse[i] | (dataStrResponse[i + 1] << 8));
-        (*this)[activeChannels[iter]].ACQuisitionData[k] = (*this)[activeChannels[iter]].getScaleValue(untransformedVal);
+//    QString    dataStr = readAgU25xxIEEEBlock();
 
-        if(++iter == activeChannelsSize)
-            iter = 0;
+//    qDebug() << QObject::tr("Reading from device took %1").arg(readTimer.elapsed());
+//    readTimer.restart();
 
-        i += 2; ++j;
-        if (i % activeChannelsSize == 0)
-            ++k;
-    }
+//    const char *dataStrResponse = dataStr.toStdString().c_str();
+
+//     qDebug() << QObject::tr("Data transform took %1").arg(readTimer.elapsed());
+
+//    resetAIDataBuffers();
+
+//    int i = 0, j = 0, k = 0;
+//    int bufSize = strlen(dataStrResponse);
+
+//    QVector<int> activeChannels     = getNumEnabledChannels();
+//    unsigned int activeChannelsSize = activeChannels.size();
+//    unsigned int iter               = 0;
+//    unsigned int srat               = getSamplingRate();
+
+//    for (; k != activeChannelsSize; ){
+//        (*this)[activeChannels[k]].ACQuisitionData = new double[srat];
+//        ++k;
+//    }
+
+//    k = 0;
+//    for (; i != bufSize - 2; ) {
+//        short untransformedVal = (short)(dataStrResponse[i] | (dataStrResponse[i + 1] << 8));
+//        (*this)[activeChannels[iter]].ACQuisitionData[k] = (*this)[activeChannels[iter]].getScaleValue(untransformedVal);
+
+//        if(++iter == activeChannelsSize)
+//            iter = 0;
+
+//        i += 2; ++j;
+//        if (j % activeChannelsSize == 0)
+//            ++k;
+//    }
 }
 
 QVector<int> AgU25xxAIChannelSet::getNumEnabledChannels()
@@ -156,7 +195,7 @@ QVector<int> AgU25xxAIChannelSet::getNumEnabledChannels()
     QVector<int> res;
     int i = 0;
     for (; i != 4; ) {
-        if ((*this)[i].getEnabled())
+        if ((*this)[i].isEnabled())
             res.push_back(i);
         ++i;
     }
@@ -171,41 +210,8 @@ int AgU25xxAIChannelSet::getSamplingRate()
 
 QString AgU25xxAIChannelSet::readAgU25xxIEEEBlock()
 {
-    QString headerLenStr = mDriver->ReceiveDeviceAnswer(2, true);
-    QString headerLenRef = headerLenStr.mid(1);
-
-    int headerLen = headerLenRef.toInt();
-    int dataLen = mDriver->ReceiveDeviceAnswer(headerLen, true).toInt();
-
-    int readBufSize;
-    int nReadings;
-    int lastBlockSize;
-
-    if (dataLen > 4096) {
-        readBufSize = 4096;
-        nReadings = dataLen / readBufSize;
-
-        lastBlockSize = dataLen - nReadings * readBufSize;
-        if (lastBlockSize > 0)
-            ++nReadings;
-    }
-    else {
-        readBufSize = dataLen;
-        nReadings = 1;
-        lastBlockSize = 1;
-    }
-
-    QString dataStr;
-    QTextStream dataStrStream(&dataStr);
-
-    int i = 0;
-    for (; i != nReadings - 1; ) {
-        dataStrStream << mDriver->ReceiveDeviceAnswer(readBufSize, true);
-        ++i;
-    }
-
-    if(lastBlockSize > 0)
-        dataStrStream << mDriver->ReceiveDeviceAnswer(lastBlockSize, true);
+    QString strResponse = mDriver->ReceiveDeviceAnswer(8000000, false);
+    QString dataStr     = strResponse.mid(10);
 
     return dataStr;
 }

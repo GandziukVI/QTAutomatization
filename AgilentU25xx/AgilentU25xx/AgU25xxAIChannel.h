@@ -18,14 +18,14 @@ public:
     void                          setSamplingRate (const unsigned int samplingRate);
     void                          setEnabled      (const bool enabled);
     bool                          getEnabled      ();
+    bool                          isEnabled       ();
     void                          setPolarity     (AgU25xxEnumAIChannelPolaities polarity);
     AgU25xxEnumAIChannelPolaities getPolarity     ();
     void                          setRange        (AgU25xxEnumAIChannelRanges range);
     AgU25xxEnumAIChannelRanges    getRange        ();
     double                        getScaleValue   (short &val);
     double                        (*getScaleFunction)();
-    double                        *ACQuisitionData;
-
+    double                        *ACQuisitionData;    
 
 private:
     IDeviceIO*           mDriver;
@@ -35,9 +35,9 @@ private:
 
     AgU25xxEnumAIChannels mChannelID;
 
-    bool isEnabled;
     AgU25xxEnumAIChannelPolaities mChPolarity;
     AgU25xxEnumAIChannelRanges    mChRange;
+    bool                          mIsEnabled;
 
 };
 

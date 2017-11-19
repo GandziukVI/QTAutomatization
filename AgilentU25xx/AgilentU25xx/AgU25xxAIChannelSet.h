@@ -45,6 +45,9 @@ private:
     AgU25xxRootCommands   mRootCommands;
     AgU25xxWAVeformSubSys mWAVeformCommands;
 
+    int                   mAIChannelsSamplingFreq;
+    int                   mAIChannelsEnabledCount;
+
     QString               readAgU25xxIEEEBlock();
     void                  resetAIDataBuffers();
 };
