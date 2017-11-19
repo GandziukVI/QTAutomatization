@@ -3,14 +3,16 @@
 
 #include <memory>
 
+#include <QDebug>
+
 VisaDevice::VisaDevice()
 {
     const char* termChars = "\r\n\f\0";
-    strncpy(TerminationCharacters, termChars, strlen(termChars));
+    strncpy(TerminationCharacters, termChars, strlen(termChars));       
 }
 
 VisaDevice::VisaDevice(const char *ResourceString)
-{
+{        
     const char* termChars = "\r\n\f\0";
     strncpy(TerminationCharacters, termChars, strlen(termChars));
 
@@ -46,6 +48,12 @@ QString VisaDevice::ReceiveDeviceAnswer(void)
     QMutexLocker queryLocker(&requestQueryMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
 
+    if(currentReadBufferSize != standardReadBufSize) {
+        currentReadBufferSize = standardReadBufSize;
+
+        viSetBuf(instr, VI_READ_BUF, standardReadBufSize);
+    }
+
     QString     containerString;
     QTextStream container(&containerString);
 
@@ -78,6 +86,16 @@ QString VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker queryLocker(&requestQueryMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
+
+    if ((ViUInt32)BufferSize > standardReadBufSize) {
+
+        currentReadBufferSize = (ViUInt32)(BufferSize + 1);
+        viSetBuf(instr, VI_READ_BUF, currentReadBufferSize);
+    }
+    else {
+        currentReadBufferSize = standardReadBufSize;
+        viSetBuf(instr, VI_READ_BUF, standardReadBufSize);
+    }
 
     QString     containerString;
     QTextStream container(&containerString);
@@ -184,7 +202,17 @@ QString VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
     QMutexLocker queryLocker(&requestQueryMutex);
 
-    status = viWrite(instr, (ViBuf)QueryString, (ViUInt32)strlen(QueryString), &writeCount);
+    if ((ViUInt32)ReadBufferSize > standardReadBufSize) {
+
+        currentReadBufferSize = (ViUInt32)(ReadBufferSize + 1);
+        viSetBuf(instr, VI_READ_BUF, currentReadBufferSize);
+    }
+    else {
+        currentReadBufferSize = standardReadBufSize;
+        viSetBuf(instr, VI_READ_BUF, standardReadBufSize);
+    }
+
+    status = viWrite(instr, (ViBuf)QueryString, (ViUInt32)strlen(QueryString), &writeCount);    
 
     QString     containerString;
     QTextStream container(&containerString);
@@ -218,6 +246,16 @@ QString VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSize)
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
     QMutexLocker queryLocker(&requestQueryMutex);
+
+    if ((ViUInt32)ReadBufferSize > standardReadBufSize) {
+
+        currentReadBufferSize = (ViUInt32)(ReadBufferSize + 1);
+        viSetBuf(instr, VI_READ_BUF, currentReadBufferSize);
+    }
+    else {
+        currentReadBufferSize = standardReadBufSize;
+        viSetBuf(instr, VI_READ_BUF, standardReadBufSize);
+    }
 
     status = viWrite(instr, (ViBuf)(QueryString.toStdString().c_str()), (ViUInt32)strlen(QueryString.toStdString().c_str()), &writeCount);
 
@@ -269,6 +307,15 @@ bool VisaDevice::OpenConnection(const char* ResourceString)
         CloseConnection();
         return false;
     }
+
+    // Getting initial read buffer size
+    status = viGetAttribute(instr, VI_ATTR_RD_BUF_SIZE, &standardReadBufSize);
+    if(status < VI_SUCCESS) {
+        CloseConnection();
+        return false;
+    }
+
+    currentReadBufferSize = standardReadBufSize;
 
     return true;
 }

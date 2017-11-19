@@ -35,27 +35,29 @@ int main(int argc, char *argv[])
 
     device.resetDevice();
 
-    int samplingRate = 500000;    
+    int samplingRate = 500000;
 
     for (int i = 0; i != 4; i++) {
         device.AInChannelSet[i].setEnabled(true);
-        auto polarity = i % 2 == 0? AgU25xxEnumAIChannelPolaities::BIP : AgU25xxEnumAIChannelPolaities::BIP;
+        auto polarity = i % 2 == 0? AgU25xxEnumAIChannelPolaities::BIP : AgU25xxEnumAIChannelPolaities::UNIP;
         device.AInChannelSet[i].setPolarity(polarity);
     }
+
+//    device.AInChannelSet[0].setEnabled(true);
 
     QString outputStr;
     QTextStream outputStrStream(&outputStr);
 
-    for (int i = 0; i != 50; i++) {
+    for (int i = 0; i != 10; i++) {
         device.AInChannelSet.acquireSingleShot(samplingRate);
         qDebug() << "Acquisition successful";
 
         outputStr.clear();
 
-        for (int j = 0; j != 5; j++)
-            outputStrStream << device.AInChannelSet[0].ACQuisitionData[j] << ' ';
+//        for (int j = 0; j != 5; j++)
+//            outputStrStream << device.AInChannelSet[0].ACQuisitionData[j] << ' ';
 
-        qDebug() << outputStr.toStdString().c_str();
+//        qDebug() << outputStr.toStdString().c_str();
     }
 
     qDebug() << "End of acquisition";
