@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
     device.resetDevice();
 
     int samplingRate = 500000;
+    unsigned int nPoints      = 50000;
 
     for (int i = 0; i != 4; i++) {
         device.AInChannelSet[i].setEnabled(true);
@@ -52,12 +53,12 @@ int main(int argc, char *argv[])
         device.AInChannelSet.acquireSingleShot(samplingRate);
         qDebug() << "Acquisition successful";
 
-        outputStr.clear();
+//        outputStr.clear();
 
-        for (int j = 0; j != 5; j++)
-            outputStrStream << device.AInChannelSet[0].ACQuisitionData[j] << ' ';
+//        for (int j = 0; j != 5; j++)
+//            outputStrStream << device.AInChannelSet[0].ACQuisitionData[j] << ' ';
 
-        qDebug() << outputStr.toStdString().c_str();
+//        qDebug() << outputStr.toStdString().c_str();
     }
 
     qDebug() << "End of acquisition";

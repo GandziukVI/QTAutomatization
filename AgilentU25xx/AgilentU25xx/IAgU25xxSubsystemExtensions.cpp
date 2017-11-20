@@ -528,8 +528,9 @@ AgU25xxEnumBufferStatus IAgU25xxSubsystemExtensions::extGetWAWeformBufferStatus(
         return AgU25xxEnumBufferStatus::EPTY;
     else if (areStringsEqual("FRAG", bufStatus))
         return AgU25xxEnumBufferStatus::FRAG;
-    else if (areStringsEqual("DATA", bufStatus))
+    else if (areStringsEqual("DATA", bufStatus)) {
         return AgU25xxEnumBufferStatus::DATA;
+    }
     else if (areStringsEqual("OVER", bufStatus))
         return AgU25xxEnumBufferStatus::OVER;
     else
@@ -584,7 +585,7 @@ double IAgU25xxSubsystemExtensions::extConvertResponseToRealValue(QString strRes
 
 bool IAgU25xxSubsystemExtensions::areStringsEqual(const char *str1, QString& str2)
 {
-    QRegularExpression termCharsExp("[\r\n\f]");
+    QRegularExpression termCharsExp("[.\r\n\f]");
 
     QString toComp1 = QString(str1).remove(termCharsExp);
     QString toComp2 = QString(str2).remove(termCharsExp);
