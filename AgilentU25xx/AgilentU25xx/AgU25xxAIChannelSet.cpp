@@ -67,7 +67,6 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq)
     mDriver->SendCommandRequest(cmdStartSingleShot);
 
     QString queryAcquisitionCompletedStatus = mWAVeformCommands.cmdGetAcquisitionConpleteStatus();
-//    QString queryDataBufferReadyDataStatus  = mWAVeformCommands.cmdGetBufferStatus();
 
     qDebug() << "Starting data reading.";
     QElapsedTimer readTimer;

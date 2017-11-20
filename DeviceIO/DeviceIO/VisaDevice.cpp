@@ -40,7 +40,7 @@ void VisaDevice::SendCommandRequest(const QString& RequestString)
     status = viWrite(instr, (ViBuf)(RequestString.toStdString().c_str()), (ViUInt32)strlen(RequestString.toStdString().c_str()), &writeCount);
 }
 
-QString VisaDevice::ReceiveDeviceAnswer(void)
+QByteArray VisaDevice::ReceiveDeviceAnswer(void)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker queryLocker(&requestQueryMutex);
@@ -50,10 +50,9 @@ QString VisaDevice::ReceiveDeviceAnswer(void)
         currentReadBufferSize = standardReadBufSize;
 
         viSetBuf(instr, VI_READ_BUF, standardReadBufSize);
-    }
+    }               
 
-    QString     containerString;
-    QTextStream container(&containerString);
+    QByteArray result;
 
     while(true) {
 
@@ -64,11 +63,11 @@ QString VisaDevice::ReceiveDeviceAnswer(void)
         tempBuffer[retCount] = (ViChar)'\0';
 
         if(retCount < READ_BUFFER_SIZE) {
-            container << QString::fromLocal8Bit(tempBuffer);
+            result.append(QString::fromLocal8Bit(tempBuffer));
             break;
         }
         else if (retCount == READ_BUFFER_SIZE) {
-            container << QString::fromLocal8Bit(tempBuffer);
+            result.append(QString::fromLocal8Bit(tempBuffer));
             if(strchr(TerminationCharacters, tempBuffer[retCount - 1]) != NULL)
                 break;
         }
@@ -76,10 +75,10 @@ QString VisaDevice::ReceiveDeviceAnswer(void)
             break;
     }
 
-    return containerString;
+    return result;
 }
 
-QString VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
+QByteArray VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker queryLocker(&requestQueryMutex);
@@ -95,8 +94,7 @@ QString VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
         viSetBuf(instr, VI_READ_BUF, standardReadBufSize);
     }
 
-    QString     containerString;
-    QTextStream container(&containerString);
+    QByteArray result;
 
     while(true) {
 
@@ -107,11 +105,11 @@ QString VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
-            container << QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
+            result.append(QString::fromLocal8Bit(tempBuffer.Buffer, retCount));
             break;
         }
         else if (retCount == tempBuffer.Size) {
-            container << QString::fromLocal8Bit(tempBuffer.Buffer);
+            result.append(QString::fromLocal8Bit(tempBuffer.Buffer));
             if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
             if(readExactOrMax == true)
@@ -121,10 +119,10 @@ QString VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
             break;
     }
 
-    return containerString;
+    return result;
 }
 
-QString VisaDevice::RequestQuery(const char* QueryString)
+QByteArray VisaDevice::RequestQuery(const char* QueryString)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -132,8 +130,7 @@ QString VisaDevice::RequestQuery(const char* QueryString)
 
     status = viWrite(instr, (ViBuf)QueryString, (ViUInt32)strlen(QueryString), &writeCount);
 
-    QString     containerString;
-    QTextStream container(&containerString);
+    QByteArray result;
 
     while(true) {
 
@@ -144,11 +141,11 @@ QString VisaDevice::RequestQuery(const char* QueryString)
         tempBuffer[retCount] = (ViChar)'\0';
 
         if(retCount < READ_BUFFER_SIZE) {
-            container << QString::fromLocal8Bit(tempBuffer);
+            result.append(QString::fromLocal8Bit(tempBuffer));
             break;
         }
         else if (retCount == READ_BUFFER_SIZE) {
-            container << QString::fromLocal8Bit(tempBuffer);
+            result.append(QString::fromLocal8Bit(tempBuffer));
             if(strchr(TerminationCharacters, tempBuffer[retCount - 1]) != NULL)
                 break;
         }
@@ -156,10 +153,10 @@ QString VisaDevice::RequestQuery(const char* QueryString)
             break;
     }
 
-    return containerString;
+    return result;
 }
 
-QString VisaDevice::RequestQuery(const QString& QueryString)
+QByteArray VisaDevice::RequestQuery(const QString& QueryString)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -167,8 +164,7 @@ QString VisaDevice::RequestQuery(const QString& QueryString)
 
     status = viWrite(instr, (ViBuf)(QueryString.toStdString().c_str()), (ViUInt32)strlen(QueryString.toStdString().c_str()), &writeCount);
 
-    QString     containerString;
-    QTextStream container(&containerString);
+    QByteArray result;
 
     while(true) {
 
@@ -179,11 +175,11 @@ QString VisaDevice::RequestQuery(const QString& QueryString)
         tempBuffer[retCount] = (ViChar)'\0';
 
         if(retCount < READ_BUFFER_SIZE) {
-            container << QString::fromLocal8Bit(tempBuffer);
+            result.append(QString::fromLocal8Bit(tempBuffer));
             break;
         }
         else if (retCount == READ_BUFFER_SIZE) {
-            container << QString::fromLocal8Bit(tempBuffer);
+            result.append(QString::fromLocal8Bit(tempBuffer));
             if(strchr(TerminationCharacters, tempBuffer[retCount - 1]) != NULL)
                 break;
         }
@@ -191,10 +187,10 @@ QString VisaDevice::RequestQuery(const QString& QueryString)
             break;
     }
 
-    return containerString;
+    return result;
 }
 
-QString VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
+QByteArray VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -212,8 +208,7 @@ QString VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
 
     status = viWrite(instr, (ViBuf)QueryString, (ViUInt32)strlen(QueryString), &writeCount);    
 
-    QString     containerString;
-    QTextStream container(&containerString);
+    QByteArray result;
 
     while(true) {
 
@@ -224,11 +219,11 @@ QString VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
-            containerString = QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
+            result.append(QString::fromLocal8Bit(tempBuffer.Buffer, retCount));
             break;
         }
         else if (retCount == tempBuffer.Size) {
-            container << QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
+            result.append(QString::fromLocal8Bit(tempBuffer.Buffer, retCount));
             if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
         }
@@ -236,10 +231,10 @@ QString VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
             break;
     }
 
-    return containerString;
+    return result;
 }
 
-QString VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSize)
+QByteArray VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSize)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -257,8 +252,7 @@ QString VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSize)
 
     status = viWrite(instr, (ViBuf)(QueryString.toStdString().c_str()), (ViUInt32)strlen(QueryString.toStdString().c_str()), &writeCount);
 
-    QString     containerString;
-    QTextStream container(&containerString);
+    QByteArray result;
 
     while(true) {
 
@@ -269,11 +263,11 @@ QString VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSize)
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
-            container << QString::fromLocal8Bit(tempBuffer.Buffer);
+            result.append(QString::fromLocal8Bit(tempBuffer.Buffer));
             break;
         }
         else if (retCount == tempBuffer.Size) {
-            container << QString::fromLocal8Bit(tempBuffer.Buffer);
+            result.append(QString::fromLocal8Bit(tempBuffer.Buffer));
             if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
         }
@@ -281,7 +275,7 @@ QString VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSize)
             break;
     }
 
-    return containerString;
+    return result;
 }
 
 bool VisaDevice::OpenConnection(const char* ResourceString)
@@ -314,14 +308,6 @@ bool VisaDevice::OpenConnection(const char* ResourceString)
     }
 
     currentReadBufferSize = standardReadBufSize;
-
-    // Setting large output buffer value
-
-//    status = viSetBuf(instr, VI_READ_BUF, (ViUInt32)4000256);
-//    if(status < VI_SUCCESS) {
-//        CloseConnection();
-//        return false;
-//    }
 
     return true;
 }
