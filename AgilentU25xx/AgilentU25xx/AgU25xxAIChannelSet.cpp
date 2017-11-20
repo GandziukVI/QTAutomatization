@@ -115,20 +115,21 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq)
     mDriver->SendCommandRequest(cmdGetData);
     QByteArray dataStr = mDriver->ReceiveDeviceAnswer(estimatedDataBufSize + 256, true);
 
-    QByteArray dataStrResponse = dataStr.mid(10);//.toLocal8Bit();
+    QByteArray dataStrResponse      = dataStr.mid(10);//.toLocal8Bit();
+    QByteArray::const_iterator iter = dataStrResponse.cbegin();
+
     int bufSize          = estimatedDataBufSize;
 
     short untransformedVal;
-
-    for (; j != bufSize - 2; ) {
-        untransformedVal = (short)(dataStrResponse[j] | (dataStrResponse[j + 1] << 8));
+    for (; iter != dataStrResponse.cend(); ) {
+        untransformedVal = (short)(*iter | (*(++iter) << 8));
         (*this).AIChannels[k]->ACQuisitionData[l] = (this->*converterFunctions[k])(untransformedVal, activeChannelRanges[k]);
 
         if(++k == activeChannelsSize) {
             k = 0; ++l;
         }
 
-        j += 2;
+        ++iter;
     }
 
     delete[] converterFunctions;
@@ -159,120 +160,6 @@ bool AgU25xxAIChannelSet::checkDataReady()
         throw AgU25xxException(QString("Device buffer overflow."));
     else
         return false;
-}
-
-void AgU25xxAIChannelSet::fetch(short *data)
-{
-    QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
-
-    mDriver->SendCommandRequest(cmdGetData);
-
-    qDebug() << "Starting data reading.";
-    QElapsedTimer readTimer;
-
-    readTimer.start();
-
-    QString dataStr             = readAgU25xxIEEEBlock();
-
-    qDebug() << QObject::tr("Reading from device took %1").arg(readTimer.elapsed());
-
-    const char *dataStrResponse = dataStr.toStdString().c_str();
-
-    qDebug() << QObject::tr("Data transform took %1").arg(readTimer.elapsed());
-
-    int i = 0, j = 0;
-    int bufSize = strlen(dataStrResponse);
-
-    data = new short[bufSize / 2];
-
-    for (; i != bufSize; ) {
-        data[j] = (short)(dataStrResponse[i] | (dataStrResponse[i + 1] << 8));
-        i += 2; ++j;
-    }
-    //    memcpy(data, dataStrResponse, strlen(dataStrResponse) * sizeof(char));
-}
-
-void AgU25xxAIChannelSet::fetchScale()
-{
-    QVector<int> activeChannels = getNumEnabledChannels();
-    int estimatedDataBufSize = activeChannels.size() * mAIChannelsSamplingFreq * 2;
-
-    QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
-    mDriver->SendCommandRequest(cmdGetData);
-
-    qDebug() << "Starting data reading.";
-    QElapsedTimer readTimer;    
-    readTimer.start();
-
-    QString dataStr = mDriver->ReceiveDeviceAnswer(estimatedDataBufSize + 256, false);
-
-    qDebug() << QObject::tr("Reading from device took %1. Estimated data size is %2")
-                .arg(readTimer.elapsed())
-                .arg(estimatedDataBufSize)
-                .toStdString().c_str();
-
-    readTimer.restart();
-
-    auto dataStrResponse = dataStr.mid(10).toLocal8Bit();
-    int bufSize = estimatedDataBufSize;
-
-    qDebug() << QObject::tr("Data transform took %1.\r\nData size is %2")
-                .arg(readTimer.elapsed())
-                .arg(dataStrResponse.size())
-                .toStdString().c_str();
-
-    resetAIDataBuffers();
-
-    int i = 0, j = 0, k = 0, l = 0;
-
-    unsigned int activeChannelsSize = activeChannels.size();
-
-    QVector<double>                        activeChannelRanges(activeChannelsSize);
-    QVector<AgU25xxEnumAIChannelPolaities> activeChannelPolarities(activeChannelsSize);
-
-    converterFunctions              = new convFunc[activeChannelsSize];
-
-    unsigned int srat               = mAIChannelsSamplingFreq;
-//    double       **localData        = new double*[activeChannelsSize];
-
-
-    for (; i != activeChannelsSize; ){
-        (*this)[activeChannels[i]].ACQuisitionData = new double[srat];
-//        localData[i]                               = new double[srat];
-
-        activeChannelRanges[i]     = QString(extGetAIChannelRangeStr((*this)[activeChannels[i]].getRange())).toDouble();
-        activeChannelPolarities[i] = (*this)[activeChannels[i]].getPolarity();
-
-        if (activeChannelPolarities[i] == AgU25xxEnumAIChannelPolaities::BIP)
-            converterFunctions[i]      = &AgU25xxAIChannelSet::getAIChannelScaleFunctionBipolar;
-        else if (activeChannelPolarities[i] == AgU25xxEnumAIChannelPolaities::UNIP)
-            converterFunctions[i]      = &AgU25xxAIChannelSet::getAIChannelScaleFunctionUnipolar;
-
-        ++i;
-    }
-
-    short untransformedVal;
-
-    readTimer.restart();
-
-    for (; j != bufSize - 2; ) {
-        untransformedVal = (short)(dataStrResponse[j] | (dataStrResponse[++j] << 8));
-        //localData[k][l]  = (this->*converterFunctions[k])(untransformedVal, activeChannelRanges[k]);
-        (*this).AIChannels[k]->ACQuisitionData[l] = (this->*converterFunctions[k])(untransformedVal, activeChannelRanges[k]);
-
-        if(++k == activeChannelsSize) {
-            k = 0; ++l;
-        }
-
-        ++j;
-    }
-
-    qDebug() << QObject::tr("Data transform to real values took %1")
-                .arg(readTimer.elapsed())
-                .toStdString().c_str();
-
-//    delete[] localData;
-    delete[] converterFunctions;
 }
 
 QVector<int> AgU25xxAIChannelSet::getNumEnabledChannels()
