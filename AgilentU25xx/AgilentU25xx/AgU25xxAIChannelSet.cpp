@@ -113,9 +113,9 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq)
 
     QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
     mDriver->SendCommandRequest(cmdGetData);
-    QString dataStr = mDriver->ReceiveDeviceAnswer(estimatedDataBufSize + 256, true);
+    QByteArray dataStr = mDriver->ReceiveDeviceAnswer(estimatedDataBufSize + 256, true);
 
-    QByteArray dataStrResponse = dataStr.mid(10).toLocal8Bit();
+    QByteArray dataStrResponse = dataStr.mid(10);//.toLocal8Bit();
     int bufSize          = estimatedDataBufSize;
 
     short untransformedVal;
@@ -295,14 +295,6 @@ int AgU25xxAIChannelSet::getSamplingRate()
     return mDriver->RequestQuery(mACQuireCommands.cmdGetSamplingrate()).toInt();
 }
 
-QString AgU25xxAIChannelSet::readAgU25xxIEEEBlock()
-{
-    QString strResponse = mDriver->ReceiveDeviceAnswer(8000000, false);
-    QString dataStr     = strResponse.mid(10);
-
-    return dataStr;
-}
-
 void AgU25xxAIChannelSet::resetAIDataBuffers()
 {
     int i = 0;
@@ -324,13 +316,3 @@ double AgU25xxAIChannelSet::getAIChannelScaleFunctionUnipolar(short &val, double
 {
     return (2.0 * val / 65536.0 + 0.5) * range;
 }
-
-//double AgU25xxAIChannelSet::getAIChannelScaleFunction(short &val, double &range, AgU25xxEnumAIChannelPolaities &polarity)
-//{
-//    if (polarity == AgU25xxEnumAIChannelPolaities::BIP)
-//        return 2.0 * val / 65536.0 * range;
-//    else if (polarity == AgU25xxEnumAIChannelPolaities::UNIP)
-//        return (2.0 * val / 65536.0 + 0.5) * range;
-//    else
-//        throw AgU25xxException(QString("Unable to convert value."));
-//}
