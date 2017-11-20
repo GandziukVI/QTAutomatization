@@ -12,6 +12,8 @@
 
 class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannelSet : public IAgU25xxSubsystemExtensions
 {
+    typedef double (AgU25xxAIChannelSet::*convFunc)(short&, double&);
+
 public:
     AgU25xxAIChannelSet();
     AgU25xxAIChannelSet(IDeviceIO& driver);
@@ -50,6 +52,13 @@ private:
 
     QString               readAgU25xxIEEEBlock();
     void                  resetAIDataBuffers();
+
+    convFunc              *converterFunctions;
+
+    double                getAIChannelScaleFunctionBipolar(short &val, double &range);
+    double                getAIChannelScaleFunctionUnipolar(short &val, double &range);
+
+//    double                getAIChannelScaleFunction(short &val, double &range, AgU25xxEnumAIChannelPolaities &polarity);
 };
 
 #endif // AgU25xxEnumAIChannels_H

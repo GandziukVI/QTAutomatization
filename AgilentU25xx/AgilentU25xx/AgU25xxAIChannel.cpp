@@ -46,7 +46,7 @@ void AgU25xxAIChannel::setEnabled(const bool enabled)
     mDriver->SendCommandRequest(cmd);
 }
 
-bool AgU25xxAIChannel::getEnabled()
+bool AgU25xxAIChannel::queryEnabled()
 {
     QString query       = mROUTeSubSys.cmdGetRouteEnabled(mChannelID);
     QString strResponse = mDriver->RequestQuery(query);
@@ -70,12 +70,17 @@ void AgU25xxAIChannel::setPolarity(AgU25xxEnumAIChannelPolaities polarity)
     mDriver->SendCommandRequest(cmd);
 }
 
-AgU25xxEnumAIChannelPolaities AgU25xxAIChannel::getPolarity()
+AgU25xxEnumAIChannelPolaities AgU25xxAIChannel::queryPolarity()
 {
     QString query       = mROUTeSubSys.cmdGetAIChannelPolarity(mChannelID);
     QString strResponse = mDriver->RequestQuery(query);
 
     mChPolarity = extGetAIChannelPolarityEnum(strResponse);
+    return mChPolarity;
+}
+
+AgU25xxEnumAIChannelPolaities AgU25xxAIChannel::getPolarity()
+{
     return mChPolarity;
 }
 
@@ -87,12 +92,17 @@ void AgU25xxAIChannel::setRange(AgU25xxEnumAIChannelRanges range)
     mDriver->SendCommandRequest(cmd);
 }
 
-AgU25xxEnumAIChannelRanges AgU25xxAIChannel::getRange()
+AgU25xxEnumAIChannelRanges AgU25xxAIChannel::queryRange()
 {
     QString query = mROUTeSubSys.cmdGetAIChannelRange(mChannelID);
     QString strResponse = mDriver->RequestQuery(query);
 
     mChRange = extGetAIChannelRangeEnum(strResponse);
+    return mChRange;
+}
+
+AgU25xxEnumAIChannelRanges AgU25xxAIChannel::getRange()
+{
     return mChRange;
 }
 

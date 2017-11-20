@@ -64,11 +64,11 @@ QString VisaDevice::ReceiveDeviceAnswer(void)
         tempBuffer[retCount] = (ViChar)'\0';
 
         if(retCount < READ_BUFFER_SIZE) {
-            container << tempBuffer;
+            containerString = QString::fromLocal8Bit(tempBuffer);
             break;
         }
         else if (retCount == READ_BUFFER_SIZE) {
-            container << tempBuffer;
+            container << QString::fromLocal8Bit(tempBuffer);
             if(strchr(TerminationCharacters, tempBuffer[retCount - 1]) != NULL)
                 break;
         }
@@ -107,7 +107,7 @@ QString VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
-            container << QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
+            containerString = QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
             break;
         }
         else if (retCount == tempBuffer.Size) {
@@ -144,11 +144,11 @@ QString VisaDevice::RequestQuery(const char* QueryString)
         tempBuffer[retCount] = (ViChar)'\0';
 
         if(retCount < READ_BUFFER_SIZE) {
-            container << tempBuffer;
+            containerString = QString::fromLocal8Bit(tempBuffer);
             break;
         }
         else if (retCount == READ_BUFFER_SIZE) {
-            container << tempBuffer;
+            container << QString::fromLocal8Bit(tempBuffer);
             if(strchr(TerminationCharacters, tempBuffer[retCount - 1]) != NULL)
                 break;
         }
@@ -179,11 +179,11 @@ QString VisaDevice::RequestQuery(const QString& QueryString)
         tempBuffer[retCount] = (ViChar)'\0';
 
         if(retCount < READ_BUFFER_SIZE) {
-            container << tempBuffer;
+            containerString = QString::fromLocal8Bit(tempBuffer);
             break;
         }
         else if (retCount == READ_BUFFER_SIZE) {
-            container << tempBuffer;
+            container << QString::fromLocal8Bit(tempBuffer);
             if(strchr(TerminationCharacters, tempBuffer[retCount - 1]) != NULL)
                 break;
         }
@@ -224,7 +224,7 @@ QString VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
-            container << QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
+            containerString = QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
             break;
         }
         else if (retCount == tempBuffer.Size) {
@@ -269,7 +269,7 @@ QString VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSize)
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
-            container << QString::fromLocal8Bit(tempBuffer.Buffer);
+            containerString = QString::fromLocal8Bit(tempBuffer.Buffer);
             break;
         }
         else if (retCount == tempBuffer.Size) {

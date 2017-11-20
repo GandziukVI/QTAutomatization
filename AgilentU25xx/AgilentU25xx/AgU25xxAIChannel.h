@@ -17,14 +17,16 @@ public:
 
     void                          setSamplingRate (const unsigned int samplingRate);
     void                          setEnabled      (const bool enabled);
-    bool                          getEnabled      ();
+    bool                          queryEnabled    ();
     bool                          isEnabled       ();
     void                          setPolarity     (AgU25xxEnumAIChannelPolaities polarity);
+    AgU25xxEnumAIChannelPolaities queryPolarity   ();
     AgU25xxEnumAIChannelPolaities getPolarity     ();
     void                          setRange        (AgU25xxEnumAIChannelRanges range);
+    AgU25xxEnumAIChannelRanges    queryRange      ();
     AgU25xxEnumAIChannelRanges    getRange        ();
     double                        getScaleValue   (short &val);
-    double                        (*getScaleFunction)();
+    double                        (*getScaleFunction)(short &val);
     double                        *ACQuisitionData;    
 
 private:

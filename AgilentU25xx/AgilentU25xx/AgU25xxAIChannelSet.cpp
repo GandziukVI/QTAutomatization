@@ -25,7 +25,6 @@ AgU25xxAIChannelSet::AgU25xxAIChannelSet(IDeviceIO &driver)
 AgU25xxAIChannelSet::~AgU25xxAIChannelSet()
 {
     delete[] AIChannels;
-    delete mDriver;
 }
 
 AgU25xxAIChannel &AgU25xxAIChannelSet::operator [](const int index)
@@ -165,24 +164,53 @@ void AgU25xxAIChannelSet::fetchScale()
     int i = 0, j = 0, k = 0, l = 0;
 
     unsigned int activeChannelsSize = activeChannels.size();
+
+    QVector<double>                        activeChannelRanges(activeChannelsSize);
+    QVector<AgU25xxEnumAIChannelPolaities> activeChannelPolarities(activeChannelsSize);
+
+    converterFunctions              = new convFunc[activeChannelsSize];
+
     unsigned int srat               = mAIChannelsSamplingFreq;
+//    double       **localData        = new double*[activeChannelsSize];
+
 
     for (; i != activeChannelsSize; ){
         (*this)[activeChannels[i]].ACQuisitionData = new double[srat];
+//        localData[i]                               = new double[srat];
+
+        activeChannelRanges[i]     = QString(extGetAIChannelRangeStr((*this)[activeChannels[i]].getRange())).toDouble();
+        activeChannelPolarities[i] = (*this)[activeChannels[i]].getPolarity();
+
+        if (activeChannelPolarities[i] == AgU25xxEnumAIChannelPolaities::BIP)
+            converterFunctions[i]      = &AgU25xxAIChannelSet::getAIChannelScaleFunctionBipolar;
+        else if (activeChannelPolarities[i] == AgU25xxEnumAIChannelPolaities::UNIP)
+            converterFunctions[i]      = &AgU25xxAIChannelSet::getAIChannelScaleFunctionUnipolar;
+
         ++i;
     }
 
-    for (; j != bufSize - 2; ) {
-        short untransformedVal = (short)dataStrResponse[j] | ((short)dataStrResponse[j + 1] << 8);
+    short untransformedVal;
 
-        (*this)[activeChannels[k]].ACQuisitionData[l] = (*this)[activeChannels[k]].getScaleValue(untransformedVal);
+    readTimer.restart();
+
+    for (; j != bufSize - 2; ) {
+        untransformedVal = (short)(dataStrResponse[j] | (dataStrResponse[++j] << 8));
+        //localData[k][l]  = (this->*converterFunctions[k])(untransformedVal, activeChannelRanges[k]);
+        (*this).AIChannels[k]->ACQuisitionData[l] = (this->*converterFunctions[k])(untransformedVal, activeChannelRanges[k]);
 
         if(++k == activeChannelsSize) {
             k = 0; ++l;
         }
 
-        j += 2;
+        ++j;
     }
+
+    qDebug() << QObject::tr("Data transform to real values took %1")
+                .arg(readTimer.elapsed())
+                .toStdString().c_str();
+
+//    delete[] localData;
+    delete[] converterFunctions;
 }
 
 QVector<int> AgU25xxAIChannelSet::getNumEnabledChannels()
@@ -224,3 +252,23 @@ void AgU25xxAIChannelSet::resetAIDataBuffers()
         ++i;
     }
 }
+
+double AgU25xxAIChannelSet::getAIChannelScaleFunctionBipolar(short &val, double &range)
+{
+    return 2.0 * val / 65536.0 * range;
+}
+
+double AgU25xxAIChannelSet::getAIChannelScaleFunctionUnipolar(short &val, double &range)
+{
+    return (2.0 * val / 65536.0 + 0.5) * range;
+}
+
+//double AgU25xxAIChannelSet::getAIChannelScaleFunction(short &val, double &range, AgU25xxEnumAIChannelPolaities &polarity)
+//{
+//    if (polarity == AgU25xxEnumAIChannelPolaities::BIP)
+//        return 2.0 * val / 65536.0 * range;
+//    else if (polarity == AgU25xxEnumAIChannelPolaities::UNIP)
+//        return (2.0 * val / 65536.0 + 0.5) * range;
+//    else
+//        throw AgU25xxException(QString("Unable to convert value."));
+//}
