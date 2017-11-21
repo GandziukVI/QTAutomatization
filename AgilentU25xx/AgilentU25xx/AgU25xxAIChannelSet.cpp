@@ -117,7 +117,7 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq)
     mDriver->SendCommandRequest(cmdGetData);
     QString dataStr = mDriver->ReceiveDeviceAnswer(estimatedDataBufSize + 256, true);
 
-    QByteArray dataStrResponse      = dataStr.mid(10).toLocal8Bit();
+    QByteArray dataStrResponse      = dataStr.mid(10);
     QByteArray::const_iterator iter = dataStrResponse.cbegin();
 
     short untransformedVal;
@@ -186,6 +186,7 @@ void AgU25xxAIChannelSet::startContinuousAcquisition(unsigned int samplingFreq, 
     QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
     QByteArray dataStrResponse;
     QByteArray::const_iterator iter;
+    QByteArray::const_iterator condDataEndIter;
     short untransformedVal;
 
     unsigned int numPointsAcquired;
@@ -220,8 +221,9 @@ void AgU25xxAIChannelSet::startContinuousAcquisition(unsigned int samplingFreq, 
             mDriver->SendCommandRequest(cmdGetData);
             dataStr = mDriver->ReceiveDeviceAnswer(estimatedDataBufSize + 256, true);
 
-            dataStrResponse = dataStr.mid(10).toLocal8Bit();
+            dataStrResponse = dataStr.mid(10);
             iter            = dataStrResponse.cbegin();
+            condDataEndIter = dataStrResponse.cend() - 2;
 
             for (; ; ) {
                 untransformedVal = (short)(*iter | (*(++iter) << 8));
@@ -231,7 +233,7 @@ void AgU25xxAIChannelSet::startContinuousAcquisition(unsigned int samplingFreq, 
                     j = 0; ++k;
                 }
 
-                if(iter != dataStrResponse.cend() - 2)
+                if(iter != condDataEndIter)
                     ++iter;
                 else
                     break;
