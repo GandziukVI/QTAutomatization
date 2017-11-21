@@ -50,6 +50,7 @@ private:
     int                   mAIChannelsSamplingFreq;
     int                   mAIChannelsEnabledCount;
 
+    QString               readAgU25xxIEEEBlock();
     void                  resetAIDataBuffers();
 
     convFunc              *converterFunctions;
