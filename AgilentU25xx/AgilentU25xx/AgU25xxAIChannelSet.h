@@ -27,7 +27,7 @@ public:
     void initialize(IDeviceIO& driver);
 
     void acquireSingleShot(int samplingFreq);
-    void startContinuousAcquisition();
+    void startContinuousAcquisition(unsigned int samplingFreq, unsigned int outputPoints);
     void stopAcquisition();
     bool checkDataReady();
     void fetch(short int *data);
