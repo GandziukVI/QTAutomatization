@@ -30,6 +30,8 @@ public:
     void startContinuousAcquisition();
     void stopAcquisition();
     bool checkDataReady();
+    void fetch(short int *data);
+    void fetchScale();
     QVector<int> getNumEnabledChannels();
     int  getSamplingRate();
 
