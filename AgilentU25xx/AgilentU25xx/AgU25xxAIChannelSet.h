@@ -10,6 +10,8 @@
 #include "IAgU25xxSubsystemExtensions.h"
 #include "AgU25xxException.h"
 
+#include <QMutex>
+
 class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannelSet : public IAgU25xxSubsystemExtensions
 {
     typedef double (AgU25xxAIChannelSet::*convFunc)(short&, double&);
@@ -30,8 +32,6 @@ public:
     void startContinuousAcquisition(unsigned int samplingFreq, unsigned int outputPoints);
     void stopAcquisition();
     bool checkDataReady();
-    void fetch(short int *data);
-    void fetchScale();
     QVector<int> getNumEnabledChannels();
     int  getSamplingRate();
 
@@ -40,6 +40,9 @@ public:
 
     void setRange(AgU25xxEnumAIChannelRanges range);
     AgU25xxEnumAIChannelRanges getRange();
+
+    void setAcquisitionState(const bool &state);
+    bool getAcquisitionState();
 
 private:
     IDeviceIO             *mDriver;
@@ -50,7 +53,6 @@ private:
     int                   mAIChannelsSamplingFreq;
     int                   mAIChannelsEnabledCount;
 
-    QString               readAgU25xxIEEEBlock();
     void                  resetAIDataBuffers();
 
     convFunc              *converterFunctions;
@@ -58,7 +60,8 @@ private:
     double                getAIChannelScaleFunctionBipolar(short &val, double &range);
     double                getAIChannelScaleFunctionUnipolar(short &val, double &range);
 
-//    double                getAIChannelScaleFunction(short &val, double &range, AgU25xxEnumAIChannelPolaities &polarity);
+    mutable QMutex mAcqInProgressMutex;
+    bool           mAcquisitionIsInProgress;
 };
 
 #endif // AgU25xxEnumAIChannels_H

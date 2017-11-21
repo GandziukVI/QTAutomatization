@@ -24,6 +24,9 @@
 #include "AgilentU25xx.h"
 #include "AgU25xxException.h"
 
+#include <QFuture>
+#include <QtConcurrent/QtConcurrent>
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
@@ -36,7 +39,7 @@ int main(int argc, char *argv[])
     device.resetDevice();
 
     int samplingRate = 500000;
-    unsigned int nPoints      = 50000;
+    unsigned int nPoints = 50000;
 
     for (int i = 0; i != 4; i++) {
         device.AInChannelSet[i].setEnabled(true);
@@ -44,9 +47,17 @@ int main(int argc, char *argv[])
         device.AInChannelSet[i].setPolarity(polarity);
     }
 
-    device.AInChannelSet.startContinuousAcquisition(samplingRate, nPoints);
-
 //    device.AInChannelSet[0].setEnabled(true);
+
+    QFuture<void> acqThreadRun = QtConcurrent::run(&device.AInChannelSet, &AgU25xxAIChannelSet::startContinuousAcquisition, samplingRate, nPoints);
+
+    QThread::sleep(10);
+
+    device.AInChannelSet.stopAcquisition();
+
+    acqThreadRun.waitForFinished();
+
+//    device.AInChannelSet.startContinuousAcquisition(samplingRate, nPoints);
 
 //    QString outputStr;
 //    QTextStream outputStrStream(&outputStr);
