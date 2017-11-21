@@ -118,25 +118,25 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq)
     QByteArray dataStrResponse      = dataStr.mid(10);//.toLocal8Bit();
     QByteArray::const_iterator iter = dataStrResponse.cbegin();
 
-    int bufSize          = estimatedDataBufSize;
+//    int bufSize          = estimatedDataBufSize;
 
-    short untransformedVal;
-    for (; iter != dataStrResponse.cend(); ) {
-        untransformedVal = (short)(*iter | (*(++iter) << 8));
-        (*this).AIChannels[k]->ACQuisitionData[l] = (this->*converterFunctions[k])(untransformedVal, activeChannelRanges[k]);
+//    short untransformedVal;
+//    for (; iter != dataStrResponse.cend(); ) {
+//        untransformedVal = (short)(*iter | (*(++iter) << 8));
+//        (*this).AIChannels[k]->ACQuisitionData[l] = (this->*converterFunctions[k])(untransformedVal, activeChannelRanges[k]);
 
-        if(++k == activeChannelsSize) {
-            k = 0; ++l;
-        }
+//        if(++k == activeChannelsSize) {
+//            k = 0; ++l;
+//        }
 
-        ++iter;
-    }
+//        ++iter;
+//    }
 
-    delete[] converterFunctions;
+//    delete[] converterFunctions;
 
-    qDebug() << QObject::tr("All data transformation took %1.")
-                .arg(readTimer.elapsed())
-                .toStdString().c_str();
+//    qDebug() << QObject::tr("All data transformation took %1.")
+//                .arg(readTimer.elapsed())
+//                .toStdString().c_str();
 }
 
 void AgU25xxAIChannelSet::startContinuousAcquisition()
