@@ -96,7 +96,7 @@ void SerialDevice::SendCommandRequest(const QString RequestString)
     }
 }
 
-QByteArray SerialDevice::ReceiveDeviceAnswer()
+QString SerialDevice::ReceiveDeviceAnswer()
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker queryLocker(&requestQueryMutex);
@@ -114,10 +114,10 @@ QByteArray SerialDevice::ReceiveDeviceAnswer()
             data.append(serialPort.readAll());
     }
 
-    return data;
+    return QString(data);
 }
 
-QByteArray SerialDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
+QString SerialDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker queryLocker(&requestQueryMutex);
@@ -144,10 +144,10 @@ QByteArray SerialDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax
         }
     }
 
-    return data;
+    return QString(data);
 }
 
-QByteArray SerialDevice::RequestQuery(const char* QueryString)
+QString SerialDevice::RequestQuery(const char* QueryString)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -178,10 +178,10 @@ QByteArray SerialDevice::RequestQuery(const char* QueryString)
             data.append(serialPort.readAll());
     }
 
-    return data;
+    return QString(data);
 }
 
-QByteArray SerialDevice::RequestQuery(const QString QueryString)
+QString SerialDevice::RequestQuery(const QString QueryString)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -212,10 +212,10 @@ QByteArray SerialDevice::RequestQuery(const QString QueryString)
             data.append(serialPort.readAll());
     }
 
-    return data;
+    return QString(data);
 }
 
-QByteArray SerialDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
+QString SerialDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -249,10 +249,10 @@ QByteArray SerialDevice::RequestQuery(const char* QueryString, int ReadBufferSiz
             data.append(serialPort.read(ReadBufferSize));
     }
 
-    return data;
+    return QString(data);
 }
 
-QByteArray SerialDevice::RequestQuery(const QString QueryString, int ReadBufferSize)
+QString SerialDevice::RequestQuery(const QString QueryString, int ReadBufferSize)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -286,5 +286,5 @@ QByteArray SerialDevice::RequestQuery(const QString QueryString, int ReadBufferS
             data.append(serialPort.read(ReadBufferSize));
     }
 
-    return data;
+    return QString(data);
 }

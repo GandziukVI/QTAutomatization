@@ -20,12 +20,12 @@ public:
 
     void SendCommandRequest         (const char* RequestString);
     void SendCommandRequest         (const QString RequestString);
-    QByteArray ReceiveDeviceAnswer     (void);
-    QByteArray ReceiveDeviceAnswer     (int BufferSize = 256, bool readExactOrMax = false);
-    QByteArray RequestQuery            (const char* QueryString);
-    QByteArray RequestQuery            (const QString QueryString);
-    QByteArray RequestQuery            (const char* QueryString,  int ReadBufferSize = 256);
-    QByteArray RequestQuery            (const QString QueryString,  int ReadBufferSize = 256);
+    QString ReceiveDeviceAnswer     (void);
+    QString ReceiveDeviceAnswer     (int BufferSize = 256, bool readExactOrMax = false);
+    QString RequestQuery            (const char* QueryString);
+    QString RequestQuery            (const QString QueryString);
+    QString RequestQuery            (const char* QueryString,  int ReadBufferSize = 256);
+    QString RequestQuery            (const QString QueryString,  int ReadBufferSize = 256);
 
 private:
     // Implementing thread-safety
