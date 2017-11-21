@@ -42,7 +42,7 @@ void VisaDevice::SendCommandRequest(const QString& RequestString)
     status = viWrite(instr, (ViBuf)(RequestString.toStdString().c_str()), (ViUInt32)strlen(RequestString.toStdString().c_str()), &writeCount);
 }
 
-QByteArray VisaDevice::ReceiveDeviceAnswer(void)
+QString VisaDevice::ReceiveDeviceAnswer(void)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker queryLocker(&requestQueryMutex);
@@ -52,9 +52,14 @@ QByteArray VisaDevice::ReceiveDeviceAnswer(void)
         currentReadBufferSize = standardReadBufSize;
 
         viSetBuf(instr, VI_READ_BUF, standardReadBufSize);
-    }               
+    }
 
+<<<<<<< HEAD
     QByteArray result("");
+=======
+    QString     containerString;
+    QTextStream container(&containerString);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
 
     while(true) {
 
@@ -65,6 +70,7 @@ QByteArray VisaDevice::ReceiveDeviceAnswer(void)
         tempBuffer[retCount] = (ViChar)'\0';
 
         if(retCount < READ_BUFFER_SIZE) {
+<<<<<<< HEAD
             qDebug() << "Entering data read";
             result = QByteArray::fromRawData(tempBuffer, retCount);
             qDebug() << "Data returned " << result;
@@ -72,6 +78,13 @@ QByteArray VisaDevice::ReceiveDeviceAnswer(void)
         }
         else if (retCount == READ_BUFFER_SIZE) {
             result.append(tempBuffer, retCount);
+=======
+            container << QString::fromLocal8Bit(tempBuffer);
+            break;
+        }
+        else if (retCount == READ_BUFFER_SIZE) {
+            container << QString::fromLocal8Bit(tempBuffer);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
             if(strchr(TerminationCharacters, tempBuffer[retCount - 1]) != NULL)
                 break;
         }
@@ -79,10 +92,10 @@ QByteArray VisaDevice::ReceiveDeviceAnswer(void)
             break;
     }
 
-    return result;
+    return containerString;
 }
 
-QByteArray VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
+QString VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker queryLocker(&requestQueryMutex);
@@ -98,7 +111,12 @@ QByteArray VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
         viSetBuf(instr, VI_READ_BUF, standardReadBufSize);
     }
 
+<<<<<<< HEAD
     QByteArray result("");
+=======
+    QString     containerString;
+    QTextStream container(&containerString);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
 
     while(true) {
 
@@ -109,11 +127,19 @@ QByteArray VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
+<<<<<<< HEAD
             result = QByteArray::fromRawData(tempBuffer.Buffer, retCount);//.append(QString::fromLocal8Bit(tempBuffer.Buffer, retCount));
             break;
         }
         else if (retCount == tempBuffer.Size) {
             result.append(tempBuffer.Buffer, retCount);//.append(QString::fromLocal8Bit(tempBuffer.Buffer));
+=======
+            container << QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
+            break;
+        }
+        else if (retCount == tempBuffer.Size) {
+            container << QString::fromLocal8Bit(tempBuffer.Buffer);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
             if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
             if(readExactOrMax == true)
@@ -123,10 +149,10 @@ QByteArray VisaDevice::ReceiveDeviceAnswer(int BufferSize, bool readExactOrMax)
             break;
     }
 
-    return result;
+    return containerString;
 }
 
-QByteArray VisaDevice::RequestQuery(const char* QueryString)
+QString VisaDevice::RequestQuery(const char* QueryString)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -134,7 +160,12 @@ QByteArray VisaDevice::RequestQuery(const char* QueryString)
 
     status = viWrite(instr, (ViBuf)QueryString, (ViUInt32)strlen(QueryString), &writeCount);
 
+<<<<<<< HEAD
     QByteArray result("");
+=======
+    QString     containerString;
+    QTextStream container(&containerString);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
 
     while(true) {
 
@@ -145,11 +176,19 @@ QByteArray VisaDevice::RequestQuery(const char* QueryString)
         tempBuffer[retCount] = (ViChar)'\0';
 
         if(retCount < READ_BUFFER_SIZE) {
+<<<<<<< HEAD
             result = QByteArray::fromRawData(tempBuffer, retCount);//.append(QString::fromLocal8Bit(tempBuffer));
             break;
         }
         else if (retCount == READ_BUFFER_SIZE) {
             result.append(tempBuffer, retCount);//.append(QString::fromLocal8Bit(tempBuffer));
+=======
+            container << QString::fromLocal8Bit(tempBuffer);
+            break;
+        }
+        else if (retCount == READ_BUFFER_SIZE) {
+            container << QString::fromLocal8Bit(tempBuffer);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
             if(strchr(TerminationCharacters, tempBuffer[retCount - 1]) != NULL)
                 break;
         }
@@ -157,10 +196,10 @@ QByteArray VisaDevice::RequestQuery(const char* QueryString)
             break;
     }
 
-    return result;
+    return containerString;
 }
 
-QByteArray VisaDevice::RequestQuery(const QString& QueryString)
+QString VisaDevice::RequestQuery(const QString& QueryString)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -168,7 +207,12 @@ QByteArray VisaDevice::RequestQuery(const QString& QueryString)
 
     status = viWrite(instr, (ViBuf)(QueryString.toStdString().c_str()), (ViUInt32)strlen(QueryString.toStdString().c_str()), &writeCount);
 
+<<<<<<< HEAD
     QByteArray result("");
+=======
+    QString     containerString;
+    QTextStream container(&containerString);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
 
     while(true) {
 
@@ -179,11 +223,19 @@ QByteArray VisaDevice::RequestQuery(const QString& QueryString)
         tempBuffer[retCount] = (ViChar)'\0';
 
         if(retCount < READ_BUFFER_SIZE) {
+<<<<<<< HEAD
             result = QByteArray::fromRawData(tempBuffer, retCount);//.append(QString::fromLocal8Bit(tempBuffer));
             break;
         }
         else if (retCount == READ_BUFFER_SIZE) {
             result.append(tempBuffer, retCount);//.append(QString::fromLocal8Bit(tempBuffer));
+=======
+            container << QString::fromLocal8Bit(tempBuffer);
+            break;
+        }
+        else if (retCount == READ_BUFFER_SIZE) {
+            container << QString::fromLocal8Bit(tempBuffer);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
             if(strchr(TerminationCharacters, tempBuffer[retCount - 1]) != NULL)
                 break;
         }
@@ -191,10 +243,10 @@ QByteArray VisaDevice::RequestQuery(const QString& QueryString)
             break;
     }
 
-    return result;
+    return containerString;
 }
 
-QByteArray VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
+QString VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -212,7 +264,12 @@ QByteArray VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
 
     status = viWrite(instr, (ViBuf)QueryString, (ViUInt32)strlen(QueryString), &writeCount);    
 
+<<<<<<< HEAD
     QByteArray result("");
+=======
+    QString     containerString;
+    QTextStream container(&containerString);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
 
     while(true) {
 
@@ -223,11 +280,19 @@ QByteArray VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
+<<<<<<< HEAD
             result = QByteArray::fromRawData(tempBuffer.Buffer, retCount);//.append(QString::fromLocal8Bit(tempBuffer.Buffer, retCount));
             break;
         }
         else if (retCount == tempBuffer.Size) {
             result.append(tempBuffer.Buffer, retCount);//.append(QString::fromLocal8Bit(tempBuffer.Buffer, retCount));
+=======
+            containerString = QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
+            break;
+        }
+        else if (retCount == tempBuffer.Size) {
+            container << QString::fromLocal8Bit(tempBuffer.Buffer, retCount);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
             if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
         }
@@ -235,10 +300,10 @@ QByteArray VisaDevice::RequestQuery(const char* QueryString, int ReadBufferSize)
             break;
     }
 
-    return result;
+    return containerString;
 }
 
-QByteArray VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSize)
+QString VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSize)
 {
     QMutexLocker commandLocker(&sendCommandRequestMutex);
     QMutexLocker receiveAnswerLocker(&receiveDeviceAnsverMutex);
@@ -256,7 +321,12 @@ QByteArray VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSi
 
     status = viWrite(instr, (ViBuf)(QueryString.toStdString().c_str()), (ViUInt32)strlen(QueryString.toStdString().c_str()), &writeCount);
 
+<<<<<<< HEAD
     QByteArray result("");
+=======
+    QString     containerString;
+    QTextStream container(&containerString);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
 
     while(true) {
 
@@ -267,11 +337,19 @@ QByteArray VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSi
         tempBuffer.Buffer[retCount] = (ViChar)'\0';
 
         if(retCount < tempBuffer.Size) {
+<<<<<<< HEAD
             result = QByteArray::fromRawData(tempBuffer.Buffer, retCount);//.append(QString::fromLocal8Bit(tempBuffer.Buffer));
             break;
         }
         else if (retCount == tempBuffer.Size) {
             result.append(tempBuffer.Buffer, retCount);//.append(QString::fromLocal8Bit(tempBuffer.Buffer));
+=======
+            container << QString::fromLocal8Bit(tempBuffer.Buffer);
+            break;
+        }
+        else if (retCount == tempBuffer.Size) {
+            container << QString::fromLocal8Bit(tempBuffer.Buffer);
+>>>>>>> parent of e245d99... Changing IDeviceIO responce type from QString to QByteArray
             if(strchr(TerminationCharacters, tempBuffer.Buffer[retCount - 1]) != NULL)
                 break;
         }
@@ -279,7 +357,7 @@ QByteArray VisaDevice::RequestQuery(const QString& QueryString, int ReadBufferSi
             break;
     }
 
-    return result;
+    return containerString;
 }
 
 bool VisaDevice::OpenConnection(const char* ResourceString)
@@ -312,6 +390,14 @@ bool VisaDevice::OpenConnection(const char* ResourceString)
     }
 
     currentReadBufferSize = standardReadBufSize;
+
+    // Setting large output buffer value
+
+//    status = viSetBuf(instr, VI_READ_BUF, (ViUInt32)4000256);
+//    if(status < VI_SUCCESS) {
+//        CloseConnection();
+//        return false;
+//    }
 
     return true;
 }
