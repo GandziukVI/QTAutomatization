@@ -231,10 +231,10 @@ void AgU25xxAIChannelSet::startContinuousAcquisition(unsigned int samplingFreq, 
                     j = 0; ++k;
                 }
 
-                if(iter != dataStrResponse.cend() - 1)
+                if(iter != dataStrResponse.cend() - 2)
                     ++iter;
-
-                break;
+                else
+                    break;
             }
 
             qDebug() << QObject::tr("All data transformation took %1.")
