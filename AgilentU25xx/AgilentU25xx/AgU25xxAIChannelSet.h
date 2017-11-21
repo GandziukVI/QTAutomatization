@@ -54,8 +54,6 @@ private:
 
     double                getAIChannelScaleFunctionBipolar(short &val, double &range);
     double                getAIChannelScaleFunctionUnipolar(short &val, double &range);
-
-//    double                getAIChannelScaleFunction(short &val, double &range, AgU25xxEnumAIChannelPolaities &polarity);
 };
 
 #endif // AgU25xxEnumAIChannels_H
