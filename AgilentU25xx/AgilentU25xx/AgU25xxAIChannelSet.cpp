@@ -87,7 +87,7 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq)
     /* Reading acquired data */
     /* --------------------- */
 
-    QVector<int> activeChannels       = getNumEnabledChannels();
+    QVector<unsigned int> activeChannels       = getNumEnabledChannels();
     unsigned int activeChannelsSize   = activeChannels.size();
     unsigned int estimatedDataBufSize = activeChannelsSize * samplingFreq * 2;
 
@@ -115,7 +115,7 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq)
 
     QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
     mDriver->SendCommandRequest(cmdGetData);
-    QString dataStr = mDriver->ReceiveDeviceAnswer(estimatedDataBufSize + 256, true);
+    QByteArray dataStr = mDriver->ReceiveDeviceAnswer(estimatedDataBufSize + 256, true);
 
     QByteArray dataStrResponse      = dataStr.mid(10);
     QByteArray::const_iterator iter = dataStrResponse.cbegin();
@@ -160,11 +160,13 @@ void AgU25xxAIChannelSet::startContinuousAcquisition(unsigned int samplingFreq, 
     QElapsedTimer readTimer;
     readTimer.start();
 
-    QVector<int> activeChannels       = getNumEnabledChannels();
-    unsigned int activeChannelsSize   = activeChannels.size();
-    unsigned int estimatedDataBufSize = activeChannelsSize * outputPoints * 2;
+    QVector<unsigned int> activeChannels                     = getNumEnabledChannels();
+    QVector<unsigned int>::const_iterator activeChannelsIter = activeChannels.cbegin();
+    unsigned int activeChannelsSize                          = activeChannels.size();
+    unsigned int estimatedDataBufSize                        = activeChannelsSize * outputPoints * 2;
 
     QVector<double>                        activeChannelRanges(activeChannelsSize);
+    QVector<double>::const_iterator        activeChannelRangesIter = activeChannelRanges.cbegin();
     QVector<AgU25xxEnumAIChannelPolaities> activeChannelPolarities(activeChannelsSize);
 
     converterFunctions                = new convFunc[activeChannelsSize];
@@ -182,11 +184,13 @@ void AgU25xxAIChannelSet::startContinuousAcquisition(unsigned int samplingFreq, 
         ++i;
     }
 
-    QString dataStr;
-    QString cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
+    QByteArray dataStr;
+    QString    cmdGetData = mWAVeformCommands.cmdQueryAcquisitionData();
+
     QByteArray dataStrResponse;
     QByteArray::const_iterator iter;
     QByteArray::const_iterator condDataEndIter;
+
     short untransformedVal;
 
     unsigned int numPointsAcquired;
@@ -197,7 +201,7 @@ void AgU25xxAIChannelSet::startContinuousAcquisition(unsigned int samplingFreq, 
 
         i = 0, j = 0, k = 0;
         for (; i != activeChannelsSize; ){
-            (*this)[activeChannels[i]].ACQuisitionData = new double[samplingFreq];
+            (*this)[*(activeChannelsIter + i)].ACQuisitionData = new double[samplingFreq];
             ++i;
         }
 
@@ -227,15 +231,14 @@ void AgU25xxAIChannelSet::startContinuousAcquisition(unsigned int samplingFreq, 
 
             for (; ; ) {
                 untransformedVal = (short)(*iter | (*(++iter) << 8));
-                (*this).AIChannels[j]->ACQuisitionData[k + numPointsAcquired] = (this->*converterFunctions[j])(untransformedVal, activeChannelRanges[j]);
+                (*this).AIChannels[*(activeChannelsIter + j)]->ACQuisitionData[k + numPointsAcquired] = (this->*converterFunctions[j])(untransformedVal, *(activeChannelRangesIter + j));
 
                 if(++j == activeChannelsSize) {
                     j = 0; ++k;
                 }
-
                 if(iter != condDataEndIter)
                     ++iter;
-                else
+                if(iter == condDataEndIter)
                     break;
             }
 
@@ -268,9 +271,9 @@ bool AgU25xxAIChannelSet::checkDataReady()
         return false;
 }
 
-QVector<int> AgU25xxAIChannelSet::getNumEnabledChannels()
+QVector<unsigned int> AgU25xxAIChannelSet::getNumEnabledChannels()
 {
-    QVector<int> res;
+    QVector<unsigned int> res;
     int i = 0;
     for (; i != 4; ) {
         if ((*this)[i].isEnabled())
@@ -312,12 +315,12 @@ void AgU25xxAIChannelSet::resetAIDataBuffers()
     }
 }
 
-double AgU25xxAIChannelSet::getAIChannelScaleFunctionBipolar(short &val, double &range)
+double AgU25xxAIChannelSet::getAIChannelScaleFunctionBipolar(const short &val, const double &range) const
 {
     return 2.0 * val / 65536.0 * range;
 }
 
-double AgU25xxAIChannelSet::getAIChannelScaleFunctionUnipolar(short &val, double &range)
+double AgU25xxAIChannelSet::getAIChannelScaleFunctionUnipolar(const short &val, const double &range) const
 {
     return (2.0 * val / 65536.0 + 0.5) * range;
 }

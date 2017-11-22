@@ -8,6 +8,7 @@
 #include <visatype.h>
 
 #include <QMutex>
+#include <QTextCodec>
 #include <QTextStream>
 
 class DEVICEIOSHARED_EXPORT VisaDevice : public IDeviceIO
@@ -20,12 +21,12 @@ public:
 
     void SendCommandRequest      (const char* RequestString);
     void SendCommandRequest      (const QString& RequestString);
-    QString ReceiveDeviceAnswer  (void);
-    QString ReceiveDeviceAnswer  (int BufferSize = 256, bool readExactOrMax = false);
-    QString RequestQuery         (const char* QueryString);
-    QString RequestQuery         (const QString& QueryString);
-    QString RequestQuery         (const char* QueryString,  int ReadBufferSize = 256);
-    QString RequestQuery         (const QString& QueryString,  int ReadBufferSize = 256);
+    QByteArray ReceiveDeviceAnswer  (void);
+    QByteArray ReceiveDeviceAnswer  (int BufferSize = 256, bool readExactOrMax = false);
+    QByteArray RequestQuery         (const char* QueryString);
+    QByteArray RequestQuery         (const QString& QueryString);
+    QByteArray RequestQuery         (const char* QueryString,  int ReadBufferSize = 256);
+    QByteArray RequestQuery         (const QString& QueryString,  int ReadBufferSize = 256);
 
 private:
     ViSession defaultRM;
@@ -46,6 +47,8 @@ private:
     mutable QMutex sendCommandRequestMutex;
     mutable QMutex receiveDeviceAnsverMutex;
     mutable QMutex requestQueryMutex;
+
+    QTextCodec* codec;
 };
 
 #endif // VISADEVICE_H

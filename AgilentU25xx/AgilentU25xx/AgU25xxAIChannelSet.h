@@ -14,7 +14,7 @@
 
 class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannelSet : public IAgU25xxSubsystemExtensions
 {
-    typedef double (AgU25xxAIChannelSet::*convFunc)(short&, double&);
+    typedef double (AgU25xxAIChannelSet::*convFunc)(const short&, const double&) const;
 
 public:
     AgU25xxAIChannelSet();
@@ -32,7 +32,7 @@ public:
     void startContinuousAcquisition(unsigned int samplingFreq, unsigned int outputPoints);
     void stopAcquisition();
     bool checkDataReady();
-    QVector<int> getNumEnabledChannels();
+    QVector<unsigned int> getNumEnabledChannels();
     int  getSamplingRate();
 
     void setPolarity(AgU25xxEnumAIChannelPolaities polarity);
@@ -57,8 +57,8 @@ private:
 
     convFunc              *converterFunctions;
 
-    double                getAIChannelScaleFunctionBipolar(short &val, double &range);
-    double                getAIChannelScaleFunctionUnipolar(short &val, double &range);
+    double                getAIChannelScaleFunctionBipolar(const short &val, const double &range) const;
+    double                getAIChannelScaleFunctionUnipolar(const short &val, const double &range) const;
 
     mutable QMutex mAcqInProgressMutex;
     bool           mAcquisitionIsInProgress;
