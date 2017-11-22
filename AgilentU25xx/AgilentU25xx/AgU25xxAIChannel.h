@@ -8,8 +8,12 @@
 
 #include <IDeviceIO.h>
 
+#include <QMutex>
+#include <QVector>
+
 class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannel : public IAgU25xxSubsystemExtensions
 {    
+    typedef double (AgU25xxAIChannel::*scaleValFunc)(const short&) const;
 public:
     AgU25xxAIChannel();
     AgU25xxAIChannel(AgU25xxEnumAIChannels channelName, IDeviceIO& driver);
@@ -25,9 +29,11 @@ public:
     void                          setRange        (AgU25xxEnumAIChannelRanges range);
     AgU25xxEnumAIChannelRanges    queryRange      ();
     AgU25xxEnumAIChannelRanges    getRange        ();
-    double                        getScaleValue   (short &val);
-    double                        (*getScaleFunction)(short &val);
-    double                        *ACQuisitionData;    
+    double                        *ACQuisitionData;
+    scaleValFunc                  scaleTransformFunc;
+
+    void                          appendData(double* data, unsigned int maxCount = 5);
+    double*                       getData();
 
 private:
     IDeviceIO*           mDriver;
@@ -39,8 +45,16 @@ private:
 
     AgU25xxEnumAIChannelPolaities mChPolarity;
     AgU25xxEnumAIChannelRanges    mChRange;
+    double                        mChRangeValue;
     bool                          mIsEnabled;
 
+    double                        getScaleValueBipolar (const short &val) const;
+    double                        getScaleValueUnipolar(const short &val) const;
+    void                          setScaleTransformFunction(const AgU25xxEnumAIChannelPolaities &polarity);
+    void                          resetScaleTransformFunction();
+
+    QVector<double*>              mChannelData;
+    mutable QMutex                mChannelDataAccessMutex;
 };
 
 #endif // AGU25XXAICHANNEL_H
