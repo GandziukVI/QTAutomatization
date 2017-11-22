@@ -18,10 +18,10 @@ public:
     void                          setSamplingRate (const unsigned int samplingRate);
     void                          setEnabled      (const bool enabled);
     bool                          queryEnabled    ();
-    bool                          isEnabled       ();
+    bool                          isEnabled       () const;
     void                          setPolarity     (AgU25xxEnumAIChannelPolaities polarity);
     AgU25xxEnumAIChannelPolaities queryPolarity   ();
-    AgU25xxEnumAIChannelPolaities getPolarity     ();
+    AgU25xxEnumAIChannelPolaities getPolarity     () const;
     void                          setRange        (AgU25xxEnumAIChannelRanges range);
     AgU25xxEnumAIChannelRanges    queryRange      ();
     AgU25xxEnumAIChannelRanges    getRange        ();

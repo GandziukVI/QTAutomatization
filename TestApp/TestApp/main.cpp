@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     for (int i = 0; i != 4; i++) {
         bool enabled = i % 2 == 0? true : false;
         device.AInChannelSet[i].setEnabled(true);
-        auto polarity = AgU25xxEnumAIChannelPolaities::BIP;//i % 2 == 0? AgU25xxEnumAIChannelPolaities::BIP : AgU25xxEnumAIChannelPolaities::UNIP;
+        auto polarity = i % 2 == 0? AgU25xxEnumAIChannelPolaities::BIP : AgU25xxEnumAIChannelPolaities::UNIP;
         device.AInChannelSet[i].setPolarity(polarity);
     }
 
@@ -52,13 +52,11 @@ int main(int argc, char *argv[])
 
     QFuture<void> acqThreadRun = QtConcurrent::run(&device.AInChannelSet, &AgU25xxAIChannelSet::startContinuousAcquisition, samplingRate, nPoints);
 
-    QThread::sleep(2);
+    QThread::sleep(1000);
 
     device.AInChannelSet.stopAcquisition();
 
     acqThreadRun.waitForFinished();
-
-//    device.AInChannelSet.startContinuousAcquisition(samplingRate, nPoints);
 
 //    QString outputStr;
 //    QTextStream outputStrStream(&outputStr);

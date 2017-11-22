@@ -57,7 +57,7 @@ bool AgU25xxAIChannel::queryEnabled()
     return mIsEnabled;
 }
 
-bool AgU25xxAIChannel::isEnabled()
+bool AgU25xxAIChannel::isEnabled() const
 {
     return mIsEnabled;
 }
@@ -79,7 +79,7 @@ AgU25xxEnumAIChannelPolaities AgU25xxAIChannel::queryPolarity()
     return mChPolarity;
 }
 
-AgU25xxEnumAIChannelPolaities AgU25xxAIChannel::getPolarity()
+AgU25xxEnumAIChannelPolaities AgU25xxAIChannel::getPolarity() const
 {
     return mChPolarity;
 }
