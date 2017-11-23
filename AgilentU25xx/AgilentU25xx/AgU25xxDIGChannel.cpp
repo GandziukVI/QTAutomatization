@@ -32,6 +32,12 @@ AgU25xxDIGChannel::AgU25xxDIGChannel(AgU25xxEnumDigitalChannels channelName, IDe
 
 AgU25xxDIGChannel::~AgU25xxDIGChannel()
 {
+    int i = 0;
+    for (; i != nBits; ) {
+        delete DIGitalBits[i];
+        DIGitalBits[i] = NULL;
+    }
+
     delete[] DIGitalBits;
 }
 

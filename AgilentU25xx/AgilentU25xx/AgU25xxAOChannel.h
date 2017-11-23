@@ -39,7 +39,7 @@ private:
 
     AgU25xxEnumAOChannels mChannelID;
 
-    QRegularExpression    *regExDouble;
+//    QRegularExpression    *regExDouble;
 };
 
 #endif // AGU25XXAOCHANNEL_H

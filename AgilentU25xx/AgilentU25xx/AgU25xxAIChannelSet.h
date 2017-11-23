@@ -14,7 +14,7 @@
 
 class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannelSet : public IAgU25xxSubsystemExtensions
 {
-    typedef double (AgU25xxAIChannelSet::*convFunc)(const short&, const double&) const;
+    typedef double (AgU25xxAIChannelSet::*converterFunctionArray)(const short&, const double&) const;
 
 public:
     AgU25xxAIChannelSet();
@@ -28,40 +28,40 @@ public:
 
     void initialize(IDeviceIO& driver);
 
-    void acquireSingleShot(int samplingFreq);
-    void startContinuousAcquisition(unsigned int samplingFreq, unsigned int outputPoints);
-    void stopAcquisition();
-    bool checkDataReady();
-    QVector<unsigned int> getNumEnabledChannels();
-    int  getSamplingRate();
+    void         acquireSingleShot         (int samplingFreq);
+    void         startContinuousAcquisition(const unsigned int &samplingFreq, const unsigned int &outputPoints, const unsigned int &dataBufferCapacity = 5);
+    void         stopAcquisition           ();
+    bool         checkAcquisitionDataReady            ();
+    unsigned int *getEnabledChannelsIndexes();
+    unsigned int getSamplingRate           ();
 
-    void setPolarity(AgU25xxEnumAIChannelPolaities polarity);
+    void                          setPolarity(AgU25xxEnumAIChannelPolaities polarity);
     AgU25xxEnumAIChannelPolaities getPolarity();
 
-    void setRange(AgU25xxEnumAIChannelRanges range);
+    void                       setRange(AgU25xxEnumAIChannelRanges range);
     AgU25xxEnumAIChannelRanges getRange();
 
     void setAcquisitionState(const bool &state);
     bool getAcquisitionState();
 
 private:
-    IDeviceIO             *mDriver;
-    AgU25xxACQuireSubSys  mACQuireCommands;
-    AgU25xxRootCommands   mRootCommands;
-    AgU25xxWAVeformSubSys mWAVeformCommands;
+    IDeviceIO              *mDriver;
+    AgU25xxACQuireSubSys   mACQuireCommands;
+    AgU25xxRootCommands    mRootCommands;
+    AgU25xxWAVeformSubSys  mWAVeformCommands;
 
-    int                   mAIChannelsSamplingFreq;
-    int                   mAIChannelsEnabledCount;
+    int                    mAIChannelsSamplingFreq;
+    int                    mAIChannelsEnabledCount;
 
-    void                  resetAIDataBuffers();
+    void                   resetAIDataBuffers();
 
-    convFunc              *converterFunctions;
+    converterFunctionArray *converterFunctions;
 
-    double                getAIChannelScaleFunctionBipolar(const short &val, const double &range) const;
-    double                getAIChannelScaleFunctionUnipolar(const short &val, const double &range) const;
+    double                 getAIChannelScaleFunctionBipolar(const short &val, const double &range) const;
+    double                 getAIChannelScaleFunctionUnipolar(const short &val, const double &range) const;
 
-    mutable QMutex mAcqInProgressMutex;
-    bool           mAcquisitionIsInProgress;
+    mutable QMutex         mAcqInProgressMutex;
+    bool                   mAcquisitionIsInProgress;
 };
 
 #endif // AgU25xxEnumAIChannels_H

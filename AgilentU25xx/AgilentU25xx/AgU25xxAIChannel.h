@@ -9,7 +9,7 @@
 #include <IDeviceIO.h>
 
 #include <QMutex>
-#include <QVector>
+#include <deque>
 
 class AGILENTU25XXSHARED_EXPORT AgU25xxAIChannel : public IAgU25xxSubsystemExtensions
 {    
@@ -34,6 +34,7 @@ public:
 
     void                          appendData(double* data, unsigned int maxCount = 5);
     double*                       getData();
+    void                          resetChannelData();
 
 private:
     IDeviceIO*           mDriver;
@@ -53,7 +54,8 @@ private:
     void                          setScaleTransformFunction(const AgU25xxEnumAIChannelPolaities &polarity);
     void                          resetScaleTransformFunction();
 
-    QVector<double*>              mChannelData;
+    std::deque<double*>           mChannelData;
+    unsigned int                  mChannelDataCounter;
     mutable QMutex                mChannelDataAccessMutex;
 };
 

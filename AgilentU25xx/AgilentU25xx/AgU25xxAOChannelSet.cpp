@@ -13,6 +13,13 @@ AgU25xxAOChannelSet::AgU25xxAOChannelSet(IDeviceIO &driver)
 
 AgU25xxAOChannelSet::~AgU25xxAOChannelSet()
 {
+    int i = 0;
+    for (; i != 2; ) {
+        delete AOChannels[i];
+        AOChannels[i] = NULL;
+        ++i;
+    }
+
     delete[] AOChannels;
 }
 

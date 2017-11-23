@@ -4,13 +4,13 @@
 AgU25xxAOChannel::AgU25xxAOChannel()
     : IAgU25xxSubsystemExtensions()
 {
-    regExDouble = new QRegularExpression(QString("[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?"), QRegularExpression::MultilineOption);
+//    regExDouble = new QRegularExpression(QString("[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?"), QRegularExpression::MultilineOption);
 }
 
 AgU25xxAOChannel::AgU25xxAOChannel(AgU25xxEnumAOChannels channelName, IDeviceIO &driver)
     : IAgU25xxSubsystemExtensions()
 {
-    regExDouble = new QRegularExpression(QString("[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?"), QRegularExpression::MultilineOption);
+//    regExDouble = new QRegularExpression(QString("[+\\-]?(?:0|[1-9]\\d*)(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?"), QRegularExpression::MultilineOption);
 
     mChannelID = channelName;
     mDriver    = &driver;
@@ -18,7 +18,7 @@ AgU25xxAOChannel::AgU25xxAOChannel(AgU25xxEnumAOChannels channelName, IDeviceIO 
 
 AgU25xxAOChannel::~AgU25xxAOChannel()
 {
-    delete regExDouble;
+//    delete regExDouble;
 }
 
 void AgU25xxAOChannel::setDCVoltage(double voltage)

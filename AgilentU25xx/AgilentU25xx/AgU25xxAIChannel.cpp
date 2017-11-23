@@ -4,11 +4,14 @@
 #include <QObject>
 #include <QMutexLocker>
 
+#include <QDebug>
+
 AgU25xxAIChannel::AgU25xxAIChannel()
     : IAgU25xxSubsystemExtensions(),
       mIsEnabled(false),
       ACQuisitionData(NULL),
-      mChRangeValue(10.0)
+      mChRangeValue(10.0),
+      mChannelDataCounter(0)
 {
     mChPolarity = AgU25xxEnumAIChannelPolaities::BIP;
     mChRange    = AgU25xxEnumAIChannelRanges::Range10V;
@@ -20,7 +23,8 @@ AgU25xxAIChannel::AgU25xxAIChannel(AgU25xxEnumAIChannels channelName, IDeviceIO&
     : IAgU25xxSubsystemExtensions(),
       mIsEnabled(false),
       ACQuisitionData(NULL),
-      mChRangeValue(10.0)
+      mChRangeValue(10.0),
+      mChannelDataCounter(0)
 {
     mChannelID = channelName;
     mDriver    = &driver;
@@ -39,6 +43,7 @@ AgU25xxAIChannel::~AgU25xxAIChannel()
     }
 
     resetScaleTransformFunction();
+    resetChannelData();
 }
 
 void AgU25xxAIChannel::setSamplingRate(const unsigned int samplingRate)
@@ -127,21 +132,24 @@ AgU25xxEnumAIChannelRanges AgU25xxAIChannel::getRange()
 void AgU25xxAIChannel::appendData(double *data, unsigned int maxCount)
 {
     QMutexLocker dataLocker (&mChannelDataAccessMutex);
-    if (mChannelData.size() == maxCount) {
-        delete[] mChannelData.first();
-        mChannelData.first() = NULL;
+    if (mChannelDataCounter == maxCount) {
+        delete[] mChannelData.front();
+        mChannelData.front() = NULL;
         mChannelData.pop_front();
+
+        --mChannelDataCounter;
     }
 
+    ++mChannelDataCounter;
     mChannelData.push_back(data);
 }
 
 double *AgU25xxAIChannel::getData()
 {
     QMutexLocker dataLocker (&mChannelDataAccessMutex);
-    double* data = std::move(mChannelData.first());
-    delete[] mChannelData.first();
-    mChannelData.first() = NULL;
+    double* data = std::move(mChannelData.front());
+    delete[] mChannelData.front();
+    mChannelData.front() = NULL;
     mChannelData.pop_front();
 
     return data;
@@ -171,5 +179,15 @@ void AgU25xxAIChannel::resetScaleTransformFunction()
 {
     if (this->scaleTransformFunc != NULL) {
         this->scaleTransformFunc = NULL;
+    }
+}
+
+void AgU25xxAIChannel::resetChannelData()
+{
+    while (mChannelDataCounter != 0) {
+        delete[] mChannelData.front();
+        mChannelData.front() = NULL;
+        mChannelData.pop_front();
+        --mChannelDataCounter;
     }
 }
