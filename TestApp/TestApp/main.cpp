@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 //    device.AInChannelSet[0].setEnabled(true);
 
 //    for (int i = 0; i != 3; ) {
-        QFuture<void> acqThreadRun = QtConcurrent::run(&device->AInChannelSet, &AgU25xxAIChannelSet::startContinuousAcquisition, samplingRate, nPoints);
+        QFuture<void> acqThreadRun = QtConcurrent::run(&device->AInChannelSet, &AgU25xxAIChannelSet::startContinuousAcquisition, samplingRate, nPoints, 5);
         QThread::sleep(20);
 
         device->AInChannelSet.stopAcquisition();

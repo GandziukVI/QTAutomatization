@@ -128,7 +128,7 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq)
 
     for (; ; ) {
         untransformedVal = (short)(*iter | (*(++iter) << 8));
-        tempData[j][k]   = (this->*converterFunctions[j])(untransformedVal, *(activeChannelRanges + j));
+        tempData[j][k]   = (this->*converterFunctions[j])(untransformedVal, activeChannelRanges[j]);
 
         if(++j == activeChannelsSize) {
             j = 0; ++k;
@@ -141,7 +141,7 @@ void AgU25xxAIChannelSet::acquireSingleShot(int samplingFreq)
 
     i = 0;
     for (; i != activeChannelsSize; ){
-        (*this)[*(activeChannels + i)].appendData(tempData[i]);
+        (*this)[activeChannels[i]].appendData(tempData[i]);
         ++i;
     }
 
@@ -174,8 +174,6 @@ void AgU25xxAIChannelSet::startContinuousAcquisition(const unsigned int &samplin
     mDriver->SendCommandRequest(cmdStartContAcquisition);
 
     mAIChannelsSamplingFreq = samplingFreq;
-
-    QString queryDataBufferStatus = mWAVeformCommands.cmdGetBufferStatus();
 
     unsigned int *activeChannels      = getEnabledChannelsIndexes();
     unsigned int activeChannelsSize   = mAIChannelsEnabledCount;
@@ -240,7 +238,7 @@ void AgU25xxAIChannelSet::startContinuousAcquisition(const unsigned int &samplin
 
             for (; ; ) {
                 untransformedVal = (short)(*iter | (*(++iter) << 8));
-                tempData[j][k]   = (this->*converterFunctions[j])(untransformedVal, *(activeChannelRanges + j));
+                tempData[j][k]   = (this->*converterFunctions[j])(untransformedVal, activeChannelRanges[j]);
 
                 if(++j == activeChannelsSize) {
                     j = 0; ++k;
@@ -256,7 +254,7 @@ void AgU25xxAIChannelSet::startContinuousAcquisition(const unsigned int &samplin
 
         i = 0;
         for (; i != activeChannelsSize; ){
-            (*this)[*(activeChannels + i)].appendData(tempData[i], dataBufferCapacity);
+            (*this)[activeChannels[i]].appendData(tempData[i], dataBufferCapacity);
             ++i;
         }
     }
