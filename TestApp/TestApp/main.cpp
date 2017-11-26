@@ -32,30 +32,30 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
 
-    IDeviceIO *driver = new VisaDevice("USB0::0x0957::0x1718::TW54334510::INSTR");
+//    IDeviceIO *driver = new VisaDevice("USB0::0x0957::0x1718::TW54334510::INSTR");
 
-    AgilentU25xx *device = new AgilentU25xx(*driver);
+//    AgilentU25xx *device = new AgilentU25xx(*driver);
 
-    device->resetDevice();
+//    device->resetDevice();
 
-    int samplingRate = 500000;
-    unsigned int nPoints = 50000;
+//    int samplingRate = 500000;
+//    unsigned int nPoints = 50000;
 
-    for (int i = 0; i != 4; i++) {
+//    for (int i = 0; i != 4; i++) {
 //        bool enabled = i % 2 == 0? true : false;
-        device->AInChannelSet[i].setEnabled(true);
-        AgU25xxEnumAIChannelPolaities polarity = i % 2 == 0? AgU25xxEnumAIChannelPolaities::BIP : AgU25xxEnumAIChannelPolaities::UNIP;
-        device->AInChannelSet[i].setPolarity(polarity);
-    }
+//        device->AInChannelSet[i].setEnabled(true);
+//        AgU25xxEnumAIChannelPolaities polarity = i % 2 == 0? AgU25xxEnumAIChannelPolaities::BIP : AgU25xxEnumAIChannelPolaities::UNIP;
+//        device->AInChannelSet[i].setPolarity(polarity);
+//    }
 
 //    device.AInChannelSet[0].setEnabled(true);
 
 //    for (int i = 0; i != 3; ) {
-        QFuture<void> acqThreadRun = QtConcurrent::run(&device->AInChannelSet, &AgU25xxAIChannelSet::startContinuousAcquisition, samplingRate, nPoints, 5);
-        QThread::sleep(20);
+//        QFuture<void> acqThreadRun = QtConcurrent::run(&device->AInChannelSet, &AgU25xxAIChannelSet::startContinuousAcquisition, samplingRate, nPoints, 5);
+//        QThread::sleep(20);
 
-        device->AInChannelSet.stopAcquisition();
-        acqThreadRun.waitForFinished();
+//        device->AInChannelSet.stopAcquisition();
+//        acqThreadRun.waitForFinished();
 
 //        ++i;
 //    }
@@ -102,8 +102,8 @@ int main(int argc, char *argv[])
 //        qDebug() << ex.message();
 //    }
 
-    delete device;
-    delete driver;
+//    delete device;
+//    delete driver;
 
 //    // Counter channels
 //    AgU25xxEnumCounterChannels ch1 = AgU25xxEnumCounterChannels::COUNT01;
