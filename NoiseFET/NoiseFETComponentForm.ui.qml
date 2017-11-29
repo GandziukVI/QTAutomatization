@@ -1,6 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.2
-import QtDataVisualization 1.3
+import QtCharts 2.2
 
 Item {
     width: 400
