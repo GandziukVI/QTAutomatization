@@ -1,6 +1,7 @@
 import QtQuick 2.6
 import QtCharts 2.2
 
+
 Item {
     id: root
     width: 640
