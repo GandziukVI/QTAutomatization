@@ -1,0 +1,28 @@
+import QtQuick 2.0
+import QtQuick.Controls 2.2
+
+Item {
+    width: 150
+    height: 60
+
+    property alias text: input.text
+    property alias input: input
+
+    ScrollView {
+        id: view
+        anchors.fill: parent
+
+        TextArea {
+            id: input
+            focus: true
+            selectByMouse: true
+            wrapMode: TextEdit.Wrap
+
+            background: Rectangle {
+                color: "lightsteelblue"
+                border.color: "gray"
+            }
+        }
+    }
+}
+

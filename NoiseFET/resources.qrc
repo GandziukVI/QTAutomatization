@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
+        <file>qml/CTextArea.qml</file>
+        <file>qml/CTextAreaRealArray.qml</file>
     </qresource>
 </RCC>
