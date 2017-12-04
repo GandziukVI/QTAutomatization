@@ -13,16 +13,16 @@ Window {
     width: 360
     height: 200
 
-    property double startValue: 0.0
-    property double stopValue: 1.0
-    property double stepValue: 101
+    property string startValue: "0.0"
+    property string stopValue: "1.0"
+    property string stepValue: "0.05"
 
     signal dataChanged(real start, real stop, real step)
 
     function setPropertyData() {
-        startValue = parseFloat(startValField.text);
-        stopValue = parseFloat(stopValField.text);
-        stepValue = parseInt(stepValField.text);
+        startValue = startValField.text;
+        stopValue = stopValField.text;
+        stepValue = stepValField.text;
     }
 
     Item {

@@ -11,10 +11,7 @@ Item {
     property variant arrayElements: [0.0]
 
     function parseArrElementsFromText (inputText) {
-        if (inputText.charAt(inputText.length - 1) === ',') {
-            inputText = inputText.substring(0, inputText.length -1);
-        }
-        arrayElements = JSON.parse("[" + inputText + "]")
+        arrayElements = JSON.parse(inputText)
     }
 
     function validateTextChanged(inputChar) {

@@ -1,6 +1,7 @@
 import QtQuick 2.6
 import QtCharts 2.2
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.3
 
 Item {
@@ -74,9 +75,27 @@ Item {
                 text: qsTr("Gate Voltages")
             }
             CTextAreaRealArray {
+                id: gateVoltageValues
                 Layout.margins: 2.5
                 width: 150
                 text: qsTr("[0.0 ]")
+            }
+            Button {
+                id: cmdSetVGRange
+
+                Layout.columnSpan: 2
+                Layout.fillWidth: true
+
+                text: qsTr("<p>Set V<sub>G</sub> range</p>")
+
+                onClicked: {
+                    var component = Qt.createComponent("VoltageRangeSetter.qml");
+                    var win = component.createObject(root);
+
+                    win.dataChanged.connect(setGateVoltageArray);
+
+                    win.show();
+                }
             }
 
             // Set of drain-source volatges
@@ -85,10 +104,29 @@ Item {
                 text: qsTr("D-S Voltages")
             }
             CTextAreaRealArray {
+                id: drainVoltageValues
                 Layout.margins: 2.5
                 width: 150
                 text: qsTr("[0.0 ]")
             }
+            Button {
+                id: cmdSetVDSRange
+
+                Layout.columnSpan: 2
+                Layout.fillWidth: true
+
+                text: qsTr("<p>Set V<sub>DS</sub> range</p>")
+
+                onClicked: {
+                    var component = Qt.createComponent("VoltageRangeSetter.qml");
+                    var win = component.createObject(root);
+
+                    win.dataChanged.connect(setDrainVoltageArray);
+
+                    win.show();
+                }
+            }
+
 
             // Allowed voltage deviation
             Label {
@@ -100,16 +138,44 @@ Item {
                 height: 40
                 text: qsTr("0.2")
                 validator: DoubleValidator { locale: qsTr("en_US") }
-                units: qsTr("A")
-            }
-
-            Button {
-                onClicked: {
-                    var component = Qt.createComponent("VoltageRangeSetter.qml");
-                    var win = component.createObject(root);
-                    win.show();
-                }
+                units: qsTr("V")
             }
         }
+    }
+
+    function setVoltageArrayString(start, stop, step) {
+        var strStart = start.toString();
+        var strStop = stop.toString();
+        var strStep = step.toString();
+
+        var precision = strStep.length - strStep.indexOf(".") - 1;
+
+        var floatStart = parseFloat(start);
+        var floatStop = parseFloat(stop);
+        var floatStep = parseFloat(step);
+
+        var nElements = parseInt(Math.abs((floatStop - floatStart) / floatStep));
+
+        var res = "[ ";
+        for (var i = 0; i < nElements - 1; i++) {
+            res += (floatStart + i * floatStep).toFixed(precision) + ", ";
+        }
+        res += (start + step * (nElements - 1)).toFixed(precision) + " ]";
+
+        return res;
+    }
+
+    function setGateVoltageArray(start, stop, step) {
+        var res = setVoltageArrayString(start, stop, step);
+
+        gateVoltageValues.text = res;
+        gateVoltageValues.arrayElements = JSON.parse(res);
+    }
+
+    function setDrainVoltageArray(start, stop, step) {
+        var res = setVoltageArrayString(start, stop, step);
+
+        drainVoltageValues.text = res;
+        drainVoltageValues.arrayElements = JSON.parse(res);
     }
 }
