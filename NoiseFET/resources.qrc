@@ -3,5 +3,8 @@
         <file>qml/main.qml</file>
         <file>qml/CTextArea.qml</file>
         <file>qml/CTextAreaRealArray.qml</file>
+        <file>qml/CExtendedNumberInput.qml</file>
+        <file>qml/CTextField.qml</file>
+        <file>qml/VoltageRangeSetter.qml</file>
     </qresource>
 </RCC>

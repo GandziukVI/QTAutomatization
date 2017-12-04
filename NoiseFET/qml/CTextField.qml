@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
 
-Item {
+Rectangle {
     id: root
     width: 150
     height: 30
@@ -14,9 +14,11 @@ Item {
     TextField {
         id: input
         anchors.fill: parent
-        focus: true
-        selectByMouse: true
         autoScroll: true
+        focus: true
+        horizontalAlignment: TextField.AlignRight
+        rightPadding: 10
+        selectByMouse: true
 
         background: Rectangle {
             anchors.fill: parent

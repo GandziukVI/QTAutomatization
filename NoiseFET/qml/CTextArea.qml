@@ -15,6 +15,8 @@ Item {
         TextArea {
             id: input
             focus: true
+            horizontalAlignment: TextArea.AlignRight
+            rightPadding: 10
             selectByMouse: true
             wrapMode: TextEdit.Wrap
 

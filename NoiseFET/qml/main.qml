@@ -76,7 +76,7 @@ Item {
             CTextAreaRealArray {
                 Layout.margins: 2.5
                 width: 150
-                text: qsTr("[0.0, ]")
+                text: qsTr("[0.0 ]")
             }
 
             // Set of drain-source volatges
@@ -87,7 +87,7 @@ Item {
             CTextAreaRealArray {
                 Layout.margins: 2.5
                 width: 150
-                text: qsTr("[0.0, ]")
+                text: qsTr("[0.0 ]")
             }
 
             // Allowed voltage deviation
@@ -95,10 +95,12 @@ Item {
                 Layout.margins: 2.5
                 text: qsTr("Voltage Deviation")
             }
-            CTextArea {
+            CExtendedNumberInput {
                 Layout.margins: 2.5
-                width: 150
-                text: qsTr("0.0")                                
+                height: 40
+                text: qsTr("0.2")
+                validator: DoubleValidator { locale: qsTr("en_US") }
+                units: qsTr("A")
             }
 
             Button {

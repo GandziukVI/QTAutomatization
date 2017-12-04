@@ -28,6 +28,8 @@ Item {
         TextArea {
             id: input
             focus: true
+            horizontalAlignment: TextArea.AlignRight
+            rightPadding: 10
             selectByMouse: true
             text: qsTr("[ 0.0 ]")
             wrapMode: TextEdit.Wrap
@@ -39,5 +41,8 @@ Item {
 
             onEditingFinished: parseArrElementsFromText(text)
         }
+    }
+    Component.onCompleted: {
+        parseArrElementsFromText(text)
     }
 }

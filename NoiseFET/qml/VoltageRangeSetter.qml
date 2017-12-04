@@ -15,12 +15,14 @@ Window {
 
     property double startValue: 0.0
     property double stopValue: 1.0
-    property double nPoints: 101
+    property double stepValue: 101
+
+    signal dataChanged(real start, real stop, real step)
 
     function setPropertyData() {
         startValue = parseFloat(startValField.text);
         stopValue = parseFloat(stopValField.text);
-        nPoints = parseInt(nPointsValField.text);
+        stepValue = parseInt(stepValField.text);
     }
 
     Item {
@@ -31,35 +33,53 @@ Window {
             columns: 2
 
             Label {
+                id: startValLabel
                 text: qsTr("Start Value")
             }
-            CTextField {
+            CExtendedNumberInput {
                 id: startValField
-                width: 250
+
+                anchors.leftMargin: 5
+
+                height: 40
+                Layout.fillWidth: true
+
                 text: qsTr("0.0")
                 validator: DoubleValidator { locale: qsTr("en_US") }
                 placeholderText: qsTr("Start Value")
             }
 
             Label {
+                id: stopValLabel
                 text: qsTr("Stop Value")
             }
-            CTextField {
+            CExtendedNumberInput {
                 id: stopValField
-                width : 250
+
+                anchors.leftMargin: 5
+
+                height: 40
+                Layout.fillWidth: true
+
                 text: qsTr("1.0")
                 validator: DoubleValidator { locale: qsTr("en_US") }
                 placeholderText: qsTr("Stop Value")
             }
 
             Label {
-                text: qsTr("nPoints")
+                id: stepValLabel
+                text: qsTr("Step Value")
             }
-            CTextField {
-                id: nPointsValField
-                width:250
-                text: qsTr("101")
-                validator: IntValidator { locale: qsTr("en_US") }
+            CExtendedNumberInput {
+                id: stepValField
+
+                anchors.leftMargin: 5
+
+                height: 40
+                Layout.fillWidth: true
+
+                text: qsTr("0.05")
+                validator: DoubleValidator { locale: qsTr("en_US") }
                 placeholderText: qsTr("Number of points")
             }
 
@@ -71,13 +91,15 @@ Window {
                 text: qsTr("Set range")
                 onClicked: {
                     setPropertyData();
+                    dataChanged(startValue, stopValue, stepValue);
                     root.close();
                 }
             }
 
             Keys.onPressed: {
-                if (event.key === Qt.Key_Return) {
+                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                     setPropertyData();
+                    dataChanged(startValue, stopValue, stepValue);
                     root.close();
                 }
                 else if (event.key === Qt.Key_Escape)
