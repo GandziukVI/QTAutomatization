@@ -1,5 +1,7 @@
-import QtQuick 2.0
+import QtQuick 2.2
+
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Styles 1.4
 
 Rectangle {
     id: root
@@ -21,8 +23,6 @@ Rectangle {
         selectByMouse: true
 
         background: Rectangle {
-            anchors.fill: parent
-            color: "lightsteelblue"
             border.color: "gray"
         }
     }

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import QtQuick.Controls 2.2
 
 Item {
@@ -32,7 +32,6 @@ Item {
             wrapMode: TextEdit.Wrap
 
             background: Rectangle {
-                color: "lightsteelblue"
                 border.color: "gray"
             }
 

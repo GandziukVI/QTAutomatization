@@ -1,8 +1,8 @@
-import QtQuick 2.9
-import QtQuick.Window 2.3
+import QtQuick 2.2
+import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
+
 import QtQuick.Layouts 1.3
-import QtQml 2.2
 
 Window {
     id: root
@@ -20,9 +20,9 @@ Window {
     signal dataChanged(real start, real stop, real step)
 
     function setPropertyData() {
-        startValue = startValField.text;
-        stopValue = stopValField.text;
-        stepValue = stepValField.text;
+        startValue = startValField.realValue.toString();
+        stopValue = stopValField.realValue.toString();
+        stepValue = stepValField.realValue.toString();
     }
 
     Item {
