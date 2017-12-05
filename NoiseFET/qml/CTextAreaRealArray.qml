@@ -24,6 +24,7 @@ Item {
 
         TextArea {
             id: input
+            clip: true
             focus: true
             horizontalAlignment: TextArea.AlignRight
             rightPadding: 10

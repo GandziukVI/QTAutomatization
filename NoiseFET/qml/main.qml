@@ -35,7 +35,7 @@ Item {
                     id: noiseFETFrequencyAxis
                     min: 0.5
                     max: 500000
-                    titleText: qsTr("Frequency")
+                    titleText: qsTr("Frequency (Hz)")
                 }
 
                 axisY: LogValueAxis {
@@ -48,142 +48,232 @@ Item {
             }
         }
 
-        ScrollView {
-            width: 300
-            Layout.fillHeight: true
+        ColumnLayout {
+            ScrollView {
+                Layout.fillHeight: true
 
-            GridLayout {
-                id: noiseFETSettings
+                clip: true
+                width: parent.width
 
-                columns: 2
+                GridLayout {
+                    id: noiseFETSettings
 
-                // Agilent U2542A resource name
-                Label {
-                    Layout.margins: 2.5
-                    text: qsTr("Agilent U2542A res.")
-                }
-                CTextArea {
-                    width: 150
-                    text: qsTr("USB0::2391::5912::TW54334510::INSTR")
-                }
+                    columns: 2
 
-                GroupBox {
-                    Layout.columnSpan: 2
-                    Layout.fillWidth: true
+                    // Agilent U2542A resource name
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("Agilent U2542A res.")
+                    }
+                    CTextArea {
+                        width: 150
+                        text: qsTr("USB0::2391::5912::TW54334510::INSTR")
+                    }
 
-                    title: qsTr("Measurement Mode")
+                    GroupBox {
+                        Layout.columnSpan: 2
+                        Layout.fillWidth: true
 
-                    ColumnLayout {
-                        RadioButton {
-                            text: qsTr("Transfer Curve")
-                            checked: true
-                        }
-                        RadioButton {
-                            text: qsTr("Output Curve")
+                        title: qsTr("Measurement Mode")
+
+                        ColumnLayout {
+                            RadioButton {
+                                text: qsTr("Transfer Curve")
+                                checked: true
+                            }
+                            RadioButton {
+                                text: qsTr("Output Curve")
+                            }
                         }
                     }
-                }
 
-                // Set of gate voltages
-                Label {
-                    Layout.margins: 2.5
-                    text: qsTr("Gate Voltages")
+                    // Set of gate voltages
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("Gate Voltages")
+                    }
+                    CTextAreaRealArray {
+                        id: gateVoltageValues
+                        width: 150
+                        text: qsTr("[0.0 ]")
+                    }
+                    Button {
+                        id: cmdSetVGRange
+
+                        Layout.columnSpan: 2
+                        Layout.fillWidth: true
+
+                        text: qsTr("<p>Set V<sub>G</sub> range</p>")
+
+                        onClicked: {
+                            var component = Qt.createComponent("VoltageRangeSetter.qml");
+                            var win = component.createObject(root);
+
+                            win.dataChanged.connect(setGateVoltageArray);
+
+                            win.show();
+                        }
+                    }
+
+                    // Set of drain-source volatges
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("D-S Voltages")
+                    }
+                    CTextAreaRealArray {
+                        id: drainVoltageValues
+                        width: 150
+                        text: qsTr("[0.0 ]")
+                    }
+                    Button {
+                        id: cmdSetVDSRange
+
+                        Layout.columnSpan: 2
+                        Layout.fillWidth: true
+
+                        text: qsTr("<p>Set V<sub>DS</sub> range</p>")
+
+                        onClicked: {
+                            var component = Qt.createComponent("VoltageRangeSetter.qml");
+                            var win = component.createObject(root);
+
+                            win.dataChanged.connect(setDrainVoltageArray);
+
+                            win.show();
+                        }
+                    }
+
+                    // Allowed voltage deviation
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("Voltage Deviation")
+                    }
+                    CExtendedNumberInput {
+                        height: 40
+                        text: qsTr("0.2")
+                        validator: DoubleValidator { locale: qsTr("en_US") }
+                        units: qsTr("V")
+                    }
+
+                    // Fast averaging control
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("nAvg. fast")
+                    }
+                    CTextField {
+                        height: 40
+                        text: qsTr("0.2")
+                        validator: IntValidator { locale: qsTr("en_US") }
+                    }
+
+                    // Slow averaging control
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("nAvg. slow")
+                    }
+                    CTextField {
+                        height: 40
+                        text: qsTr("0.2")
+                        validator: IntValidator { locale: qsTr("en_US") }
+                    }
+
+                    // Stabilization time
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("Stabilization time")
+                    }
+                    CExtendedNumberInput {
+                        height: 40
+                        text: qsTr("45")
+                        validator: DoubleValidator { locale: qsTr("en_US") }
+                        units: qsTr("s")
+                    }
+
+                    // Load resistance
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("Load resistance")
+                    }
+                    CTextField {
+                        height: 40
+                        text: qsTr("45")
+                        validator: DoubleValidator { locale: qsTr("en_US") }
+                    }
+
+                    // Sampling frequency
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("Sampling frequency")
+                    }
+                    CTextField {
+                        height: 40
+                        text: qsTr("262144")
+                        validator: DoubleValidator { locale: qsTr("en_US") }
+                    }
+
+                    // n Spectra avg.
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("n Spectra avg.")
+                    }
+                    CTextField {
+                        height: 40
+                        text: qsTr("100")
+                        validator: IntValidator { locale: qsTr("en_US") }
+                    }
+
+                    // k Preamp
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("k pre-Amp.")
+                    }
+                    CTextField {
+                        height: 40
+                        text: qsTr("178")
+                        validator: DoubleValidator { locale: qsTr("en_US") }
+                    }
+
+                    // k Amp
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("k Amp.")
+                    }
+                    CTextField {
+                        height: 40
+                        text: qsTr("100")
+                        validator: DoubleValidator { locale: qsTr("en_US") }
+                    }
+
+                    // Temperature 0
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("Temperature 0")
+                    }
+                    CTextField {
+                        height: 40
+                        text: qsTr("293")
+                        validator: DoubleValidator { locale: qsTr("en_US") }
+                    }
+
+                    // Temperature E
+                    Label {
+                        Layout.margins: 2.5
+                        text: qsTr("Temperature E")
+                    }
+                    CTextField {
+                        height: 40
+                        text: qsTr("293")
+                        validator: DoubleValidator { locale: qsTr("en_US") }
+                    }
                 }
-                CTextAreaRealArray {
-                    id: gateVoltageValues
-                    width: 150
-                    text: qsTr("[0.0 ]")
+            }
+
+            RowLayout {
+                Button {
+                    text: qsTr("Start")
                 }
                 Button {
-                    id: cmdSetVGRange
-
-                    Layout.columnSpan: 2
-                    Layout.fillWidth: true
-
-                    text: qsTr("<p>Set V<sub>G</sub> range</p>")
-
-                    onClicked: {
-                        var component = Qt.createComponent("VoltageRangeSetter.qml");
-                        var win = component.createObject(root);
-
-                        win.dataChanged.connect(setGateVoltageArray);
-
-                        win.show();
-                    }
-                }
-
-                // Set of drain-source volatges
-                Label {
-                    Layout.margins: 2.5
-                    text: qsTr("D-S Voltages")
-                }
-                CTextAreaRealArray {
-                    id: drainVoltageValues
-                    width: 150
-                    text: qsTr("[0.0 ]")
-                }
-                Button {
-                    id: cmdSetVDSRange
-
-                    Layout.columnSpan: 2
-                    Layout.fillWidth: true
-
-                    text: qsTr("<p>Set V<sub>DS</sub> range</p>")
-
-                    onClicked: {
-                        var component = Qt.createComponent("VoltageRangeSetter.qml");
-                        var win = component.createObject(root);
-
-                        win.dataChanged.connect(setDrainVoltageArray);
-
-                        win.show();
-                    }
-                }
-
-                // Allowed voltage deviation
-                Label {
-                    Layout.margins: 2.5
-                    text: qsTr("Voltage Deviation")
-                }
-                CExtendedNumberInput {
-                    height: 40
-                    text: qsTr("0.2")
-                    validator: DoubleValidator { locale: qsTr("en_US") }
-                    units: qsTr("V")
-                }
-
-                // Fast averaging control
-                Label {
-                    Layout.margins: 2.5
-                    text: qsTr("nAvg. fast")
-                }
-                CTextField {
-                    height: 40
-                    text: qsTr("0.2")
-                    validator: IntValidator { locale: qsTr("en_US") }
-                }
-
-                // Slow averaging control
-                Label {
-                    Layout.margins: 2.5
-                    text: qsTr("nAvg. slow")
-                }
-                CTextField {
-                    height: 40
-                    text: qsTr("0.2")
-                    validator: IntValidator { locale: qsTr("en_US") }
-                }
-
-                // Stabilization time
-                Label {
-                    Layout.margins: 2.5
-                    text: qsTr("Stabilization time")
-                }
-                CExtendedNumberInput {
-                    height: 40
-                    text: qsTr("0.2")
-                    validator: DoubleValidator { locale: qsTr("en_US") }
-                    units: qsTr("s")
+                    text: qsTr("Stop")
                 }
             }
         }
