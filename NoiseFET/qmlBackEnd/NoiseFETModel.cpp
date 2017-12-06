@@ -1,5 +1,8 @@
 #include "NoiseFETModel.h"
 
+#include <iterator>
+#include <algorithm>
+
 NoiseFETModel::NoiseFETModel(QObject *parent)
     : QObject(parent),
       mAgilentU2542ARes(QString("USB0::2391::5912::TW54334510::INSTR")),
@@ -79,7 +82,10 @@ void NoiseFETModel::setGateVoltages(const QVector<qreal> &voltages)
     if (voltages == mGateVoltages)
         return;
 
-    mGateVoltages = voltages;
+    mGateVoltages.clear();
+    mGateVoltages.resize(voltages.size());
+    std::copy(voltages.begin(), voltages.end(), mGateVoltages.begin());
+
     emit gateVoltagesChanged();
 }
 
@@ -93,7 +99,10 @@ void NoiseFETModel::setDrainVoltages(const QVector<qreal> &voltages)
     if (voltages == mDrainVoltages)
         return;
 
-    mDrainVoltages = voltages;
+    mDrainVoltages.clear();
+    mDrainVoltages.resize(voltages.size());
+    std::copy(voltages.begin(), voltages.end(), mDrainVoltages.begin());
+
     emit drainVoltagesChanged();
 }
 

@@ -37,6 +37,7 @@ Item {
             }
 
             onEditingFinished: {
+                arrayElements.length = 0;
                 parseArrElementsFromText(text)
                 root.editingFinished
             }
@@ -44,16 +45,15 @@ Item {
     }
 
     Component.onCompleted: {
-        parseArrElementsFromText(text)
+        arrayElements.length = 0;
+        parseArrElementsFromText(text);
     }
 
     onArrayElementsChanged: {
         var arrLen = arrayElements.length;
 
         text = "[ ";
-
-        text += arrayElements.join(", ")
-
+        text += arrayElements.join(", ");
         text += " ]";
     }
 }
