@@ -15,6 +15,8 @@ class NoiseFETModel : public QObject
     Q_PROPERTY(QVector<qreal> gateVoltages READ gateVoltages WRITE setGateVoltages NOTIFY gateVoltagesChanged)
     Q_PROPERTY(QVector<qreal> drainVoltages READ drainVoltages WRITE setDrainVoltages NOTIFY drainVoltagesChanged)
     Q_PROPERTY(double voltageDeviation READ voltageDeviation WRITE setVoltageDeviation NOTIFY voltageDeviationChanged)
+    Q_PROPERTY(double voltageDeviationDisplay READ voltageDeviationDisplay WRITE setVoltageDeviationDisplay NOTIFY voltageDeviationDisplayChanged)
+    Q_PROPERTY(int voltageDeviationMultIndex READ voltageDeviationMultIndex WRITE setVoltageDeviationMultIndex NOTIFY voltageDeviationMultIndexChanged)
     Q_PROPERTY(int nAvgFast READ nAvgFast WRITE setNAvgFast NOTIFY nAvgFastChanged)
     Q_PROPERTY(int nAvgSlow READ nAvgSlow WRITE setNAvgSlow NOTIFY nAvgSlowChanged)
     Q_PROPERTY(double stabilizationTime READ stabilizationTime WRITE setStabilizationTime NOTIFY stabilizationTimeChanged)
@@ -27,6 +29,8 @@ class NoiseFETModel : public QObject
     Q_PROPERTY(double temperatureE READ temperatureE WRITE setTemperatureE NOTIFY temperatureEChanged)
     Q_PROPERTY(bool measureTimeTraces READ measureTimeTraces WRITE setMeasureTimeTraces NOTIFY measureTimeTracesChanged)
     Q_PROPERTY(int timeTraceFrequency READ timeTraceFrequency WRITE setTimeTraceFrequency NOTIFY timeTraceFrequencyChanged)
+    Q_PROPERTY(QString dataFilePath READ dataFilePath WRITE setDataFilePath NOTIFY dataFilePathChanged)
+    Q_PROPERTY(QString dataFileName READ dataFileName WRITE setDataFileName NOTIFY dataFileNameChanged)
 public:
     explicit NoiseFETModel(QObject *parent = nullptr);
 
@@ -47,6 +51,12 @@ public:
 
     double voltageDeviation();
     void setVoltageDeviation(const double &deviation);
+
+    double voltageDeviationDisplay();
+    void setVoltageDeviationDisplay(const double &deviation);
+
+    int voltageDeviationMultIndex();
+    void setVoltageDeviationMultIndex(const int &newIndex);
 
     int nAvgFast();
     void setNAvgFast(const int &nAvg);
@@ -97,6 +107,8 @@ signals:
     void gateVoltagesChanged();
     void drainVoltagesChanged();
     void voltageDeviationChanged();
+    void voltageDeviationDisplayChanged();
+    void voltageDeviationMultIndexChanged();
     void nAvgFastChanged();
     void nAvgSlowChanged();
     void stabilizationTimeChanged();
@@ -116,11 +128,16 @@ signals:
 
 private:
     QString mAgilentU2542ARes;
+
     bool mIsTransferCurveMode;
     bool mIsOutputCurveMode;
+
     QVector<qreal> mGateVoltages;
     QVector<qreal> mDrainVoltages;
+
     double mVoltageDeviation;
+    double mVoltageDeviationDisplay;
+    int mVoltageDeviationMultIndex;
 
     int mNAvgFast;
     int mNAvgSlow;

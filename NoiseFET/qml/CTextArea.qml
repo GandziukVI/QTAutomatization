@@ -2,11 +2,15 @@ import QtQuick 2.2
 import QtQuick.Controls 2.2
 
 Item {
+    id: root
+
     width: 150
     height: 60
 
     property alias text: input.text
     property alias input: input
+
+    signal editingFinished()
 
     ScrollView {
         id: view
@@ -23,6 +27,8 @@ Item {
             background: Rectangle {
                 border.color: "gray"
             }
+
+            onEditingFinished: root.editingFinished
         }
     }
 }

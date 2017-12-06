@@ -82,6 +82,17 @@ Item {
                             CTextArea {
                                 Layout.fillWidth: true
                                 text: qsTr("USB0::2391::5912::TW54334510::INSTR")
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.agilentU2542ARes;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.agilentU2542ARes = text;
+                                    }
+                                }
                             }
 
                             GroupBox {
@@ -94,9 +105,31 @@ Item {
                                     RadioButton {
                                         text: qsTr("Transfer Curve")
                                         checked: true
+
+                                        Component.onCompleted: {
+                                            if (typeof noiseFETSettingsModel !== "undefined") {
+                                                checked = noiseFETSettingsModel.isTransferCurveMode;
+                                            }
+                                        }
+                                        onCheckedChanged: {
+                                            if (typeof noiseFETSettingsModel !== "undefined") {
+                                                noiseFETSettingsModel.isTransferCurveMode = checked;
+                                            }
+                                        }
                                     }
                                     RadioButton {
                                         text: qsTr("Output Curve")
+
+                                        Component.onCompleted: {
+                                            if (typeof noiseFETSettingsModel !== "undefined") {
+                                                checked = noiseFETSettingsModel.isOutputCurveMode;
+                                            }
+                                        }
+                                        onCheckedChanged: {
+                                            if (typeof noiseFETSettingsModel !== "undefined") {
+                                                noiseFETSettingsModel.isOutputCurveMode = checked;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -110,7 +143,18 @@ Item {
                                 Layout.fillWidth: true
 
                                 id: gateVoltageValues
-                                text: qsTr("[0.0 ]")
+                                text: qsTr("[ 0.0 ]")
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        arrayElements = noiseFETSettingsModel.gateVoltages;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.gateVoltages = arrayElements;
+                                    }
+                                }
                             }
                             Button {
                                 id: cmdSetVGRange
@@ -139,7 +183,18 @@ Item {
                                 Layout.fillWidth: true
 
                                 id: drainVoltageValues
-                                text: qsTr("[0.0 ]")
+//                                text: qsTr("[0.0 ]")
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        arrayElements = noiseFETSettingsModel.drainVoltages;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.drainVoltages = arrayElements;
+                                    }
+                                }
                             }
                             Button {
                                 id: cmdSetVDSRange
@@ -171,6 +226,23 @@ Item {
                                 text: qsTr("0.2")
                                 validator: DoubleValidator { locale: qsTr("en_US") }
                                 units: qsTr("V")
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        inputValue = noiseFETSettingsModel.voltageDeviationDisplay;
+                                        multiplierIndex = noiseFETSettingsModel.voltageDeviationMultIndex;
+
+                                        noiseFETSettingsModel.voltageDeviation = realValue;
+                                    }
+                                }
+
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.voltageDeviationDisplay = inputValue;
+                                        noiseFETSettingsModel.voltageDeviationMultIndex = multiplierIndex;
+                                        noiseFETSettingsModel.voltageDeviation = realValue;
+                                    }
+                                }
                             }
 
                             // Fast averaging control
@@ -184,6 +256,17 @@ Item {
                                 height: 40
                                 text: qsTr("2")
                                 validator: IntValidator { locale: qsTr("en_US") }
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.nAvgFast;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.nAvgFast = parseInt(text);
+                                    }
+                                }
                             }
 
                             // Slow averaging control
@@ -197,6 +280,17 @@ Item {
                                 height: 40
                                 text: qsTr("100")
                                 validator: IntValidator { locale: qsTr("en_US") }
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.nAvgSlow;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.nAvgSlow = parseInt(text);
+                                    }
+                                }
                             }
 
                             // Stabilization time
@@ -211,6 +305,17 @@ Item {
                                 text: qsTr("45")
                                 validator: DoubleValidator { locale: qsTr("en_US") }
                                 units: qsTr("s")
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.stabilizationTime;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.stabilizationTime = parseFloat(text);
+                                    }
+                                }
                             }
 
                             // Load resistance
@@ -222,8 +327,19 @@ Item {
                                 Layout.fillWidth: true
 
                                 height: 40
-                                text: qsTr("5000")
+                                text: qsTr("5000.0")
                                 validator: DoubleValidator { locale: qsTr("en_US") }
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.loadResistance;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.loadResistance = parseFloat(text);
+                                    }
+                                }
                             }
 
                             // Sampling frequency
@@ -236,7 +352,18 @@ Item {
 
                                 height: 40
                                 text: qsTr("262144")
-                                validator: DoubleValidator { locale: qsTr("en_US") }
+                                validator: IntValidator { locale: qsTr("en_US") }
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.samplingFrequency;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.samplingFrequency = parseInt(text);
+                                    }
+                                }
                             }
 
                             // n Spectra avg.
@@ -250,6 +377,17 @@ Item {
                                 height: 40
                                 text: qsTr("100")
                                 validator: IntValidator { locale: qsTr("en_US") }
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.nSpectraAvg;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.nSpectraAvg = parseInt(text);
+                                    }
+                                }
                             }
 
                             // k Preamp
@@ -263,6 +401,17 @@ Item {
                                 height: 40
                                 text: qsTr("178")
                                 validator: DoubleValidator { locale: qsTr("en_US") }
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.kPreampl;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.kPreampl = parseFloat(text);
+                                    }
+                                }
                             }
 
                             // k Amp
@@ -276,6 +425,17 @@ Item {
                                 height: 40
                                 text: qsTr("100")
                                 validator: DoubleValidator { locale: qsTr("en_US") }
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.kAmpl;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.kAmpl = parseFloat(text);
+                                    }
+                                }
                             }
 
                             // Temperature 0
@@ -289,6 +449,17 @@ Item {
                                 height: 40
                                 text: qsTr("293")
                                 validator: DoubleValidator { locale: qsTr("en_US") }
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.temperature0;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.temperature0 = parseFloat(text);
+                                    }
+                                }
                             }
 
                             // Temperature E
@@ -302,6 +473,17 @@ Item {
                                 height: 40
                                 text: qsTr("293")
                                 validator: DoubleValidator { locale: qsTr("en_US") }
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.temperatureE;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.temperatureE = parseFloat(text);
+                                    }
+                                }
                             }
 
                             // Measure Time Traces
@@ -313,6 +495,17 @@ Item {
                                 id: chkMeasureTimeTraces
                                 checked: true
                                 text: qsTr("Measure time traces")
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        checked = noiseFETSettingsModel.measureTimeTraces;
+                                    }
+                                }
+                                onCheckedChanged: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.measureTimeTraces = checked;
+                                    }
+                                }
                             }
                             Label {
                                 Layout.margins: 2.5
@@ -326,6 +519,17 @@ Item {
                                 height: 40
                                 text: qsTr("262144")
                                 validator: IntValidator { locale: qsTr("en_US") }
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.timeTraceFrequency;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.timeTraceFrequency = parseInt(text);
+                                    }
+                                }
                             }
 
                             // Save to file controls
@@ -340,6 +544,17 @@ Item {
                                 Layout.fillHeight: true
                                 horizontalAlignment: Qt.AlignLeft
                                 placeholderText: qsTr("Save file name")
+
+                                Component.onCompleted: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        text = noiseFETSettingsModel.dataFileName;
+                                    }
+                                }
+                                onEditingFinished: {
+                                    if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.dataFileName = text;
+                                    }
+                                }
                             }
                         }
                     }

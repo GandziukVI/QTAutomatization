@@ -1,8 +1,30 @@
 #include "NoiseFETModel.h"
 
-NoiseFETModel::NoiseFETModel(QObject *parent) : QObject(parent)
+NoiseFETModel::NoiseFETModel(QObject *parent)
+    : QObject(parent),
+      mAgilentU2542ARes(QString("USB0::2391::5912::TW54334510::INSTR")),
+      mIsTransferCurveMode(true),
+      mIsOutputCurveMode(false),
+      mVoltageDeviation(0.2),
+      mVoltageDeviationDisplay(0.2),
+      mVoltageDeviationMultIndex(0),
+      mNAvgFast(2),
+      mNAvgSlow(100),
+      mStabilizationTime(45.0),
+      mLoadResistance(5000.0),
+      mSamplingFrequency(262144),
+      mNSpectraAvg(100),
+      mKPreampl(178),
+      mKAmpl(100),
+      mTemperature0(297.0),
+      mTemperatureE(297.0),
+      mMeasureTimeTraces(true),
+      mTimeTraceFrequency(262144),
+      mDataFilePath(QString("")),
+      mDataFileName(QString(""))
 {
-
+    mGateVoltages.push_back(0.0);
+    mDrainVoltages.push_back(0.0);
 }
 
 QString NoiseFETModel::agilentU2542ARes()
@@ -87,6 +109,34 @@ void NoiseFETModel::setVoltageDeviation(const double &deviation)
 
     mVoltageDeviation = deviation;
     emit voltageDeviationChanged();
+}
+
+double NoiseFETModel::voltageDeviationDisplay()
+{
+    return mVoltageDeviationDisplay;
+}
+
+void NoiseFETModel::setVoltageDeviationDisplay(const double &deviation)
+{
+    if (deviation == mVoltageDeviationDisplay)
+        return;
+
+    mVoltageDeviationDisplay = deviation;
+    emit voltageDeviationDisplayChanged();
+}
+
+int NoiseFETModel::voltageDeviationMultIndex()
+{
+    return mVoltageDeviationMultIndex;
+}
+
+void NoiseFETModel::setVoltageDeviationMultIndex(const int &newIndex)
+{
+    if (newIndex == mVoltageDeviationMultIndex)
+        return;
+
+    mVoltageDeviationMultIndex = newIndex;
+    emit voltageDeviationMultIndexChanged();
 }
 
 int NoiseFETModel::nAvgFast()

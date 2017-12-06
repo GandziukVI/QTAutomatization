@@ -14,6 +14,8 @@ Rectangle {
     property alias text: input.text
     property alias validator: input.validator
 
+    signal editingFinished()
+
     TextField {
         id: input
         anchors.fill: parent
@@ -27,5 +29,7 @@ Rectangle {
         background: Rectangle {
             border.color: "gray"
         }
+
+        onEditingFinished: root.editingFinished
     }
 }

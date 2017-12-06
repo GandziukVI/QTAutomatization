@@ -2,6 +2,8 @@ import QtQuick 2.2
 import QtQuick.Controls 2.2
 
 Item {
+    id: root
+
     width: 150
     height: 60
 
@@ -10,12 +12,10 @@ Item {
 
     property var arrayElements: [0.0]
 
+    signal editingFinished()
+
     function parseArrElementsFromText (inputText) {
         arrayElements = JSON.parse(inputText)
-    }
-
-    function validateTextChanged(inputChar) {
-
     }
 
     ScrollView {
@@ -36,10 +36,24 @@ Item {
                 border.color: "gray"
             }
 
-            onEditingFinished: parseArrElementsFromText(text)
+            onEditingFinished: {
+                parseArrElementsFromText(text)
+                root.editingFinished
+            }
         }
     }
+
     Component.onCompleted: {
         parseArrElementsFromText(text)
+    }
+
+    onArrayElementsChanged: {
+        var arrLen = arrayElements.length;
+
+        text = "[ ";
+
+        text += arrayElements.join(", ")
+
+        text += " ]";
     }
 }
