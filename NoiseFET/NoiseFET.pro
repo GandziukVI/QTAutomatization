@@ -1,7 +1,8 @@
 QT += qml quick charts
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    qmlBackEnd/NoiseFETModel.cpp
 
 DISTFILES += \
     qml/main.qml \
@@ -15,3 +16,6 @@ DISTFILES += \
 
 RESOURCES += \
     resources.qrc
+
+HEADERS += \
+    qmlBackEnd/NoiseFETModel.h

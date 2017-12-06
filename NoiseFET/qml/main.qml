@@ -62,14 +62,14 @@ Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    id: settings
+                    id: noiseFETSettings
 
                     ScrollView {
                         anchors.fill: parent
                         clip: true
 
                         GridLayout {
-                            width: settings.width
+                            width: noiseFETSettings.width
                             height: children.height
 
                             columns: 2
@@ -182,7 +182,7 @@ Item {
                                 Layout.fillWidth: true
 
                                 height: 40
-                                text: qsTr("0.2")
+                                text: qsTr("2")
                                 validator: IntValidator { locale: qsTr("en_US") }
                             }
 
@@ -195,7 +195,7 @@ Item {
                                 Layout.fillWidth: true
 
                                 height: 40
-                                text: qsTr("0.2")
+                                text: qsTr("100")
                                 validator: IntValidator { locale: qsTr("en_US") }
                             }
 
@@ -222,7 +222,7 @@ Item {
                                 Layout.fillWidth: true
 
                                 height: 40
-                                text: qsTr("45")
+                                text: qsTr("5000")
                                 validator: DoubleValidator { locale: qsTr("en_US") }
                             }
 
@@ -303,6 +303,44 @@ Item {
                                 text: qsTr("293")
                                 validator: DoubleValidator { locale: qsTr("en_US") }
                             }
+
+                            // Measure Time Traces
+                            CheckBox {
+                                Layout.columnSpan: 2
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+
+                                id: chkMeasureTimeTraces
+                                checked: true
+                                text: qsTr("Measure time traces")
+                            }
+                            Label {
+                                Layout.margins: 2.5
+                                enabled: chkMeasureTimeTraces.checked
+                                text: qsTr("TT Sampling frequency")
+                            }
+                            CTextField {
+                                Layout.fillWidth: true
+
+                                enabled: chkMeasureTimeTraces.checked
+                                height: 40
+                                text: qsTr("262144")
+                                validator: IntValidator { locale: qsTr("en_US") }
+                            }
+
+                            // Save to file controls
+                            Button {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+
+                                text: qsTr("...")
+                            }
+                            CTextField {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                horizontalAlignment: Qt.AlignLeft
+                                placeholderText: qsTr("Save file name")
+                            }
                         }
                     }
                 }
@@ -312,9 +350,8 @@ Item {
                     Layout.fillHeight: true
                     Layout.maximumHeight: 40
 
-                    RowLayout {
+                    RowLayout { 
                         anchors.fill: parent
-
                         Button {
                             Layout.fillWidth: true
                             Layout.fillHeight: true

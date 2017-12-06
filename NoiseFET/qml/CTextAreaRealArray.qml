@@ -8,7 +8,7 @@ Item {
     property alias text: input.text
     property alias input: input
 
-    property variant arrayElements: [0.0]
+    property var arrayElements: [0.0]
 
     function parseArrElementsFromText (inputText) {
         arrayElements = JSON.parse(inputText)

@@ -9,6 +9,7 @@ Rectangle {
     height: 30
 
     property alias input: input
+    property alias horizontalAlignment: input.horizontalAlignment
     property alias placeholderText: input.placeholderText
     property alias text: input.text
     property alias validator: input.validator
@@ -19,6 +20,7 @@ Rectangle {
         autoScroll: true
         focus: true
         horizontalAlignment: TextField.AlignRight
+        leftPadding: 10
         rightPadding: 10
         selectByMouse: true
 
