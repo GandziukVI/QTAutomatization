@@ -12,11 +12,7 @@ Item {
 
     property var arrayElements: [0.0]
 
-    signal editingFinished()
-
-    function parseArrElementsFromText (inputText) {
-        arrayElements = JSON.parse(inputText)
-    }
+    signal editingFinished()    
 
     ScrollView {
         id: view
@@ -37,23 +33,29 @@ Item {
             }
 
             onEditingFinished: {
-                arrayElements.length = 0;
-                parseArrElementsFromText(text)
                 root.editingFinished
             }
         }
     }
 
-    Component.onCompleted: {
-        arrayElements.length = 0;
-        parseArrElementsFromText(text);
-    }
+    function setData(startVal, stopVal, stepVal) {
+        var floatStart = parseFloat(startVal);
+        var floatStop = parseFloat(stopVal);
+        var floatStep = parseFloat(stepVal);
 
-    onArrayElementsChanged: {
-        var arrLen = arrayElements.length;
+        var nElements = parseInt(Math.abs((floatStop - floatStart) / floatStep)) + 1;
+
+        arrayElements = [];
+        arrayElements = new Array(nElements);
+
+        for (var i = 0; i < arrayElements.length; i++) {
+            arrayElements[i] = floatStart + i * floatStep;
+        }
+
+        var strStep = stepVal.toString();
+        var precision = strStep.length - strStep.indexOf(".") - 1;
 
         text = "[ ";
-        text += arrayElements.join(", ");
-        text += " ]";
+        text += arrayElements.join(", ") + " ]";
     }
 }

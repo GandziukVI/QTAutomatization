@@ -13,6 +13,14 @@ Item {
         anchors.fill: parent
     }
 
+    VoltageRangeSetter {
+        id: gateVoltageRangeSetter
+    }
+
+    VoltageRangeSetter {
+        id: drainVoltageRangeSetter
+    }
+
     GridLayout {
         anchors.fill: parent
         anchors.margins: 10
@@ -90,6 +98,7 @@ Item {
                                 }
                                 onEditingFinished: {
                                     if (typeof noiseFETSettingsModel !== "undefined") {
+                                        noiseFETSettingsModel.agilentU2542ARes = "";
                                         noiseFETSettingsModel.agilentU2542ARes = text;
                                     }
                                 }
@@ -165,12 +174,7 @@ Item {
                                 text: qsTr("Set Gate Voltage Range")
 
                                 onClicked: {
-                                    var component = Qt.createComponent("VoltageRangeSetter.qml");
-                                    var win = component.createObject(root);
-
-                                    win.dataChanged.connect(setGateVoltageArray);
-
-                                    win.show();
+                                    gateVoltageRangeSetter.show();
                                 }
                             }
 
@@ -183,7 +187,7 @@ Item {
                                 Layout.fillWidth: true
 
                                 id: drainVoltageValues
-//                                text: qsTr("[0.0 ]")
+                                text: qsTr("[0.0 ]")
 
                                 Component.onCompleted: {
                                     if (typeof noiseFETSettingsModel !== "undefined") {
@@ -205,12 +209,7 @@ Item {
                                 text: qsTr("Set Drain Voltage Range")
 
                                 onClicked: {
-                                    var component = Qt.createComponent("VoltageRangeSetter.qml");
-                                    var win = component.createObject(root);
-
-                                    win.dataChanged.connect(setDrainVoltageArray);
-
-                                    win.show();
+                                    drainVoltageRangeSetter.show();
                                 }
                             }
 
@@ -558,6 +557,10 @@ Item {
                             }
                         }
                     }
+                    Component.onCompleted: {
+                        gateVoltageRangeSetter.dataChanged.connect(gateVoltageValues.setData);
+                        drainVoltageRangeSetter.dataChanged.connect(drainVoltageValues.setData);
+                    }
                 }
 
                 Item {
@@ -581,41 +584,5 @@ Item {
                 }
             }
         }
-    }
-
-    function setVoltageArrayString(start, stop, step) {
-        var strStart = start.toString();
-        var strStop = stop.toString();
-        var strStep = step.toString();
-
-        var precision = strStep.length - strStep.indexOf(".") - 1;
-
-        var floatStart = parseFloat(start);
-        var floatStop = parseFloat(stop);
-        var floatStep = parseFloat(step);
-
-        var nElements = parseInt(Math.abs((floatStop - floatStart) / floatStep)) + 1;
-
-        var res = "[ ";
-        for (var i = 0; i < nElements - 1; i++) {
-            res += (floatStart + i * floatStep).toFixed(precision) + ", ";
-        }
-        res += (start + step * (nElements - 1)).toFixed(precision) + " ]";
-
-        return res;
-    }
-
-    function setGateVoltageArray(start, stop, step) {
-        var res = setVoltageArrayString(start, stop, step);
-
-        gateVoltageValues.text = res;
-        gateVoltageValues.arrayElements = JSON.parse(res);
-    }
-
-    function setDrainVoltageArray(start, stop, step) {
-        var res = setVoltageArrayString(start, stop, step);
-
-        drainVoltageValues.text = res;
-        drainVoltageValues.arrayElements = JSON.parse(res);
-    }
+    }        
 }

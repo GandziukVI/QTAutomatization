@@ -102,8 +102,9 @@ Window {
                     dataChanged(startValue, stopValue, stepValue);
                     root.close();
                 }
-                else if (event.key === Qt.Key_Escape)
+                else if (event.key === Qt.Key_Escape) {
                     root.close();
+                }
             }
         }
     }
