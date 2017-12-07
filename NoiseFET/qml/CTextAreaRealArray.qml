@@ -1,6 +1,8 @@
 import QtQuick 2.2
 import QtQuick.Controls 2.2
 
+import "../js/CTextAreaArray.js" as CTextRealArrayFunctions
+
 Item {
     id: root
 
@@ -10,9 +12,10 @@ Item {
     property alias text: input.text
     property alias input: input
 
-    property var arrayElements: [0.0]
+    property var arrayElements: new Array(1)
 
-    signal editingFinished()    
+    signal editingFinished()
+    signal setData(real dataStart, real dataStop, real dataStep)
 
     ScrollView {
         id: view
@@ -38,25 +41,18 @@ Item {
         }
     }
 
-    function setData(startVal, stopVal, stepVal) {
-        var floatStart = parseFloat(startVal);
-        var floatStop = parseFloat(stopVal);
-        var floatStep = parseFloat(stepVal);
+    onEditingFinished: {
+        arrayElements = JSON.parse(text);
+    }
 
-        var nElements = parseInt(Math.abs((floatStop - floatStart) / floatStep)) + 1;
-
-        var strStep = stepVal.toString();
-        var dataPrecision = strStep.length - strStep.indexOf(".") - 1;
-        var dataDiviedr = Math.pow(10, dataPrecision);
-
-        var tempData = new Array(nElements);
-
-        for (var i = 0; i < nElements; i++) {
-            tempData[i] = Math.round((floatStart + i * floatStep) * dataDiviedr) / dataDiviedr;
-        }
-
-        text = "[ ";
-        text += tempData.join(", ");
-        text += " ]";
+    Component.onCompleted: {
+        setData.connect(function(dataStart, dataStop, dataStep) {
+            arrayElements = CTextRealArrayFunctions.setData(dataStart, dataStop, dataStep);
+            input.text = "[ ";
+            input.text += arrayElements.join(", ") + " ]";
+        });
+    }
+    Component.onDestruction: {
+        arrayElements = null;
     }
 }

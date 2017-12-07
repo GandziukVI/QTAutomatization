@@ -12,7 +12,8 @@ DISTFILES += \
     qml/CTextAreaRealArray.qml \
     qml/VoltageRangeSetter.qml \
     qml/CTextField.qml \
-    qml/CExtendedNumberInput.qml
+    qml/CExtendedNumberInput.qml \
+    js/CTextAreaArray.js
 
 RESOURCES += \
     resources.qrc
