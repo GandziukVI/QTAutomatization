@@ -45,17 +45,18 @@ Item {
 
         var nElements = parseInt(Math.abs((floatStop - floatStart) / floatStep)) + 1;
 
-        arrayElements = [];
-        arrayElements = new Array(nElements);
+        var strStep = stepVal.toString();
+        var dataPrecision = strStep.length - strStep.indexOf(".") - 1;
+        var dataDiviedr = Math.pow(10, dataPrecision);
 
-        for (var i = 0; i < arrayElements.length; i++) {
-            arrayElements[i] = floatStart + i * floatStep;
+        var tempData = new Array(nElements);
+
+        for (var i = 0; i < nElements; i++) {
+            tempData[i] = Math.round((floatStart + i * floatStep) * dataDiviedr) / dataDiviedr;
         }
 
-        var strStep = stepVal.toString();
-        var precision = strStep.length - strStep.indexOf(".") - 1;
-
         text = "[ ";
-        text += arrayElements.join(", ") + " ]";
+        text += tempData.join(", ");
+        text += " ]";
     }
 }
