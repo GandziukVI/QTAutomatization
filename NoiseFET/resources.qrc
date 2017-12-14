@@ -6,5 +6,7 @@
         <file>qml/CExtendedNumberInput.qml</file>
         <file>qml/CTextField.qml</file>
         <file>qml/VoltageRangeSetter.qml</file>
+        <file>js/CTextAreaArray.js</file>
+        <file>main.cpp</file>
     </qresource>
 </RCC>
