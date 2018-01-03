@@ -23,13 +23,32 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        AgU25xxExtensionBox.cpp
+        AgU25xxExtensionBox.cpp \
+    Filter.cpp \
+    GainAmplifier.cpp \
+    AgU25xxExtBoxException.cpp
 
 HEADERS += \
         AgU25xxExtensionBox.h \
-        agu25xxextensionbox_global.h 
+        agu25xxextensionbox_global.h \ 
+    AgU25xxExtBoxDefinitions.h \
+    Filter.h \
+    GainAmplifier.h \
+    AgU25xxExtBoxException.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../DeviceIO/DeviceIO/release/ -lDeviceIO
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../DeviceIO/DeviceIO/debug/ -lDeviceIO
+
+INCLUDEPATH += $$PWD/../DeviceIO/DeviceIO
+DEPENDPATH += $$PWD/../DeviceIO/DeviceIO
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../AgilentU25xx/AgilentU25xx/release/ -lAgilentU25xx
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../AgilentU25xx/AgilentU25xx/debug/ -lAgilentU25xx
+
+INCLUDEPATH += $$PWD/../AgilentU25xx/AgilentU25xx
+DEPENDPATH += $$PWD/../AgilentU25xx/AgilentU25xx
