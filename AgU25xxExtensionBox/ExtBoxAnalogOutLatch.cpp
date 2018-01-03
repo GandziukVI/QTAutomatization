@@ -1,7 +1,6 @@
 #include "ExtBoxAnalogOutLatch.h"
 
 ExtBoxAnalogOutLatch::ExtBoxAnalogOutLatch()
-    : ExtBoxILatch()
 {
 
 }

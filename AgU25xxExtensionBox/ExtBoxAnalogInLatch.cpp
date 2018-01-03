@@ -4,8 +4,7 @@
 #include <AgU25xxDefinitions.h>
 
 ExtBoxAnalogInLatch::ExtBoxAnalogInLatch()
-    : ExtBoxILatch(),
-      Selector_ADC_A0(NULL),
+    : Selector_ADC_A0(NULL),
       Selector_ADC_A1(NULL),
       LatchPulseBit(NULL)
 {
@@ -13,7 +12,6 @@ ExtBoxAnalogInLatch::ExtBoxAnalogInLatch()
 }
 
 ExtBoxAnalogInLatch::ExtBoxAnalogInLatch(AgU25xxDIGitalBit &selectorA0, AgU25xxDIGitalBit &selectorA1, AgU25xxDIGitalBit &latchPulseBit)
-    : ExtBoxILatch()
 {
     Selector_ADC_A0 = &selectorA0;
     Selector_ADC_A1 = &selectorA1;

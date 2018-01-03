@@ -2,11 +2,10 @@
 #define EXTBOXANALOGINLATCH_H
 
 #include "agu25xxextensionbox_global.h"
-#include "ILatch.h"
 
 #include <AgU25xxDIGitalBit.h>
 
-class AGU25XXEXTENSIONBOXSHARED_EXPORT ExtBoxAnalogInLatch : public ExtBoxILatch
+class AGU25XXEXTENSIONBOXSHARED_EXPORT ExtBoxAnalogInLatch
 {
 public:
     ExtBoxAnalogInLatch();

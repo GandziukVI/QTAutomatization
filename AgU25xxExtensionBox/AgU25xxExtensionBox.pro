@@ -37,7 +37,6 @@ HEADERS += \
         agu25xxextensionbox_global.h \ 
     AgU25xxExtBoxDefinitions.h \
     AgU25xxExtBoxException.h \
-    ilatch.h \
     ExtBoxAIChannel.h \
     ExtBoxFilter.h \
     ExtBoxGainAmplifier.h \
