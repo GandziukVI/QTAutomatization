@@ -1,10 +1,10 @@
-#include "AnalogInLatch.h"
+#include "ExtBoxAnalogInLatch.h"
 #include "AgU25xxExtBoxException.h"
 
 #include <AgU25xxDefinitions.h>
 
-AnalogInLatch::AnalogInLatch()
-    : ILatch(),
+ExtBoxAnalogInLatch::ExtBoxAnalogInLatch()
+    : ExtBoxILatch(),
       Selector_ADC_A0(NULL),
       Selector_ADC_A1(NULL),
       LatchPulseBit(NULL)
@@ -12,15 +12,15 @@ AnalogInLatch::AnalogInLatch()
 
 }
 
-AnalogInLatch::AnalogInLatch(AgU25xxDIGitalBit &selectorA0, AgU25xxDIGitalBit &selectorA1, AgU25xxDIGitalBit &latchPulseBit)
-    : ILatch()
+ExtBoxAnalogInLatch::ExtBoxAnalogInLatch(AgU25xxDIGitalBit &selectorA0, AgU25xxDIGitalBit &selectorA1, AgU25xxDIGitalBit &latchPulseBit)
+    : ExtBoxILatch()
 {
     Selector_ADC_A0 = &selectorA0;
     Selector_ADC_A1 = &selectorA1;
     LatchPulseBit   = &latchPulseBit;
 }
 
-void AnalogInLatch::PulseLatchForChannel(AgU25xxEnumAIChannels channelName)
+void ExtBoxAnalogInLatch::PulseLatchForChannel(AgU25xxEnumAIChannels channelName)
 {
     if (Selector_ADC_A0 == NULL || Selector_ADC_A1 == NULL || LatchPulseBit == NULL)
         throw AgU25xxExtBoxException(QString("AIn latch initialization error."));

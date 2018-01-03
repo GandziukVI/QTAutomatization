@@ -1,21 +1,21 @@
-#include "Filter.h"
+#include "ExtBoxFilter.h"
 #include "AgU25xxExtBoxException.h"
 
-Filter::Filter()
+ExtBoxFilter::ExtBoxFilter()
     : mFilterFrequency(FilterCutOffFrequencies::Freq_150kHz),
       mFilterGain(FilterGains::gain1)
 {
     mControlChannel = NULL;
 }
 
-Filter::Filter(AgU25xxDIGChannel &controlChannel)
+ExtBoxFilter::ExtBoxFilter(AgU25xxDIGChannel &controlChannel)
     : mFilterFrequency(FilterCutOffFrequencies::Freq_150kHz),
       mFilterGain(FilterGains::gain1)
 {
     mControlChannel = &controlChannel;
 }
 
-void Filter::setCutOffFreqAndGain(FilterCutOffFrequencies cutOffFreq, FilterGains gain)
+void ExtBoxFilter::setCutOffFreqAndGain(FilterCutOffFrequencies cutOffFreq, FilterGains gain)
 {
     if(mControlChannel == NULL)
         throw AgU25xxExtBoxException(QString("Control channel is not specified."));
@@ -33,12 +33,12 @@ void Filter::setCutOffFreqAndGain(FilterCutOffFrequencies cutOffFreq, FilterGain
     mControlChannel->setByte(valForLatch);
 }
 
-FilterCutOffFrequencies Filter::getFilterFrequency() const
+FilterCutOffFrequencies ExtBoxFilter::getFilterFrequency() const
 {
     return mFilterFrequency;
 }
 
-FilterGains Filter::getFilterGain() const
+FilterGains ExtBoxFilter::getFilterGain() const
 {
     return mFilterGain;
 }

@@ -1,19 +1,19 @@
-#include "GainAmplifier.h"
+#include "ExtBoxGainAmplifier.h"
 #include "AgU25xxExtBoxException.h"
 
-GainAmplifier::GainAmplifier()
+ExtBoxGainAmplifier::ExtBoxGainAmplifier()
     : mGain(PGAGains::gain1)
 {
     mControlChannel = NULL;
 }
 
-GainAmplifier::GainAmplifier(AgU25xxDIGChannel &controlChannel)
+ExtBoxGainAmplifier::ExtBoxGainAmplifier(AgU25xxDIGChannel &controlChannel)
     : mGain(PGAGains::gain1)
 {
     mControlChannel = &controlChannel;
 }
 
-void GainAmplifier::setGain(PGAGains gain)
+void ExtBoxGainAmplifier::setGain(PGAGains gain)
 {
     if (gain < PGAGains::gain1 || gain > PGAGains::gain100)
         throw AgU25xxExtBoxException(QString("Invalid PGA gain value."));

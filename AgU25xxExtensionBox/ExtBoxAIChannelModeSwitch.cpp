@@ -1,8 +1,8 @@
-#include "AIChannelModeSwitch.h"
+#include "ExtBoxAIChannelModeSwitch.h"
 #include "agu25xxdefinitions.h"
 #include "AgU25xxExtBoxException.h"
 
-AIChannelModeSwitch::AIChannelModeSwitch()
+ExtBoxAIChannelModeSwitch::ExtBoxAIChannelModeSwitch()
     : mPulseBit(NULL),
       mSetResetBit(NULL),
       mSelectorA0(NULL),
@@ -10,7 +10,7 @@ AIChannelModeSwitch::AIChannelModeSwitch()
 {
 }
 
-AIChannelModeSwitch::AIChannelModeSwitch(AgU25xxDIGitalBit &pulseBit, AgU25xxDIGitalBit &setResetBit, AgU25xxDIGitalBit &selectorA0, AgU25xxDIGitalBit &selectorA1)
+ExtBoxAIChannelModeSwitch::ExtBoxAIChannelModeSwitch(AgU25xxDIGitalBit &pulseBit, AgU25xxDIGitalBit &setResetBit, AgU25xxDIGitalBit &selectorA0, AgU25xxDIGitalBit &selectorA1)
 {
     mPulseBit    = &pulseBit;
     mSetResetBit = &setResetBit;
@@ -18,7 +18,7 @@ AIChannelModeSwitch::AIChannelModeSwitch(AgU25xxDIGitalBit &pulseBit, AgU25xxDIG
     mSelectorA1  = &selectorA1;
 }
 
-void AIChannelModeSwitch::setChannelMode(AgU25xxEnumAIChannels channelID, AInChannelModes mode)
+void ExtBoxAIChannelModeSwitch::setChannelMode(AgU25xxEnumAIChannels channelID, AInChannelModes mode)
 {
     if (mPulseBit == NULL || mSetResetBit == NULL || mSelectorA0 == NULL || mSelectorA1 == NULL)
         throw AgU25xxExtBoxException(QString("Error initializing AI channel mode switch."));

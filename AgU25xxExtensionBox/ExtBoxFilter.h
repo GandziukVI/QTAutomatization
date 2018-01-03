@@ -1,16 +1,16 @@
-#ifndef PROGRAMMABLEFILTER_H
-#define PROGRAMMABLEFILTER_H
+#ifndef EXTBOXEFILTER_H
+#define EXTBOXFILTER_H
 
 #include "agu25xxextensionbox_global.h"
 #include "AgU25xxExtBoxDefinitions.h"
 
 #include <AgU25xxDIGChannel.h>
 
-class AGU25XXEXTENSIONBOXSHARED_EXPORT Filter
+class AGU25XXEXTENSIONBOXSHARED_EXPORT ExtBoxFilter
 {
 public:
-    Filter();
-    Filter(AgU25xxDIGChannel &controlChannel);
+    ExtBoxFilter();
+    ExtBoxFilter(AgU25xxDIGChannel &controlChannel);
 
     void                    setCutOffFreqAndGain(FilterCutOffFrequencies cutOffFreq, FilterGains gain);
     FilterCutOffFrequencies getFilterFrequency() const;
@@ -22,4 +22,4 @@ private:
     FilterGains             mFilterGain;
 };
 
-#endif // PROGRAMMABLEFILTER_H
+#endif // EXTBOXFILTER_H

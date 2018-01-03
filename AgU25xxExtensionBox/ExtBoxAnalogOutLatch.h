@@ -1,5 +1,5 @@
-#ifndef ANALOGOUTLATCH_H
-#define ANALOGOUTLATCH_H
+#ifndef EXTBOXANALOGOUTLATCH_H
+#define EXTBOXANALOGOUTLATCH_H
 
 #include "agu25xxextensionbox_global.h"
 #include "AgU25xxExtBoxDefinitions.h"
@@ -7,11 +7,11 @@
 
 #include "agu25xxdefinitions.h"
 
-class AGU25XXEXTENSIONBOXSHARED_EXPORT AnalogOutLatch : public ILatch
+class AGU25XXEXTENSIONBOXSHARED_EXPORT ExtBoxAnalogOutLatch : public ExtBoxILatch
 {
 public:
-    AnalogOutLatch();
+    ExtBoxAnalogOutLatch();
     void PulseLatchForChannel(AgU25xxEnumAOChannels channelName);
 };
 
-#endif // ANALOGOUTLATCH_H
+#endif // EXTBOXANALOGOUTLATCH_H

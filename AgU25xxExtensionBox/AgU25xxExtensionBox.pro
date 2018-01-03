@@ -24,24 +24,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         AgU25xxExtensionBox.cpp \
-    Filter.cpp \
-    GainAmplifier.cpp \
     AgU25xxExtBoxException.cpp \
-    AnalogInLatch.cpp \
-    AnalogOutLatch.cpp \
-    AIChannelModeSwitch.cpp
+    ExtBoxAIChannel.cpp \
+    ExtBoxFilter.cpp \
+    ExtBoxGainAmplifier.cpp \
+    ExtBoxAIChannelModeSwitch.cpp \
+    ExtBoxAnalogInLatch.cpp \
+    ExtBoxAnalogOutLatch.cpp
 
 HEADERS += \
         AgU25xxExtensionBox.h \
         agu25xxextensionbox_global.h \ 
     AgU25xxExtBoxDefinitions.h \
-    Filter.h \
-    GainAmplifier.h \
     AgU25xxExtBoxException.h \
     ilatch.h \
-    AnalogInLatch.h \
-    AnalogOutLatch.h \
-    AIChannelModeSwitch.h
+    ExtBoxAIChannel.h \
+    ExtBoxFilter.h \
+    ExtBoxGainAmplifier.h \
+    ExtBoxAIChannelModeSwitch.h \
+    ExtBoxAnalogInLatch.h \
+    ExtBoxAnalogOutLatch.h
 
 unix {
     target.path = /usr/lib
