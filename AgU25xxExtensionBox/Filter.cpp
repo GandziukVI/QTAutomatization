@@ -25,6 +25,9 @@ void Filter::setCutOffFreqAndGain(FilterCutOffFrequencies cutOffFreq, FilterGain
     if (gain < FilterGains::gain1 || gain > FilterGains::gain16)
         throw AgU25xxExtBoxException(QString("Gain is out of range."));
 
+    mFilterFrequency = cutOffFreq;
+    mFilterGain      = gain;
+
     unsigned short valForLatch = (unsigned short)cutOffFreq | (unsigned short)gain;
 
     mControlChannel->setByte(valForLatch);

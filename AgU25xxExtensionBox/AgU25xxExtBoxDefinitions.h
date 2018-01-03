@@ -3,7 +3,7 @@
 
 #include "agu25xxextensionbox_global.h"
 
-enum class FilterCutOffFrequencies : unsigned int
+enum class AGU25XXEXTENSIONBOXSHARED_EXPORT FilterCutOffFrequencies : unsigned int
 {
     Freq_0kHz = 0x00,
     Freq_10kHz = 0x01,
@@ -23,7 +23,7 @@ enum class FilterCutOffFrequencies : unsigned int
     Freq_150kHz = 0x0f
 };
 
-enum class FilterGains : unsigned int {
+enum class AGU25XXEXTENSIONBOXSHARED_EXPORT FilterGains : unsigned int {
     gain1 = 0x00,
     gain2 = 0x10,
     gain3 = 0x20,
@@ -40,6 +40,12 @@ enum class FilterGains : unsigned int {
     gain14 = 0xd0,
     gain15 = 0xe0,
     gain16 = 0xf0
+};
+
+enum class AGU25XXEXTENSIONBOXSHARED_EXPORT PGAGains : unsigned int {
+    gain1 = 0x00,
+    gain10 = 0x01,
+    gain100 = 0x02
 };
 
 #endif // AGU25XXEXTBOXDEFINITIONS_H
