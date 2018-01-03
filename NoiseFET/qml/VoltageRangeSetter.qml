@@ -1,6 +1,6 @@
 import QtQuick 2.2
-import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
+import QtQuick.Window 2.2
 
 import QtQuick.Layouts 1.3
 
@@ -18,12 +18,6 @@ Window {
     property string stepValue: "0.05"
 
     signal dataChanged(real start, real stop, real step)
-
-    function setPropertyData() {
-        startValue = startValField.realValue.toString();
-        stopValue = stopValField.realValue.toString();
-        stepValue = stepValField.realValue.toString();
-    }
 
     Item {
         anchors.fill: parent
@@ -90,20 +84,26 @@ Window {
                 anchors.right: parent.right
                 text: qsTr("Set range")
                 onClicked: {
-                    setPropertyData();
-                    dataChanged(startValue, stopValue, stepValue);
-                    root.close();
-                }
-            }
+                    startValue = startValField.realValue.toString();
+                    stopValue  = stopValField.realValue.toString();
+                    stepValue  = stepValField.realValue.toString();
 
-            Keys.onPressed: {
-                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                    setPropertyData();
                     dataChanged(startValue, stopValue, stepValue);
                     root.close();
                 }
-                else if (event.key === Qt.Key_Escape) {
-                    root.close();
+
+                Keys.onPressed: {
+                    if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                        startValue = startValField.realValue.toString();
+                        stopValue  = stopValField.realValue.toString();
+                        stepValue  = stepValField.realValue.toString();
+
+                        dataChanged(startValue, stopValue, stepValue);
+                        root.close();
+                    }
+                    else if (event.key === Qt.Key_Escape) {
+                        root.close();
+                    }
                 }
             }
         }
