@@ -27,7 +27,9 @@ SOURCES += \
     Filter.cpp \
     GainAmplifier.cpp \
     AgU25xxExtBoxException.cpp \
-    AnalogInLatch.cpp
+    AnalogInLatch.cpp \
+    AnalogOutLatch.cpp \
+    AIChannelModeSwitch.cpp
 
 HEADERS += \
         AgU25xxExtensionBox.h \
@@ -37,7 +39,9 @@ HEADERS += \
     GainAmplifier.h \
     AgU25xxExtBoxException.h \
     ilatch.h \
-    AnalogInLatch.h
+    AnalogInLatch.h \
+    AnalogOutLatch.h \
+    AIChannelModeSwitch.h
 
 unix {
     target.path = /usr/lib

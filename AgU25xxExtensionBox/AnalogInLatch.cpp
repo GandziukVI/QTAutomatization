@@ -4,7 +4,8 @@
 #include <AgU25xxDefinitions.h>
 
 AnalogInLatch::AnalogInLatch()
-    : Selector_ADC_A0(NULL),
+    : ILatch(),
+      Selector_ADC_A0(NULL),
       Selector_ADC_A1(NULL),
       LatchPulseBit(NULL)
 {
@@ -12,6 +13,7 @@ AnalogInLatch::AnalogInLatch()
 }
 
 AnalogInLatch::AnalogInLatch(AgU25xxDIGitalBit &selectorA0, AgU25xxDIGitalBit &selectorA1, AgU25xxDIGitalBit &latchPulseBit)
+    : ILatch()
 {
     Selector_ADC_A0 = &selectorA0;
     Selector_ADC_A1 = &selectorA1;

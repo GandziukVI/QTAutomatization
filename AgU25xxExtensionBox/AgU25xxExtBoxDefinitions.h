@@ -48,4 +48,9 @@ enum class AGU25XXEXTENSIONBOXSHARED_EXPORT PGAGains : unsigned int {
     gain100 = 0x02
 };
 
+enum class AGU25XXEXTENSIONBOXSHARED_EXPORT AInChannelModes : unsigned int {
+    AC = 0,
+    DC = 1
+};
+
 #endif // AGU25XXEXTBOXDEFINITIONS_H
