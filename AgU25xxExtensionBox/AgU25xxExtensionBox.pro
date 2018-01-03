@@ -26,7 +26,8 @@ SOURCES += \
         AgU25xxExtensionBox.cpp \
     Filter.cpp \
     GainAmplifier.cpp \
-    AgU25xxExtBoxException.cpp
+    AgU25xxExtBoxException.cpp \
+    AnalogInLatch.cpp
 
 HEADERS += \
         AgU25xxExtensionBox.h \
@@ -34,7 +35,9 @@ HEADERS += \
     AgU25xxExtBoxDefinitions.h \
     Filter.h \
     GainAmplifier.h \
-    AgU25xxExtBoxException.h
+    AgU25xxExtBoxException.h \
+    ilatch.h \
+    AnalogInLatch.h
 
 unix {
     target.path = /usr/lib

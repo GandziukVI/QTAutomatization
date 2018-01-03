@@ -18,7 +18,7 @@ public:
 
     void setBit(bool state);
     bool getBit();
-    void bitPulse(unsigned int msec = 1000);
+    void bitPulse(unsigned int msec = 100);
 
 private:
     IDeviceIO                  *mDriver;
