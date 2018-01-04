@@ -25,7 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         AgU25xxExtensionBox.cpp \
     AgU25xxExtBoxException.cpp \
-    ExtBoxAIChannel.cpp \
     ExtBoxFilter.cpp \
     ExtBoxGainAmplifier.cpp \
     ExtBoxAIChannelModeSwitch.cpp \
@@ -37,7 +36,6 @@ HEADERS += \
         agu25xxextensionbox_global.h \ 
     AgU25xxExtBoxDefinitions.h \
     AgU25xxExtBoxException.h \
-    ExtBoxAIChannel.h \
     ExtBoxFilter.h \
     ExtBoxGainAmplifier.h \
     ExtBoxAIChannelModeSwitch.h \

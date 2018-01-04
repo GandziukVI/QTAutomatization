@@ -2,27 +2,27 @@
 #include "AgU25xxExtBoxException.h"
 
 ExtBoxFilter::ExtBoxFilter()
-    : mFilterFrequency(FilterCutOffFrequencies::Freq_150kHz),
-      mFilterGain(FilterGains::gain1)
+    : mFilterFrequency(BoxEnumAInFilterCutOffFrequencies::Freq_150kHz),
+      mFilterGain(BoxEnumAInFilterGains::gain1)
 {
     mControlChannel = NULL;
 }
 
 ExtBoxFilter::ExtBoxFilter(AgU25xxDIGChannel &controlChannel)
-    : mFilterFrequency(FilterCutOffFrequencies::Freq_150kHz),
-      mFilterGain(FilterGains::gain1)
+    : mFilterFrequency(BoxEnumAInFilterCutOffFrequencies::Freq_150kHz),
+      mFilterGain(BoxEnumAInFilterGains::gain1)
 {
     mControlChannel = &controlChannel;
 }
 
-void ExtBoxFilter::setCutOffFreqAndGain(FilterCutOffFrequencies cutOffFreq, FilterGains gain)
+void ExtBoxFilter::setCutOffFreqAndGain(BoxEnumAInFilterCutOffFrequencies cutOffFreq, BoxEnumAInFilterGains gain)
 {
     if(mControlChannel == NULL)
         throw AgU25xxExtBoxException(QString("Control channel is not specified."));
 
-    if (cutOffFreq < FilterCutOffFrequencies::Freq_0kHz || cutOffFreq > FilterCutOffFrequencies::Freq_150kHz)
+    if (cutOffFreq < BoxEnumAInFilterCutOffFrequencies::Freq_0kHz || cutOffFreq > BoxEnumAInFilterCutOffFrequencies::Freq_150kHz)
         throw AgU25xxExtBoxException(QString("Frequency is out of range."));
-    if (gain < FilterGains::gain1 || gain > FilterGains::gain16)
+    if (gain < BoxEnumAInFilterGains::gain1 || gain > BoxEnumAInFilterGains::gain16)
         throw AgU25xxExtBoxException(QString("Gain is out of range."));
 
     mFilterFrequency = cutOffFreq;
@@ -33,12 +33,12 @@ void ExtBoxFilter::setCutOffFreqAndGain(FilterCutOffFrequencies cutOffFreq, Filt
     mControlChannel->setByte(valForLatch);
 }
 
-FilterCutOffFrequencies ExtBoxFilter::getFilterFrequency() const
+BoxEnumAInFilterCutOffFrequencies ExtBoxFilter::getFilterFrequency() const
 {
     return mFilterFrequency;
 }
 
-FilterGains ExtBoxFilter::getFilterGain() const
+BoxEnumAInFilterGains ExtBoxFilter::getFilterGain() const
 {
     return mFilterGain;
 }

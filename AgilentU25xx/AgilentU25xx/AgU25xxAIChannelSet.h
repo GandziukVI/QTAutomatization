@@ -26,13 +26,14 @@ public:
     AgU25xxAIChannel &operator [] (const int index);
     AgU25xxAIChannel &operator [] (const AgU25xxEnumAIChannels channelID);
 
-    void initialize(IDeviceIO& driver);
+    void         initialize(IDeviceIO& driver);
 
     void         acquireSingleShot         (int samplingFreq);
     void         startContinuousAcquisition(const unsigned int &samplingFreq, const unsigned int &outputPoints, const unsigned int &dataBufferCapacity = 5);
     void         stopAcquisition           ();
-    bool         checkAcquisitionDataReady            ();
+    bool         checkAcquisitionDataReady ();
     unsigned int *getEnabledChannelsIndexes();
+    unsigned int getEnabledCount() const;
     unsigned int getSamplingRate           ();
 
     void                          setPolarity(AgU25xxEnumAIChannelPolaities polarity);

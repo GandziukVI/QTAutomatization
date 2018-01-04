@@ -12,11 +12,11 @@ public:
     ExtBoxGainAmplifier();
     ExtBoxGainAmplifier(AgU25xxDIGChannel &controlChannel);
 
-    void setGain(PGAGains gain);
+    void setGain(BoxEnumAInPGAGains gain);
 
 private:
     AgU25xxDIGChannel *mControlChannel;
-    PGAGains          mGain;
+    BoxEnumAInPGAGains          mGain;
 };
 
 #endif // EXTBOXGAINAMPLIFIER_H

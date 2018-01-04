@@ -18,7 +18,7 @@ ExtBoxAIChannelModeSwitch::ExtBoxAIChannelModeSwitch(AgU25xxDIGitalBit &pulseBit
     mSelectorA1  = &selectorA1;
 }
 
-void ExtBoxAIChannelModeSwitch::setChannelMode(AgU25xxEnumAIChannels channelID, AInChannelModes mode)
+void ExtBoxAIChannelModeSwitch::setChannelMode(AgU25xxEnumAIChannels channelID, BoxEnumAInChannelModes mode)
 {
     if (mPulseBit == NULL || mSetResetBit == NULL || mSelectorA0 == NULL || mSelectorA1 == NULL)
         throw AgU25xxExtBoxException(QString("Error initializing AI channel mode switch."));
@@ -49,10 +49,10 @@ void ExtBoxAIChannelModeSwitch::setChannelMode(AgU25xxEnumAIChannels channelID, 
     }
 
     switch (mode) {
-    case AInChannelModes::AC:
+    case BoxEnumAInChannelModes::AC:
         mSetResetBit->setBit(false);
         break;
-    case AInChannelModes::DC:
+    case BoxEnumAInChannelModes::DC:
         mSetResetBit->setBit(true);
         break;
     default:

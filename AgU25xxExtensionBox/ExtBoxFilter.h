@@ -12,14 +12,14 @@ public:
     ExtBoxFilter();
     ExtBoxFilter(AgU25xxDIGChannel &controlChannel);
 
-    void                    setCutOffFreqAndGain(FilterCutOffFrequencies cutOffFreq, FilterGains gain);
-    FilterCutOffFrequencies getFilterFrequency() const;
-    FilterGains             getFilterGain() const;
+    void                    setCutOffFreqAndGain(BoxEnumAInFilterCutOffFrequencies cutOffFreq, BoxEnumAInFilterGains gain);
+    BoxEnumAInFilterCutOffFrequencies getFilterFrequency() const;
+    BoxEnumAInFilterGains             getFilterGain() const;
 
 private:
     AgU25xxDIGChannel       *mControlChannel;
-    FilterCutOffFrequencies mFilterFrequency;
-    FilterGains             mFilterGain;
+    BoxEnumAInFilterCutOffFrequencies mFilterFrequency;
+    BoxEnumAInFilterGains             mFilterGain;
 };
 
 #endif // EXTBOXFILTER_H

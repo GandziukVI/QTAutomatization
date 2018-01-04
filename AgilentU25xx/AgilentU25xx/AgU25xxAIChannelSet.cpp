@@ -313,6 +313,11 @@ unsigned int *AgU25xxAIChannelSet::getEnabledChannelsIndexes()
     return res;
 }
 
+unsigned int AgU25xxAIChannelSet::getEnabledCount() const
+{
+    return mAIChannelsEnabledCount;
+}
+
 unsigned int AgU25xxAIChannelSet::getSamplingRate()
 {
     return mDriver->RequestQuery(mACQuireCommands.cmdGetSamplingrate()).toUInt();

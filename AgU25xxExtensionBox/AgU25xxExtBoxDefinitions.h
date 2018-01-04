@@ -3,7 +3,7 @@
 
 #include "agu25xxextensionbox_global.h"
 
-enum class AGU25XXEXTENSIONBOXSHARED_EXPORT FilterCutOffFrequencies : unsigned int
+enum class AGU25XXEXTENSIONBOXSHARED_EXPORT BoxEnumAInFilterCutOffFrequencies : unsigned int
 {
     Freq_0kHz = 0x00,
     Freq_10kHz = 0x01,
@@ -23,7 +23,7 @@ enum class AGU25XXEXTENSIONBOXSHARED_EXPORT FilterCutOffFrequencies : unsigned i
     Freq_150kHz = 0x0f
 };
 
-enum class AGU25XXEXTENSIONBOXSHARED_EXPORT FilterGains : unsigned int {
+enum class AGU25XXEXTENSIONBOXSHARED_EXPORT BoxEnumAInFilterGains : unsigned int {
     gain1 = 0x00,
     gain2 = 0x10,
     gain3 = 0x20,
@@ -42,15 +42,35 @@ enum class AGU25XXEXTENSIONBOXSHARED_EXPORT FilterGains : unsigned int {
     gain16 = 0xf0
 };
 
-enum class AGU25XXEXTENSIONBOXSHARED_EXPORT PGAGains : unsigned int {
+enum class AGU25XXEXTENSIONBOXSHARED_EXPORT BoxEnumAInPGAGains : unsigned int {
     gain1 = 0x00,
     gain10 = 0x01,
     gain100 = 0x02
 };
 
-enum class AGU25XXEXTENSIONBOXSHARED_EXPORT AInChannelModes : unsigned int {
+enum class AGU25XXEXTENSIONBOXSHARED_EXPORT BoxEnumAInChannelModes : unsigned int {
     AC = 0,
     DC = 1
+};
+
+enum class AGU25XXEXTENSIONBOXSHARED_EXPORT BoxEnumAOutChannels : unsigned int {
+    BOX_AOut_01,
+    BOX_AOut_02,
+    BOX_AOut_03,
+    BOX_AOut_04,
+    BOX_AOut_05,
+    BOX_AOut_06,
+    BOX_AOut_07,
+    BOX_AOut_08,
+    BOX_AOut_09,
+    BOX_AOut_10,
+    BOX_AOut_11,
+    BOX_AOut_12,
+    BOX_AOut_13,
+    BOX_AOut_14,
+    BOX_AOut_15,
+    BOX_AOut_16,
+    NotSet
 };
 
 #endif // AGU25XXEXTBOXDEFINITIONS_H

@@ -12,7 +12,7 @@ public:
     ExtBoxAIChannelModeSwitch();
     ExtBoxAIChannelModeSwitch(AgU25xxDIGitalBit &pulseBit, AgU25xxDIGitalBit &setResetBit, AgU25xxDIGitalBit &selectorA0, AgU25xxDIGitalBit &selectorA1);
 
-    void setChannelMode(AgU25xxEnumAIChannels channelID, AInChannelModes mode);
+    void setChannelMode(AgU25xxEnumAIChannels channelID, BoxEnumAInChannelModes mode);
 
 private:
     AgU25xxDIGitalBit *mPulseBit;
