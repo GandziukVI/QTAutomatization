@@ -29,15 +29,23 @@ Item {
 
         ChartView {
             id: noiseFETChart
-            legend.visible: false
-
-            theme: ChartView.ChartThemeBlueCerulean
 
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            MouseArea {
+                anchors.fill: parent
+                onDoubleClicked: {
+                    noiseFETChart.zoom(1.5);
+                }
+            }
+
+            animationOptions: ChartView.AllAnimations
+            legend.visible: false
+            theme: ChartView.ChartThemeBlueCerulean            
+
             LineSeries {
-                id: nosieFETLineGraph
+                id: noiseFETLineGraph
 
                 axisX: LogValueAxis {
                     id: noiseFETFrequencyAxis
@@ -52,8 +60,8 @@ Item {
                     min: 1.0e-19
                     max: 1.0e-7
                     titleText: qsTr("<p>Noise PSD (V<sup>2</sup> / Hz)</p>")
-                }
-            }
+                }                                
+            }                        
         }
 
         Item {

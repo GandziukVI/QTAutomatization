@@ -70,10 +70,6 @@ AgU25xxExtensionBox::~AgU25xxExtensionBox()
         delete mAInGainAmplifier;
         mAInGainAmplifier = NULL;
     }
-    if (mCurrentAgU25xxAOutChannel != NULL) {
-        delete mCurrentAgU25xxAOutChannel;
-        mCurrentAgU25xxAOutChannel = NULL;
-    }
 }
 
 void AgU25xxExtensionBox::setAInChannelMode(AgU25xxEnumAIChannels channelID, BoxEnumAInChannelModes mode)
