@@ -11,7 +11,7 @@ AgU25xxExtensionBox::AgU25xxExtensionBox()
       mAInFilterCutOff(BoxEnumAInFilterCutOffFrequencies::Freq_150kHz),
       mAInFilterGain(BoxEnumAInFilterGains::gain1),
       mAInPGAGain(BoxEnumAInPGAGains::gain1),
-      mCurrentAgU25xxAOutChannel(NULL),
+      isChannelInit(false),
       mCurrentBoxAOutChannel(BoxEnumAOutChannels::NotSet)
 {
 }
@@ -20,7 +20,7 @@ AgU25xxExtensionBox::AgU25xxExtensionBox(AgilentU25xx &device)
     : mAInFilterCutOff(BoxEnumAInFilterCutOffFrequencies::Freq_150kHz),
       mAInFilterGain(BoxEnumAInFilterGains::gain1),
       mAInPGAGain(BoxEnumAInPGAGains::gain1),
-      mCurrentAgU25xxAOutChannel(NULL),
+      isChannelInit(false),
       mCurrentBoxAOutChannel(BoxEnumAOutChannels::NotSet)
 {
     mDevice = &device;
@@ -166,16 +166,17 @@ void AgU25xxExtensionBox::setBoxAOutSelectors(AgU25xxEnumAOChannels channelID)
         throw AgU25xxException(QString("Unable to select box AOut channel."));
     }
 
-    if (mCurrentAgU25xxAOutChannel == NULL) {
-        mCurrentAgU25xxAOutChannel  = new AgU25xxEnumAOChannels;
-        *mCurrentAgU25xxAOutChannel = channelID;
-        mCurrentBoxAOutChannel = BoxEnumAOutChannels::NotSet;
+    if (!isChannelInit) {
+        isChannelInit              = true;
+        mCurrentAgU25xxAOutChannel = channelID;
+        mCurrentBoxAOutChannel     = BoxEnumAOutChannels::NotSet;
     }
-    if (*mCurrentAgU25xxAOutChannel != channelID) {
-        *mCurrentAgU25xxAOutChannel = channelID;
-        mCurrentBoxAOutChannel = BoxEnumAOutChannels::NotSet;
+    else if (channelID != mCurrentAgU25xxAOutChannel) {
+        mCurrentAgU25xxAOutChannel = channelID;
+        mCurrentBoxAOutChannel     = BoxEnumAOutChannels::NotSet;
     }
 }
+
 
 void AgU25xxExtensionBox::setBoxAOutActiveChannel(BoxEnumAOutChannels boxAOutChannelID)
 {

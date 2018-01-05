@@ -54,6 +54,8 @@ private:
     BoxEnumAInFilterGains               mAInFilterGain;
     BoxEnumAInPGAGains                  mAInPGAGain;
 
+    bool                      isChannelInit;
+
     // To analog out channels configuration
     AgU25xxDIGitalBit         *mAOutSelectorA0;
     AgU25xxDIGitalBit         *mAOutSelectorA1;
@@ -63,7 +65,7 @@ private:
     void setBoxAOutSelectors(AgU25xxEnumAOChannels channelID);
     void setBoxAOutActiveChannel(BoxEnumAOutChannels boxAOutChannelID);
 
-    AgU25xxEnumAOChannels    *mCurrentAgU25xxAOutChannel;
+    AgU25xxEnumAOChannels    mCurrentAgU25xxAOutChannel;
     BoxEnumAOutChannels      mCurrentBoxAOutChannel;
 };
 
