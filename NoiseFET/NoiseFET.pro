@@ -21,4 +21,13 @@ RESOURCES += \
     resources.qrc
 
 HEADERS += \
-    qmlBackEnd/NoiseFETModel.h
+    qmlBackEnd/NoiseFETModel.h \
+    ffft/Array.h \
+    ffft/Array.hpp \
+    ffft/def.h \
+    ffft/DynArray.h \
+    ffft/DynArray.hpp \
+    ffft/FFTReal.h \
+    ffft/FFTReal.hpp \
+    ffft/OscSinCos.h \
+    ffft/OscSinCos.hpp
