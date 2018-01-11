@@ -2,7 +2,9 @@ QT += qml quick charts
 
 SOURCES += \
     main.cpp \
-    qmlBackEnd/NoiseFETModel.cpp
+    qmlBackEnd/NoiseFETModel.cpp \
+    IExperiment.cpp \
+    experiments/NoiseFETExperiment.cpp
 
 DISTFILES += \
     qml/main.qml \
@@ -30,4 +32,6 @@ HEADERS += \
     ffft/FFTReal.h \
     ffft/FFTReal.hpp \
     ffft/OscSinCos.h \
-    ffft/OscSinCos.hpp
+    ffft/OscSinCos.hpp \
+    IExperiment.h \
+    experiments/NoiseFETExperiment.h
