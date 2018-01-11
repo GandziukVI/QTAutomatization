@@ -8,5 +8,6 @@
         <file>qml/VoltageRangeSetter.qml</file>
         <file>js/CTextAreaArray.js</file>
         <file>qml/ExtBoxAIChannelParams.qml</file>
+        <file>js/QMLChartViewLogic.js</file>
     </qresource>
 </RCC>

@@ -1,8 +1,11 @@
 import QtQuick 2.2
+import QtQml 2.2
 import QtCharts 2.2
 import QtQuick.Controls 2.2
 
 import QtQuick.Layouts 1.3
+
+import "../js/QMLChartViewLogic.js" as ChartViewLogic
 
 Item {
     id: root
@@ -34,15 +37,61 @@ Item {
             Layout.fillHeight: true
 
             MouseArea {
+                id: selectArea
                 anchors.fill: parent
+
+                onClicked: {
+                    noiseFETChart.focus = true;
+
+                    if (highlightItem != null)
+                        highlightItem.destroy();
+                }
                 onDoubleClicked: {
-                    noiseFETChart.zoom(1.5);
+                    noiseFETChart.focus = true;
+                    noiseFETChart.zoomIn();
+
+                    if (highlightItem != null)
+                        highlightItem.destroy();
+                }
+
+                onPressed: {
+                    if (highlightItem != null)
+                        highlightItem.destroy();
+
+                    startPos = Qt.point(mouse.x, mouse.y);
+                    highlightItem = highlightComponent.createObject(selectArea, { "x": startPos.x, "y": startPos.y });
+                }
+                onPositionChanged: {
+                    endPos = Qt.point(mouse.x, mouse.y);
+                    var drawRect = ChartViewLogic.getTwoPointRect(startPos, endPos);
+
+                    highlightItem.x = drawRect.x;
+                    highlightItem.y = drawRect.y;
+                    highlightItem.width = drawRect.width;
+                    highlightItem.height = drawRect.height;
+                }
+                onReleased: {
+                    noiseFETChart.zoomIn(Qt.rect(highlightItem.x, highlightItem.y, highlightItem.width, highlightItem.height));
+
+                    if (highlightItem != null)
+                        highlightItem.destroy();
+                }
+
+                property point startPos: Qt.point(0, 0);
+                property point endPos: Qt.point(1, 1);
+                property Rectangle highlightItem: null;
+                Component {
+                    id: highlightComponent;
+
+                    Rectangle {
+                        color: "yellow";
+                        opacity: 0.35;
+                    }
                 }
             }
 
-            animationOptions: ChartView.AllAnimations
             legend.visible: false
-            theme: ChartView.ChartThemeBlueCerulean            
+            theme: ChartView.ChartThemeBlueCerulean
 
             LineSeries {
                 id: noiseFETLineGraph
@@ -60,8 +109,15 @@ Item {
                     min: 1.0e-19
                     max: 1.0e-7
                     titleText: qsTr("<p>Noise PSD (V<sup>2</sup> / Hz)</p>")
-                }                                
-            }                        
+                }
+            }
+
+            Keys.onPressed: {
+                if (event.key === Qt.Key_Home) {
+                    noiseFETChart.zoomReset();
+                    event.accepted = true;
+                }
+            }
         }
 
         Item {
@@ -576,7 +632,7 @@ Item {
                     Layout.fillHeight: true
                     Layout.maximumHeight: 40
 
-                    RowLayout { 
+                    RowLayout {
                         anchors.fill: parent
                         Button {
                             Layout.fillWidth: true
@@ -592,5 +648,5 @@ Item {
                 }
             }
         }
-    }        
+    }
 }

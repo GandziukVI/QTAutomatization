@@ -14,7 +14,8 @@ DISTFILES += \
     qml/CTextField.qml \
     qml/CExtendedNumberInput.qml \
     qml/ExtBoxAIChannelParams.qml \
-    js/CTextAreaArray.js
+    js/CTextAreaArray.js \
+    js/QMLChartViewLogic.js
 
 RESOURCES += \
     resources.qrc
