@@ -3,10 +3,13 @@
 
 #include "../IExperiment.h"
 
-class NoiseFETExperiment
+class NoiseFETExperiment : public IExperiment
 {
 public:
     NoiseFETExperiment();
+    NoiseFETExperiment(QObject *expSettings);
+
+    void toDo(QObject *expSettings);
 };
 
 #endif // NOISEFETEXPERIMENT_H
