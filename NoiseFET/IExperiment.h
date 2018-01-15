@@ -15,11 +15,12 @@ public:
 
     virtual void start();
     virtual void stop();
+    virtual void toDo() = 0;
     virtual void toDo(QObject *expSettings) = 0;
 
-    bool mExperimentIsRunning;
+    bool    mExperimentIsRunning;
+    QObject *mExpSettings;
 private:
-    QObject        *mExpSettings;
     mutable QMutex mIExperimentMutex;
     QFuture<void>  mExpThreadRes;
 };

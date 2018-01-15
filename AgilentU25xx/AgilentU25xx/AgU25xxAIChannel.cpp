@@ -147,6 +147,10 @@ void AgU25xxAIChannel::appendData(double *data, unsigned int maxCount)
 double *AgU25xxAIChannel::getData()
 {
     QMutexLocker dataLocker (&mChannelDataAccessMutex);
+
+    if (mChannelData.size() == 0)
+        return NULL;
+
     double* data = std::move(mChannelData.front());
     delete[] mChannelData.front();
     mChannelData.front() = NULL;

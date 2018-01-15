@@ -1,9 +1,10 @@
 #ifndef AGU25XXEXTBOXEXCEPTION_H
 #define AGU25XXEXTBOXEXCEPTION_H
 
+#include "agu25xxextensionbox_global.h"
 #include <QException>
 
-class AgU25xxExtBoxException : public QException
+class AGU25XXEXTENSIONBOXSHARED_EXPORT AgU25xxExtBoxException : public QException
 {
 public:
     AgU25xxExtBoxException();

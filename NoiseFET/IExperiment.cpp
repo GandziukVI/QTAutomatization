@@ -24,7 +24,7 @@ void IExperiment::start()
 
 void IExperiment::stop()
 {
-    if (mExpThreadRes.isRunning()) {
+    while (mExpThreadRes.isRunning()) {
         mExpThreadRes.cancel();
         mExpThreadRes.waitForFinished();
     }

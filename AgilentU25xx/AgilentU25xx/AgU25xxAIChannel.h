@@ -54,6 +54,8 @@ private:
     void                          setScaleTransformFunction(const AgU25xxEnumAIChannelPolaities &polarity);
     void                          resetScaleTransformFunction();
 
+    bool                          mChannelHasData;
+    mutable QMutex                mChannelHasDataMutex;
     std::deque<double*>           mChannelData;
     unsigned int                  mChannelDataCounter;
     mutable QMutex                mChannelDataAccessMutex;
