@@ -1,12 +1,6 @@
 #include "NoiseFETExperiment.h"
 #include "NoiseFETException.h"
 
-#include "../ffft/def.h"
-#include "../ffft/Array.h"
-#include "../ffft/DynArray.h"
-#include "../ffft/FFTReal.h"
-#include "../ffft/OscSinCos.h"
-
 #include <VisaDevice.h>
 
 #include <QFuture>
@@ -16,7 +10,9 @@ NoiseFETExperiment::NoiseFETExperiment()
     : IExperiment(),
       mDriver(NULL),
       mInstrument(NULL),
-      mBoxController(NULL)
+      mBoxController(NULL),
+      fftEngineLowFreq(NULL),
+      fftEngineHighFreq(NULL)
 {
 }
 
@@ -28,6 +24,16 @@ NoiseFETExperiment::NoiseFETExperiment(QObject *expSettings)
     mDriver      = new VisaDevice(mExpModel->agilentU2542ARes().toStdString().c_str());
     mInstrument = new AgilentU25xx(*mDriver);
     mBoxController        = new AgU25xxExtensionBox(*mInstrument);
+
+    // Initializing parameters for FFT transform
+    // For standard spectra, the init value of 4096 is ok
+
+    // To DO:
+    // Implement the possibility to change the FFT params
+    // during the runtime (params from the experiment model)
+
+    fftEngineLowFreq  = new ffft::FFTReal<double>(4096);
+    fftEngineHighFreq = new ffft::FFTReal<double>(4096);
 }
 
 NoiseFETExperiment::~NoiseFETExperiment()
@@ -43,6 +49,14 @@ NoiseFETExperiment::~NoiseFETExperiment()
     if (mDriver != NULL) {
         delete mDriver;
         mDriver = NULL;
+    }
+    if (fftEngineLowFreq != NULL) {
+        delete fftEngineLowFreq;
+        fftEngineLowFreq = NULL;
+    }
+    if (fftEngineHighFreq != NULL) {
+        delete fftEngineHighFreq;
+        fftEngineHighFreq = NULL;
     }
 }
 
@@ -61,9 +75,6 @@ void NoiseFETExperiment::measureNoiseSpectra()
 {
     if (mExpModel->samplingFrequency() % 2 != 0)
         throw NoiseFETException(QString("Sampling frequency must be a power of two."));
-
-    // Initializing FFT engine
-    ffft::FFTReal<double> fftEngine (mExpModel->samplingFrequency());
 
     int          enabledChannelsLen      = mBoxController->AnalogInChannels->getEnabledCount();
     unsigned int *enabledChannelsIndexes = mBoxController->AnalogInChannels->getEnabledChannelsIndexes();
@@ -121,29 +132,162 @@ void NoiseFETExperiment::setCurrentAvgCounter(const unsigned int avgCounter)
     mAvgCounter = avgCounter;
 }
 
-double *NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int timeTraceLength, int samplingFrequency, int nDataSamples, double kAmpl, double lowFreqStartFreq, double cutOffLowFreq, double cutOffHighFreq, int filterOrder, double filterFrequency)
+QVector<QPointF> NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int timeTraceLength, int samplingFrequency, int nDataSamples, double kAmpl, double lowFreqStartFreq, double cutOffLowFreq, double cutOffHighFreq, int filterOrder, double filterFrequency)
 {
     if (filterFrequency == -1)
         filterFrequency = cutOffLowFreq;
 
-    double dtLowFreq = 0.0, dtHighFreq = 0.0;
-    double dfLowFreq = 1.0, dfHighFreq = 0.0;
-    double equivalentNoiseBandwidthLowFreq, equivalentNoiseBandwidthHighFreq;
-    double coherentGainLowFreq, coherentGainHighFreq;
+    double complexRealPart;
+    double complexImagPart;
+
+    double dtLowFreq = 0.0;
+    double dtHighFreq = 0.0;
 
     // Adding possibility to perform FFT in subsets of original data
     // Subsetting original data on subsets of smaller size
-//    int    timeTraceSelectionLength = samplingFrequency / nDataSamples;
-//    double **timeTraceSelectionList = new double*[nDataSamples];
-//    for (int i = 0; i != nDataSamples; ) {
-//        timeTraceSelectionList[i] = new double[timeTraceSelectionLength];
-//        std::copy(timeTrace[i * timeTraceSelectionLength], timeTrace[(i + 1) * timeTraceSelectionLength - 1], timeTraceSelectionList[i]);
-//        ++i;
-//    }
+    int    timeTraceSelectionLength = samplingFrequency / nDataSamples;
+    double **timeTraceSelectionList = new double*[nDataSamples];
+    for (int i = 0; i != nDataSamples; ) {
+        timeTraceSelectionList[i] = new double[timeTraceSelectionLength];
+        std::copy(timeTrace[i * timeTraceSelectionLength], timeTrace[(i + 1) * timeTraceSelectionLength - 1], timeTraceSelectionList[i]);
+        ++i;
+    }
 
-    // To DO:
-    // Implement data filtering
-    int    lowFreqSelectionDivider = 64;
-    int    lowFreqSelectionLength  = samplingFrequency / lowFreqSelectionDivider;
-    double *lowFreqSelectionList   = new double[lowFreqSelectionLength];
+    /*-----------------------------------*/
+    /* Calculating FFT in each subsample */
+    /*-----------------------------------*/
+
+    for (int i = 0; i != nDataSamples;) {
+        // Low-freq FFT part
+
+        // To DO:
+        // Implement data filtering
+        int    lowFreqSelectionDivider = 64;
+        int    lowFreqSelectionLength  = samplingFrequency / lowFreqSelectionDivider;
+        double *lowFreqSelectionList   = new double[lowFreqSelectionLength];
+
+        int counter = 0;
+        for (int j = 0; j != timeTraceSelectionLength; ) {
+            if (j % lowFreqSelectionDivider == 0) {
+                lowFreqSelectionList[counter] = timeTraceSelectionList[i][j];
+                ++counter;
+            }
+            ++j;
+        }
+
+        dtLowFreq = (double)lowFreqSelectionDivider * 1.0 / (double)samplingFrequency / nDataSamples;
+        double *singleFFTLowFreq = new double[lowFreqSelectionLength];
+        fftEngineLowFreq->do_fft(singleFFTLowFreq, lowFreqSelectionList);
+
+        int singlePSDLowFreqLength = lowFreqSelectionLength / 2;
+        double *singlePSDLowFreq = new double[singlePSDLowFreqLength];
+
+        for (int j = 0; j != singlePSDLowFreqLength; ) {
+            complexRealPart = singleFFTLowFreq[j];
+            complexImagPart = singleFFTLowFreq[j + singlePSDLowFreqLength];
+
+            singlePSDLowFreq[j] = (complexRealPart * complexRealPart + complexImagPart * complexImagPart) / (lowFreqSelectionLength * lowFreqSelectionLength);
+
+            ++j;
+        }
+
+        // Cleaning memory after low-freq FFT calculation
+
+        delete[] singleFFTLowFreq;     singleFFTLowFreq     = NULL;
+        delete[] lowFreqSelectionList; lowFreqSelectionList = NULL;
+
+        // Calculating high-frequency FFT part
+        dtHighFreq = 1.0/  (double)samplingFrequency;
+        int highFreqPeriod = 64;
+        int highFreqSelectionLength = timeTraceLength / highFreqPeriod;
+
+        double **highFreqSelectionList = new double*[highFreqPeriod];
+        for (int j = 0; j != highFreqPeriod; ) {
+            highFreqSelectionList[j] = new double[highFreqSelectionLength];
+            std::copy(&timeTrace[j * highFreqSelectionLength], &timeTrace[(j + 1) * highFreqSelectionLength - 1], highFreqSelectionList[j]);
+            ++j;
+        }
+
+        int singlePSDHighFreqLength;
+        double *cumulativeNoisePSDHighFreq = NULL;
+        for (int j = 0; j != highFreqPeriod; ) {
+            double *singleFFTHighFreq = new double[highFreqSelectionLength];
+            fftEngineHighFreq->do_fft(singleFFTHighFreq, highFreqSelectionList[j]);
+
+            singlePSDHighFreqLength = highFreqSelectionLength / 2;
+            double *singlePSDHighFreq = new double[singlePSDHighFreqLength];
+
+            for (int k = 0; k != singlePSDHighFreqLength; ) {
+                complexRealPart = singleFFTHighFreq[k];
+                complexImagPart = singleFFTHighFreq[k + singlePSDHighFreqLength];
+
+                singlePSDHighFreq[k] = (complexRealPart * complexRealPart + complexImagPart * complexImagPart) / (highFreqSelectionLength * highFreqSelectionLength);
+
+                ++k;
+            }
+
+            if (cumulativeNoisePSDHighFreq == NULL) {
+                cumulativeNoisePSDHighFreq = new double[singlePSDHighFreqLength];
+                for (int k = 0; k != singlePSDHighFreqLength; ) {
+                    cumulativeNoisePSDHighFreq[k] = 0.0;
+                    ++k;
+                }
+            }
+
+            for (int k = 0; k != singlePSDHighFreqLength; ) {
+                cumulativeNoisePSDHighFreq[k] += singlePSDHighFreq[k];
+                ++k;
+            }
+
+            delete[] singleFFTHighFreq; singleFFTHighFreq = NULL;
+            delete[] singlePSDHighFreq; singlePSDHighFreq = NULL;
+
+            ++j;
+        }
+
+        // Cleaning memory after high-freq FFT calculation
+        for (int j = 0; j != highFreqPeriod; ) {
+            delete[] highFreqSelectionList[j];
+            highFreqSelectionList[j] = NULL;
+            ++j;
+        }
+        delete[] highFreqSelectionList;
+        highFreqSelectionList = NULL;
+
+        // Final LOW-FREQ part of spectrum
+        double timeVal;
+        for (int j = 0; j != singlePSDLowFreqLength; ) {
+            timeVal = dtLowFreq * (double)j;
+            if ((timeVal >= lowFreqStartFreq) && (timeVal <= cutOffLowFreq))
+                autoPSDLowFreq.push_back(QPointF(timeVal, singlePSDLowFreq[j] / (kAmpl * kAmpl)));
+            else if (timeVal > cutOffLowFreq)
+                break;
+
+            ++j;
+        }
+        // Cleaning memory with low-freq noise PSD part
+        delete[] singlePSDLowFreq;
+
+        // Final HIGH-FREQ part of spectrum
+        for (int j = 0; j != singlePSDHighFreqLength; ) {
+            timeVal = dtHighFreq * (double)j;
+            if ((timeVal > cutOffLowFreq) && (timeVal <= cutOffHighFreq))
+                autoPSDHighFreq.push_back(QPointF(timeVal, cumulativeNoisePSDHighFreq[j] / ((double)(highFreqPeriod * highFreqPeriod)) / (kAmpl * kAmpl)));
+            else if (timeVal > cutOffHighFreq)
+                break;
+
+            ++j;
+        }
+        // Cleaning memory with high-freq noise PSD part
+        delete[] cumulativeNoisePSDHighFreq;
+
+        ++i;
+    }
+
+    QVector<QPointF> finalSpectrum(autoPSDLowFreq.size() + autoPSDHighFreq.size());
+
+    std::copy(autoPSDLowFreq.cbegin(), autoPSDLowFreq.cend(), finalSpectrum.begin());
+    std::copy(autoPSDHighFreq.cbegin(), autoPSDHighFreq.cend(), finalSpectrum.begin() + autoPSDLowFreq.size());
+
+    return finalSpectrum;
 }
