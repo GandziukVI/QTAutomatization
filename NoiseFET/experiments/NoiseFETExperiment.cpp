@@ -132,7 +132,7 @@ void NoiseFETExperiment::setCurrentAvgCounter(const unsigned int avgCounter)
     mAvgCounter = avgCounter;
 }
 
-QVector<QPointF> NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int timeTraceLength, int samplingFrequency, int nDataSamples, double kAmpl, double lowFreqStartFreq, double cutOffLowFreq, double cutOffHighFreq, int filterOrder, double filterFrequency)
+QVector<QPointF> NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int timeTraceLength, int samplingFrequency, double kAmpl, double lowFreqStartFreq, double cutOffLowFreq, double cutOffHighFreq, int filterOrder, double filterFrequency)
 {
     if (filterFrequency == -1)
         filterFrequency = cutOffLowFreq;
@@ -140,16 +140,21 @@ QVector<QPointF> NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int
     double complexRealPart;
     double complexImagPart;
 
-    double dtLowFreq = 0.0;
-    double dtHighFreq = 0.0;
+    double dtLowFreq = 0.0,  dfLowFreq = 0.0;
+    double dtHighFreq = 0.0, dfHighFreq = 0.0;
 
     // Adding possibility to perform FFT in subsets of original data
     // Subsetting original data on subsets of smaller size
-    int    timeTraceSelectionLength = samplingFrequency / nDataSamples;
+
+    double resizeFactor       = (double)timeTraceLength / (double)samplingFrequency;
+    bool   resizeLowerOrExact = resizeFactor <= 1.0;
+    int    nDataSamples       = resizeLowerOrExact? timeTraceLength / samplingFrequency: 1;
+
+    int    timeTraceSelectionLength = resizeLowerOrExact? samplingFrequency / nDataSamples : timeTraceLength;
     double **timeTraceSelectionList = new double*[nDataSamples];
     for (int i = 0; i != nDataSamples; ) {
         timeTraceSelectionList[i] = new double[timeTraceSelectionLength];
-        std::copy(timeTrace[i * timeTraceSelectionLength], timeTrace[(i + 1) * timeTraceSelectionLength - 1], timeTraceSelectionList[i]);
+        std::copy(&timeTrace[i * timeTraceSelectionLength], &timeTrace[(i + 1) * timeTraceSelectionLength - 1], timeTraceSelectionList[i]);
         ++i;
     }
 
@@ -163,7 +168,7 @@ QVector<QPointF> NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int
         // To DO:
         // Implement data filtering
         int    lowFreqSelectionDivider = 64;
-        int    lowFreqSelectionLength  = samplingFrequency / lowFreqSelectionDivider;
+        int    lowFreqSelectionLength  = timeTraceSelectionLength / lowFreqSelectionDivider;
         double *lowFreqSelectionList   = new double[lowFreqSelectionLength];
 
         int counter = 0;
@@ -175,11 +180,14 @@ QVector<QPointF> NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int
             ++j;
         }
 
-        dtLowFreq = (double)lowFreqSelectionDivider * 1.0 / (double)samplingFrequency / nDataSamples;
+        int singlePSDLowFreqLength = lowFreqSelectionLength / 2;
+
+        dtLowFreq = (double)lowFreqSelectionDivider / (double)timeTraceSelectionLength / resizeFactor;
+        dfLowFreq = (double)timeTraceSelectionLength * resizeFactor / (double)lowFreqSelectionDivider / (double)singlePSDLowFreqLength;
+
         double *singleFFTLowFreq = new double[lowFreqSelectionLength];
         fftEngineLowFreq->do_fft(singleFFTLowFreq, lowFreqSelectionList);
 
-        int singlePSDLowFreqLength = lowFreqSelectionLength / 2;
         double *singlePSDLowFreq = new double[singlePSDLowFreqLength];
 
         for (int j = 0; j != singlePSDLowFreqLength; ) {
@@ -197,24 +205,25 @@ QVector<QPointF> NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int
         delete[] lowFreqSelectionList; lowFreqSelectionList = NULL;
 
         // Calculating high-frequency FFT part
-        dtHighFreq = 1.0/  (double)samplingFrequency;
         int highFreqPeriod = 64;
-        int highFreqSelectionLength = timeTraceLength / highFreqPeriod;
+        int highFreqSelectionLength = timeTraceSelectionLength / highFreqPeriod;
+        int singlePSDHighFreqLength = highFreqSelectionLength / 2;
+
+        dtHighFreq = 1.0 /  (double)timeTraceSelectionLength / resizeFactor;
+        dfHighFreq = (double)timeTraceSelectionLength * resizeFactor / (double)singlePSDHighFreqLength;
 
         double **highFreqSelectionList = new double*[highFreqPeriod];
         for (int j = 0; j != highFreqPeriod; ) {
             highFreqSelectionList[j] = new double[highFreqSelectionLength];
-            std::copy(&timeTrace[j * highFreqSelectionLength], &timeTrace[(j + 1) * highFreqSelectionLength - 1], highFreqSelectionList[j]);
+            std::copy(&timeTraceSelectionList[i][j * highFreqSelectionLength], &timeTraceSelectionList[i][(j + 1) * highFreqSelectionLength - 1], highFreqSelectionList[j]);
             ++j;
         }
 
-        int singlePSDHighFreqLength;
         double *cumulativeNoisePSDHighFreq = NULL;
         for (int j = 0; j != highFreqPeriod; ) {
             double *singleFFTHighFreq = new double[highFreqSelectionLength];
             fftEngineHighFreq->do_fft(singleFFTHighFreq, highFreqSelectionList[j]);
 
-            singlePSDHighFreqLength = highFreqSelectionLength / 2;
             double *singlePSDHighFreq = new double[singlePSDHighFreqLength];
 
             for (int k = 0; k != singlePSDHighFreqLength; ) {
@@ -255,12 +264,12 @@ QVector<QPointF> NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int
         highFreqSelectionList = NULL;
 
         // Final LOW-FREQ part of spectrum
-        double timeVal;
+        double freqVal;
         for (int j = 0; j != singlePSDLowFreqLength; ) {
-            timeVal = dtLowFreq * (double)j;
-            if ((timeVal >= lowFreqStartFreq) && (timeVal <= cutOffLowFreq))
-                autoPSDLowFreq.push_back(QPointF(timeVal, singlePSDLowFreq[j] / (kAmpl * kAmpl)));
-            else if (timeVal > cutOffLowFreq)
+            freqVal = dfLowFreq * (double)j;
+            if ((freqVal >= lowFreqStartFreq) && (freqVal <= cutOffLowFreq))
+                autoPSDLowFreq[i] = QPointF(freqVal, singlePSDLowFreq[j] / (kAmpl * kAmpl));
+            else if (freqVal > cutOffLowFreq)
                 break;
 
             ++j;
@@ -270,10 +279,10 @@ QVector<QPointF> NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int
 
         // Final HIGH-FREQ part of spectrum
         for (int j = 0; j != singlePSDHighFreqLength; ) {
-            timeVal = dtHighFreq * (double)j;
-            if ((timeVal > cutOffLowFreq) && (timeVal <= cutOffHighFreq))
-                autoPSDHighFreq.push_back(QPointF(timeVal, cumulativeNoisePSDHighFreq[j] / ((double)(highFreqPeriod * highFreqPeriod)) / (kAmpl * kAmpl)));
-            else if (timeVal > cutOffHighFreq)
+            freqVal = dfHighFreq * (double)j;
+            if ((freqVal > cutOffLowFreq) && (freqVal <= cutOffHighFreq))
+                autoPSDHighFreq[i] = QPointF(freqVal, cumulativeNoisePSDHighFreq[j] / ((double)(highFreqPeriod * highFreqPeriod)) / (kAmpl * kAmpl));
+            else if (freqVal > cutOffHighFreq)
                 break;
 
             ++j;

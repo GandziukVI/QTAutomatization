@@ -44,7 +44,7 @@ private:
         ffft::FFTReal<double> *fftEngineLowFreq;
         ffft::FFTReal<double> *fftEngineHighFreq;
 
-        QVector<QPointF>      calcTwoPartsNoisePSD(double* timeTrace, int timeTraceLength, int samplingFrequency = 262144, int nDataSamples = 1, double kAmpl = 1.0, double lowFreqStartFreq = 1.0, double cutOffLowFreq = 1600, double cutOffHighFreq = 102400, int filterOrder = 8, double filterFrequency = -1);
+        QVector<QPointF>      calcTwoPartsNoisePSD(double* timeTrace, int timeTraceLength, int samplingFrequency = 262144, double kAmpl = 1.0, double lowFreqStartFreq = 1.0, double cutOffLowFreq = 1600, double cutOffHighFreq = 102400, int filterOrder = 8, double filterFrequency = -1);
 };
 
 #endif // NOISEFETEXPERIMENT_H
