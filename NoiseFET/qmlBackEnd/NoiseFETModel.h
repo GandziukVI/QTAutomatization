@@ -21,6 +21,9 @@ class NoiseFETModel : public QObject
     Q_PROPERTY(int nAvgSlow READ nAvgSlow WRITE setNAvgSlow NOTIFY nAvgSlowChanged)
     Q_PROPERTY(double stabilizationTime READ stabilizationTime WRITE setStabilizationTime NOTIFY stabilizationTimeChanged)
     Q_PROPERTY(double loadResistance READ loadResistance WRITE setLoadResistance NOTIFY loadResistanceChanged)
+    Q_PROPERTY(int sampleSize READ sampleSize WRITE setSampleSize NOTIFY sampleSizeChanged)
+    Q_PROPERTY(int lowFreqSelector READ lowFreqSelector WRITE setLowFreqSelector NOTIFY lowFreqSelectorChanged)
+    Q_PROPERTY(int highFreqSelector READ highFreqSelector WRITE setHighFreqSelector NOTIFY highFreqSelectorChanged)
     Q_PROPERTY(int samplingFrequency READ samplingFrequency WRITE setSamplingFrequency NOTIFY samplingFrequencyChanged)
     Q_PROPERTY(int nSpectraAvg READ nSpectraAvg WRITE setNSpectraAvg NOTIFY nSpectraAvgChanged)
     Q_PROPERTY(double kPreampl READ kPreampl WRITE setKPreampl NOTIFY kPreamplChanged)
@@ -70,6 +73,15 @@ public:
     double loadResistance();
     void setLoadResistance(const double &resistance);
 
+    int sampleSize();
+    void setSampleSize(const int &sSize);
+
+    int lowFreqSelector();
+    void setLowFreqSelector(const int &selector);
+
+    int highFreqSelector();
+    void setHighFreqSelector(const int &selector);
+
     int samplingFrequency();
     void setSamplingFrequency(const int &frequency);
 
@@ -113,6 +125,9 @@ signals:
     void nAvgSlowChanged();
     void stabilizationTimeChanged();
     void loadResistanceChanged();
+    void sampleSizeChanged();
+    void lowFreqSelectorChanged();
+    void highFreqSelectorChanged();
     void samplingFrequencyChanged();
     void nSpectraAvgChanged();
     void kPreamplChanged();
@@ -145,6 +160,9 @@ private:
     double mStabilizationTime;
     double mLoadResistance;
 
+    int mSampleSize;
+    int mLowFreqSelector;
+    int mHighFreqSelector;
     int mSamplingFrequency;
     int mNSpectraAvg;
 

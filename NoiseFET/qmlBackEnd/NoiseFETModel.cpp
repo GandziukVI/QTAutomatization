@@ -15,6 +15,9 @@ NoiseFETModel::NoiseFETModel(QObject *parent)
       mNAvgSlow(100),
       mStabilizationTime(45.0),
       mLoadResistance(5000.0),
+      mSampleSize(262144),
+      mLowFreqSelector(64),
+      mHighFreqSelector(64),
       mSamplingFrequency(262144),
       mNSpectraAvg(100),
       mKPreampl(178),
@@ -202,6 +205,48 @@ void NoiseFETModel::setLoadResistance(const double &resistance)
 
     mLoadResistance = resistance;
     emit loadResistanceChanged();
+}
+
+int NoiseFETModel::sampleSize()
+{
+    return mSampleSize;
+}
+
+void NoiseFETModel::setSampleSize(const int &sSize)
+{
+    if (sSize == mSampleSize)
+        return;
+
+    mSampleSize = sSize;
+    emit sampleSizeChanged();
+}
+
+int NoiseFETModel::lowFreqSelector()
+{
+    return mLowFreqSelector;
+}
+
+void NoiseFETModel::setLowFreqSelector(const int &selector)
+{
+    if (selector == mLowFreqSelector)
+        return;
+
+    mLowFreqSelector = selector;
+    emit lowFreqSelectorChanged();
+}
+
+int NoiseFETModel::highFreqSelector()
+{
+    return mHighFreqSelector;
+}
+
+void NoiseFETModel::setHighFreqSelector(const int &selector)
+{
+    if (selector == mHighFreqSelector)
+        return;
+
+    mHighFreqSelector = selector;
+    emit highFreqSelectorChanged();
 }
 
 int NoiseFETModel::samplingFrequency()

@@ -26,14 +26,11 @@ NoiseFETExperiment::NoiseFETExperiment(QObject *expSettings)
     mBoxController        = new AgU25xxExtensionBox(*mInstrument);
 
     // Initializing parameters for FFT transform
-    // For standard spectra, the init value of 4096 is ok
+    int lowFreqFFTLen = mExpModel->sampleSize() /* / nDataSamples */ / mExpModel->lowFreqSelector() / 2;
+    int highFreqFFTLen = mExpModel->sampleSize() /* / nDataSamples */ / mExpModel->highFreqSelector() / 2;
 
-    // To DO:
-    // Implement the possibility to change the FFT params
-    // during the runtime (params from the experiment model)
-
-    fftEngineLowFreq  = new ffft::FFTReal<double>(4096);
-    fftEngineHighFreq = new ffft::FFTReal<double>(4096);
+    fftEngineLowFreq  = new ffft::FFTReal<double>(lowFreqFFTLen);
+    fftEngineHighFreq = new ffft::FFTReal<double>(highFreqFFTLen);
 }
 
 NoiseFETExperiment::~NoiseFETExperiment()
@@ -182,8 +179,8 @@ QVector<QPointF> NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int
 
         int singlePSDLowFreqLength = lowFreqSelectionLength / 2;
 
-        dtLowFreq = (double)lowFreqSelectionDivider / (double)timeTraceSelectionLength / resizeFactor;
-        dfLowFreq = (double)timeTraceSelectionLength * resizeFactor / (double)lowFreqSelectionDivider / (double)singlePSDLowFreqLength;
+        dtLowFreq = (double)lowFreqSelectionDivider / (double)samplingFrequency;
+        dfLowFreq = (double)samplingFrequency / 2.0 / (double)(singlePSDLowFreqLength * lowFreqSelectionDivider);
 
         double *singleFFTLowFreq = new double[lowFreqSelectionLength];
         fftEngineLowFreq->do_fft(singleFFTLowFreq, lowFreqSelectionList);
@@ -209,8 +206,8 @@ QVector<QPointF> NoiseFETExperiment::calcTwoPartsNoisePSD(double *timeTrace, int
         int highFreqSelectionLength = timeTraceSelectionLength / highFreqPeriod;
         int singlePSDHighFreqLength = highFreqSelectionLength / 2;
 
-        dtHighFreq = 1.0 /  (double)timeTraceSelectionLength / resizeFactor;
-        dfHighFreq = (double)timeTraceSelectionLength * resizeFactor / (double)singlePSDHighFreqLength;
+        dtHighFreq = 1.0 /  (double)samplingFrequency;
+        dfHighFreq = (double)samplingFrequency / 2.0 / (double)singlePSDHighFreqLength;
 
         double **highFreqSelectionList = new double*[highFreqPeriod];
         for (int j = 0; j != highFreqPeriod; ) {
